@@ -8,10 +8,18 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/landing/landing.module').then((m) => m.LandingModule),
   },
+  {
+    path: '',
+    loadChildren: () => import('./modules/farmer/farmer.module').then(m => m.FarmerModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule)
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

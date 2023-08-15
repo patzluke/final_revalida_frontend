@@ -1,0 +1,51 @@
+<div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
+  <div class="main" data-aos="fade-right" data-aos-duration="333">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <p class="h1 mt-3 mb-3 text-light" data-aos="fade-right" data-aos-duration="333">
+            COMPLAINTS
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-lg-3"
+          data-aos="fade-right"
+          data-aos-duration="333"
+          *ngFor="let complaint of complaints"
+        >
+          <div class="items shadow">
+            <p data-aos="fade-right" data-aos-duration="333">
+              <strong>Complaint Ticket ID:</strong>
+              {{ complaint.complaintTicketId }}
+            </p>
+            <p data-aos="fade-right" data-aos-duration="333">
+              <strong>Complained For:</strong> {{ complaint.complainedFor }}
+            </p>
+            <p data-aos="fade-right" data-aos-duration="333">
+              <strong>Reason:</strong> {{ complaint.reason }}
+            </p>
+            <p
+              class="text-danger"
+              data-aos="fade-right"
+              data-aos-duration="333"
+            >
+              <strong>Status:</strong> {{ complaint.status }}
+            </p>
+            <div class="mt-3">
+              <button
+                class="btn btn-danger"
+                [disabled]="complaint.status === 'READ'"
+                data-aos="fade-right"
+                data-aos-duration="333"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
