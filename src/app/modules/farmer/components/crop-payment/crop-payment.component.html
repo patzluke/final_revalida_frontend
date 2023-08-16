@@ -1,0 +1,75 @@
+<div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
+  <div class="main" data-aos="fade-right" data-aos-duration="333">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="d-flex flex-row-reverse">
+            <button
+              class="btn btn-danger"
+              data-aos="fade-right"
+              data-aos-duration="333"
+            >
+              <i class="fa-solid fa-xmark fa-lg"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p
+            class="h1 text-light header"
+            data-aos="fade-right"
+            data-aos-duration="333"
+          >
+            PAYMENTS
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <table class="table table-primary table-striped">
+            <thead>
+              <tr>
+                <th data-aos="fade-right" data-aos-duration="333">
+                  payment_id
+                </th>
+                <th data-aos="fade-right" data-aos-duration="333">pay_date</th>
+                <th data-aos="fade-right" data-aos-duration="333">
+                  payment_mode
+                </th>
+                <th data-aos="fade-right" data-aos-duration="333">paid_by</th>
+                <th data-aos="fade-right" data-aos-duration="333">
+                  order_id_ref
+                </th>
+                <th data-aos="fade-right" data-aos-duration="333">status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let payment of payments">
+                <td data-aos="fade-right" data-aos-duration="333">
+                  {{ payment.payment_id }}
+                </td>
+                <td data-aos="fade-right" data-aos-duration="333">
+                  {{ payment.pay_date }}
+                </td>
+                <td data-aos="fade-right" data-aos-duration="333">
+                  {{ payment.payment_mode }}
+                </td>
+                <td data-aos="fade-right" data-aos-duration="333">
+                  {{ payment.paid_by }}
+                </td>
+                <td data-aos="fade-right" data-aos-duration="333">
+                  {{ payment.order_id_ref }}
+                </td>
+                <td data-aos="fade-right" data-aos-duration="333">
+                  {{ payment.status }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
