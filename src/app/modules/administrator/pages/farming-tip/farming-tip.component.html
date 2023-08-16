@@ -1,0 +1,189 @@
+<app-side-nav>
+  <div class="modal fade" id="addFarmingTip" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addFarmingTipLabel">Add Farming Tip</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="addEditFarmingTipForm">
+            <div class="row d-flex flex-row flex-wrap mt-2">
+              <div class="col">
+                <label class="form-label">Tip:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="tipMessage"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            (click)="addFarmingTipSubmit()"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit Course -->
+  <div
+    class="modal fade"
+    id="editFarmingTip"
+    tabindex="-1"
+    aria-labelledby="myModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editFarmingTipModalLabel"></h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="addEditFarmingTipForm">
+            <div class="row d-flex flex-row flex-wrap mt-2">
+              <div class="col">
+                <label class="form-label">Tip:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="tipMessage"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            (click)="editFarmingTipSubmit()"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p-table
+    #dt1
+    [value]="farmingTips"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 15, 20]"
+    [loading]="loading"
+    [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="['tipMessage']"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <button
+          class="btn btn-primary me-1"
+          data-bs-toggle="modal"
+          data-bs-target="#addFarmingTip"
+        >
+          Add Farming Tip
+        </button>
+        <span class="p-input-icon-left ml-auto">
+          <input
+            #pInputText
+            type="text"
+            (input)="dt1.filterGlobal(pInputText.value, 'contains')"
+            placeholder="Search keyword"
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center">Tip Message</div>
+        </th>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center text-center">Date Created</div>
+        </th>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center text-center">Action</div>
+        </th>
+      </tr></ng-template
+    >
+
+    <ng-template pTemplate="body" let-farmingTip>
+      <tr>
+        <td style="width: 85%">
+          <!-- <img
+            [alt]="customer.representative.name"
+            src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
+              customer.representative.image
+            }}"
+            width="32"
+            style="vertical-align: middle"
+          /> -->
+          <span class="ml-1 vertical-align-middle">{{
+            farmingTip.tipMessage
+          }}</span>
+        </td>
+        <td style="width: 10%" class="text-center">
+          {{ farmingTip.dateCreated | date : "MM/dd/yyyy h:mm aa" }}
+        </td>
+        <td class="text-center" style="width: 5%">
+          <p-button
+            (click)="selectFarmingTip(farmingTip)"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#editFarmingTip"
+            icon="pi pi-pencil"
+            styleClass="p-button-rounded p-button-text"
+          ></p-button>
+          <p-button
+            (click)="deleteFarmingTip(farmingTip)"
+            icon="pi pi-times"
+            styleClass="p-button-rounded p-button-danger p-button-text"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="7">No customers found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</app-side-nav>

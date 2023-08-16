@@ -1,0 +1,58 @@
+<div class="container-fluid p-0">
+  <div class="sidebar-container d-flex flex-row">
+    <div
+      class="sidebar"
+      [ngClass]="{
+        'sidebar-expanded': isSidebarExpanded,
+        'sidebar-collapsed': !isSidebarExpanded
+      }"
+    >
+      <div class="sidebar-header">
+        <button
+          type="button"
+          class="sidebar-toggle custom-icon-button"
+          (click)="toggleSidebar()"
+          *ngIf="!(isHandset$ | async)"
+        >
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <img
+          src="assets/img/Seven Seven Logo.png"
+          class="header-logo"
+          alt="Logo"
+          *ngIf="!(isHandset$ | async)"
+        />
+      </div>
+
+      <mat-nav-list [ngSwitch]="userType">
+        <ng-container *ngSwitchCase="'Administrator'">
+          <a mat-list-item routerLink="/administrator/farmingtips" class="mt-1">
+            <mat-icon class="nav-icon">rate_review</mat-icon>
+            <span class="white-text" *ngIf="!(isHandset$ | async)"
+              >Farming Tips</span
+            >
+          </a>
+          <a mat-list-item routerLink="/administrator/dashboard" class="mt-1">
+            <mat-icon class="nav-icon">notification_important</mat-icon>
+            <span class="white-text" *ngIf="!(isHandset$ | async)"
+              >Complaints</span
+            >
+          </a>
+          <a mat-list-item routerLink="/administrator/profile">
+            <mat-icon class="nav-icon">account_circle</mat-icon>
+            <span class="white-text" *ngIf="!(isHandset$ | async)"
+              >Profile</span
+            >
+          </a>
+          <a mat-list-item routerLink="/login" (click)="logout()">
+            <mat-icon class="nav-icon">exit_to_app</mat-icon>
+            <span class="white-text" *ngIf="!(isHandset$ | async)">Logout</span>
+          </a>
+        </ng-container>
+      </mat-nav-list>
+    </div>
+    <div class="content col">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
