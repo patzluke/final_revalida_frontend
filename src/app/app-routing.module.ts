@@ -25,6 +25,10 @@ const routes: Routes = [
         (m) => m.AdministratorModule
       ),
   },
+  {
+    path: '',
+    loadChildren: () => import('./modules/wholesaler/wholesaler.module').then(m => m.WholesalerModule)
+  }
 ];
 
 @NgModule({

@@ -10,21 +10,23 @@ import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { SideNavComponent } from './components/header/side-nav/side-nav.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { LandingRoutingModule } from '../landing/landing-routing.module';
 
 @NgModule({
-  declarations: [HeaderComponent, SideNavComponent],
+  declarations: [HeaderComponent, FooterComponent, SideNavComponent],
   imports: [
     CommonModule,
     MatToolbarModule,
     MatButtonModule,
-    MatIconModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
     MatMenuModule,
     RouterModule,
     MatExpansionModule,
+    LandingRoutingModule,
   ],
-  exports: [HeaderComponent, SideNavComponent],
+  exports: [HeaderComponent, FooterComponent, SideNavComponent],
 })
 export class SharedModule {}

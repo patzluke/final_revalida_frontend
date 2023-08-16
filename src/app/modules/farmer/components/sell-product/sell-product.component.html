@@ -1,1 +1,100 @@
-<p>sell-product works!</p>
+<div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
+  <div class="main" data-aos="fade-right" data-aos-duration="333">
+    <div class="container">
+      <div class="row">
+        <div class="col" data-aos="fade-right" data-aos-duration="333">
+          <p class="h1 header text-light">SELL PRODUCT</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="d-flex flex-row-reverse mt-3 mb-3 w-100">
+            <button
+              class="btn btn-primary"
+              data-aos="fade-right"
+              data-aos-duration="333"
+              [routerLink]="['/add-crop']"
+            >
+              <i class="fa-solid fa-plus fa-lg"></i>&nbsp; Add
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" data-aos="fade-right" data-aos-duration="333">
+          <div class="items">
+            <table
+              class="table table-primary table-hover"
+              data-aos="fade-right"
+              data-aos-duration="333"
+            >
+              <thead>
+                <tr>
+                  <th scope="col" data-aos="fade-right" data-aos-duration="333">
+                    CROP ID
+                  </th>
+                  <th scope="col" data-aos="fade-right" data-aos-duration="333">
+                    FARMER ID
+                  </th>
+                  <th scope="col" data-aos="fade-right" data-aos-duration="333">
+                    IMAGE
+                  </th>
+                  <th scope="col" data-aos="fade-right" data-aos-duration="333">
+                    CROP NAME
+                  </th>
+
+                  <th scope="col" data-aos="fade-right" data-aos-duration="333">
+                    PRICE
+                  </th>
+                  <th scope="col" data-aos="fade-right" data-aos-duration="333">
+                    QUANTITY
+                  </th>
+
+                  <th scope="col" data-aos="fade-right" data-aos-duration="333">
+                    ACTIONS
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let supplier of suppliers">
+                  <td data-aos="fade-right" data-aos-duration="333">
+                    {{ supplier.crop_id }}
+                  </td>
+                  <td data-aos="fade-right" data-aos-duration="333">
+                    {{ supplier.farmer_id }}
+                  </td>
+                  <td data-aos="fade-right" data-aos-duration="333">
+                    <img src="{{ supplier.crop_image }}" width="100%" />
+                  </td>
+                  <td data-aos="fade-right" data-aos-duration="333">
+                    {{ supplier.crop_name }}
+                  </td>
+                  <td data-aos="fade-right" data-aos-duration="333">
+                    {{ supplier.price }}
+                  </td>
+                  <td data-aos="fade-right" data-aos-duration="333">
+                    {{ supplier.quantity }}
+                  </td>
+
+                  <td data-aos="fade-right" data-aos-duration="333">
+                    <div class="me-3 ms-3">
+                      <button
+                        class="btn btn-success w-100 mb-3"
+                        [routerLink]="['/edit-crop']"
+                      >
+                        <i class="fa-solid fa-pen fa-lg"></i>&nbsp; Update
+                      </button>
+                      <button class="btn btn-danger w-100 mb-3">
+                        <i class="fa-solid fa-trash fa-lg"></i>&nbsp; Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,8 @@
 .mainBg {
     display: flex;
     justify-content: center;
-    background-image: url("./../../../../../assets/images/complaints.png");
+    background-image: url('./../../../../../assets/images/products.png');
+    background-color: white;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -11,8 +12,10 @@
 }
 
 .main {
-    box-shadow: 1px 1px 10px black;
     padding: 50px;
-    backdrop-filter: blur(30px);
     border-radius: 10px;
+}
+
+.header{
+    text-shadow: 1px 1px 10px black;
 }
