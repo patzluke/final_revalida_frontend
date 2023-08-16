@@ -7,6 +7,7 @@ import { CropAdvertisementsComponent } from './components/crop-advertisements/cr
 import { SellProductComponent } from './components/sell-product/sell-product.component';
 import { EditCropComponent } from './components/edit-crop/edit-crop.component';
 import { AddCropComponent } from './components/add-crop/add-crop.component';
+import { CropOrdersComponent } from './components/crop-orders/crop-orders.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'add-crop',
     component: AddCropComponent
+  },
+  {
+    path: 'crop-orders',
+    component: CropOrdersComponent
   }
 ]
 
