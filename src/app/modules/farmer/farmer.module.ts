@@ -8,6 +8,7 @@ import { FarmerRoutingModule } from './farmer-routing.module';
 import { EditCropComponent } from './components/edit-crop/edit-crop.component';
 import { AddCropComponent } from './components/add-crop/add-crop.component';
 import { CropOrdersComponent } from './components/crop-orders/crop-orders.component';
+import { CropPaymentComponent } from './components/crop-payment/crop-payment.component';
 
 
 
@@ -19,7 +20,8 @@ import { CropOrdersComponent } from './components/crop-orders/crop-orders.compon
     ComplaintStatusComponent,
     EditCropComponent,
     AddCropComponent,
-    CropOrdersComponent
+    CropOrdersComponent,
+    CropPaymentComponent
   ],
   imports: [
     CommonModule,

@@ -8,6 +8,7 @@ import { SellProductComponent } from './components/sell-product/sell-product.com
 import { EditCropComponent } from './components/edit-crop/edit-crop.component';
 import { AddCropComponent } from './components/add-crop/add-crop.component';
 import { CropOrdersComponent } from './components/crop-orders/crop-orders.component';
+import { CropPaymentComponent } from './components/crop-payment/crop-payment.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'crop-orders',
     component: CropOrdersComponent
+  },
+  {
+    path: 'crop-payment',
+    component: CropPaymentComponent
   }
 ]
 
