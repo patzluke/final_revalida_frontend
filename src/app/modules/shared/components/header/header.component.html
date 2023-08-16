@@ -1,25 +1,174 @@
-<mat-toolbar>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with menu icon"
-  >
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>My App</span>
-  <span class="example-spacer"></span>
-  <button
-    mat-icon-button
-    class="example-icon favorite-icon"
-    aria-label="Example icon-button with heart icon"
-  >
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with share icon"
-  >
-    <mat-icon>share</mat-icon>
-  </button>
+<mat-toolbar
+  class="toolbar"
+  [ngClass]="{
+    toolbar: true,
+    'navbar-scrolled': scrolled,
+    'navbar-hidden': scrolledDown
+  }"
+>
+  <div class="container">
+    <div class="icon-container">
+      <h1 class="logo" routerLink="/home">
+        <div class="letter">A</div>
+        <div class="letter">g</div>
+        <div class="letter">r</div>
+        <div class="letter">i</div>
+        <div class="letter">B</div>
+        <div class="letter">r</div>
+        <div class="letter">i</div>
+        <div class="letter">d</div>
+        <div class="letter">g</div>
+        <div class="letter">e</div>
+      </h1>
+    </div>
+
+    <div class="nav-one">
+      <ul>
+        <li>
+          <a routerLink="/farming-tips" routerLinkActive="router-link-active"
+            >Advertisement</a
+          >
+        </li>
+        <li>
+          <a routerLink="/farming-tips" routerLinkActive="router-link-active"
+            >Farming Tips</a
+          >
+        </li>
+        <li>
+          <a routerLink="/who-we-are" routerLinkActive="router-link-active"
+            >Who we are</a
+          >
+        </li>
+        <li>
+          <a routerLink="/contact" routerLinkActive="router-link-active"
+            >Contact</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="nav">
+      <ul>
+        <li>
+          <button mat-icon-button>
+            <mat-icon class="icon">person</mat-icon>
+          </button>
+        </li>
+        <li>
+          <div class="menu" (click)="toggleMenu()">
+            <a>Menu </a>
+            <mat-icon class="menu-icon">menu</mat-icon>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </mat-toolbar>
+
+<div
+  class="menu-container"
+  [ngClass]="{ 'slide-in': isMenuOpen, 'slide-out': !isMenuOpen }"
+>
+  <mat-toolbar class="toolbar">
+    <div class="container">
+      <div class="icon-container">
+        <h1 class="logo" routerLink="/home">
+          <div class="letter">A</div>
+          <div class="letter">g</div>
+          <div class="letter">r</div>
+          <div class="letter">i</div>
+          <div class="letter">B</div>
+          <div class="letter">r</div>
+          <div class="letter">i</div>
+          <div class="letter">d</div>
+          <div class="letter">g</div>
+          <div class="letter">e</div>
+        </h1>
+      </div>
+
+      <div class="nav">
+        <ul>
+          <li>
+            <div class="close" (click)="toggleMenu()">
+              <a>Close </a>
+              <mat-icon class="close-icon">close</mat-icon>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </mat-toolbar>
+  <div class="container">
+    <div class="menu-links-container">
+      <div class="first-links-container">
+        <h4><b>Farmers</b></h4>
+        <h2
+          class="menu-link"
+          routerLink="/farming-tips"
+          routerLinkActive="router-link-active"
+        >
+          Available Courses
+        </h2>
+        <h2
+          class="menu-link"
+          routerLink="/farming-tips"
+          routerLinkActive="router-link-active"
+        >
+          Farming Tips
+        </h2>
+      </div>
+
+      <div class="first-links-container">
+        <h4><b>About us</b></h4>
+        <h2
+          class="menu-link"
+          routerLink="/who-we-are"
+          routerLinkActive="router-link-active"
+        >
+          Who we are
+        </h2>
+        <h2
+          class="menu-link"
+          routerLink="/our-process"
+          routerLinkActive="router-link-active"
+        >
+          Our process
+        </h2>
+        <h2
+          class="menu-link"
+          routerLink="/sustainability"
+          routerLinkActive="router-link-active"
+        >
+          Sustainability
+        </h2>
+      </div>
+
+      <div class="first-links-container">
+        <h4><b>Inquiries</b></h4>
+        <h2
+          class="menu-link"
+          routerLink="/contact"
+          routerLinkActive="router-link-active"
+        >
+          Contact us
+        </h2>
+        <h2
+          class="menu-link"
+          routerLink="/contact"
+          routerLinkActive="router-link-active"
+        >
+          Privacy policy
+        </h2>
+
+        <h2
+          class="menu-link"
+          routerLink="/contact"
+          routerLinkActive="router-link-active"
+        >
+          Terms of service
+        </h2>
+      </div>
+    </div>
+
+    <div class="wave wave1"></div>
+  </div>
+</div>

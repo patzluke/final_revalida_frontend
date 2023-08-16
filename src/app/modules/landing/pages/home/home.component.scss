@@ -1,0 +1,58 @@
+.banner-container {
+  background-color: #18332f;
+  width: 100%;
+  height: 100%;
+  padding-top: 5rem;
+}
+
+.banner-content {
+  display: flex;
+}
+
+.banner-text {
+  padding-top: 5rem;
+  width: 50%;
+}
+
+.banner-text h1 {
+  color: #8da17f;
+  font-size: 4rem;
+  font-weight: bold;
+  line-height: 5rem;
+}
+
+.link-text {
+  margin-top: 5rem;
+}
+
+.link-text h1 {
+  color: #f9f9f9;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.link-text h1 .icon {
+  color: #8da17f;
+  display: inline-block;
+  transition: transform 0.3s ease-in-out;
+  vertical-align: 1.6rem;
+}
+
+.link-text h1:hover .icon {
+  transform: translateX(1rem);
+}
+
+.image-container {
+  width: 50%;
+  height: 100%;
+}
+
+.veg-image {
+  width: 100%;
+  height: 100%;
+  transform: scaleX(-1);
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
