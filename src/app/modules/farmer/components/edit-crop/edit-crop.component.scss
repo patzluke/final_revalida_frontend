@@ -1,8 +1,7 @@
 .mainBg {
     display: flex;
     justify-content: center;
-    background-image: url('./../../../../../assets/images/products.png');
-    background-color: white;
+    background-image: url("./../../../../../assets/images/crops.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -12,10 +11,9 @@
 }
 
 .main {
+    box-shadow: 1px 1px 10px black;
     padding: 50px;
     border-radius: 10px;
-}
-
-.header{
-    text-shadow: 1px 1px 10px black;
+    background: rgb(2, 0, 36);
+    background: linear-gradient(126deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 40%, rgba(0, 212, 255, 1) 100%);
 }
