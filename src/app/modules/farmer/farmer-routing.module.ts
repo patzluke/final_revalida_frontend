@@ -5,6 +5,8 @@ import { ComplaintPageComponent } from './components/complaint-page/complaint-pa
 import { ComplaintStatusComponent } from './components/complaint-status/complaint-status.component';
 import { CropAdvertisementsComponent } from './components/crop-advertisements/crop-advertisements.component';
 import { SellProductComponent } from './components/sell-product/sell-product.component';
+import { EditCropComponent } from './components/edit-crop/edit-crop.component';
+import { AddCropComponent } from './components/add-crop/add-crop.component';
 
 const routes: Routes = [
   {
@@ -22,6 +24,14 @@ const routes: Routes = [
   {
     path: 'sell-product',
     component: SellProductComponent
+  },
+  {
+    path: 'edit-crop',
+    component: EditCropComponent
+  },
+  {
+    path: 'add-crop',
+    component: AddCropComponent
   }
 ]
 
