@@ -64,7 +64,7 @@ export class LoginComponent {
             }
 
             if (localStorage.getItem('userType') == 'Administrator') {
-              this._router.navigateByUrl('/home');
+              this._router.navigateByUrl('/administrator');
             }
           },
           error: (err) => {
