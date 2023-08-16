@@ -1,0 +1,21 @@
+.mainBg {
+    display: flex;
+    justify-content: center;
+    background-image: url('./../../../../../assets/images/products.png');
+    background-color: white;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    padding: 60px;
+}
+
+.main {
+    padding: 50px;
+    border-radius: 10px;
+}
+
+.header{
+    text-shadow: 1px 1px 10px black;
+}
