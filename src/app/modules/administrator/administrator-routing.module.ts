@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { FarmingTipComponent } from './pages/farming-tip/farming-tip.component';
+import { FarmerComplaintComponent } from './pages/farmer-complaint/farmer-complaint.component';
 
 const routes: Routes = [
   {
@@ -12,10 +13,14 @@ const routes: Routes = [
     path: 'farmingtips',
     component: FarmingTipComponent,
   },
+  {
+    path: 'farmercomplaint',
+    component: FarmerComplaintComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AdministratorRoutingModule { }
+export class AdministratorRoutingModule {}
