@@ -16,7 +16,7 @@ export class ComplaintStatusComponent {
   }
 
   endIndex(): number {
-    return this.startIndex() + this.itemsPerPage - 1;
+    return this.startIndex() + this.itemsPerPage;
   }
 
   changePage(newPage: number): void {

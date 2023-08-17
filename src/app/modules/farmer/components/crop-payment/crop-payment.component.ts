@@ -9,14 +9,14 @@ import { faClose, faCancel } from '@fortawesome/free-solid-svg-icons';
 export class CropPaymentComponent {
 
   currentPage: number = 1;
-  itemsPerPage: number = 5; // Number of items to show per page
+  itemsPerPage: number = 4; // Number of items to show per page
 
   startIndex(): number {
     return (this.currentPage - 1) * this.itemsPerPage;
   }
 
   endIndex(): number {
-    return this.startIndex() + this.itemsPerPage - 1;
+    return this.startIndex() + this.itemsPerPage;
   }
 
   changePage(newPage: number): void {

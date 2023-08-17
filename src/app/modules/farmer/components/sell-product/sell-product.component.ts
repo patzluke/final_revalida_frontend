@@ -7,6 +7,23 @@ import { faAdd, faCancel, faPenToSquare, faTrash } from '@fortawesome/free-solid
   styleUrls: ['./sell-product.component.scss']
 })
 export class SellProductComponent {
+
+  currentPage: number = 1;
+  itemsPerPage: number = 4; // Number of items to show per page
+
+  startIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  endIndex(): number {
+    return this.startIndex() + this.itemsPerPage;
+  }
+
+  changePage(newPage: number): void {
+    this.currentPage = newPage;
+  }
+
+
   faAdd = faAdd
   faCancel = faCancel
   faPenToSquare = faPenToSquare

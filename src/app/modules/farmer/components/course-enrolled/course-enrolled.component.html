@@ -14,12 +14,12 @@
       </div>
       <div class="row">
         <div
-          class="col"
+          class="col mb-3"
           *ngFor="let course of courses.slice(startIndex(), endIndex())"
           data-aos="fade-right"
           data-aos-duration="333"
         >
-          <div class="items">
+          <div class="items" style="height: 100%">
             <p class="h4" data-aos="fade-right" data-aos-duration="333">
               {{ course.enrollment_id }}
             </p>

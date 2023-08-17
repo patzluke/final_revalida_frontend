@@ -8,9 +8,14 @@
           </p>
         </div>
       </div>
-      <div class="accordion" id="coursesAccordion">
-        <div class="row">
-          <div class="col" data-aos="fade-right">
+      <div class="row">
+        <div class="col mb-3">
+          <div
+            class="accordion"
+            id="coursesAccordion"
+            data-aos="fade-right"
+            style="height: 100%"
+          >
             <ng-container
               *ngFor="
                 let course of courses.slice(startIndex(), endIndex());
@@ -41,8 +46,22 @@
                       <b>Duration (in days):</b> {{ course.duration_in_days }}
                     </p>
                     <div class="d-flex flex-row-reverse mb-3">
-                      <button class="btn btn-danger ms-2">Delete</button>
-                      <button class="btn btn-success ms-2">Update</button>
+                      <button class="btn btn-danger ms-2">
+                        <fa-icon
+                          [icon]="faTrash"
+                          [animation]="'bounce'"
+                          [size]="'lg'"
+                        ></fa-icon
+                        >&nbsp;Delete
+                      </button>
+                      <button class="btn btn-success ms-2">
+                        <fa-icon
+                          [icon]="faPenToSquare"
+                          [animation]="'bounce'"
+                          [size]="'lg'"
+                        ></fa-icon
+                        >&nbsp;Update
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -51,30 +70,34 @@
           </div>
         </div>
       </div>
-      <div class="mb-3 mt-3">
-        <div class="pagination pagination-md justify-content-end">
-          <li class="page-item">
-            <button
-              class="page-link"
-              [disabled]="currentPage === 1"
-              (click)="changePage(currentPage - 1)"
-            >
-              Previous
-            </button>
-          </li>
-          <li class="page-item">
-            <button class="page-link">{{ currentPage }}</button>
-          </li>
+      <div class="row">
+        <div class="col">
+          <div class="mb-3 mt-3">
+            <div class="pagination pagination-md justify-content-end">
+              <li class="page-item">
+                <button
+                  class="page-link"
+                  [disabled]="currentPage === 1"
+                  (click)="changePage(currentPage - 1)"
+                >
+                  Previous
+                </button>
+              </li>
+              <li class="page-item">
+                <button class="page-link">{{ currentPage }}</button>
+              </li>
 
-          <li class="page-item">
-            <button
-              class="page-link"
-              [disabled]="endIndex() >= courses.length"
-              (click)="changePage(currentPage + 1)"
-            >
-              Next
-            </button>
-          </li>
+              <li class="page-item">
+                <button
+                  class="page-link"
+                  [disabled]="endIndex() >= courses.length"
+                  (click)="changePage(currentPage + 1)"
+                >
+                  Next
+                </button>
+              </li>
+            </div>
+          </div>
         </div>
       </div>
     </div>
