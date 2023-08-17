@@ -1,16 +1,18 @@
-<div class="mainBg">
-  <div class="main">
+<div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
+  <div class="main" data-aos="fade-right" data-aos-duration="333">
     <div class="container">
       <div class="row">
         <div class="col">
-          <p class="h1 header text-light">POST ADVERTISEMENT</p>
+          <p class="h1 header text-light" data-aos="fade-right">
+            POST ADVERTISEMENT
+          </p>
         </div>
       </div>
 
       <div class="row">
         <div class="col">
-          <form>
-            <div class="form-floating mb-3">
+          <form data-aos="fade-right">
+            <div class="form-floating mb-3" data-aos="fade-right">
               <select id="crop_specialization_id" class="form-select">
                 <option value="null">Select specialization...</option>
                 <option
@@ -24,7 +26,7 @@
               <label for="crop_specialization_id">Crop specialization</label>
             </div>
 
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-3" data-aos="fade-right">
               <input
                 type="text"
                 class="form-control"
@@ -34,7 +36,7 @@
               <label for="crop_name">Crop name</label>
             </div>
 
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-3" data-aos="fade-right">
               <textarea
                 class="form-control"
                 id="description"
@@ -43,10 +45,10 @@
               ></textarea>
               <label for="description">Description</label>
             </div>
-            <div class="input-group mb-3">
+            <div class="input-group mb-3" data-aos="fade-right">
               <input type="file" class="form-control" id="crop_image" />
             </div>
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-3" data-aos="fade-right">
               <input
                 type="number"
                 class="form-control"
@@ -55,7 +57,7 @@
               />
               <label for="quantity">Quantity</label>
             </div>
-            <div class="d-flex flex-row-reverse">
+            <div class="d-flex flex-row-reverse" data-aos="fade-right">
               <button class="btn btn-danger ms-2" type="button">
                 <fa-icon
                   [icon]="faCancel"
