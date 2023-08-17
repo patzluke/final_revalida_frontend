@@ -35,7 +35,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let order of orders">
+              <tr *ngFor="let order of orders.slice(startIndex(), endIndex())">
                 <td data-aos="fade-right" data-aos-duration="333">
                   {{ order.order_id_ref }}
                 </td>
@@ -77,6 +77,36 @@
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="mb-3 mt-3">
+            <div class="pagination pagination-md justify-content-end">
+              <li class="page-item">
+                <button
+                  class="page-link"
+                  [disabled]="currentPage === 1"
+                  (click)="changePage(currentPage - 1)"
+                >
+                  Previous
+                </button>
+              </li>
+              <li class="page-item">
+                <button class="page-link" disabled>{{ currentPage }}</button>
+              </li>
+
+              <li class="page-item">
+                <button
+                  class="page-link"
+                  [disabled]="endIndex() >= orders.length"
+                  (click)="changePage(currentPage + 1)"
+                >
+                  Next
+                </button>
+              </li>
+            </div>
+          </div>
         </div>
       </div>
     </div>

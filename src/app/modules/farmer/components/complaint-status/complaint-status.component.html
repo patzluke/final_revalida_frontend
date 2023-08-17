@@ -17,7 +17,7 @@
           class="col-lg-3"
           data-aos="fade-right"
           data-aos-duration="333"
-          *ngFor="let complaint of complaints"
+          *ngFor="let complaint of complaints.slice(startIndex(), endIndex())"
         >
           <div class="items shadow">
             <p data-aos="fade-right" data-aos-duration="333">
@@ -51,6 +51,36 @@
                 ></fa-icon>
                 Cancel
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="mb-3 mt-3">
+            <div class="pagination pagination-md justify-content-end">
+              <li class="page-item">
+                <button
+                  class="page-link"
+                  [disabled]="currentPage === 1"
+                  (click)="changePage(currentPage - 1)"
+                >
+                  Previous
+                </button>
+              </li>
+              <li class="page-item">
+                <button class="page-link" disabled>{{ currentPage }}</button>
+              </li>
+
+              <li class="page-item">
+                <button
+                  class="page-link"
+                  [disabled]="endIndex() >= complaints.length"
+                  (click)="changePage(currentPage + 1)"
+                >
+                  Next
+                </button>
+              </li>
             </div>
           </div>
         </div>

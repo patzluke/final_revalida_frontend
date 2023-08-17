@@ -7,6 +7,22 @@ import { Component } from '@angular/core';
 })
 export class CropAdvertisementsComponent {
 
+  currentPage: number = 1;
+  itemsPerPage: number = 4; // Number of items to show per page
+
+  startIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  endIndex(): number {
+    return this.startIndex() + this.itemsPerPage - 1;
+  }
+
+  changePage(newPage: number): void {
+    this.currentPage = newPage;
+  }
+
+
   posts: {
     postId: number,
     crop_specialization_id: number,

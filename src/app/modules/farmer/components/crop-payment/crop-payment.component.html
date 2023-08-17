@@ -50,7 +50,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let payment of payments">
+              <tr
+                *ngFor="let payment of payments.slice(startIndex(), endIndex())"
+              >
                 <td data-aos="fade-right" data-aos-duration="333">
                   {{ payment.payment_id }}
                 </td>
@@ -72,6 +74,37 @@
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="mb-3 mt-3">
+            <div class="pagination pagination-md justify-content-end">
+              <li class="page-item">
+                <button
+                  class="page-link"
+                  [disabled]="currentPage === 1"
+                  (click)="changePage(currentPage - 1)"
+                >
+                  Previous
+                </button>
+              </li>
+              <li class="page-item">
+                <button class="page-link" disabled>{{ currentPage }}</button>
+              </li>
+
+              <li class="page-item">
+                <button
+                  class="page-link"
+                  [disabled]="endIndex() >= payments.length"
+                  (click)="changePage(currentPage + 1)"
+                >
+                  Next
+                </button>
+              </li>
+            </div>
+          </div>
         </div>
       </div>
     </div>
