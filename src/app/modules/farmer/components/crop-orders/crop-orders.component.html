@@ -7,76 +7,56 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
-          <table class="table table-primary table-striped">
-            <thead>
-              <tr>
-                <th scope="col" data-aos="fade-right" data-aos-duration="333">
-                  order_id_ref
-                </th>
-                <th scope="col" data-aos="fade-right" data-aos-duration="333">
-                  crop_id
-                </th>
-                <th scope="col" data-aos="fade-right" data-aos-duration="333">
-                  supplier_id
-                </th>
-                <th scope="col" data-aos="fade-right" data-aos-duration="333">
-                  quantity
-                </th>
-                <th scope="col" data-aos="fade-right" data-aos-duration="333">
-                  price
-                </th>
-                <th scope="col" data-aos="fade-right" data-aos-duration="333">
-                  address
-                </th>
-                <th scope="col" data-aos="fade-right" data-aos-duration="333">
-                  actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let order of orders.slice(startIndex(), endIndex())">
-                <td data-aos="fade-right" data-aos-duration="333">
-                  {{ order.order_id_ref }}
-                </td>
-                <td data-aos="fade-right" data-aos-duration="333">
-                  {{ order.crop_id }}
-                </td>
-                <td data-aos="fade-right" data-aos-duration="333">
-                  {{ order.supplier_id }}
-                </td>
-                <td data-aos="fade-right" data-aos-duration="333">
-                  {{ order.quantity }}
-                </td>
-                <td data-aos="fade-right" data-aos-duration="333">
-                  {{ order.price }}
-                </td>
-                <td data-aos="fade-right" data-aos-duration="333">
-                  {{ order.address }}
-                </td>
-                <td data-aos="fade-right" data-aos-duration="333">
-                  <div class="mt-3 mb-3">
-                    <button class="btn btn-primary">
-                      <fa-icon
-                        [icon]="faCheck"
-                        [animation]="'bounce'"
-                        [size]="'lg'"
-                      ></fa-icon
-                      >&nbsp; Accept
-                    </button>
-                    <button class="btn btn-danger ms-2">
-                      <fa-icon
-                        [icon]="faCancel"
-                        [animation]="'bounce'"
-                        [size]="'lg'"
-                      ></fa-icon
-                      >&nbsp; Cancel
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div
+          class="col-lg-3 mb-3"
+          *ngFor="let order of orders.slice(startIndex(), endIndex())"
+        >
+          <div class="items" style="height: 100%">
+            <p data-aos="fade-right" data-aos-duration="333">
+              <b>Order Reference ID:</b><br />
+              {{ order.order_id_ref }}
+            </p>
+            <p data-aos="fade-right" data-aos-duration="333">
+              <b>Crop ID:</b><br />
+              {{ order.crop_id }}
+            </p>
+            <p data-aos="fade-right" data-aos-duration="333">
+              <b>Supplier/Wholesaler ID:</b><br />
+              {{ order.supplier_id }}
+            </p>
+            <p data-aos="fade-right" data-aos-duration="333">
+              <b>Quantity:</b><br />
+              {{ order.quantity }}
+            </p>
+            <p data-aos="fade-right" data-aos-duration="333">
+              <b>Price:</b><br />
+              {{ order.price }}
+            </p>
+            <p data-aos="fade-right" data-aos-duration="333">
+              <b>Address:</b><br />
+              {{ order.address }}
+            </p>
+            <div class="mt-3 mb-3 d-flex flex-row-reverse">
+              <button class="btn btn-primary">
+                <fa-icon
+                  [icon]="faCheck"
+                  [animation]="'bounce'"
+                  [size]="'lg'"
+                ></fa-icon
+                >&nbsp; Accept
+              </button>
+            </div>
+            <div class="mt-3 mb-3 d-flex flex-row-reverse">
+              <button class="btn btn-danger">
+                <fa-icon
+                  [icon]="faCancel"
+                  [animation]="'bounce'"
+                  [size]="'lg'"
+                ></fa-icon
+                >&nbsp; Cancel
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">

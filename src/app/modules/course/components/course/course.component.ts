@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faPenToSquare, faCancel, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-course',
@@ -6,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./course.component.scss']
 })
 export class CourseComponent implements OnInit {
+
+  faPenToSquare = faPenToSquare
+  faCancel = faCancel
+  faTrash = faTrash
   ngOnInit() {
 
   }
+
+  currentPage: number = 1;
+  itemsPerPage: number = 4; // Number of items to show per page
 
   // Function to calculate the starting index of items for the current page
   startIndex(): number {
@@ -17,7 +25,7 @@ export class CourseComponent implements OnInit {
 
   // Function to calculate the ending index of items for the current page
   endIndex(): number {
-    return this.startIndex() + this.itemsPerPage - 1;
+    return this.startIndex() + this.itemsPerPage;
   }
 
   // Function to change the current page
@@ -53,6 +61,5 @@ export class CourseComponent implements OnInit {
 
     ]
 
-  currentPage: number = 1;
-  itemsPerPage: number = 5; // Number of items to show per page
+
 }
