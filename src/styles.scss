@@ -16,3 +16,24 @@ body {
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #424135 #8ba17f;
+  //scrollbar-color: #424135 #e8f4ef;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #8ba17f;
+  //background: #424135;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #18332f;
+  border: 3px solid #8ba17f;
+}

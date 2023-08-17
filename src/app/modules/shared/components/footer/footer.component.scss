@@ -31,7 +31,12 @@ h4 {
 }
 
 .contact-container {
+  margin-top: 5rem;
   width: 33%;
+}
+
+.location-container {
+  margin-top: 5rem;
 }
 
 .menu-link {
@@ -69,5 +74,60 @@ h4 {
   margin-right: -12rem;
 }
 
+@media (max-width: 990px) {
+  .links-container {
+    width: 50%;
+  }
+
+  .image-container {
+    margin-right: -7rem;
+  }
+}
+
 @media (max-width: 779px) {
+  .footer {
+    background-color: #18332f !important;
+    overflow: hidden;
+    height: 200vh;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2rem;
+  }
+
+  .image-container {
+    //display: none;
+    margin: 0;
+    text-align: center;
+  }
+
+  .veg-image {
+    //display: none;
+    margin: 0;
+  }
+
+  .links-container {
+    align-self: center;
+    margin: auto;
+  }
+
+  .links-container,
+  .contact-container,
+  .location-container {
+    width: 100%;
+    height: 100%;
+    margin-top: 0;
+  }
 }
