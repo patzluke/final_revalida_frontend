@@ -21,7 +21,7 @@ export const farmingTipReducer = createReducer(
     return { ...state, farmingTips: farmingTips };
   }),
   on(addFarmingTipState, (state, { farmingTip }) => {
-    return { ...state, farmingTips: [...state.farmingTips, farmingTip] };
+    return { ...state, farmingTips: [farmingTip, ...state.farmingTips] };
   }),
   on(updateFarmingTipState, (state, { farmingTip }) => {
     return {
