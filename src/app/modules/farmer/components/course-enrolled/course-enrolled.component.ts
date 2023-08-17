@@ -7,6 +7,24 @@ import { Component } from '@angular/core';
 })
 export class CourseEnrolledComponent {
 
+  currentPage: number = 1;
+  itemsPerPage: number = 5; // Number of items to show per page
+
+  // Function to calculate the starting index of items for the current page
+  startIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  // Function to calculate the ending index of items for the current page
+  endIndex(): number {
+    return this.startIndex() + this.itemsPerPage - 1;
+  }
+
+  // Function to change the current page
+  changePage(newPage: number): void {
+    this.currentPage = newPage;
+  }
+
   courses: {
     enrollment_id: string,
     user_id: string,

@@ -1,11 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.scss']
 })
-export class CourseComponent {
+export class CourseComponent implements OnInit {
+  ngOnInit() {
+
+  }
+
+  // Function to calculate the starting index of items for the current page
+  startIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  // Function to calculate the ending index of items for the current page
+  endIndex(): number {
+    return this.startIndex() + this.itemsPerPage - 1;
+  }
+
+  // Function to change the current page
+  changePage(newPage: number): void {
+    this.currentPage = newPage;
+  }
 
   courses: {
     course_id: string,
@@ -24,6 +42,17 @@ export class CourseComponent {
         course_name: 'Microsoft Office Essential Skills',
         description: 'This course empowers you to navigate Microsoft Office with confidence within a professional setting. You will not only gain proficiency in the suite but also learn to implement best practices that enhance your work quality. By acquiring a comprehensive grasp of essential skills in applications like Word, Outlook, Excel, and PowerPoint, you will align with the expectations of employers. Through dedicated practice, you will not only achieve mastery but also boost your job satisfaction, fostering a sense of accomplishment in your workplace endeavors.',
         duration_in_days: 30
-      }
+      },
+      {
+        course_id: 'CRSE202308000000000003',
+        course_name: 'Computer Basics for the Simple Beginner',
+        description: 'This set of topics encompasses a comprehensive understanding of computer systems. It begins with acquainting oneself with the nature of Windows, a prevalent operating system. Subsequently, it covers navigating and utilizing Windows proficiently. Familiarity with common computer terms is addressed, as well as the accurate identification of various computer components. A rudimentary grasp of internet fundamentals is included, involving concepts like web browsing and online communication. Lastly, the importance of basic computer security is emphasized, encouraging knowledge about safeguarding against potential threats.',
+        duration_in_days: 4
+      },
+
+
     ]
+
+  currentPage: number = 1;
+  itemsPerPage: number = 5; // Number of items to show per page
 }

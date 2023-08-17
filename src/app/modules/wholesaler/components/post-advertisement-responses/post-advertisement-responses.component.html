@@ -28,7 +28,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let response of responses">
+              <tr
+                *ngFor="
+                  let response of responses.slice(startIndex(), endIndex())
+                "
+              >
                 <!-- <td data-aos="fade-right">{{ response.post_response_id }}</td>
                 <td data-aos="fade-right">{{ response.post_id }}</td> -->
                 <td data-aos="fade-right">{{ response.farmer_id }}</td>
@@ -44,6 +48,37 @@
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="mb-3 mt-3">
+            <div class="pagination pagination-md justify-content-end">
+              <li class="page-item">
+                <button
+                  class="page-link"
+                  [disabled]="currentPage === 1"
+                  (click)="changePage(currentPage - 1)"
+                >
+                  Previous
+                </button>
+              </li>
+              <li class="page-item">
+                <button class="page-link" disabled>{{ currentPage }}</button>
+              </li>
+
+              <li class="page-item">
+                <button
+                  class="page-link"
+                  [disabled]="endIndex() >= responses.length"
+                  (click)="changePage(currentPage + 1)"
+                >
+                  Next
+                </button>
+              </li>
+            </div>
+          </div>
         </div>
       </div>
     </div>
