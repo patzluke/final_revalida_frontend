@@ -18,9 +18,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { FarmingTipEffects } from './states/farmingtip-state/farmingtip.effects';
 import { MatIconModule } from '@angular/material/icon';
 import { ButtonModule } from 'primeng/button';
+import { FarmerComplaintComponent } from './pages/farmer-complaint/farmer-complaint.component';
+import { farmerComplaintReducer } from './states/farmercomplaint-state/farmercomplaint.reducer';
+import { FarmerComplaintEffects } from './states/farmercomplaint-state/farmercomplaint.effects';
 
 @NgModule({
-  declarations: [LandingPageComponent, FarmingTipComponent],
+  declarations: [LandingPageComponent, FarmingTipComponent, FarmerComplaintComponent],
   imports: [
     CommonModule,
     AdministratorRoutingModule,
@@ -37,7 +40,8 @@ import { ButtonModule } from 'primeng/button';
     FormsModule,
     ButtonModule,
     StoreModule.forFeature('farmingTipList', farmingTipReducer),
-    EffectsModule.forFeature([FarmingTipEffects])
+    StoreModule.forFeature('farmerComplaintsList', farmerComplaintReducer),
+    EffectsModule.forFeature([FarmingTipEffects, FarmerComplaintEffects])
   ],
 })
 export class AdministratorModule {}

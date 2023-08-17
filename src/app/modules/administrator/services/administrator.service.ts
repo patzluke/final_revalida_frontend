@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FarmingTip } from '../models/farmingTip';
+import { FarmerComplaint } from '../models/farmercomplaint';
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +38,19 @@ export class AdminService {
   deleteFarmingTip = (farmingTipId: number) => {
     return this.http.delete<FarmingTip>(
       `${this.baseUrl}/admin/delete/farmingtips/${farmingTipId}`
+    );
+  };
+
+  selectAllFarmerComplaints = () => {
+    return this.http.get<FarmerComplaint[]>(
+      `${this.baseUrl}/admin/get/farmercomplaints`
+    );
+  };
+
+  updateIntoFarmerComplaint = (farmerComplaint: FarmerComplaint) => {
+    return this.http.put<FarmerComplaint>(
+      `${this.baseUrl}/admin/update/farmercomplaints`,
+      farmerComplaint
     );
   };
 

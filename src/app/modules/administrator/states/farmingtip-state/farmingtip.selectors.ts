@@ -4,13 +4,13 @@ import { FarmingTipState, farmingTipReducer } from './farmingtip.reducer';
 export const selectFarmingTipState =
   createFeatureSelector<FarmingTipState>('farmingTipList');
 
-export const selectselectFarmingTips = () =>
+export const selectFarmingTips = () =>
   createSelector(
     selectFarmingTipState,
     (state: FarmingTipState) => state.farmingTips
   );
 
-export const selectselectFarmingTip = (farmingTipId: number) =>
+export const selectFarmingTip = (farmingTipId: number) =>
   createSelector(selectFarmingTipState, (state: FarmingTipState) =>
     state.farmingTips.find((farmingTip) => {
       return farmingTip.farmingTipId == farmingTipId;
