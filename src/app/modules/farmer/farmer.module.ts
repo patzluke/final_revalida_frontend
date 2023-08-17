@@ -12,6 +12,7 @@ import { CropPaymentComponent } from './components/crop-payment/crop-payment.com
 import { CourseEnrolledComponent } from './components/course-enrolled/course-enrolled.component';
 import { ViewReportComponent } from './components/view-report/view-report.component';
 import { ChartModule } from 'primeng/chart';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ChartModule } from 'primeng/chart';
   imports: [
     CommonModule,
     FarmerRoutingModule,
-    ChartModule
+    ChartModule,
+    FontAwesomeModule
   ]
 })
 export class FarmerModule { }

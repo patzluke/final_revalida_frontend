@@ -4,11 +4,11 @@
       <div class="row">
         <div class="col">
           <p
-            class="h1 text-light header"
+            class="h1 text-light header mb-3 mt-3"
             data-aos="fade-right"
             data-aos-duration="333"
           >
-            Add Product
+            ADD COURSE
           </p>
         </div>
       </div>
@@ -17,33 +17,7 @@
         <div class="col">
           <div class="row">
             <div class="col">
-              <form>
-                <div
-                  class="form-floating mb-3"
-                  data-aos="fade-right"
-                  data-aos-duration="333"
-                >
-                  <select class="form-select" id="cropId">
-                    <option selected>Open this select menu</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                  </select>
-                  <label for="floatingSelect">Select CROP Id</label>
-                </div>
-                <div
-                  class="input-group mb-3"
-                  data-aos="fade-right"
-                  data-aos-duration="333"
-                >
-                  <input
-                    type="file"
-                    class="form-control"
-                    id="cropImage"
-                    placeholder="cropImage"
-                    required
-                  />
-                </div>
+              <form data-aos="fade-right">
                 <div
                   class="form-floating mb-3"
                   data-aos="fade-right"
@@ -52,11 +26,21 @@
                   <input
                     type="text"
                     class="form-control"
-                    id="cropName"
-                    placeholder="Crop Name"
+                    id="course_name"
+                    placeholder="course_name"
                     required
                   />
-                  <label for="cropName">Crop Name*</label>
+                  <label for="course_name">Course Name*</label>
+                </div>
+                <div class="form-floating mb-3" data-aos="fade-right">
+                  <textarea
+                    class="form-control"
+                    placeholder="Leave a comment here"
+                    id="description"
+                    style="height: 200px"
+                    required
+                  ></textarea>
+                  <label for="description">Description*</label>
                 </div>
                 <div
                   class="form-floating mb-3"
@@ -66,35 +50,18 @@
                   <input
                     type="number"
                     class="form-control"
-                    id="quantity"
-                    placeholder="quantity"
+                    id="duration_in_days"
+                    placeholder="duration_in_days"
                     required
                   />
-                  <label for="quantity">Quantity*</label>
-                </div>
-                <div
-                  class="form-floating mb-3"
-                  data-aos="fade-right"
-                  data-aos-duration="333"
-                >
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="price"
-                    placeholder="price"
-                    required
-                  />
-                  <label for="price">Price*</label>
+                  <label for="duration_in_days">Duration (in days)*</label>
                 </div>
                 <div
                   class="d-flex flex-row-reverse"
                   data-aos="fade-right"
                   data-aos-duration="333"
                 >
-                  <button
-                    class="btn btn-danger"
-                    [routerLink]="['/sell-product']"
-                  >
+                  <button class="btn btn-danger" [routerLink]="['']">
                     <fa-icon
                       [icon]="faCancel"
                       [animation]="'bounce'"
@@ -105,11 +72,11 @@
 
                   <button class="btn btn-primary me-2">
                     <fa-icon
-                      [icon]="faSave"
+                      [icon]="faAdd"
                       [animation]="'bounce'"
                       [size]="'lg'"
                     ></fa-icon
-                    >&nbsp; Save
+                    >&nbsp; Add
                   </button>
                 </div>
               </form>

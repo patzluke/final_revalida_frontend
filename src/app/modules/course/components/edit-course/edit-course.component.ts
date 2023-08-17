@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { faPenToSquare, faCancel } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-edit-crop',
-  templateUrl: './edit-crop.component.html',
-  styleUrls: ['./edit-crop.component.scss']
+  selector: 'app-edit-course',
+  templateUrl: './edit-course.component.html',
+  styleUrls: ['./edit-course.component.scss']
 })
-export class EditCropComponent {
+export class EditCourseComponent {
+
   faPenToSquare = faPenToSquare
   faCancel = faCancel
 }
