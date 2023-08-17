@@ -83,7 +83,10 @@ a:hover::before {
 }
 
 .router-link-active {
-  text-decoration: underline #8da17f;
+}
+
+.router-link-active::before {
+  width: 100%;
 }
 
 .menu {
@@ -180,6 +183,10 @@ a:hover::before {
   width: 100%;
 }
 
+.menu-link.router-link-active::before {
+  width: 100%;
+}
+
 .navbar-scrolled {
   background-color: #18332f;
   width: 100%;
@@ -215,12 +222,26 @@ a:hover::before {
   }
 }
 
-@media (max-width: 880px) {
+::ng-deep .menu-links-container::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 1000px) {
   .nav-one {
     display: none;
   }
 
   .menu-links-container {
     padding-right: 0;
+  }
+}
+
+@media (max-width: 510px) {
+  .menu-links-container {
+    height: 50vh;
+    display: block;
+    padding: 0 2rem;
+    width: 100%;
+    overflow-y: scroll;
   }
 }

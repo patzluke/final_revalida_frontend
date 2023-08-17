@@ -10,6 +10,8 @@ export class HeaderComponent implements OnInit {
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
+
     const element = this.elementRef.nativeElement.querySelector('.logo');
     const letters = gsap.utils.toArray('.letter') as HTMLElement[];
     const tweens: any = {};
