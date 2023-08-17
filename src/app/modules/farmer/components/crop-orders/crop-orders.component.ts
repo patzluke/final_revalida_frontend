@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faCheck, faCancel } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-crop-orders',
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
 })
 export class CropOrdersComponent {
 
+  faCancel = faCancel
+  faCheck = faCheck
   orders: {
     order_id_ref: string,
     crop_id: number,

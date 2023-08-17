@@ -9,7 +9,11 @@
               class="btn btn-danger ms-2"
               data-aos="fade-right"
             >
-              <i class="fa-solid fa-xmark" data-aos="fade-right"></i>
+              <fa-icon
+                [icon]="faClose"
+                [animation]="'bounce'"
+                [size]="'lg'"
+              ></fa-icon>
             </button>
           </div>
 
@@ -56,10 +60,11 @@
                 data-aos="fade-right"
                 (click)="onSubmit()"
               >
-                <i
-                  class="fa-solid fa-right-to-bracket"
-                  data-aos="fade-right"
-                ></i>
+                <fa-icon
+                  [icon]="faRightToBracket"
+                  [animation]="'bounce'"
+                  [size]="'lg'"
+                ></fa-icon>
                 &nbsp; Login
               </button>
             </div>

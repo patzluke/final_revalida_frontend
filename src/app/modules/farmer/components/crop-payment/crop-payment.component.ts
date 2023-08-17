@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faClose, faCancel } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-crop-payment',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./crop-payment.component.scss']
 })
 export class CropPaymentComponent {
+
+  faClose = faClose
 
   payments: {
     payment_id: string,

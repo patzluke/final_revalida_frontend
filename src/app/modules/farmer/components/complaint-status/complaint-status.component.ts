@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faSave, faCancel } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-complaint-status',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ComplaintStatusComponent {
 
+  faCancel = faCancel
   complaints: {
     complaintTicketId: string;
     complainedFor: string;

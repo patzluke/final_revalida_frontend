@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faAdd, faCancel, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sell-product',
@@ -6,7 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./sell-product.component.scss']
 })
 export class SellProductComponent {
-
+  faAdd = faAdd
+  faCancel = faCancel
+  faPenToSquare = faPenToSquare
+  faTrash = faTrash
   suppliers: {
     crop_id: number,
     farmer_id: number,

@@ -1,0 +1,81 @@
+<div class="mainBg">
+  <div class="main">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <p class="h1 header text-light">POST ADVERTISEMENT</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <form>
+            <div class="form-floating mb-3">
+              <select id="crop_specialization_id" class="form-select">
+                <option value="null">Select specialization...</option>
+                <option
+                  [value]="[specialization.crop_id]"
+                  *ngFor="let specialization of crop_specialization"
+                >
+                  {{ specialization.crop }}
+                </option>
+              </select>
+
+              <label for="crop_specialization_id">Crop specialization</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="crop_name"
+                placeholder="crop_name"
+              />
+              <label for="crop_name">Crop name</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <textarea
+                class="form-control"
+                id="description"
+                placeholder="description"
+                style="height: 300px"
+              ></textarea>
+              <label for="description">Description</label>
+            </div>
+            <div class="input-group mb-3">
+              <input type="file" class="form-control" id="crop_image" />
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="number"
+                class="form-control"
+                id="quantity"
+                placeholder="quantity"
+              />
+              <label for="quantity">Quantity</label>
+            </div>
+            <div class="d-flex flex-row-reverse">
+              <button class="btn btn-danger ms-2" type="button">
+                <fa-icon
+                  [icon]="faCancel"
+                  [animation]="'bounce'"
+                  [size]="'lg'"
+                ></fa-icon
+                >&nbsp;Cancel
+              </button>
+              <button class="btn btn-success" type="button">
+                <fa-icon
+                  [icon]="faSave"
+                  [animation]="'bounce'"
+                  [size]="'lg'"
+                ></fa-icon
+                >&nbsp; Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
