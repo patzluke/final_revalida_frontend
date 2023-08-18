@@ -20,7 +20,9 @@
 }
 
 .main {
-  padding: 50px;
+  height: 100%;
+  width: 100%;
+  padding: 25px;
   border-radius: 10px;
 }
 
@@ -34,7 +36,7 @@
     rgba(201, 223, 227, 1) 92%
   );
   transform: scale(0.9, 0.9);
-  padding: 25px;
+  padding: 15px;
   border-radius: 10px;
   transition: 0.3s ease-in-out;
 }
