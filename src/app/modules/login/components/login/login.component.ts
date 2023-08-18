@@ -65,6 +65,8 @@ export class LoginComponent {
 
             if (localStorage.getItem('userType') == 'Administrator') {
               this._router.navigateByUrl('/administrator');
+            } else if (localStorage.getItem('userType') == 'Farmer') {
+              this._router.navigateByUrl('/farmer/complaint-status');
             }
           },
           error: (err) => {

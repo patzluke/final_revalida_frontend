@@ -1,4 +1,4 @@
-import { Farmer } from "./farmer";
+import { Farmer } from './farmer';
 
 export interface FarmerComplaint {
   farmerComplaintId?: number;

@@ -50,6 +50,33 @@
           </a>
         </ng-container>
       </mat-nav-list>
+
+      <mat-nav-list [ngSwitch]="userType">
+        <ng-container *ngSwitchCase="'Farmer'">
+          <a mat-list-item routerLink="/farmer/crop-advertisements" class="mt-1">
+            <mat-icon class="nav-icon">rate_review</mat-icon>
+            <span class="white-text" *ngIf="!(isHandset$ | async)"
+              >Advertisements</span
+            >
+          </a>
+          <a mat-list-item routerLink="/farmer/complaint-status" class="mt-1">
+            <mat-icon class="nav-icon">notification_important</mat-icon>
+            <span class="white-text" *ngIf="!(isHandset$ | async)"
+              >Your Complaints</span
+            >
+          </a>
+          <a mat-list-item routerLink="/farmer/profile">
+            <mat-icon class="nav-icon">account_circle</mat-icon>
+            <span class="white-text" *ngIf="!(isHandset$ | async)"
+              >Profile</span
+            >
+          </a>
+          <a mat-list-item routerLink="/login" (click)="logout()">
+            <mat-icon class="nav-icon">exit_to_app</mat-icon>
+            <span class="white-text" *ngIf="!(isHandset$ | async)">Logout</span>
+          </a>
+        </ng-container>
+      </mat-nav-list>
     </div>
     <div class="content col">
       <ng-content></ng-content>
