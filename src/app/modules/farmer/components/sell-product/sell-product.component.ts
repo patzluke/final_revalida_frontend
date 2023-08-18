@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faAdd, faCancel, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sell-product',
@@ -7,6 +8,26 @@ import { Component } from '@angular/core';
 })
 export class SellProductComponent {
 
+  currentPage: number = 1;
+  itemsPerPage: number = 4; // Number of items to show per page
+
+  startIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  endIndex(): number {
+    return this.startIndex() + this.itemsPerPage;
+  }
+
+  changePage(newPage: number): void {
+    this.currentPage = newPage;
+  }
+
+
+  faAdd = faAdd
+  faCancel = faCancel
+  faPenToSquare = faPenToSquare
+  faTrash = faTrash
   suppliers: {
     crop_id: number,
     farmer_id: number,

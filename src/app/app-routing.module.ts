@@ -32,10 +32,14 @@ const routes: Routes = [
         (m) => m.WholesalerModule
       ),
   },
+  {
+    path: '',
+    loadChildren: () => import('./modules/course/course.module').then(m => m.CourseModule)
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

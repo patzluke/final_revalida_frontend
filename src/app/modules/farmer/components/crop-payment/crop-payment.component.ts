@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faClose, faCancel } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-crop-payment',
@@ -6,6 +7,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./crop-payment.component.scss']
 })
 export class CropPaymentComponent {
+
+  currentPage: number = 1;
+  itemsPerPage: number = 4; // Number of items to show per page
+
+  startIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  endIndex(): number {
+    return this.startIndex() + this.itemsPerPage;
+  }
+
+  changePage(newPage: number): void {
+    this.currentPage = newPage;
+  }
+
+
+  faClose = faClose
 
   payments: {
     payment_id: string,

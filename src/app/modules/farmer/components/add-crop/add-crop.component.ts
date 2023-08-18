@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faSave, faCancel } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-add-crop',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AddCropComponent {
 
+  faSave = faSave
+  faCancel = faCancel
 }

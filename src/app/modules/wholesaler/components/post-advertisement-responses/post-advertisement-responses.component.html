@@ -1,0 +1,86 @@
+<div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
+  <div class="main" data-aos="fade-right" data-aos-duration="333">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <p class="h1 mb-3 mt-3" data-aos="fade-right">
+            POST ADVERTISEMENT RESPONSES
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <table class="table">
+            <thead>
+              <tr>
+                <!-- <th scope="col" data-aos="fade-right">post_response_id</th>
+                <th scope="col" data-aos="fade-right">post_id</th> -->
+                <th scope="col" data-aos="fade-right">farmer_id</th>
+                <th scope="col" data-aos="fade-right">price</th>
+                <th scope="col" data-aos="fade-right">quantity</th>
+                <th scope="col" data-aos="fade-right">message</th>
+                <th scope="col" data-aos="fade-right">is_accepted</th>
+                <th scope="col" data-aos="fade-right">
+                  preferred_payment_mode
+                </th>
+                <th scope="col" data-aos="fade-right">date_created</th>
+                <th scope="col" data-aos="fade-right">date_modified</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="
+                  let response of responses.slice(startIndex(), endIndex())
+                "
+              >
+                <!-- <td data-aos="fade-right">{{ response.post_response_id }}</td>
+                <td data-aos="fade-right">{{ response.post_id }}</td> -->
+                <td data-aos="fade-right">{{ response.farmer_id }}</td>
+                <td data-aos="fade-right">{{ response.price }}</td>
+                <td data-aos="fade-right">{{ response.quantity }}</td>
+                <td data-aos="fade-right">{{ response.message }}</td>
+                <td data-aos="fade-right">{{ response.is_accepted }}</td>
+                <td data-aos="fade-right">
+                  {{ response.preferred_payment_mode }}
+                </td>
+                <td data-aos="fade-right">{{ response.date_created }}</td>
+                <td data-aos="fade-right">{{ response.date_modified }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="mb-3 mt-3">
+            <div class="pagination pagination-md justify-content-end">
+              <li class="page-item">
+                <button
+                  class="page-link"
+                  [disabled]="currentPage === 1"
+                  (click)="changePage(currentPage - 1)"
+                >
+                  Previous
+                </button>
+              </li>
+              <li class="page-item">
+                <button class="page-link" disabled>{{ currentPage }}</button>
+              </li>
+
+              <li class="page-item">
+                <button
+                  class="page-link"
+                  [disabled]="endIndex() >= responses.length"
+                  (click)="changePage(currentPage + 1)"
+                >
+                  Next
+                </button>
+              </li>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

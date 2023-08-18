@@ -17,6 +17,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { farmerComplaintReducer } from './states/farmercomplaint-state/farmercomplaint.reducer';
 import { FarmerComplaintEffects } from './states/farmercomplaint-state/farmercomplaint.effects';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { FarmerComplaintEffects } from './states/farmercomplaint-state/farmercom
     SharedModule,
     StoreModule.forFeature('SingleFarmerComplaintsList', farmerComplaintReducer),
     EffectsModule.forFeature([FarmerComplaintEffects]),
+    FontAwesomeModule
   ],
 })
 export class FarmerModule {}

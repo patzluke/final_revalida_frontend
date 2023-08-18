@@ -17,9 +17,20 @@
                 (click)="navigateToAddComplaint()"
               >
                 Add Complaint
-              </button>
-            </div>
-          </div>
+<div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
+  <div class="main" data-aos="fade-right" data-aos-duration="333">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <p
+            class="h1 mt-3 mb-3 text-light"
+            data-aos="fade-right"
+            data-aos-duration="333"
+          >
+            COMPLAINTS
+          </p>
+        </div>
+      </div>
           <div class="row">
             <div
               class="col-lg-3"
@@ -67,6 +78,36 @@
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="mb-3 mt-3">
+            <div class="pagination pagination-md justify-content-end">
+              <li class="page-item">
+                <button
+                  class="page-link"
+                  [disabled]="currentPage === 1"
+                  (click)="changePage(currentPage - 1)"
+                >
+                  Previous
+                </button>
+              </li>
+              <li class="page-item">
+                <button class="page-link" disabled>{{ currentPage }}</button>
+              </li>
+
+              <li class="page-item">
+                <button
+                  class="page-link"
+                  [disabled]="endIndex() >= complaints.length"
+                  (click)="changePage(currentPage + 1)"
+                >
+                  Next
+                </button>
+              </li>
             </div>
           </div>
         </div>

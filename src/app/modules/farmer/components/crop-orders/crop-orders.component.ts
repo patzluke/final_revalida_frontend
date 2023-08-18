@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faCheck, faCancel } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-crop-orders',
@@ -7,6 +8,24 @@ import { Component } from '@angular/core';
 })
 export class CropOrdersComponent {
 
+  currentPage: number = 1;
+  itemsPerPage: number = 4; // Number of items to show per page
+
+  startIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  endIndex(): number {
+    return this.startIndex() + this.itemsPerPage;
+  }
+
+  changePage(newPage: number): void {
+    this.currentPage = newPage;
+  }
+
+
+  faCancel = faCancel
+  faCheck = faCheck
   orders: {
     order_id_ref: string,
     crop_id: number,

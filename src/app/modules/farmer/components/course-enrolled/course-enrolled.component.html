@@ -14,12 +14,12 @@
       </div>
       <div class="row">
         <div
-          class="col-lg-6"
-          *ngFor="let course of courses"
+          class="col mb-3"
+          *ngFor="let course of courses.slice(startIndex(), endIndex())"
           data-aos="fade-right"
           data-aos-duration="333"
         >
-          <div class="items">
+          <div class="items" style="height: 100%">
             <p class="h4" data-aos="fade-right" data-aos-duration="333">
               {{ course.enrollment_id }}
             </p>
@@ -32,6 +32,36 @@
             <p data-aos="fade-right" data-aos-duration="333">
               {{ course.end_of_enrollment }}
             </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="mb-3 mt-3">
+            <div class="pagination pagination-md justify-content-end">
+              <li class="page-item">
+                <button
+                  class="page-link"
+                  [disabled]="currentPage === 1"
+                  (click)="changePage(currentPage - 1)"
+                >
+                  Previous
+                </button>
+              </li>
+              <li class="page-item">
+                <button class="page-link" disabled>{{ currentPage }}</button>
+              </li>
+
+              <li class="page-item">
+                <button
+                  class="page-link"
+                  [disabled]="endIndex() >= courses.length"
+                  (click)="changePage(currentPage + 1)"
+                >
+                  Next
+                </button>
+              </li>
+            </div>
           </div>
         </div>
       </div>
