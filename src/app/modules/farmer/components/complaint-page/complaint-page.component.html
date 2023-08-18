@@ -10,13 +10,13 @@
                 data-aos="fade-right"
                 data-aos-duration="333"
               >
-                COMPLAINT PAGE
+                COMPLAINT
               </p>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <form>
+              <form [formGroup]="addEditFarmerComplaintForm">
                 <div
                   class="form-floating mb-3 mt-3"
                   data-aos="fade-right"
@@ -26,6 +26,7 @@
                     id="complaint_title"
                     type="text"
                     class="form-control mb-4"
+                    formControlName="complaintTitle"
                   />
                   <label for="complaint_title">Title</label>
                 </div>
@@ -38,6 +39,7 @@
                     class="form-control"
                     placeholder="Leave a comment here"
                     id="complaint_message"
+                    formControlName="complaintMessage"
                     style="height: 333px"
                   ></textarea>
                   <label for="complaint_message">Leave a message</label>
@@ -45,8 +47,8 @@
                 <div class="d-flex flex-row-reverse mt-3">
                   <button
                     class="btn btn-primary w-100"
-                    data-aos="fade-right"
-                    data-aos-duration="333"
+                    type="button"
+                    (click)="addFarmingTipSubmit()"
                   >
                     Submit
                   </button>

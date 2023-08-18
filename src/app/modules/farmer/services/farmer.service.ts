@@ -22,7 +22,7 @@ export class FarmerService {
     );
   };
 
-  insertIntoFarmingTip = (FarmerComplaint: FarmerComplaint) => {
+  insertIntoFarmerComplaint = (FarmerComplaint: FarmerComplaint) => {
     return this.http.post<FarmerComplaint>(
       `${this.baseUrl}/farmer/insert/farmercomplaints`,
       FarmerComplaint

@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, switchMap, tap, of } from 'rxjs';
 import {
   FarmerComplaintActions,
+  addSingleFarmerComplaintState,
   setSingleFarmerComplaintState,
   updateSingleFarmerComplaintState,
 } from './farmercomplaint.actions';
@@ -35,6 +36,32 @@ export class FarmerComplaintEffects {
     },
     { dispatch: true }
   );
+
+  insertSingleFarmerComplaint$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FarmerComplaintActions.ADD_FARMERCOMPLAINT),
+      switchMap((data: { farmerComplaint: FarmerComplaint }) =>
+        this.farmerService.insertIntoFarmerComplaint(data.farmerComplaint).pipe(
+          map((farmerComplaint: FarmerComplaint) =>
+            addSingleFarmerComplaintState({
+              farmerComplaint: farmerComplaint,
+            })
+          ),
+          tap(() => {
+            Swal.fire('Success', "You've successfully replied!", 'success');
+          }),
+          catchError((error: HttpErrorResponse) => {
+            console.log(error, ' hey');
+
+            Swal.fire('Failed to Update!', `Something Went Wrong`, 'error');
+            return of({
+              type: FarmerComplaintActions.ADD_FARMERCOMPLAINT_FAILED,
+            });
+          })
+        )
+      )
+    );
+  });
 
   // updateSingleFarmerComplaintStatus$ = createEffect(() => {
   //   return this.actions$.pipe(

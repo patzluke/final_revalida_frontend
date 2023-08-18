@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import {
+  addSingleFarmerComplaintState,
   setSingleFarmerComplaintState,
   updateSingleFarmerComplaintState,
 } from './farmercomplaint.actions';
@@ -17,6 +18,12 @@ export const farmerComplaintReducer = createReducer(
   initialState,
   on(setSingleFarmerComplaintState, (state, { farmerComplaints }) => {
     return { ...state, farmerComplaints: farmerComplaints };
+  }),
+  on(addSingleFarmerComplaintState, (state, { farmerComplaint }) => {
+    return {
+      ...state,
+      farmerComplaints: [farmerComplaint, ...state.farmerComplaints],
+    };
   }),
   on(updateSingleFarmerComplaintState, (state, { farmerComplaint }) => {
     return {

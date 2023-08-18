@@ -18,6 +18,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { farmerComplaintReducer } from './states/farmercomplaint-state/farmercomplaint.reducer';
 import { FarmerComplaintEffects } from './states/farmercomplaint-state/farmercomplaint.effects';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FarmerRoutingModule,
     ChartModule,
     SharedModule,
+    ReactiveFormsModule,
+    FormsModule,
     StoreModule.forFeature(
       'SingleFarmerComplaintsList',
       farmerComplaintReducer
