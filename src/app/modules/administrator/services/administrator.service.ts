@@ -53,8 +53,4 @@ export class AdminService {
       farmerComplaint
     );
   };
-
-  isUserLoggedIn = () => {
-    return localStorage.getItem('token') || false;
-  };
 }

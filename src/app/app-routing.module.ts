@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { administratorUserGuard } from './guards/administrator-user.guard';
+import { farmerUserGuard } from './guards/farmer-user.guard';
+import { supplierUserGuard } from './guards/supplier-user.guard';
 
 const routes: Routes = [
   // landing
@@ -9,7 +12,8 @@ const routes: Routes = [
       import('./modules/landing/landing.module').then((m) => m.LandingModule),
   },
   {
-    path: '',
+    path: 'farmer',
+    canActivate: [farmerUserGuard],
     loadChildren: () =>
       import('./modules/farmer/farmer.module').then((m) => m.FarmerModule),
   },
@@ -20,13 +24,15 @@ const routes: Routes = [
   },
   {
     path: 'administrator',
+    canActivate: [administratorUserGuard],
     loadChildren: () =>
       import('./modules/administrator/administrator.module').then(
         (m) => m.AdministratorModule
       ),
   },
   {
-    path: '',
+    path: 'supplier',
+    canActivate: [supplierUserGuard],
     loadChildren: () =>
       import('./modules/wholesaler/wholesaler.module').then(
         (m) => m.WholesalerModule

@@ -14,7 +14,11 @@ import { ViewReportComponent } from './components/view-report/view-report.compon
 
 const routes: Routes = [
   {
-    path: 'complaints',
+    path: 'complaints/add',
+    component: ComplaintPageComponent
+  },
+  {
+    path: 'complaints/edit/:farmerComplaintId',
     component: ComplaintPageComponent
   },
   {
