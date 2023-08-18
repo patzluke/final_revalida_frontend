@@ -1,3 +1,22 @@
+<div class="background-pic">
+  <app-side-nav>
+    <div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
+      <div class="main" data-aos="fade-right" data-aos-duration="333">
+        <div class="container">
+          <div class="row">
+            <div class="col d-flex flex-row justify-content-between">
+              <p
+                class="h1 mt-3 mb-3 text-light"
+                data-aos="fade-right"
+                data-aos-duration="333"
+              >
+                COMPLAINTS
+              </p>
+              <button
+                class="btn btn-primary h-50"
+                (click)="navigateToAddComplaint()"
+              >
+                Add Complaint
 <div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
   <div class="main" data-aos="fade-right" data-aos-duration="333">
     <div class="container">
@@ -12,45 +31,53 @@
           </p>
         </div>
       </div>
-      <div class="row">
-        <div
-          class="col-lg-3 mb-3"
-          data-aos="fade-right"
-          data-aos-duration="333"
-          *ngFor="let complaint of complaints.slice(startIndex(), endIndex())"
-        >
-          <div class="items shadow" style="height: 100%">
-            <p data-aos="fade-right" data-aos-duration="333">
-              <strong>Complaint Ticket ID:</strong>
-              {{ complaint.complaintTicketId }}
-            </p>
-            <p data-aos="fade-right" data-aos-duration="333">
-              <strong>Complained For:</strong> {{ complaint.complainedFor }}
-            </p>
-            <p data-aos="fade-right" data-aos-duration="333">
-              <strong>Reason:</strong> {{ complaint.reason }}
-            </p>
-            <p
-              class="text-danger"
+          <div class="row">
+            <div
+              class="col-lg-3"
               data-aos="fade-right"
               data-aos-duration="333"
+              *ngFor="let complaint of farmerComplaints"
             >
-              <strong>Status:</strong> {{ complaint.status }}
-            </p>
-            <div class="mt-3">
-              <button
-                class="btn btn-danger"
-                [disabled]="complaint.status === 'READ'"
-                data-aos="fade-right"
-                data-aos-duration="333"
-              >
-                <fa-icon
-                  [icon]="faCancel"
-                  [animation]="'bounce'"
-                  [size]="'lg'"
-                ></fa-icon>
-                Cancel
-              </button>
+              <div class="items shadow">
+                <p data-aos="fade-right" data-aos-duration="333">
+                  <strong>Complaint Ticket ID:</strong>
+                  {{ complaint.farmerComplaintId }}
+                </p>
+                <p data-aos="fade-right" data-aos-duration="333">
+                  <strong>Complained For:</strong>
+                  {{ complaint.complaintTitle }}
+                </p>
+
+                <p
+                  class="text-danger"
+                  data-aos="fade-right"
+                  data-aos-duration="333"
+                >
+                  <strong>Status:</strong>
+                  {{ complaint.isRead ? "Read" : "Unread" }}
+                </p>
+                <p *ngIf="complaint.isRead">Date read:</p>
+                <p *ngIf="complaint.isRead">
+                  <i>{{ complaint.readDate | date : "MM/dd/yyyy h:mm aa" }}</i>
+                </p>
+                <div class="mt-3">
+                  <button
+                    class="btn btn-secondary me-2"
+                    data-aos="fade-right"
+                    data-aos-duration="333"
+                  >
+                    View
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    [disabled]="complaint.isRead == true"
+                    data-aos="fade-right"
+                    data-aos-duration="333"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -86,5 +113,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </app-side-nav>
 </div>

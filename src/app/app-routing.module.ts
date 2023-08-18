@@ -9,7 +9,7 @@ const routes: Routes = [
       import('./modules/landing/landing.module').then((m) => m.LandingModule),
   },
   {
-    path: '',
+    path: 'farmer',
     loadChildren: () =>
       import('./modules/farmer/farmer.module').then((m) => m.FarmerModule),
   },
@@ -27,7 +27,10 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('./modules/wholesaler/wholesaler.module').then(m => m.WholesalerModule)
+    loadChildren: () =>
+      import('./modules/wholesaler/wholesaler.module').then(
+        (m) => m.WholesalerModule
+      ),
   },
   {
     path: '',
