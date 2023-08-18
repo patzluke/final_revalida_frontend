@@ -27,16 +27,28 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('./modules/wholesaler/wholesaler.module').then(m => m.WholesalerModule)
+    loadChildren: () =>
+      import('./modules/wholesaler/wholesaler.module').then(
+        (m) => m.WholesalerModule
+      ),
   },
   {
     path: '',
-    loadChildren: () => import('./modules/course/course.module').then(m => m.CourseModule)
-  }
+    loadChildren: () =>
+      import('./modules/course/course.module').then((m) => m.CourseModule),
+  },
+  // registration
+  {
+    path: 'signup',
+    loadChildren: () =>
+      import('./modules/registration/registration.module').then(
+        (m) => m.RegistrationModule
+      ),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
