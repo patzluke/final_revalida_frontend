@@ -75,12 +75,15 @@
                 <div class="mt-3">
                   <button
                     class="btn btn-secondary me-2"
+                    type="button"
+                    (click)="navigateToEditComplaint(complaint.farmerComplaintId)"
                   >
                     View
                   </button>
                   <button
                     class="btn btn-danger"
                     [disabled]="complaint.isRead == true"
+                    (click)="cancelComplaint(complaint.farmerComplaintId)"
                   >
                     Cancel
                   </button>

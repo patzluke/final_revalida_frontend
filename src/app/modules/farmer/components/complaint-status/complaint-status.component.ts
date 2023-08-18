@@ -6,6 +6,7 @@ import { selectFarmerComplaints } from '../../states/farmercomplaint-state/farme
 import { FarmerComplaint } from '../../models/farmercomplaint';
 import { Router } from '@angular/router';
 import { faSave, faCancel } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-complaint-status',
@@ -13,7 +14,6 @@ import { faSave, faCancel } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./complaint-status.component.scss'],
 })
 export class ComplaintStatusComponent implements OnInit {
-
   currentPage: number = 1;
   itemsPerPage: number = 8; // Number of items to show per page
 
@@ -29,7 +29,7 @@ export class ComplaintStatusComponent implements OnInit {
     this.currentPage = newPage;
   }
 
-  faCancel = faCancel
+  faCancel = faCancel;
 
   farmerComplaints: FarmerComplaint[] = [];
 
@@ -44,7 +44,7 @@ export class ComplaintStatusComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch({
       type: FarmerComplaintActions.GET_SINGLE_FARMERCOMPLAINTS,
-      farmerId: 1,
+      farmerId: localStorage.getItem('userNo'),
     });
 
     this.selectFarmerComplaints$.subscribe((data) => {
@@ -53,6 +53,29 @@ export class ComplaintStatusComponent implements OnInit {
   }
 
   navigateToAddComplaint() {
-    this._router.navigateByUrl('/farmer/complaints');
+    this._router.navigateByUrl('/farmer/complaints/add');
+  }
+
+  navigateToEditComplaint(farmerComplaintId: any) {
+    this._router.navigateByUrl(`/farmer/complaints/edit/${farmerComplaintId}`);
+  }
+
+  cancelComplaint(farmerComplaintId: any) {
+    Swal.fire({
+      title: 'Are you sure you want to cancel your complaint?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Save changes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.store.dispatch({
+          type: FarmerComplaintActions.UPDATE_FARMERCOMPLAINT_STATUS,
+          farmerComplaintId: farmerComplaintId,
+        });
+        Swal.fire('Saved!', 'Successfully deleted', 'success');
+      }
+    });
   }
 }

@@ -48,7 +48,7 @@ export class FarmerComplaintEffects {
             })
           ),
           tap(() => {
-            Swal.fire('Success', "You've successfully replied!", 'success');
+            Swal.fire('Success', 'Complaint Submitted', 'success');
           }),
           catchError((error: HttpErrorResponse) => {
             console.log(error, ' hey');
@@ -63,48 +63,44 @@ export class FarmerComplaintEffects {
     );
   });
 
-  // updateSingleFarmerComplaintStatus$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(FarmerComplaintActions.UPDATE_FARMERCOMPLAINT_STATUS),
-  //     switchMap((data: { farmerComplaint: FarmerComplaint }) =>
-  //       this.adminService.updateIntoFarmerComplaint(data.farmerComplaint).pipe(
-  //         map((farmerComplaint: FarmerComplaint) =>
-  //           updateFarmerComplaintState({
-  //             farmerComplaint: farmerComplaint,
-  //           })
-  //         )
-  //       )
-  //     )
-  //   );
-  // });
+  updateSingleFarmerComplaint$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FarmerComplaintActions.UPDATE_SINGLE_FARMERCOMPLAINT),
+      switchMap((data: { farmerComplaint: FarmerComplaint }) =>
+        this.farmerService.updateIntoFarmerComplaint(data.farmerComplaint).pipe(
+          map((farmerComplaint: FarmerComplaint) =>
+            updateSingleFarmerComplaintState({
+              farmerComplaint: farmerComplaint,
+            })
+          ),
+          tap(() => {
+            Swal.fire('Success', 'Successfully Updated!', 'success');
+          }),
+          catchError((error: HttpErrorResponse) => {
+            Swal.fire('Failed to Update!', `Something Went Wrong`, 'error');
+            return of({
+              type: FarmerComplaintActions.UPDATE_SINGLE_FARMERCOMPLAINT_FAILED,
+            });
+          })
+        )
+      )
+    );
+  });
 
-  // updateSingleFarmerComplaint$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(FarmerComplaintActions.UPDATE_FARMERCOMPLAINT),
-  //     switchMap((data: { farmerComplaint: FarmerComplaint }) =>
-  //       this.adminService.updateIntoFarmerComplaint(data.farmerComplaint).pipe(
-  //         map((farmerComplaint: FarmerComplaint) =>
-  //           updateFarmerComplaintState({
-  //             farmerComplaint: farmerComplaint,
-  //           })
-  //         ),
-  //         tap(() => {
-  //           Swal.fire(
-  //             'Success',
-  //             'You\'ve successfully replied!',
-  //             'success'
-  //           );
-  //         }),
-  //         catchError((error: HttpErrorResponse) => {
-  //           console.log(error, ' hey');
-
-  //           Swal.fire('Failed to Update!', `Something Went Wrong`, 'error');
-  //           return of({
-  //             type: FarmerComplaintActions.UPDATE_FARMERCOMPLAINT_FAILED,
-  //           });
-  //         })
-  //       )
-  //     )
-  //   );
-  // });
+  softDeleteSingleFarmerComplaint$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FarmerComplaintActions.UPDATE_FARMERCOMPLAINT_STATUS),
+      switchMap((data: { farmerComplaintId: number }) =>
+        this.farmerService
+          .softDeleteFarmerComplaint(data.farmerComplaintId)
+          .pipe(
+            map((farmerComplaint: FarmerComplaint) =>
+              updateSingleFarmerComplaintState({
+                farmerComplaint: farmerComplaint,
+              })
+            )
+          )
+      )
+    );
+  });
 }

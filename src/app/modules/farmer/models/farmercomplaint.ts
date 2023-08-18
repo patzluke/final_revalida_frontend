@@ -9,6 +9,7 @@ export interface FarmerComplaint {
   isResolved?: boolean;
   readDate?: string;
   dateSubmitted?: string;
+  activeDeactive?: boolean;
   farmer?: Farmer;
 
   //For inserting

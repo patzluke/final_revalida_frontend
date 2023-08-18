@@ -22,10 +22,23 @@ export class FarmerService {
     );
   };
 
-  insertIntoFarmerComplaint = (FarmerComplaint: FarmerComplaint) => {
+  insertIntoFarmerComplaint = (farmerComplaint: FarmerComplaint) => {
     return this.http.post<FarmerComplaint>(
       `${this.baseUrl}/farmer/insert/farmercomplaints`,
-      FarmerComplaint
+      farmerComplaint
+    );
+  };
+
+  updateIntoFarmerComplaint = (farmerComplaint: FarmerComplaint) => {
+    return this.http.put<FarmerComplaint>(
+      `${this.baseUrl}/farmer/update/farmercomplaints`,
+      farmerComplaint
+    );
+  };
+
+  softDeleteFarmerComplaint = (farmerComplaintId: number) => {
+    return this.http.delete<FarmerComplaint>(
+      `${this.baseUrl}/farmer/delete/farmercomplaints/${farmerComplaintId}`
     );
   };
 

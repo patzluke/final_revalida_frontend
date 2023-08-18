@@ -1,4 +1,4 @@
-import { Farmer } from "./farmer";
+import { Farmer } from './farmer';
 
 export interface FarmerComplaint {
   farmerComplaintId?: number;
@@ -9,5 +9,6 @@ export interface FarmerComplaint {
   isResolved?: boolean;
   readDate?: string;
   dateSubmitted?: string;
+  activeDeactive?: boolean;
   farmer?: Farmer;
 }
