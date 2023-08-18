@@ -27,6 +27,11 @@ export const setSingleFarmerComplaintState = createAction(
   props<{ farmerComplaints: FarmerComplaint[] }>()
 );
 //--------------------------------------------------------------------
+export const addSingleFarmerComplaintState = createAction(
+  FarmerComplaintActions.ADD_FARMERCOMPLAINT_SUCCESS,
+  props<{ farmerComplaint: FarmerComplaint }>()
+);
+//--------------------------------------------------------------------
 export const updateSingleFarmerComplaintState = createAction(
   FarmerComplaintActions.UPDATE_FARMERCOMPLAINT_STATUS_SUCCESS,
   props<{ farmerComplaint: FarmerComplaint }>()
