@@ -1,0 +1,553 @@
+<!-- <app-header></app-header> -->
+<section class="signup-section">
+  <div class="container">
+    <p-card>
+      <div class="content">
+        <div class="left-container">
+          <div>
+            <div class="icon-container">
+              <h1 class="logo" routerLink="/home">
+                <div class="letter">A</div>
+                <div class="letter">g</div>
+                <div class="letter">r</div>
+                <div class="letter">i</div>
+                <div class="letter">B</div>
+                <div class="letter">r</div>
+                <div class="letter">i</div>
+                <div class="letter">d</div>
+                <div class="letter">g</div>
+                <div class="letter">e</div>
+              </h1>
+            </div>
+
+            <div class="sub-text">
+              <h1><b>Create your account</b></h1>
+              <p>
+                Already have an account?
+                <span class="signin-link" routerLink="/login">Sign in</span>
+              </p>
+            </div>
+          </div>
+
+          <p-tabView [(activeIndex)]="activeIndex">
+            <p-tabPanel header="Personal Info">
+              <h4><i>Required Fields *</i></h4>
+              <form [formGroup]="personalInfoForm">
+                <div class="form-field">
+                  <label>Creating an account as *</label>
+                  <div>
+                    <p-dropdown
+                      [ngClass]="{
+                        'spec-field':
+                          personalInfoForm.controls['userType'].invalid &&
+                          (personalInfoForm.controls['userType'].dirty ||
+                            personalInfoForm.controls['userType'].touched)
+                      }"
+                      formControlName="userType"
+                      placeholder="Select account type"
+                      [options]="userType"
+                      optionLabel="type"
+                      optionValue="type"
+                    ></p-dropdown>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>Username*</label>
+                  <div>
+                    <input
+                      [ngClass]="{
+                        'invalid-field':
+                          personalInfoForm.controls['username'].invalid &&
+                          (personalInfoForm.controls['username'].dirty ||
+                            personalInfoForm.controls['username'].touched)
+                      }"
+                      formControlName="username"
+                      type="text"
+                      pInputText
+                    />
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>Password *</label>
+                  <div>
+                    <p-password
+                      [ngClass]="{
+                        'spec-field':
+                          personalInfoForm.controls['password'].invalid &&
+                          (personalInfoForm.controls['password'].dirty ||
+                            personalInfoForm.controls['password'].touched)
+                      }"
+                      formControlName="password"
+                      [toggleMask]="true"
+                    ></p-password>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>First name *</label>
+                  <div>
+                    <input
+                      [ngClass]="{
+                        'invalid-field':
+                          personalInfoForm.controls['firstName'].invalid &&
+                          (personalInfoForm.controls['firstName'].dirty ||
+                            personalInfoForm.controls['firstName'].touched)
+                      }"
+                      formControlName="firstName"
+                      type="text"
+                      pInputText
+                    />
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>Middle name </label>
+                  <div>
+                    <input
+                      formControlName="middleName"
+                      type="text"
+                      pInputText
+                    />
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>Last name *</label>
+                  <div>
+                    <input
+                      [ngClass]="{
+                        'invalid-field':
+                          personalInfoForm.controls['lastName'].invalid &&
+                          (personalInfoForm.controls['lastName'].dirty ||
+                            personalInfoForm.controls['lastName'].touched)
+                      }"
+                      formControlName="lastName"
+                      type="text"
+                      pInputText
+                    />
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>Birthdate *</label>
+                  <div>
+                    <p-calendar
+                      [ngClass]="{
+                        'spec-field':
+                          personalInfoForm.controls['birthdate'].invalid &&
+                          (personalInfoForm.controls['birthdate'].dirty ||
+                            personalInfoForm.controls['birthdate'].touched)
+                      }"
+                      formControlName="birthdate"
+                      [showIcon]="true"
+                      [maxDate]="dateToday"
+                    ></p-calendar>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>Gender *</label>
+                  <div>
+                    <p-dropdown
+                      [ngClass]="{
+                        'spec-field':
+                          personalInfoForm.controls['gender'].invalid &&
+                          (personalInfoForm.controls['gender'].dirty ||
+                            personalInfoForm.controls['gender'].touched)
+                      }"
+                      formControlName="gender"
+                      placeholder="Select gender"
+                      [options]="genders"
+                      optionLabel="gender"
+                      optionValue="gender"
+                    ></p-dropdown>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>Nationality *</label>
+                  <div>
+                    <input
+                      [ngClass]="{
+                        'invalid-field':
+                          personalInfoForm.controls['nationality'].invalid &&
+                          (personalInfoForm.controls['nationality'].dirty ||
+                            personalInfoForm.controls['nationality'].touched)
+                      }"
+                      formControlName="nationality"
+                      type="text"
+                      pInputText
+                    />
+                  </div>
+                </div>
+              </form>
+
+              <div class="action-container">
+                <!-- <div class="action-container"> -->
+                <button
+                  pButton
+                  label="Next"
+                  class="next-btn"
+                  (click)="moveToContactDetailsTab()"
+                ></button>
+              </div>
+            </p-tabPanel>
+
+            <p-tabPanel
+              header="Contact Details"
+              [disabled]="personalInfoForm.invalid"
+            >
+              <h4><i>Required Fields *</i></h4>
+              <form [formGroup]="contactDetailsForm">
+                <div class="form-field">
+                  <label>Region *</label>
+                  <div *ngIf="regions | async as regions">
+                    <p-dropdown
+                      [ngClass]="{
+                        'spec-field':
+                          contactDetailsForm.controls['region'].invalid &&
+                          (contactDetailsForm.controls['region'].dirty ||
+                            contactDetailsForm.controls['region'].touched)
+                      }"
+                      formControlName="region"
+                      [filter]="true"
+                      filterBy="name"
+                      [options]="regions"
+                      placeholder="Select region"
+                      optionLabel="name"
+                      (ngModelChange)="populateProvince()"
+                    >
+                      <ng-template
+                        let-region
+                        pTemplate="group"
+                        optionValue="region"
+                      >
+                        <p>{{ region.name }}</p>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>Province *</label>
+                  <div>
+                    <p-dropdown
+                      [ngClass]="{
+                        'spec-field':
+                          contactDetailsForm.controls['province'].invalid &&
+                          (contactDetailsForm.controls['province'].dirty ||
+                            contactDetailsForm.controls['province'].touched)
+                      }"
+                      formControlName="province"
+                      [filter]="true"
+                      filterBy="name"
+                      [options]="(filteredProvinces | async)!"
+                      placeholder="Select province"
+                      optionLabel="name"
+                      (ngModelChange)="populateCities()"
+                    >
+                      <ng-template
+                        let-province
+                        pTemplate="group"
+                        optionValue="province"
+                      >
+                        <p>{{ province.name }}</p>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>City/Municipality *</label>
+                  <div>
+                    <p-dropdown
+                      [ngClass]="{
+                        'spec-field':
+                          contactDetailsForm.controls['city'].invalid &&
+                          (contactDetailsForm.controls['city'].dirty ||
+                            contactDetailsForm.controls['city'].touched)
+                      }"
+                      formControlName="city"
+                      [filter]="true"
+                      filterBy="name"
+                      [options]="(filteredCities | async)!"
+                      placeholder="Select city"
+                      optionLabel="name"
+                      (ngModelChange)="populateBarangays()"
+                    >
+                      <ng-template
+                        let-city
+                        pTemplate="group"
+                        optionValue="city"
+                      >
+                        <p>{{ city.name }}</p>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>Barangay *</label>
+                  <div>
+                    <p-dropdown
+                      [ngClass]="{
+                        'spec-field':
+                          contactDetailsForm.controls['barangay'].invalid &&
+                          (contactDetailsForm.controls['barangay'].dirty ||
+                            contactDetailsForm.controls['barangay'].touched)
+                      }"
+                      formControlName="barangay"
+                      [filter]="true"
+                      filterBy="name"
+                      [options]="(filteredBarangays | async)!"
+                      placeholder="Select a barangay"
+                      optionLabel="name"
+                    >
+                      <ng-template
+                        let-barangay
+                        pTemplate="group"
+                        optionValue="barangay"
+                      >
+                        <p>{{ barangay.name }}</p>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>House No./Bldg.Street/Village *</label>
+                  <div>
+                    <input
+                      [ngClass]="{
+                        'invalid-field':
+                          contactDetailsForm.controls['houseNo'].invalid &&
+                          (contactDetailsForm.controls['houseNo'].dirty ||
+                            contactDetailsForm.controls['houseNo'].touched)
+                      }"
+                      formControlName="houseNo"
+                      type="text"
+                      pInputText
+                      (ngModelChange)="addressValue()"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>Complete address</label>
+                  <div>
+                    <textarea
+                      type="text"
+                      pInputText
+                      [value]="address"
+                      [disabled]="true"
+                    >
+                    </textarea>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>Email address *</label>
+                  <div>
+                    <input
+                      [ngClass]="{
+                        'invalid-field':
+                          contactDetailsForm.controls['email'].invalid &&
+                          (contactDetailsForm.controls['email'].dirty ||
+                            contactDetailsForm.controls['email'].touched)
+                      }"
+                      formControlName="email"
+                      type="text"
+                      pInputText
+                    />
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>Contact number *</label>
+                  <div>
+                    <input
+                      [ngClass]="{
+                        'invalid-field':
+                          contactDetailsForm.controls['contactNo'].invalid &&
+                          (contactDetailsForm.controls['contactNo'].dirty ||
+                            contactDetailsForm.controls['contactNo'].touched)
+                      }"
+                      formControlName="contactNo"
+                      type="text"
+                      pInputText
+                      [(ngModel)]="formattedContactNo"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-field" style="margin-top: 1rem">
+                  <label>Social media accounts</label>
+                  <div>
+                    <ng-container formArrayName="socials">
+                      <div
+                        *ngFor="
+                          let control of socialsFormArray.controls;
+                          let i = index
+                        "
+                      >
+                        <div class="input-form-day">
+                          <p-dropdown
+                            [options]="socialType"
+                            optionLabel="type"
+                            [formControlName]="i"
+                            placeholder="Select social"
+                            [editable]="true"
+                            class="form-array-dp"
+                          >
+                            <ng-template let-socialType pTemplate="item">
+                              <div class="social-dropdown-item">
+                                <img
+                                  class="social-logo"
+                                  [src]="getSocialLogoUrl(socialType.type)"
+                                />
+                                {{ socialType.type }}
+                              </div>
+                            </ng-template>
+                          </p-dropdown>
+                          <button
+                            pButton
+                            icon="pi pi-times"
+                            class="delete-btn p-button-rounded p-button-danger"
+                            (click)="deleteSocial(i)"
+                          ></button>
+                        </div>
+                      </div>
+
+                      <button
+                        pButton
+                        icon="pi pi-check"
+                        label="add another"
+                        class="add-btn p-button-rounded"
+                        (click)="addSocial()"
+                      ></button>
+                    </ng-container>
+                  </div>
+                </div>
+              </form>
+
+              <div class="action-container">
+                <button
+                  pButton
+                  type="button"
+                  label="Previous"
+                  class="p-button-secondary"
+                  (click)="activeIndex = 0"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  label="Next"
+                  class="next-btn"
+                  (click)="moveToReviewTab()"
+                ></button>
+              </div>
+            </p-tabPanel>
+
+            <p-tabPanel header="Review" [disabled]="contactDetailsForm.invalid">
+              <div>
+                <div class="result-div">
+                  <p><b>Creating an account as:</b></p>
+                  <h4>
+                    {{ personalInfoForm.get("userType")?.value }}
+                  </h4>
+                </div>
+
+                <div class="result-div">
+                  <p><b>Full name:</b></p>
+                  <h4>
+                    {{
+                      personalInfoForm.get("firstName")?.value +
+                        " " +
+                        personalInfoForm.get("middleName")?.value +
+                        " " +
+                        personalInfoForm.get("lastName")?.value
+                    }}
+                  </h4>
+                </div>
+
+                <div class="result-div">
+                  <p><b>Birthdate:</b></p>
+                  <h4>
+                    {{
+                      personalInfoForm.get("birthdate")?.value
+                        | date : "MMMM dd, yyyy"
+                    }}
+                  </h4>
+                </div>
+
+                <div class="result-div">
+                  <p><b>Gender:</b></p>
+                  <h4>
+                    {{ personalInfoForm.get("gender")?.value }}
+                  </h4>
+                </div>
+
+                <div class="result-div">
+                  <p><b>Nationality:</b></p>
+                  <h4>
+                    {{ personalInfoForm.get("nationality")?.value }}
+                  </h4>
+                </div>
+
+                <div class="result-div">
+                  <p><b>Complete address:</b></p>
+                  <h4>
+                    {{ contactDetailsForm.get("address")?.value }}
+                  </h4>
+                </div>
+
+                <div class="result-div">
+                  <p><b>Email:</b></p>
+                  <h4>
+                    {{ contactDetailsForm.get("email")?.value }}
+                  </h4>
+                </div>
+
+                <div class="result-div">
+                  <p><b>Contact number:</b></p>
+                  <h4>
+                    {{ contactDetailsForm.get("contactNo")?.value }}
+                  </h4>
+                </div>
+
+                <div class="result-div">
+                  <p><b>Social media accounts:</b></p>
+                  <h4 *ngFor="let socialControl of socialsFormArray.controls">
+                    {{ socialControl.value }}
+                  </h4>
+                </div>
+              </div>
+
+              <div class="action-container">
+                <button
+                  pButton
+                  type="button"
+                  label="Previous"
+                  class="p-button-secondary"
+                  (click)="activeIndex = 1"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  label="Sign up"
+                  class="submit-btn"
+                  (click)="submit()"
+                ></button>
+              </div>
+            </p-tabPanel>
+          </p-tabView>
+        </div>
+
+        <div class="right-container">
+          <div class="signup-image"></div>
+        </div></div
+    ></p-card>
+  </div>
+</section>
