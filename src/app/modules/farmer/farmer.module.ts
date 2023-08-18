@@ -37,9 +37,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FarmerRoutingModule,
     ChartModule,
     SharedModule,
-    StoreModule.forFeature('SingleFarmerComplaintsList', farmerComplaintReducer),
+    StoreModule.forFeature(
+      'SingleFarmerComplaintsList',
+      farmerComplaintReducer
+    ),
     EffectsModule.forFeature([FarmerComplaintEffects]),
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
 })
 export class FarmerModule {}

@@ -1,5 +1,5 @@
-<div class="background-pic">
-  <app-side-nav>
+<app-side-nav>
+  <div class="background-pic">
     <div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
       <div class="main" data-aos="fade-right" data-aos-duration="333">
         <div class="container">
@@ -17,20 +17,9 @@
                 (click)="navigateToAddComplaint()"
               >
                 Add Complaint
-<div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
-  <div class="main" data-aos="fade-right" data-aos-duration="333">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <p
-            class="h1 mt-3 mb-3 text-light"
-            data-aos="fade-right"
-            data-aos-duration="333"
-          >
-            COMPLAINTS
-          </p>
-        </div>
-      </div>
+              </button>
+            </div>
+          </div>
           <div class="row">
             <div
               class="col-lg-3"
@@ -38,7 +27,16 @@
               data-aos-duration="333"
               *ngFor="let complaint of farmerComplaints"
             >
-              <div class="items shadow">
+              <div
+                class="items shadow"
+                style="min-width: 250px; min-height: 220px"
+              >
+                <p *ngIf="complaint.isRead" style="font-size: x-small">
+                  <i
+                    >Date read:
+                    {{ complaint.readDate | date : "MM/dd/yyyy h:mm aa" }}</i
+                  >
+                </p>
                 <p data-aos="fade-right" data-aos-duration="333">
                   <strong>Complaint Ticket ID:</strong>
                   {{ complaint.farmerComplaintId }}
@@ -49,17 +47,31 @@
                 </p>
 
                 <p
-                  class="text-danger"
+                  *ngIf="!complaint.isRead"
+                  [class]="'text-danger'"
                   data-aos="fade-right"
                   data-aos-duration="333"
                 >
                   <strong>Status:</strong>
                   {{ complaint.isRead ? "Read" : "Unread" }}
                 </p>
-                <p *ngIf="complaint.isRead">Date read:</p>
-                <p *ngIf="complaint.isRead">
-                  <i>{{ complaint.readDate | date : "MM/dd/yyyy h:mm aa" }}</i>
+                <p
+                  *ngIf="complaint.isRead"
+                  [class]="
+                    complaint.isResolved ? 'text-success' : 'text-secondary'
+                  "
+                  data-aos="fade-right"
+                  data-aos-duration="333"
+                >
+                  <strong>Status:</strong>
+                  {{ complaint.isRead ? "Read" : "Unread" }}
+                  <ng-container *ngIf="complaint.isResolved"
+                    >({{
+                      complaint.isResolved ? "Resolved" : ""
+                    }})</ng-container
+                  >
                 </p>
+
                 <div class="mt-3">
                   <button
                     class="btn btn-secondary me-2"
@@ -71,8 +83,6 @@
                   <button
                     class="btn btn-danger"
                     [disabled]="complaint.isRead == true"
-                    data-aos="fade-right"
-                    data-aos-duration="333"
                   >
                     Cancel
                   </button>
@@ -81,37 +91,37 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="mb-3 mt-3">
-            <div class="pagination pagination-md justify-content-end">
-              <li class="page-item">
-                <button
-                  class="page-link"
-                  [disabled]="currentPage === 1"
-                  (click)="changePage(currentPage - 1)"
-                >
-                  Previous
-                </button>
-              </li>
-              <li class="page-item">
-                <button class="page-link" disabled>{{ currentPage }}</button>
-              </li>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3 mt-3">
+              <div class="pagination pagination-md justify-content-end">
+                <li class="page-item">
+                  <button
+                    class="page-link"
+                    [disabled]="currentPage === 1"
+                    (click)="changePage(currentPage - 1)"
+                  >
+                    Previous
+                  </button>
+                </li>
+                <li class="page-item">
+                  <button class="page-link" disabled>{{ currentPage }}</button>
+                </li>
 
-              <li class="page-item">
-                <button
-                  class="page-link"
-                  [disabled]="endIndex() >= complaints.length"
-                  (click)="changePage(currentPage + 1)"
-                >
-                  Next
-                </button>
-              </li>
+                <li class="page-item">
+                  <button
+                    class="page-link"
+                    [disabled]="endIndex() >= farmerComplaints.length"
+                    (click)="changePage(currentPage + 1)"
+                  >
+                    Next
+                  </button>
+                </li>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </app-side-nav>
-</div>
+  </div>
+</app-side-nav>
