@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { FarmerComplaintState } from './farmercomplaint.reducer';
 
 export const selectFarmerComplaintState =
-  createFeatureSelector<FarmerComplaintState>('farmerComplaintsList');
+  createFeatureSelector<FarmerComplaintState>('SingleFarmerComplaintsList');
 
 export const selectFarmerComplaints = () =>
   createSelector(selectFarmerComplaintState, (state: FarmerComplaintState) =>

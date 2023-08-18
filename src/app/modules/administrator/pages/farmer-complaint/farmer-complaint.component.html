@@ -110,10 +110,13 @@
     <ng-template pTemplate="header">
       <tr>
         <th style="min-width: 15rem">
-          <div class="flex align-items-center">Farmer Name</div>
+          <div class="flex align-items-center">Title</div>
         </th>
         <th style="min-width: 15rem">
-          <div class="flex align-items-center">Date Submitted</div>
+          <div class="flex align-items-center text-center">Farmer Name</div>
+        </th>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center text-center">Date Submitted</div>
         </th>
         <th style="min-width: 15rem">
           <div class="flex align-items-center text-center">Status</div>
@@ -126,14 +129,18 @@
 
     <ng-template pTemplate="body" let-farmerComplaint>
       <tr>
-        <td style="width: 20%">
+        <td style="width: 35%">
+          {{ farmerComplaint.complaintTitle }}
+        </td>
+        <td style="width: 20%" class="text-center">
           <span class="ml-1 vertical-align-middle"
             >{{ farmerComplaint.farmer.user.lastName }}
             {{ farmerComplaint.farmer.user.firstName }}
             {{ farmerComplaint.farmer.user.middleName }}</span
           >
         </td>
-        <td style="width: 20%">
+
+        <td style="width: 20%" class="text-center">
           <span class="ml-1 vertical-align-middle">{{
             farmerComplaint.dateSubmitted | date : "MM/dd/yyyy h:mm aa"
           }}</span>

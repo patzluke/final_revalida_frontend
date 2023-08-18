@@ -1,72 +1,78 @@
-<div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
-  <div class="main" data-aos="fade-right" data-aos-duration="333">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <p class="h1 mb-3 text-light">CROP ADVERTISEMENTS</p>
-        </div>
-      </div>
-      <div class="row">
-        <div
-          class="col-lg-6 mb-3"
-          *ngFor="let post of posts.slice(startIndex(), endIndex())"
-          data-aos="fade-right"
-          data-aos-duration="333"
-        >
-          <div class="card" style="height: 100%">
-            <img
-              src="{{ post.crop_image }}"
-              class="card-img-top"
-              width="100%"
-            />
-            <div class="card-body">
-              <h2 class="card-title" data-aos="fade-right">
-                {{ post.crop_name }}
-              </h2>
-              <p class="card-text description" data-aos="fade-right">
-                {{ post.crop_description }}
-              </p>
+<div class="background-pic">
+  <app-side-nav>
+    <div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
+      <div class="main" data-aos="fade-right" data-aos-duration="333">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <p class="h1 mb-3 text-light">CROP ADVERTISEMENTS</p>
             </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <p data-aos="fade-right">
-                  <b>Quantity:</b>&nbsp; {{ post.quantity }}
-                </p>
-              </li>
-            </ul>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="mb-3 mt-3">
-            <div class="pagination pagination-md justify-content-end">
-              <li class="page-item">
-                <button
-                  class="page-link"
-                  [disabled]="currentPage === 1"
-                  (click)="changePage(currentPage - 1)"
-                >
-                  Previous
-                </button>
-              </li>
-              <li class="page-item">
-                <button class="page-link" disabled>{{ currentPage }}</button>
-              </li>
+          <div class="row">
+            <div
+              class="col-lg-6 mb-3"
+              *ngFor="let post of posts.slice(startIndex(), endIndex())"
+              data-aos="fade-right"
+              data-aos-duration="333"
+            >
+              <div class="card" style="height: 100%">
+                <img
+                  src="{{ post.crop_image }}"
+                  class="card-img-top"
+                  width="100%"
+                />
+                <div class="card-body">
+                  <h2 class="card-title" data-aos="fade-right">
+                    {{ post.crop_name }}
+                  </h2>
+                  <p class="card-text description" data-aos="fade-right">
+                    {{ post.crop_description }}
+                  </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <p data-aos="fade-right">
+                      <b>Quantity:</b>&nbsp; {{ post.quantity }}
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="mb-3 mt-3">
+                <div class="pagination pagination-md justify-content-end">
+                  <li class="page-item">
+                    <button
+                      class="page-link"
+                      [disabled]="currentPage === 1"
+                      (click)="changePage(currentPage - 1)"
+                    >
+                      Previous
+                    </button>
+                  </li>
+                  <li class="page-item">
+                    <button class="page-link" disabled>
+                      {{ currentPage }}
+                    </button>
+                  </li>
 
-              <li class="page-item">
-                <button
-                  class="page-link"
-                  [disabled]="endIndex() >= posts.length"
-                  (click)="changePage(currentPage + 1)"
-                >
-                  Next
-                </button>
-              </li>
+                  <li class="page-item">
+                    <button
+                      class="page-link"
+                      [disabled]="endIndex() >= posts.length"
+                      (click)="changePage(currentPage + 1)"
+                    >
+                      Next
+                    </button>
+                  </li>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </app-side-nav>
 </div>
