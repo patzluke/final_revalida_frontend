@@ -11,7 +11,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthenticateUserInterceptor } from './interceptors/authenticate-user.interceptor';
 
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -38,4 +37,4 @@ import { AuthenticateUserInterceptor } from './interceptors/authenticate-user.in
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
