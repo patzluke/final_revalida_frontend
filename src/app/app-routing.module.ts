@@ -32,7 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'supplier',
-    canActivate: [supplierUserGuard],
+    // canActivate: [supplierUserGuard],
     loadChildren: () =>
       import('./modules/wholesaler/wholesaler.module').then(
         (m) => m.WholesalerModule
