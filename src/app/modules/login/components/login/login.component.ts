@@ -70,6 +70,8 @@ export class LoginComponent {
               this._router.navigateByUrl('/administrator');
             } else if (localStorage.getItem('userType') == 'Farmer') {
               this._router.navigateByUrl('/farmer/complaint-status');
+            } else if (localStorage.getItem('userType') == 'Supplier') {
+              this._router.navigateByUrl('/supplier/post-advertisement');
             }
           },
           error: (err) => {

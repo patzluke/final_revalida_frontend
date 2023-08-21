@@ -5,6 +5,8 @@ import { PostAdvertisementComponent } from './components/post-advertisement/post
 import { PostAdvertisementResponsesComponent } from './components/post-advertisement-responses/post-advertisement-responses.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReportViewPageComponent } from './components/report-view-page/report-view-page.component';
+import { SharedModule } from '../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,7 +18,10 @@ import { ReportViewPageComponent } from './components/report-view-page/report-vi
   imports: [
     CommonModule,
     WholesalerRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class WholesalerModule { }
