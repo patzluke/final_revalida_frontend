@@ -52,9 +52,6 @@ export class PostAdvertisementEffects {
                 postAdvertisement: postAdvertisement,
               })
             ),
-            tap(() => {
-              Swal.fire('Success', 'Advertisement created', 'success');
-            }),
             catchError((error: HttpErrorResponse) => {
               console.log(error, ' hey');
               Swal.fire(
@@ -99,7 +96,7 @@ export class PostAdvertisementEffects {
 
   softDeletePostAdvertisement$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(PostAdvertisementActions.UPDATE_POSTADVERTISEMENT),
+      ofType(PostAdvertisementActions.DELETE_POSTADVERTISEMENT),
       switchMap((data: { postId: number }) =>
         this.supplierService.softDeletePostAdvertisement(data.postId).pipe(
           map((postAdvertisement: PostAdvertisement) =>

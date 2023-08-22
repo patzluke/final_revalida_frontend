@@ -7,6 +7,9 @@ import { FileDetails } from '../../models/fileDetails';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostAdvertisementActions } from '../../states/postadvertisement-state/postadvertisement.actions';
 import { PostAdvertisement } from '../../models/post-advertisement';
+import { selectPostAdvertisement } from '../../states/postadvertisement-state/postadvertisement.selectors';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-post-advertisement',
@@ -33,6 +36,8 @@ export class PostAdvertisementComponent implements OnInit {
     { crop_id: 'CROP0008', crop: 'Seed Banks' },
   ];
 
+  selectedPostAdvertisement!: PostAdvertisement;
+
   //Formgroups
   addEditPostAdvertisementForm: FormGroup;
 
@@ -43,14 +48,17 @@ export class PostAdvertisementComponent implements OnInit {
   fileDetails!: FileDetails;
   fileUris: Array<string> = [];
 
+  //selectors
+
   constructor(
     private store: Store,
     private supplierService: SupplierService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private _router: Router
   ) {
     this.addEditPostAdvertisementForm = fb.group({
       postId: [0, Validators.required],
-      cropImage: ['', Validators.required],
       cropName: ['', Validators.required],
       description: ['', Validators.required],
       quantity: [, Validators.required],
@@ -69,6 +77,26 @@ export class PostAdvertisementComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscription = interval(2500).subscribe(() => {});
+
+    this.store.dispatch({
+      type: PostAdvertisementActions.GET_POSTADVERTISEMENT,
+      supplierId: localStorage.getItem('userNo'),
+    });
+    this.activatedRoute.params.subscribe((data) => {
+      if (Object.keys(data).length != 0) {
+        this.store
+          .select(selectPostAdvertisement(data['postId']))
+          .subscribe((data) => {
+            this.selectedPostAdvertisement = data as PostAdvertisement;
+            this.addEditPostAdvertisementForm.patchValue({
+              ...data,
+              supplierId: data?.supplier?.supplierId,
+              cropSpecializationId:
+                data?.cropSpecialization?.cropSpecializationId,
+            });
+          });
+      }
+    });
   }
 
   onImageSelected(event: any): void {
@@ -80,27 +108,89 @@ export class PostAdvertisementComponent implements OnInit {
       this.imagePreviewUrl = e.target.result;
     };
     reader.readAsDataURL(selectedFile);
-    console.log(selectedFile);
-    console.log(this.selectedImage);
   }
 
-  addPostAdvertisement() {
-    let newAdvertisement: PostAdvertisement = {
-      ...this.addEditPostAdvertisementForm.value,
-      supplierId: localStorage.getItem('userNo'),
-    };
-
-    this.supplierService.upload(this.selectedImage).subscribe({
-      next: (value) => {
-        newAdvertisement.cropImage = `${value.fileUri.concat(value.fileName)}`;
-        this.store.dispatch({
-          type: PostAdvertisementActions.ADD_POSTADVERTISEMENT,
-          postAdvertisement: newAdvertisement,
-        });
-      },
-      error: (e) => {
-        console.log(e);
-      },
+  addEditPostAdvertisementSubmit() {
+    Swal.fire({
+      title: 'Are you sure you want to save changes?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Save changes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (this.selectedPostAdvertisement?.postId == undefined) {
+          let advertisement: PostAdvertisement = {
+            ...this.addEditPostAdvertisementForm.value,
+            supplierId: localStorage.getItem('userNo') as any,
+          };
+          this.supplierService.upload(this.selectedImage).subscribe({
+            next: (value) => {
+              advertisement.cropImage = `${value.fileUri.concat(
+                value.fileName
+              )}`;
+              this.store.dispatch({
+                type: PostAdvertisementActions.ADD_POSTADVERTISEMENT,
+                postAdvertisement: advertisement,
+              });
+              if (value) {
+                Swal.fire({
+                  title: 'Advertisement created! do you want to create more?',
+                  icon: 'success',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes',
+                  cancelButtonText: 'No',
+                }).then((result) => {
+                  if (!result.isConfirmed) {
+                    this._router.navigateByUrl(
+                      '/supplier/post-advertisement-list'
+                    );
+                  }
+                  this.addEditPostAdvertisementForm.reset();
+                  this._router
+                    .navigateByUrl('/', { skipLocationChange: true })
+                    .then(() => {
+                      this._router.navigate(['/supplier/post-advertisement']);
+                    });
+                });
+              }
+            },
+            error: (e) => {
+              console.log(e);
+            },
+          });
+        } else {
+          let advertisement: PostAdvertisement = {
+            ...this.addEditPostAdvertisementForm.value,
+            supplierId: localStorage.getItem('userNo') as any,
+            cropImage: this.selectedPostAdvertisement.cropImage,
+          };
+          if (this.selectedImage != undefined) {
+            this.supplierService.upload(this.selectedImage).subscribe({
+              next: (value) => {
+                advertisement.cropImage = `${value.fileUri.concat(
+                  value.fileName
+                )}`;
+                this.store.dispatch({
+                  type: PostAdvertisementActions.UPDATE_POSTADVERTISEMENT,
+                  postAdvertisement: advertisement,
+                });
+              },
+              error: (e) => {
+                console.log(e);
+              },
+            });
+          } else {
+            this.store.dispatch({
+              type: PostAdvertisementActions.UPDATE_POSTADVERTISEMENT,
+              postAdvertisement: advertisement,
+            });
+          }
+        }
+      }
     });
   }
 }
