@@ -32,7 +32,11 @@
               >Farming Tips</span
             >
           </a>
-          <a mat-list-item routerLink="/administrator/farmercomplaint" class="mt-1">
+          <a
+            mat-list-item
+            routerLink="/administrator/farmercomplaint"
+            class="mt-1"
+          >
             <mat-icon class="nav-icon">notification_important</mat-icon>
             <span class="white-text" *ngIf="!(isHandset$ | async)"
               >Complaints</span
@@ -53,7 +57,11 @@
 
       <mat-nav-list [ngSwitch]="userType">
         <ng-container *ngSwitchCase="'Farmer'">
-          <a mat-list-item routerLink="/farmer/crop-advertisements" class="mt-1">
+          <a
+            mat-list-item
+            routerLink="/farmer/crop-advertisements"
+            class="mt-1"
+          >
             <mat-icon class="nav-icon">rate_review</mat-icon>
             <span class="white-text" *ngIf="!(isHandset$ | async)"
               >Advertisements</span
@@ -61,9 +69,7 @@
           </a>
           <a mat-list-item routerLink="/farmer/sell-product" class="mt-1">
             <mat-icon class="nav-icon"> terrain</mat-icon>
-            <span class="white-text" *ngIf="!(isHandset$ | async)"
-              >Crops</span
-            >
+            <span class="white-text" *ngIf="!(isHandset$ | async)">Crops</span>
           </a>
           <a mat-list-item routerLink="/farmer/complaint-status" class="mt-1">
             <mat-icon class="nav-icon">notification_important</mat-icon>
@@ -86,7 +92,11 @@
 
       <mat-nav-list [ngSwitch]="userType">
         <ng-container *ngSwitchCase="'Supplier'">
-          <a mat-list-item routerLink="/supplier/post-advertisement" class="mt-1">
+          <a
+            mat-list-item
+            routerLink="/supplier/post-advertisement-list"
+            class="mt-1"
+          >
             <mat-icon class="nav-icon">local_mall</mat-icon>
             <span class="white-text" *ngIf="!(isHandset$ | async)"
               >Advertisements</span

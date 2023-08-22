@@ -3,24 +3,30 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { PostAdvertisementComponent } from './components/post-advertisement/post-advertisement.component';
 import { PostAdvertisementResponsesComponent } from './components/post-advertisement-responses/post-advertisement-responses.component';
+import { PostAdvertisementListComponent } from './components/post-advertisement-list/post-advertisement-list.component';
 
 const routes: Routes = [
   {
+    path: 'post-advertisement-list',
+    component: PostAdvertisementListComponent,
+  },
+  {
     path: 'post-advertisement',
-    component: PostAdvertisementComponent
+    component: PostAdvertisementComponent,
+  },
+  {
+    path: 'post-advertisement/:postId',
+    component: PostAdvertisementComponent,
   },
   {
     path: 'post-advertisement-responses',
-    component: PostAdvertisementResponsesComponent
-  }
-]
+    component: PostAdvertisementResponsesComponent,
+  },
+];
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes)
-  ],
-  exports: [RouterModule]
+  imports: [CommonModule, RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class WholesalerRoutingModule { }
+export class WholesalerRoutingModule {}
