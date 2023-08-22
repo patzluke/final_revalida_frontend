@@ -12,9 +12,9 @@
 
         <div class="row">
           <div class="col">
-            <form data-aos="fade-right">
+            <form data-aos="fade-right" [formGroup]="addEditPostAdvertisementForm">
               <div class="form-floating mb-3" data-aos="fade-right">
-                <select id="crop_specialization_id" class="form-select">
+                <select id="crop_specialization_id" class="form-select" formControlName="cropSpecializationId">
                   <option value="null">Select type...</option>
                   <option
                     [value]="[specialization.crop_id]"
@@ -31,10 +31,33 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="crop_name"
-                  placeholder="crop_name"
+                  id="cropName"
+                  formControlName="cropName"
+                  placeholder="cropName"
                 />
-                <label for="crop_name">Crop name</label>
+                <label for="cropName">Crop name</label>
+              </div>
+
+              <div class="form-floating mb-3" data-aos="fade-right">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="quantity"
+                  placeholder="quantity"
+                  formControlName="quantity"
+                />
+                <label for="quantity">Quantity</label>
+              </div>
+
+              <div class="form-floating mb-3" data-aos="fade-right">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="price"
+                  placeholder="price"
+                  formControlName="price"
+                />
+                <label for="price">Price</label>
               </div>
 
               <div class="form-floating mb-3" data-aos="fade-right">
@@ -43,20 +66,18 @@
                   id="description"
                   placeholder="description"
                   style="height: 300px"
+                  formControlName="description"
                 ></textarea>
                 <label for="description">Description</label>
               </div>
               <div class="input-group mb-3" data-aos="fade-right">
-                <input type="file" class="form-control" id="crop_image" />
-              </div>
-              <div class="form-floating mb-3" data-aos="fade-right">
                 <input
-                  type="number"
+                  #imageInput
+                  type="file"
                   class="form-control"
-                  id="quantity"
-                  placeholder="quantity"
+                  accept="image/*"
+                  (change)="onImageSelected($event)"
                 />
-                <label for="quantity">Quantity</label>
               </div>
               <div class="d-flex flex-row-reverse" data-aos="fade-right">
                 <button class="btn btn-danger ms-2" type="button">
@@ -67,7 +88,7 @@
                   ></fa-icon
                   >&nbsp;Cancel
                 </button>
-                <button class="btn btn-success" type="button">
+                <button class="btn btn-success" type="button" (click)="addPostAdvertisement()">
                   <fa-icon
                     [icon]="faSave"
                     [animation]="'bounce'"

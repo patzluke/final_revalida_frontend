@@ -19,6 +19,7 @@ export class FarmerComplaintComponent implements OnInit {
   loading: boolean = true;
 
   farmerComplaints: FarmerComplaint[] = [];
+  selectedReadDate: string | undefined = '';
 
   //Formgroups
   addEditFarmerComplaintForm: FormGroup;
@@ -75,6 +76,11 @@ export class FarmerComplaintComponent implements OnInit {
     });
     this.addEditFarmerComplaintForm.patchValue({ ...updatedFarmerComplaint });
     this.addEditFarmerComplaintForm.get('complaintMessage')?.disable();
+    this.selectFarmerComplaints$.subscribe({
+      next: (data) => {
+        this.selectedReadDate = data.find(complaint => complaint.farmerComplaintId == farmerComplaint.farmerComplaintId)?.readDate
+      },
+    });
   }
 
   editFarmerComplaintSubmit() {
