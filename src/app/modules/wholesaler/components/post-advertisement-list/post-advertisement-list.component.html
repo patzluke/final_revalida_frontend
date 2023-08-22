@@ -2,7 +2,7 @@
   <!-- Modal Edit Course -->
   <div
     class="modal fade"
-    id="editFarmerComplaint"
+    id="editpostAdvertisement"
     tabindex="-1"
     aria-labelledby="myModalLabel"
     aria-hidden="true"
@@ -10,7 +10,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editFarmerComplaintLabel">
+          <h5 class="modal-title" id="editpostAdvertisementLabel">
             Reply to Complaint
           </h5>
           <button
@@ -66,7 +66,6 @@
               type="button"
               class="btn btn-primary"
               data-bs-dismiss="modal"
-              (click)="editFarmerComplaintSubmit()"
             >
               Save changes
             </button>
@@ -78,7 +77,7 @@
 
   <p-table
     #dt1
-    [value]="farmerComplaints"
+    [value]="postAdvertisements"
     dataKey="id"
     [rows]="10"
     [showCurrentPageReport]="true"
@@ -87,9 +86,11 @@
     [paginator]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [globalFilterFields]="[
-      'farmer.user.lastName',
-      'farmer.user.firstName',
-      'farmer.user.middleName'
+      'cropName',
+      'supplier.user.lastName',
+      'supplier.user.firstName',
+      'supplier.user.middleName',
+      'quantity'
     ]"
   >
     <ng-template pTemplate="caption">
@@ -101,22 +102,31 @@
             (input)="dt1.filterGlobal(pInputText.value, 'contains')"
             placeholder="Search keyword"
           />
+          <button
+            class="btn btn-primary ms-1"
+            routerLink="/supplier/post-advertisement"
+          >
+            Add Advertisement
+          </button>
         </span>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
         <th style="min-width: 15rem">
-          <div class="flex align-items-center">Title</div>
+          <div class="flex align-items-center">Crop Name</div>
         </th>
         <th style="min-width: 15rem">
-          <div class="flex align-items-center text-center">Farmer Name</div>
+          <div class="flex align-items-center text-center">Supplier Name</div>
         </th>
         <th style="min-width: 15rem">
-          <div class="flex align-items-center text-center">Date Submitted</div>
+          <div class="flex align-items-center text-center">Quantity</div>
         </th>
         <th style="min-width: 15rem">
-          <div class="flex align-items-center text-center">Status</div>
+          <div class="flex align-items-center text-center">Price</div>
+        </th>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center text-center">Date Posted</div>
         </th>
         <th style="min-width: 15rem">
           <div class="flex align-items-center text-center">Action</div>
@@ -124,36 +134,49 @@
       </tr></ng-template
     >
 
-    <ng-template pTemplate="body" let-farmerComplaint>
+    <ng-template pTemplate="body" let-postAdvertisement>
       <tr>
-        <td style="width: 35%">
-          {{ farmerComplaint.complaintTitle }}
+        <td style="width: 17%">
+          {{ postAdvertisement.cropName }}
         </td>
-        <td style="width: 20%" class="text-center">
+        <td style="width: 17%" class="text-center">
           <span class="ml-1 vertical-align-middle"
-            >{{ farmerComplaint.farmer.user.lastName }}
-            {{ farmerComplaint.farmer.user.firstName }}
-            {{ farmerComplaint.farmer.user.middleName }}</span
+            >{{ postAdvertisement.supplier.user.lastName }}
+            {{ postAdvertisement.supplier.user.firstName }}
+            {{ postAdvertisement.supplier.user.middleName }}</span
           >
         </td>
 
         <td style="width: 20%" class="text-center">
           <span class="ml-1 vertical-align-middle">{{
-            farmerComplaint.dateSubmitted | date : "MM/dd/yyyy h:mm aa"
+            postAdvertisement.quantity
           }}</span>
         </td>
         <td style="width: 20%" class="text-center">
-          {{ farmerComplaint.isRead ? "Read" : "Unread" }}
-          ({{ farmerComplaint.isResovled ? "Resolved" : "Unresolved" }})
+          ₱{{ postAdvertisement.price | number : "1.2" }}
+        </td>
+        <td style="width: 20%" class="text-center">
+          {{ postAdvertisement.datePosted | date : "MM/dd/yyyy h:mm aa" }}
         </td>
         <td class="text-center" style="width: 5%">
           <p-button
-            (click)="selectFarmerComplaint(farmerComplaint)"
             type="button"
             data-bs-toggle="modal"
-            data-bs-target="#editFarmerComplaint"
+            data-bs-target="#editpostAdvertisement"
             icon="pi pi-eye"
             styleClass="p-button-rounded p-button-text"
+          ></p-button>
+          <p-button
+            [routerLink]="'/supplier/post-advertisement/' + postAdvertisement.postId"
+            type="button"
+            icon="pi pi-pencil"
+            styleClass="p-button-rounded p-button-text"
+          ></p-button>
+          <p-button
+          (click)="deleteAdvertisement(postAdvertisement)"
+            type="button"
+            icon="pi pi-times"
+            styleClass="p-button-rounded  p-button-danger p-button-text"
           ></p-button>
         </td>
       </tr>

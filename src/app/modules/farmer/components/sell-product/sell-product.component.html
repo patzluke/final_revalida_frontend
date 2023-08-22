@@ -1,105 +1,107 @@
-<div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
-  <div class="main" data-aos="fade-right" data-aos-duration="333">
-    <div class="container">
-      <div class="row">
-        <div class="col" data-aos="fade-right" data-aos-duration="333">
-          <p class="h1 header text-light">SELL PRODUCT</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="d-flex flex-row-reverse mt-3 mb-3 w-100">
-            <button
-              class="btn btn-primary"
-              data-aos="fade-right"
-              data-aos-duration="333"
-              [routerLink]="['/add-crop']"
-            >
-              <fa-icon
-                [icon]="faAdd"
-                [animation]="'bounce'"
-                [size]="'lg'"
-              ></fa-icon
-              >&nbsp; Add
-            </button>
+<app-side-nav>
+  <div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
+    <div class="main" data-aos="fade-right" data-aos-duration="333">
+      <div class="container">
+        <div class="row">
+          <div class="col" data-aos="fade-right" data-aos-duration="333">
+            <p class="h1 header text-light">PRODUCTS</p>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div
-          class="col-lg-6 mb-3"
-          *ngFor="let supplier of suppliers.slice(startIndex(), endIndex())"
-        >
-          <div class="card mb-3" data-aos="fade-right" style="height: 100%">
-            <img src="{{ supplier.crop_image }}" class="card-img-top" />
-            <div class="card-body">
-              <h2 class="card-title" data-aos="fade-right">
-                {{ supplier.crop_name }}
-              </h2>
-              <p class="card-text" data-aos="fade-right">
-                <b>Price</b><br />
-                {{ supplier.price }} <br />
-              </p>
-              <p class="card-text" data-aos="fade-right">
-                <b>Quantity</b><br />
-                {{ supplier.quantity }}
-              </p>
-              <div>
-                <button
-                  class="btn btn-success w-100 mb-3"
-                  [routerLink]="['/edit-crop']"
-                >
-                  <fa-icon
-                    [icon]="faPenToSquare"
-                    [animation]="'bounce'"
-                    [size]="'lg'"
-                  ></fa-icon
-                  >&nbsp; Update
-                </button>
-                <button class="btn btn-danger w-100 mb-3">
-                  <fa-icon
-                    [icon]="faTrash"
-                    [animation]="'bounce'"
-                    [size]="'lg'"
-                  ></fa-icon
-                  >&nbsp; Delete
-                </button>
+        <div class="row">
+          <div class="col">
+            <div class="d-flex flex-row-reverse mt-3 mb-3 w-100">
+              <button
+                class="btn btn-primary"
+                data-aos="fade-right"
+                data-aos-duration="333"
+                [routerLink]="['/add-crop']"
+              >
+                <fa-icon
+                  [icon]="faAdd"
+                  [animation]="'bounce'"
+                  [size]="'lg'"
+                ></fa-icon
+                >&nbsp; Add
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div
+            class="col-lg-6 mb-3"
+            *ngFor="let supplier of suppliers.slice(startIndex(), endIndex())"
+          >
+            <div class="card mb-3" data-aos="fade-right" style="height: 100%">
+              <img src="{{ supplier.crop_image }}" class="card-img-top" />
+              <div class="card-body">
+                <h2 class="card-title" data-aos="fade-right">
+                  {{ supplier.crop_name }}
+                </h2>
+                <p class="card-text" data-aos="fade-right">
+                  <b>Price</b><br />
+                  {{ supplier.price }} <br />
+                </p>
+                <p class="card-text" data-aos="fade-right">
+                  <b>Quantity</b><br />
+                  {{ supplier.quantity }}
+                </p>
+                <div>
+                  <button
+                    class="btn btn-success w-100 mb-3"
+                    [routerLink]="['/edit-crop']"
+                  >
+                    <fa-icon
+                      [icon]="faPenToSquare"
+                      [animation]="'bounce'"
+                      [size]="'lg'"
+                    ></fa-icon
+                    >&nbsp; Update
+                  </button>
+                  <button class="btn btn-danger w-100 mb-3">
+                    <fa-icon
+                      [icon]="faTrash"
+                      [animation]="'bounce'"
+                      [size]="'lg'"
+                    ></fa-icon
+                    >&nbsp; Delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col">
-          <div class="mb-3 mt-3">
-            <div class="pagination pagination-md justify-content-end">
-              <li class="page-item">
-                <button
-                  class="page-link"
-                  [disabled]="currentPage === 1"
-                  (click)="changePage(currentPage - 1)"
-                >
-                  Previous
-                </button>
-              </li>
-              <li class="page-item">
-                <button class="page-link" disabled>{{ currentPage }}</button>
-              </li>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3 mt-3">
+              <div class="pagination pagination-md justify-content-end">
+                <li class="page-item">
+                  <button
+                    class="page-link"
+                    [disabled]="currentPage === 1"
+                    (click)="changePage(currentPage - 1)"
+                  >
+                    Previous
+                  </button>
+                </li>
+                <li class="page-item">
+                  <button class="page-link" disabled>{{ currentPage }}</button>
+                </li>
 
-              <li class="page-item">
-                <button
-                  class="page-link"
-                  [disabled]="endIndex() >= suppliers.length"
-                  (click)="changePage(currentPage + 1)"
-                >
-                  Next
-                </button>
-              </li>
+                <li class="page-item">
+                  <button
+                    class="page-link"
+                    [disabled]="endIndex() >= suppliers.length"
+                    (click)="changePage(currentPage + 1)"
+                  >
+                    Next
+                  </button>
+                </li>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</app-side-nav>
