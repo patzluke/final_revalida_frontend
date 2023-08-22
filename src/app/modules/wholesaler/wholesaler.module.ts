@@ -7,6 +7,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReportViewPageComponent } from './components/report-view-page/report-view-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { postAdvertisementReducer } from './states/postadvertisement-state/postadvertisement.reducer';
+import { PostAdvertisementEffects } from './states/postadvertisement-state/postadvertisement.effects';
+
 
 
 @NgModule({
@@ -21,7 +26,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FontAwesomeModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forFeature(
+      'postAdvertisementList',
+      postAdvertisementReducer
+    ),
+    EffectsModule.forFeature([PostAdvertisementEffects]),
   ]
 })
 export class WholesalerModule { }

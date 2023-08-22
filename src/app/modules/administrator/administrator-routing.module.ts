@@ -16,7 +16,6 @@ const routes: Routes = [
   },
   {
     path: 'farmercomplaint',
-    canActivate:[farmerUserGuard],
     component: FarmerComplaintComponent,
   },
 ];

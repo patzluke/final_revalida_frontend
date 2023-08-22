@@ -21,12 +21,19 @@ export const farmerComplaintReducer = createReducer(
   on(updateFarmerComplaintState, (state, { farmerComplaint }) => {
     return {
       ...state,
-      farmerComplaints: state.farmerComplaints.map((oldFarmerComplaint) =>
-        oldFarmerComplaint.farmerComplaintId ==
-        farmerComplaint.farmerComplaintId
+      farmerComplaints: state.farmerComplaints.map((oldFarmerComplaint) => {
+        if (
+          oldFarmerComplaint.farmerComplaintId ==
+          farmerComplaint.farmerComplaintId
+        ) {
+          console.log(farmerComplaint, ' heyy');
+        }
+
+        return oldFarmerComplaint.farmerComplaintId ==
+          farmerComplaint.farmerComplaintId
           ? farmerComplaint
-          : oldFarmerComplaint
-      ),
+          : oldFarmerComplaint;
+      }),
     };
   })
 );
