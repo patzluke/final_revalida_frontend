@@ -66,7 +66,6 @@
               type="button"
               class="btn btn-primary"
               data-bs-dismiss="modal"
-              (click)="editFarmerComplaintSubmit()"
             >
               Save changes
             </button>
@@ -161,7 +160,6 @@
         </td>
         <td class="text-center" style="width: 5%">
           <p-button
-            (click)="selectFarmerComplaint(postAdvertisement)"
             type="button"
             data-bs-toggle="modal"
             data-bs-target="#editpostAdvertisement"
@@ -173,6 +171,12 @@
             type="button"
             icon="pi pi-pencil"
             styleClass="p-button-rounded p-button-text"
+          ></p-button>
+          <p-button
+          (click)="deleteAdvertisement(postAdvertisement)"
+            type="button"
+            icon="pi pi-times"
+            styleClass="p-button-rounded  p-button-danger p-button-text"
           ></p-button>
         </td>
       </tr>

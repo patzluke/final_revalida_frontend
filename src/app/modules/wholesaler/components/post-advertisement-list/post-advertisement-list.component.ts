@@ -10,6 +10,7 @@ import { selectFarmerComplaints } from 'src/app/modules/farmer/states/farmercomp
 import { PostAdvertisementActions } from '../../states/postadvertisement-state/postadvertisement.actions';
 import { selectPostAdvertisements } from '../../states/postadvertisement-state/postadvertisement.selectors';
 import { PostAdvertisement } from '../../models/post-advertisement';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-post-advertisement-list',
@@ -56,33 +57,22 @@ export class PostAdvertisementListComponent implements OnInit {
     });
   }
 
-  addFarmingTipSubmit() {
-    let addEditFarmingTipFormValues =
-      this.addEditFarmerComplaintForm.getRawValue();
-    let addFarmingTip: FarmingTip = {
-      farmingTipId: addEditFarmingTipFormValues.farmingTipId,
-      tipMessage: addEditFarmingTipFormValues.tipMessage,
-    };
-    this.store.dispatch({
-      type: FarmingTipActions.ADD_FARMINGTIP,
-      farmingTip: addFarmingTip,
-    });
-  }
-
-  selectFarmerComplaint(farmerComplaint: FarmerComplaint) {}
-
-  editFarmerComplaintSubmit() {
-    let addEditFarmerComplaintFormValues =
-      this.addEditFarmerComplaintForm.getRawValue();
-    let updatedFarmerComplaint: FarmerComplaint = {
-      farmerComplaintId: addEditFarmerComplaintFormValues.farmerComplaintId,
-      adminReplyMessage: addEditFarmerComplaintFormValues.adminReplyMessage,
-      isRead: addEditFarmerComplaintFormValues.isRead,
-    };
-
-    this.store.dispatch({
-      type: FarmerComplaintActions.UPDATE_FARMERCOMPLAINT,
-      farmerComplaint: updatedFarmerComplaint,
+  deleteAdvertisement(advertisement: PostAdvertisement) {
+    Swal.fire({
+      title: 'Are you sure you want to delete this?',
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.store.dispatch({
+          type: PostAdvertisementActions.DELETE_POSTADVERTISEMENT,
+          postId: advertisement.postId,
+        });
+      }
     });
   }
 }
