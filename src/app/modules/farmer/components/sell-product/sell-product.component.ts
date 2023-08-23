@@ -9,7 +9,7 @@ import { faAdd, faCancel, faPenToSquare, faTrash } from '@fortawesome/free-solid
 export class SellProductComponent {
 
   currentPage: number = 1;
-  itemsPerPage: number = 4; // Number of items to show per page
+  itemsPerPage: number = 3; // Number of items to show per page
 
   startIndex(): number {
     return (this.currentPage - 1) * this.itemsPerPage;

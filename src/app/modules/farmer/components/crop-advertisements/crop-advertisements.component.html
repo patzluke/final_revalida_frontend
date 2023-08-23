@@ -8,6 +8,7 @@
               <p class="h1 mb-3 text-light">CROP ADVERTISEMENTS</p>
             </div>
           </div>
+
           <div class="row">
             <div
               class="col-lg-6 mb-3"
@@ -27,6 +28,29 @@
                   </h2>
                   <p class="card-text description" data-aos="fade-right">
                     {{ post.description }}
+                    <ng-container
+                      *ngIf="!post.showFullDescription; else fullDescription"
+                    >
+                      {{ post.crop_description | slice : 1000 }}
+
+                      <button
+                        (click)="toggleDescription(post)"
+                        type="button"
+                        class="btn btn-outline-secondary"
+                      >
+                        Read More
+                      </button>
+                    </ng-container>
+                    <ng-template #fullDescription>
+                      {{ post.crop_description }}
+                      <button
+                        (click)="toggleDescription(post)"
+                        type="button"
+                        class="btn btn-outline-secondary"
+                      >
+                        Read Less
+                      </button>
+                    </ng-template>
                   </p>
                 </div>
                 <ul class="list-group list-group-flush">

@@ -1,0 +1,50 @@
+<div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
+  <div class="main" data-aos="fade-right" data-aos-duration="333">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="mb-3 mt-3">
+            <p class="h1">RESEND OTP</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <form>
+            <div class="mb-2">
+              <p class="h6">
+                <fa-icon [icon]="faKeyboard" [size]="'lg'"></fa-icon>&nbsp;OTP
+              </p>
+            </div>
+            <div class="mb-2">
+              <div class="d-flex flex-row-reverse input-group">
+                <div class="input-group">
+                  <input type="number" class="form-control" id="otp" />
+                  <button
+                    class="btn btn-success"
+                    type="button"
+                    [disabled]="resend"
+                    (click)="startTimer()"
+                  >
+                    Resend OTP
+                  </button>
+                </div>
+              </div>
+            </div>
+            <p [hidden]="!resend">You can resend in {{ timeLeft }}s</p>
+            <div class="mb-3">
+              <button
+                class="btn btn-primary"
+                type="button"
+                [hidden]="resend"
+                [routerLink]="['/forgot-password/new-password']"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

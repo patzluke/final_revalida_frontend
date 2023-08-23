@@ -43,10 +43,22 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/course/course.module').then((m) => m.CourseModule),
   },
+  // registration
+  {
+    path: 'signup',
+    loadChildren: () =>
+      import('./modules/registration/registration.module').then(
+        (m) => m.RegistrationModule
+      ),
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./modules/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
