@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import Swal from 'sweetalert2';
-import { faRightToBracket, faClose, faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faRightToBracket, faClose, faUser, faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +16,7 @@ export class LoginComponent {
   faClose = faClose
   faUser = faUser
   faLock = faLock
+  faLockOpen = faLockOpen
   showPassword: boolean = false;
   loginForm: FormGroup;
 
