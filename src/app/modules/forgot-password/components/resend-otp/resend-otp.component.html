@@ -33,7 +33,12 @@
             </div>
             <p [hidden]="!resend">You can resend in {{ timeLeft }}s</p>
             <div class="mb-3">
-              <button class="btn btn-primary" type="button" [hidden]="resend">
+              <button
+                class="btn btn-primary"
+                type="button"
+                [hidden]="resend"
+                [routerLink]="['/forgot-password/new-password']"
+              >
                 Submit
               </button>
             </div>
