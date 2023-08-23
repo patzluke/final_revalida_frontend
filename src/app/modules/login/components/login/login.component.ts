@@ -71,7 +71,7 @@ export class LoginComponent {
             } else if (localStorage.getItem('userType') == 'Farmer') {
               this._router.navigateByUrl('/farmer/complaint-status');
             } else if (localStorage.getItem('userType') == 'Supplier') {
-              this._router.navigateByUrl('/supplier/post-advertisement');
+              this._router.navigateByUrl('/supplier/post-advertisement-list');
             }
           },
           error: (err) => {

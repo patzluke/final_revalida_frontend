@@ -2,9 +2,9 @@ import { Farmer } from './farmer';
 import { PostAdvertisement } from './post-advertisement';
 
 export interface PostAdvertisementResponse {
-  postResponseId: string;
+  postResponseId: number;
   price: string;
-  quantity: number;
+  quantity: string;
   dateCreated: string;
   dateModified: string;
   isAccepted: boolean;

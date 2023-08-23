@@ -12,12 +12,21 @@
 
         <div class="row">
           <div class="col">
-            <form data-aos="fade-right" [formGroup]="addEditPostAdvertisementForm">
+            <form
+              data-aos="fade-right"
+              [formGroup]="addEditPostAdvertisementForm"
+            >
               <div class="form-floating mb-3" data-aos="fade-right">
-                <select id="crop_specialization_id" class="form-select" formControlName="cropSpecializationId">
+                <select
+                  id="crop_specialization_id"
+                  class="form-select"
+                  formControlName="cropSpecializationId"
+                >
                   <option value="0">Select type...</option>
                   <option
-                    *ngFor="let specialization of selectCropSpecializations$ | async"
+                    *ngFor="
+                      let specialization of selectCropSpecializations$ | async
+                    "
                     [value]="specialization.cropSpecializationId"
                   >
                     {{ specialization.specializationName }}
@@ -40,7 +49,7 @@
 
               <div class="form-floating mb-3" data-aos="fade-right">
                 <input
-                  type="number"
+                  type="text"
                   class="form-control"
                   id="quantity"
                   placeholder="quantity"
@@ -88,7 +97,11 @@
                   ></fa-icon
                   >&nbsp;Cancel
                 </button>
-                <button class="btn btn-success" type="button" (click)="addEditPostAdvertisementSubmit()">
+                <button
+                  class="btn btn-success"
+                  type="button"
+                  (click)="addEditPostAdvertisementSubmit()"
+                >
                   <fa-icon
                     [icon]="faSave"
                     [animation]="'bounce'"
