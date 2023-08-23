@@ -15,24 +15,28 @@
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px; /* Adjust the width as per your preference */
+  width: 8px;
+  /* Adjust the width as per your preference */
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background-color: #f1f1f1; /* Change the track background color */
+  background-color: #f1f1f1;
+  /* Change the track background color */
   border-radius: 10px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background-color: #888; /* Change the handle background color */
+  background-color: #888;
+  /* Change the handle background color */
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #555; /* Change the handle background color on hover */
+  background-color: #555;
+  /* Change the handle background color on hover */
 }
 
 .sidebar-expanded {
@@ -73,7 +77,7 @@
 
 .content {
   flex: 1;
-  padding: 20px;
+  // padding: 20px;
   overflow-y: auto;
 }
 
