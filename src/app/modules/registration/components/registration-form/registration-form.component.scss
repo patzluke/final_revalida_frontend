@@ -1,8 +1,21 @@
 .signup-section {
-  background-color: #e8f4ef;
-  padding-top: 5rem;
-  //padding-top: 10rem;
+  //background-color: #e8f4ef;
+  background-color: #18332f;
+
+  //padding-top: 5rem;
+  padding-top: 8rem;
   padding-bottom: 5rem;
+}
+
+.p-card,
+.p-tabview .p-tabview-panels,
+.p-tabview .p-tabview-nav {
+  // white
+  background-color: #e8f4ef;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background-color: #e8f4ef;
 }
 
 .icon-container {

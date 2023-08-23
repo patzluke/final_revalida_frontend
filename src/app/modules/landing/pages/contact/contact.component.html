@@ -1,1 +1,60 @@
-<p>contact works!</p>
+<app-header></app-header>
+<section class="section" style="padding-top: 6rem">
+  <div class="container">
+    <div class="contact-us">
+      <p-card>
+        <h1><b>Contact Us</b></h1>
+
+        <form [formGroup]="emailForm">
+          <div class="form-group-cus">
+            <label for="name">Name:</label>
+            <input
+              pInputText
+              id="name"
+              name="name"
+              required
+              placeholder="Your name.."
+              formControlName="name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input
+              pInputText
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="Email here.."
+              formControlName="email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message:</label>
+            <textarea
+              pInputText
+              id="message"
+              name="message"
+              required
+              placeholder="Write something here.."
+              formControlName="message"
+            ></textarea>
+          </div>
+
+          <div>
+            <button
+              pButton
+              class="send-btn"
+              label="Send Email"
+              (click)="submitForm()"
+            ></button>
+          </div>
+        </form>
+      </p-card>
+    </div>
+  </div>
+  <div class="wave-container2"></div>
+</section>
+<app-footer></app-footer>
