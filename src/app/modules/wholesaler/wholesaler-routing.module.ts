@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PostAdvertisementComponent } from './components/post-advertisement/post-advertisement.component';
 import { PostAdvertisementResponsesComponent } from './components/post-advertisement-responses/post-advertisement-responses.component';
 import { PostAdvertisementListComponent } from './components/post-advertisement-list/post-advertisement-list.component';
+import { PostAdvertisementResponseListComponent } from './components/post-advertisement-response-list/post-advertisement-response-list.component';
 
 const routes: Routes = [
   {
@@ -19,8 +20,8 @@ const routes: Routes = [
     component: PostAdvertisementComponent,
   },
   {
-    path: 'post-advertisement-responses',
-    component: PostAdvertisementResponsesComponent,
+    path: 'post-advertisement-responses-list/:postId',
+    component: PostAdvertisementResponseListComponent,
   },
 ];
 

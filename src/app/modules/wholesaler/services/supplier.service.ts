@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FileDetails } from '../models/fileDetails';
 import { PostAdvertisement } from '../models/post-advertisement';
+import { CropSpecialization } from '../models/crop-specialization';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,12 @@ export class SupplierService {
   softDeletePostAdvertisement = (postId: number) => {
     return this.http.delete<PostAdvertisement>(
       `${this.baseUrl}/supplier/delete/postadvertisement/${postId}`
+    );
+  };
+
+  selectAllCropSpecialization = () => {
+    return this.http.get<CropSpecialization[]>(
+      `${this.baseUrl}/supplier/get/cropspecialization`
     );
   };
 
