@@ -7,6 +7,7 @@ import { PostAdvertisement } from '../../models/post-advertisement';
 import { PostAdvertisementActions } from '../../states/postadvertisement-state/postadvertisement.actions';
 import { PostAdvertisementResponsesActions } from '../../states/postadvertisement-responses-state/postadvertisement-responses.actions';
 import { selectPostAdvertisementResponses } from '../../states/postadvertisement-responses-state/postadvertisement-responses.selectors';
+import { PostAdvertisementResponse } from '../../models/post-advertisement-response';
 
 @Component({
   selector: 'app-post-advertisement-response-list',
@@ -47,6 +48,18 @@ export class PostAdvertisementResponseListComponent implements OnInit {
         .subscribe((data) => {
           this.selectedPostAdvertisement = data;
         });
+    });
+  }
+
+  updateResponseIsAcceptedStatus(
+    advertisementResponse: PostAdvertisementResponse
+  ) {
+    let updatedAdvertisementResponse = { ...advertisementResponse };
+    updatedAdvertisementResponse.isAccepted =
+      updatedAdvertisementResponse.isAccepted ? false : true;
+    this.store.dispatch({
+      type: PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES,
+      postAdvertisementResponse: updatedAdvertisementResponse,
     });
   }
 }

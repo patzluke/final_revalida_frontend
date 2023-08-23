@@ -90,18 +90,21 @@
                         }}</a>
                         says :
                       </span>
-                      <i class="pull-right"
-                        ><a *ngIf="!response.isAccepted" href="#"><small>Accept Offer</small></a>
-                        <a  *ngIf="response.isAccepted" href="#"><small>Unaccept offer</small></a></i
-                      >
+                      <i class="pull-right">
+                        <a class="btn" (click)="updateResponseIsAcceptedStatus(response)"
+                          ><small>{{response.isAccepted ? 'Unaccept Offer' : 'Accept Offer'}}</small></a
+                        >
+                      </i>
                     </p>
                     <p>
                       <b>Offer: </b>
-                      <br>
-                      <b><i>Qty: </i> </b> {{response.quantity}},
-                      <b><i>Price: </i> </b> ₱{{response.price | number: "1.2"}}
-                      <br>
-                     {{response.message}}
+                      <br />
+                      <b><i>Qty: </i> </b> {{ response.quantity }},
+                      <b><i>Price: </i> </b> ₱{{
+                        response.price | number : "1.2"
+                      }}
+                      <br />
+                      {{ response.message }}
                     </p>
                   </div>
 

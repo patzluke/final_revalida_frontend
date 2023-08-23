@@ -51,6 +51,15 @@ export class SupplierService {
     );
   };
 
+  updatePostAdvertisementResponsesIsAcceptedStatus = (
+    advertisementResponse: PostAdvertisementResponse
+  ) => {
+    return this.http.put<PostAdvertisementResponse>(
+      `${this.baseUrl}/supplier/update/postadvertisementresponse`,
+      advertisementResponse
+    );
+  };
+
   upload(file: File): Observable<FileDetails> {
     const formData: FormData = new FormData();
     formData.append('file', file);
