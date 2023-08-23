@@ -1,0 +1,70 @@
+<div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
+  <div class="main" data-aos="fade-right" data-aos-duration="333">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="mb-2 mt-2">
+            <p class="h1">FORGOT PASSWORD</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <form>
+            <div class="form-floating mb-3">
+              <select class="form-select" id="userType">
+                <option selected>None</option>
+                <option value="Farmer">Farmer</option>
+                <option value="Supplier">Supplier/Wholesaler</option>
+              </select>
+              <label for="userType"
+                ><fa-icon [icon]="faUser"></fa-icon>&nbsp;What type of user are
+                you...</label
+              >
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="email"
+              />
+              <label for="email"
+                ><fa-icon [icon]="faEnvelope"></fa-icon>&nbsp;Email
+                address</label
+              >
+            </div>
+            <div class="mb-3">
+              <div class="d-flex flex-row-reverse">
+                <button
+                  class="btn btn-danger"
+                  [routerLink]="['/login']"
+                  type="button"
+                >
+                  <fa-icon
+                    [icon]="faCancel"
+                    [flip]="'vertical'"
+                    [animation]="'shake'"
+                  ></fa-icon
+                  >&nbsp;Cancel
+                </button>
+                <button
+                  class="btn btn-primary me-2"
+                  type="button"
+                  [routerLink]="['/forgot-password/resend-otp']"
+                >
+                  <fa-icon
+                    [icon]="faRightToBracket"
+                    [flip]="'vertical'"
+                    [animation]="'bounce'"
+                  ></fa-icon
+                  >&nbsp;Submit
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
