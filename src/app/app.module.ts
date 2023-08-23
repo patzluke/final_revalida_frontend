@@ -37,4 +37,4 @@ import { AuthenticateUserInterceptor } from './interceptors/authenticate-user.in
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
