@@ -19,6 +19,8 @@ import { farmerComplaintReducer } from './states/farmercomplaint-state/farmercom
 import { FarmerComplaintEffects } from './states/farmercomplaint-state/farmercomplaint.effects';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { postAdvertisementReducer } from './states/postadvertisement-state/postadvertisement.reducer';
+import { PostAdvertisementEffects } from './states/postadvertisement-state/postadvertisement.effects';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       'SingleFarmerComplaintsList',
       farmerComplaintReducer
     ),
-    EffectsModule.forFeature([FarmerComplaintEffects]),
+    StoreModule.forFeature(
+      'postAdvertisementList (Farmer Acc)',
+      postAdvertisementReducer
+    ),
+    EffectsModule.forFeature([FarmerComplaintEffects, PostAdvertisementEffects]),
     FontAwesomeModule,
   ],
 })

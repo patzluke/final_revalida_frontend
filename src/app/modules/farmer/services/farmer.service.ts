@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FarmerComplaint } from '../models/farmercomplaint';
+import { PostAdvertisement } from '../models/post-advertisement';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +40,12 @@ export class FarmerService {
   softDeleteFarmerComplaint = (farmerComplaintId: number) => {
     return this.http.delete<FarmerComplaint>(
       `${this.baseUrl}/farmer/delete/farmercomplaints/${farmerComplaintId}`
+    );
+  };
+
+  selectAllPostAdvertisements = () => {
+    return this.http.get<PostAdvertisement[]>(
+      `${this.baseUrl}/farmer/get/postadvertisements`
     );
   };
 

@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap } from 'rxjs';
+import { map, mergeMap, switchMap, catchError, of } from 'rxjs';
 import { SupplierService } from '../../services/supplier.service';
 import {
   PostAdvertisementResponsesActions,
   setPostAdvertisementResponsesState,
+  updatePostAdvertisementResponsesState,
 } from './postadvertisement-responses.actions';
+import Swal from 'sweetalert2';
+import { PostAdvertisementResponse } from '../../models/post-advertisement-response';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class PostAdvertisementResponsesEffects {
@@ -14,7 +18,7 @@ export class PostAdvertisementResponsesEffects {
     private supplierService: SupplierService
   ) {}
 
-  getPostAdvertisementResponses$ = createEffect(
+  getPostAdvertisementResponse$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(
@@ -35,4 +39,31 @@ export class PostAdvertisementResponsesEffects {
     },
     { dispatch: true }
   );
+
+  updatePostAdvertisementResponse$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(
+        PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES
+      ),
+      switchMap((data: { postAdvertisementResponse: PostAdvertisementResponse }) =>
+        this.supplierService
+          .updatePostAdvertisementResponsesIsAcceptedStatus(
+            data.postAdvertisementResponse
+          )
+          .pipe(
+            map((postAdvertisementResponse: PostAdvertisementResponse) =>
+            updatePostAdvertisementResponsesState({
+              postAdvertisementResponse: postAdvertisementResponse,
+              })
+            ),
+            catchError((error: HttpErrorResponse) => {
+              Swal.fire('Failed to Update!', `Something Went Wrong`, 'error');
+              return of({
+                type: PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES_FAILED,
+              });
+            })
+          )
+      )
+    );
+  });
 }
