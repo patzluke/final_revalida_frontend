@@ -28,7 +28,7 @@
                   </h2>
                   <p class="card-text description" data-aos="fade-right">
                     {{ post.description }}
-                    <ng-container
+                    <!-- <ng-container
                       *ngIf="!post.showFullDescription; else fullDescription"
                     >
                       {{ post.crop_description | slice : 1000 }}
@@ -50,13 +50,14 @@
                       >
                         Read Less
                       </button>
-                    </ng-template>
+                    </ng-template> -->
                   </p>
                 </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
                     <p data-aos="fade-right">
-                      <b>Quantity:</b>&nbsp; {{ post.quantity }}
+                      <b>Qty:</b>&nbsp; {{ post.quantity }},
+                      <b>Price:</b>&nbsp; ₱{{ post.price | number: "1.2" }}
                     </p>
                   </li>
                 </ul>
