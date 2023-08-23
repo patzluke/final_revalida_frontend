@@ -10,6 +10,8 @@ import { PostAdvertisement } from '../../models/post-advertisement';
 import { selectPostAdvertisement } from '../../states/postadvertisement-state/postadvertisement.selectors';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { CropSpecializationActions } from '../../states/cropspecialization-state/cropspecialization.actions';
+import { selectCropSpecializations } from '../../states/cropspecialization-state/cropspecialization.selectors';
 
 @Component({
   selector: 'app-post-advertisement',
@@ -21,20 +23,6 @@ export class PostAdvertisementComponent implements OnInit {
 
   faSave = faSave;
   faCancel = faCancel;
-
-  crop_specialization: {
-    crop_id: string;
-    crop: string;
-  }[] = [
-    { crop_id: 'CROP0001', crop: 'Feed Crops' },
-    { crop_id: 'CROP0002', crop: 'Fiber Crops' },
-    { crop_id: 'CROP0003', crop: 'Oil Crops' },
-    { crop_id: 'CROP0004', crop: 'Ornamental Crops' },
-    { crop_id: 'CROP0005', crop: 'Industrial Crops' },
-    { crop_id: 'CROP0006', crop: 'Harvesting Crops' },
-    { crop_id: 'CROP0007', crop: 'GMOs' },
-    { crop_id: 'CROP0008', crop: 'Seed Banks' },
-  ];
 
   selectedPostAdvertisement!: PostAdvertisement;
 
@@ -49,6 +37,7 @@ export class PostAdvertisementComponent implements OnInit {
   fileUris: Array<string> = [];
 
   //selectors
+  selectCropSpecializations$ = this.store.select(selectCropSpecializations());
 
   constructor(
     private store: Store,
@@ -70,7 +59,7 @@ export class PostAdvertisementComponent implements OnInit {
       postAdvertisementResponses: [[]],
 
       //for inserting and updating
-      cropSpecializationId: [, Validators.required],
+      cropSpecializationId: [0, Validators.required],
       supplierId: [],
     });
   }
@@ -78,6 +67,9 @@ export class PostAdvertisementComponent implements OnInit {
   ngOnInit(): void {
     this.subscription = interval(2500).subscribe(() => {});
 
+    this.store.dispatch({
+      type: CropSpecializationActions.GET_CROPSPECIALIZATION,
+    });
     this.store.dispatch({
       type: PostAdvertisementActions.GET_POSTADVERTISEMENT,
       supplierId: localStorage.getItem('userNo'),
@@ -144,17 +136,18 @@ export class PostAdvertisementComponent implements OnInit {
                   confirmButtonText: 'Yes',
                   cancelButtonText: 'No',
                 }).then((result) => {
-                  if (!result.isConfirmed) {
+                  if (result.isDenied || result.isDismissed) {
                     this._router.navigateByUrl(
                       '/supplier/post-advertisement-list'
                     );
+                  } else if (result.isConfirmed) {
+                    this.addEditPostAdvertisementForm.reset();
+                    this._router
+                      .navigateByUrl('/', { skipLocationChange: true })
+                      .then(() => {
+                        this._router.navigate(['/supplier/post-advertisement']);
+                      });
                   }
-                  this.addEditPostAdvertisementForm.reset();
-                  this._router
-                    .navigateByUrl('/', { skipLocationChange: true })
-                    .then(() => {
-                      this._router.navigate(['/supplier/post-advertisement']);
-                    });
                 });
               }
             },

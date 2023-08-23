@@ -14,14 +14,18 @@ import { PostAdvertisementEffects } from './states/postadvertisement-state/posta
 import { PostAdvertisementListComponent } from './components/post-advertisement-list/post-advertisement-list.component';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-
+import { cropSpecializationReducer } from './states/cropspecialization-state/cropspecialization.reducer';
+import { CropSpecializationEffects } from './states/cropspecialization-state/cropspecialization.effects';
+import { TooltipModule } from 'primeng/tooltip';
+import { PostAdvertisementResponseListComponent } from './components/post-advertisement-response-list/post-advertisement-response-list.component';
 
 @NgModule({
   declarations: [
     PostAdvertisementComponent,
     PostAdvertisementResponsesComponent,
     ReportViewPageComponent,
-    PostAdvertisementListComponent
+    PostAdvertisementListComponent,
+    PostAdvertisementResponseListComponent,
   ],
   imports: [
     CommonModule,
@@ -32,11 +36,10 @@ import { TableModule } from 'primeng/table';
     ReactiveFormsModule,
     ButtonModule,
     TableModule,
-    StoreModule.forFeature(
-      'postAdvertisementList',
-      postAdvertisementReducer
-    ),
-    EffectsModule.forFeature([PostAdvertisementEffects]),
-  ]
+    TooltipModule,
+    StoreModule.forFeature('postAdvertisementList', postAdvertisementReducer),
+    StoreModule.forFeature('cropSpecializationList', cropSpecializationReducer),
+    EffectsModule.forFeature([PostAdvertisementEffects, CropSpecializationEffects]),
+  ],
 })
-export class WholesalerModule { }
+export class WholesalerModule {}

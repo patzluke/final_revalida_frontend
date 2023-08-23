@@ -15,12 +15,12 @@
             <form data-aos="fade-right" [formGroup]="addEditPostAdvertisementForm">
               <div class="form-floating mb-3" data-aos="fade-right">
                 <select id="crop_specialization_id" class="form-select" formControlName="cropSpecializationId">
-                  <option value="null">Select type...</option>
+                  <option value="0">Select type...</option>
                   <option
-                    [value]="[specialization.crop_id]"
-                    *ngFor="let specialization of crop_specialization"
+                    *ngFor="let specialization of selectCropSpecializations$ | async"
+                    [value]="specialization.cropSpecializationId"
                   >
-                    {{ specialization.crop }}
+                    {{ specialization.specializationName }}
                   </option>
                 </select>
 
