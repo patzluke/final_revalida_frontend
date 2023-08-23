@@ -33,7 +33,6 @@ export const farmingTipReducer = createReducer(
       ),
     };
   }),
-
   on(deleteFarmingTipState, (state, { farmingTipId }) => {
     return {
       ...state,

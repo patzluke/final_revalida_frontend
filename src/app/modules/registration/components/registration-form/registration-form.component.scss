@@ -1,0 +1,181 @@
+.signup-section {
+  background-color: #e8f4ef;
+  padding-top: 5rem;
+  //padding-top: 10rem;
+  padding-bottom: 5rem;
+}
+
+.icon-container {
+  color: #8da17f;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+  transform-origin: 0px 0px;
+}
+
+.logo {
+  display: inline-flex;
+  font-size: 36px !important;
+  font-weight: bold !important;
+  cursor: pointer;
+}
+
+.letter {
+  position: relative;
+  display: inline-block;
+}
+
+.sub-text {
+  margin: 1rem 0 1.2rem 0;
+}
+
+.sub-text h1 {
+  margin-bottom: 5px;
+}
+
+.signin-link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.p-card {
+  border-radius: 30px !important;
+}
+
+.content {
+  display: flex;
+}
+
+.left-container {
+  width: 50%;
+  padding: 1rem 2rem;
+}
+
+.right-container {
+  width: 50%;
+  padding-right: 2rem;
+  position: relative;
+}
+
+.signup-image {
+  width: 100%;
+  height: 100%;
+  background-image: url("/assets/images/farm4.jpg");
+  background-size: cover;
+  background-position: center;
+  border-radius: 30px;
+  position: relative;
+}
+
+.form-field {
+  margin-top: 1rem;
+}
+
+.p-inputtext {
+  width: 100%;
+}
+
+.p-dropdown {
+  width: 100%;
+}
+
+.p-password {
+  width: 100%;
+}
+
+.p-calendar {
+  width: 100%;
+}
+
+.action-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.p-tabview .p-tabview-panels {
+  padding: 1rem 0;
+}
+
+.social-logo {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+}
+
+.invalid-field {
+  border: 1px solid red;
+}
+
+.spec-field .p-dropdown,
+.spec-field .p-password,
+.spec-field .p-calendar {
+  border: 1px solid red;
+  border-radius: 5px;
+}
+
+label {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+// buttons
+.p-button.next-btn {
+  color: #ffffff;
+  //background: #18332f;
+  background: #8da17f;
+  border: #8da17f;
+  width: 6rem;
+}
+
+.p-button.next-btn:hover {
+  color: #ffffff;
+  //background: #8da17f;
+  background: #18332f;
+  width: 6rem;
+}
+
+.form-array-dp .p-dropdown {
+  width: 80%;
+}
+
+.p-button.delete-btn {
+  margin-left: 1rem;
+}
+
+.p-button.add-btn {
+  margin-top: 1rem;
+}
+
+.p-dropdown-items-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.result-div {
+  margin-top: 1rem;
+}
+
+.result-div p {
+  margin-bottom: -2px;
+}
+
+.p-button.submit-btn {
+  color: #ffffff;
+  //background: #18332f;
+  background: #8da17f;
+  border: #8da17f;
+}
+
+.p-button.submit-btn:hover {
+  color: #ffffff;
+  //background: #8da17f;
+  background: #18332f;
+}
+
+// responsive
+@media (max-width: 770px) {
+  .left-container {
+    width: 100%;
+  }
+  .right-container {
+    display: none;
+  }
+}

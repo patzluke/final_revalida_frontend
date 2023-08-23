@@ -32,7 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'supplier',
-    canActivate: [supplierUserGuard],
+    // canActivate: [supplierUserGuard],
     loadChildren: () =>
       import('./modules/wholesaler/wholesaler.module').then(
         (m) => m.WholesalerModule
@@ -42,6 +42,14 @@ const routes: Routes = [
     path: '',
     loadChildren: () =>
       import('./modules/course/course.module').then((m) => m.CourseModule),
+  },
+  // registration
+  {
+    path: 'signup',
+    loadChildren: () =>
+      import('./modules/registration/registration.module').then(
+        (m) => m.RegistrationModule
+      ),
   },
 ];
 

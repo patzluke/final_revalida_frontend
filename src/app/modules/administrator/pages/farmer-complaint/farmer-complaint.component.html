@@ -51,10 +51,7 @@
           <p>
             <i
               >Date Read:
-              {{
-                addEditFarmerComplaintForm.getRawValue().readDate
-                  | date : "MM/dd/yyyy h:mm aa"
-              }}</i
+              {{ selectedReadDate | date : "MM/dd/yyyy h:mm aa" }}</i
             >
           </p>
           <div>

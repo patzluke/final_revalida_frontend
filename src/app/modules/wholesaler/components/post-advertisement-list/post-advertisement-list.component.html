@@ -1,0 +1,190 @@
+<app-side-nav>
+  <!-- Modal Edit Course -->
+  <div
+    class="modal fade"
+    id="editpostAdvertisement"
+    tabindex="-1"
+    aria-labelledby="myModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editpostAdvertisementLabel">
+            Reply to Complaint
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="addEditFarmerComplaintForm">
+            <div class="row d-flex flex-row flex-wrap mt-2">
+              <div class="col">
+                <label class="form-label">Complaint:</label>
+                <textarea
+                  class="form-control"
+                  formControlName="complaintMessage"
+                  rows="3"
+                ></textarea>
+              </div>
+            </div>
+            <div class="row d-flex flex-row flex-wrap mt-2">
+              <div class="col">
+                <label class="form-label">Reply:</label>
+                <textarea
+                  class="form-control"
+                  formControlName="adminReplyMessage"
+                  rows="2"
+                ></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div
+          class="modal-footer d-flex flex-row"
+          style="justify-content: space-between"
+        >
+          <p>
+            <i
+              >Date Read:
+              {{ selectedReadDate | date : "MM/dd/yyyy h:mm aa" }}</i
+            >
+          </p>
+          <div>
+            <button
+              type="button"
+              class="btn btn-secondary me-2"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Save changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p-table
+    #dt1
+    [value]="postAdvertisements"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 15, 20]"
+    [loading]="loading"
+    [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="[
+      'cropName',
+      'supplier.user.lastName',
+      'supplier.user.firstName',
+      'supplier.user.middleName',
+      'quantity'
+    ]"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <span class="p-input-icon-left ml-auto">
+          <input
+            #pInputText
+            type="text"
+            (input)="dt1.filterGlobal(pInputText.value, 'contains')"
+            placeholder="Search keyword"
+          />
+          <button
+            class="btn btn-primary ms-1"
+            routerLink="/supplier/post-advertisement"
+          >
+            Add Advertisement
+          </button>
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center">Crop Name</div>
+        </th>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center text-center">Supplier Name</div>
+        </th>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center text-center">Quantity</div>
+        </th>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center text-center">Price</div>
+        </th>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center text-center">Date Posted</div>
+        </th>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center text-center">Action</div>
+        </th>
+      </tr></ng-template
+    >
+
+    <ng-template pTemplate="body" let-postAdvertisement>
+      <tr>
+        <td style="width: 17%">
+          {{ postAdvertisement.cropName }}
+        </td>
+        <td style="width: 17%" class="text-center">
+          <span class="ml-1 vertical-align-middle"
+            >{{ postAdvertisement.supplier.user.lastName }}
+            {{ postAdvertisement.supplier.user.firstName }}
+            {{ postAdvertisement.supplier.user.middleName }}</span
+          >
+        </td>
+
+        <td style="width: 20%" class="text-center">
+          <span class="ml-1 vertical-align-middle">{{
+            postAdvertisement.quantity
+          }}</span>
+        </td>
+        <td style="width: 20%" class="text-center">
+          ₱{{ postAdvertisement.price | number : "1.2" }}
+        </td>
+        <td style="width: 20%" class="text-center">
+          {{ postAdvertisement.datePosted | date : "MM/dd/yyyy h:mm aa" }}
+        </td>
+        <td class="text-center" style="width: 5%">
+          <p-button
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#editpostAdvertisement"
+            icon="pi pi-eye"
+            styleClass="p-button-rounded p-button-text"
+          ></p-button>
+          <p-button
+            [routerLink]="'/supplier/post-advertisement/' + postAdvertisement.postId"
+            type="button"
+            icon="pi pi-pencil"
+            styleClass="p-button-rounded p-button-text"
+          ></p-button>
+          <p-button
+          (click)="deleteAdvertisement(postAdvertisement)"
+            type="button"
+            icon="pi pi-times"
+            styleClass="p-button-rounded  p-button-danger p-button-text"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="7">No customers found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</app-side-nav>

@@ -1,83 +1,106 @@
-<div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
-  <div class="main" data-aos="fade-right" data-aos-duration="333">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <p class="h1 header text-light" data-aos="fade-right">
-            POST ADVERTISEMENT
-          </p>
+<app-side-nav>
+  <div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
+    <div class="main" data-aos="fade-right" data-aos-duration="333">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <p class="h1 header text-light" data-aos="fade-right">
+              POST ADVERTISEMENT
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col">
-          <form data-aos="fade-right">
-            <div class="form-floating mb-3" data-aos="fade-right">
-              <select id="crop_specialization_id" class="form-select">
-                <option value="null">Select specialization...</option>
-                <option
-                  [value]="[specialization.crop_id]"
-                  *ngFor="let specialization of crop_specialization"
-                >
-                  {{ specialization.crop }}
-                </option>
-              </select>
+        <div class="row">
+          <div class="col">
+            <form data-aos="fade-right" [formGroup]="addEditPostAdvertisementForm">
+              <div class="form-floating mb-3" data-aos="fade-right">
+                <select id="crop_specialization_id" class="form-select" formControlName="cropSpecializationId">
+                  <option value="null">Select type...</option>
+                  <option
+                    [value]="[specialization.crop_id]"
+                    *ngFor="let specialization of crop_specialization"
+                  >
+                    {{ specialization.crop }}
+                  </option>
+                </select>
 
-              <label for="crop_specialization_id">Crop specialization</label>
-            </div>
+                <label for="crop_specialization_id">Crop Type</label>
+              </div>
 
-            <div class="form-floating mb-3" data-aos="fade-right">
-              <input
-                type="text"
-                class="form-control"
-                id="crop_name"
-                placeholder="crop_name"
-              />
-              <label for="crop_name">Crop name</label>
-            </div>
+              <div class="form-floating mb-3" data-aos="fade-right">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="cropName"
+                  formControlName="cropName"
+                  placeholder="cropName"
+                />
+                <label for="cropName">Crop name</label>
+              </div>
 
-            <div class="form-floating mb-3" data-aos="fade-right">
-              <textarea
-                class="form-control"
-                id="description"
-                placeholder="description"
-                style="height: 300px"
-              ></textarea>
-              <label for="description">Description</label>
-            </div>
-            <div class="input-group mb-3" data-aos="fade-right">
-              <input type="file" class="form-control" id="crop_image" />
-            </div>
-            <div class="form-floating mb-3" data-aos="fade-right">
-              <input
-                type="number"
-                class="form-control"
-                id="quantity"
-                placeholder="quantity"
-              />
-              <label for="quantity">Quantity</label>
-            </div>
-            <div class="d-flex flex-row-reverse" data-aos="fade-right">
-              <button class="btn btn-danger ms-2" type="button">
-                <fa-icon
-                  [icon]="faCancel"
-                  [animation]="'bounce'"
-                  [size]="'lg'"
-                ></fa-icon
-                >&nbsp;Cancel
-              </button>
-              <button class="btn btn-success" type="button">
-                <fa-icon
-                  [icon]="faSave"
-                  [animation]="'bounce'"
-                  [size]="'lg'"
-                ></fa-icon
-                >&nbsp; Save
-              </button>
-            </div>
-          </form>
+              <div class="form-floating mb-3" data-aos="fade-right">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="quantity"
+                  placeholder="quantity"
+                  formControlName="quantity"
+                />
+                <label for="quantity">Quantity</label>
+              </div>
+
+              <div class="form-floating mb-3" data-aos="fade-right">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="price"
+                  placeholder="price"
+                  formControlName="price"
+                />
+                <label for="price">Price</label>
+              </div>
+
+              <div class="form-floating mb-3" data-aos="fade-right">
+                <textarea
+                  class="form-control"
+                  id="description"
+                  placeholder="description"
+                  style="height: 300px"
+                  formControlName="description"
+                ></textarea>
+                <label for="description">Description</label>
+              </div>
+              <div class="input-group mb-3" data-aos="fade-right">
+                <input
+                  #imageInput
+                  type="file"
+                  class="form-control"
+                  accept="image/*"
+                  (change)="onImageSelected($event)"
+                />
+              </div>
+              <div class="d-flex flex-row-reverse" data-aos="fade-right">
+                <button class="btn btn-danger ms-2" type="button">
+                  <fa-icon
+                    [icon]="faCancel"
+                    [animation]="'bounce'"
+                    [size]="'lg'"
+                  ></fa-icon
+                  >&nbsp;Cancel
+                </button>
+                <button class="btn btn-success" type="button" (click)="addEditPostAdvertisementSubmit()">
+                  <fa-icon
+                    [icon]="faSave"
+                    [animation]="'bounce'"
+                    [size]="'lg'"
+                  ></fa-icon
+                  >&nbsp; Save
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</app-side-nav>

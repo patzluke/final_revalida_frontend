@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import Swal from 'sweetalert2';
-import { faRightToBracket, faClose } from '@fortawesome/free-solid-svg-icons';
+import { faRightToBracket, faClose, faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +14,8 @@ import { faRightToBracket, faClose } from '@fortawesome/free-solid-svg-icons';
 export class LoginComponent {
   faRightToBracket = faRightToBracket
   faClose = faClose
+  faUser = faUser
+  faLock = faLock
   showPassword: boolean = false;
   loginForm: FormGroup;
 
@@ -70,6 +72,8 @@ export class LoginComponent {
               this._router.navigateByUrl('/administrator');
             } else if (localStorage.getItem('userType') == 'Farmer') {
               this._router.navigateByUrl('/farmer/complaint-status');
+            } else if (localStorage.getItem('userType') == 'Supplier') {
+              this._router.navigateByUrl('/supplier/post-advertisement');
             }
           },
           error: (err) => {
