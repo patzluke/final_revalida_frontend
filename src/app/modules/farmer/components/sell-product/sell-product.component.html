@@ -14,7 +14,7 @@
                 class="btn btn-primary"
                 data-aos="fade-right"
                 data-aos-duration="333"
-                routerLink="/farmer/add-crop"
+                [routerLink]="['/farmer/add-crop']"
               >
                 <fa-icon
                   [icon]="faAdd"
@@ -28,7 +28,7 @@
         </div>
         <div class="row">
           <div
-            class="col-lg-6 mb-3"
+            class="col-lg-4 mb-3"
             *ngFor="let supplier of suppliers.slice(startIndex(), endIndex())"
           >
             <div class="card mb-3" data-aos="fade-right" style="height: 100%">
@@ -60,7 +60,7 @@
                   <button class="btn btn-danger w-100 mb-3">
                     <fa-icon
                       [icon]="faTrash"
-                      [animation]="'bounce'"
+                      [animation]="'shake'"
                       [size]="'lg'"
                     ></fa-icon
                     >&nbsp; Delete

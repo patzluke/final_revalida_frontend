@@ -5,7 +5,7 @@ import { FarmerComplaintActions } from '../../states/farmercomplaint-state/farme
 import { selectFarmerComplaints } from '../../states/farmercomplaint-state/farmercomplaint.selectors';
 import { FarmerComplaint } from '../../models/farmercomplaint';
 import { Router } from '@angular/router';
-import { faSave, faCancel } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faCancel, faAdd, faEye } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -31,6 +31,10 @@ export class ComplaintStatusComponent implements OnInit {
 
   faCancel = faCancel;
 
+  faAdd = faAdd;
+
+  faEye = faEye;
+
   farmerComplaints: FarmerComplaint[] = [];
 
   //selectores
@@ -39,7 +43,7 @@ export class ComplaintStatusComponent implements OnInit {
   constructor(
     private store: Store<FarmerComplaintState>,
     private _router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.store.dispatch({
