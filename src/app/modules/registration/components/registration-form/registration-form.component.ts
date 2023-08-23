@@ -111,20 +111,31 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       }
     };
 
-    this.personalInfoForm = this.formBuilder.group({
-      userType: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      firstName: ['', Validators.required],
-      middleName: [''],
-      lastName: ['', Validators.required],
-      birthdate: ['', Validators.required],
-      gender: ['', Validators.required],
-      nationality: ['', Validators.required],
-      status: [''],
-      dateCreated: [''],
-      activeDeactive: [''],
-    });
+    this.personalInfoForm = this.formBuilder.group(
+      {
+        userType: ['', Validators.required],
+        username: ['', Validators.required],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/),
+          ],
+        ],
+        confirmPassword: ['', Validators.required],
+        firstName: ['', Validators.required],
+        middleName: [''],
+        lastName: ['', Validators.required],
+        birthdate: ['', Validators.required],
+        gender: ['', Validators.required],
+        nationality: ['', Validators.required],
+        status: [''],
+        dateCreated: [''],
+        activeDeactive: [''],
+      },
+      { validator: this.passwordMatchValidator }
+    );
 
     this.contactDetailsForm = this.formBuilder.group({
       region: ['', Validators.required],
@@ -147,6 +158,28 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     this.provinces = this.addressService.getProvinces();
     this.regions = this.addressService.getRegions();
   }
+
+  passwordMatchValidator = (
+    group: FormGroup
+  ): { [key: string]: any } | null => {
+    const newPasswordControl = group.get('password');
+    const confirmPasswordControl = group.get('confirmPassword');
+
+    if (!newPasswordControl || !confirmPasswordControl) {
+      return null;
+    }
+
+    const newPassword = newPasswordControl.value;
+    const confirmPassword = confirmPasswordControl.value;
+
+    if (newPassword === confirmPassword) {
+      confirmPasswordControl.setErrors(null);
+      return null;
+    } else {
+      confirmPasswordControl.setErrors({ passwordMismatch: true });
+      return { passwordMismatch: true };
+    }
+  };
 
   ngOnDestroy(): void {}
 
@@ -316,6 +349,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     };
 
     console.log('signup data', signupData);
-    // alert if succesfull r
+    // alert if succesfull
+    // password validator
   };
 }
