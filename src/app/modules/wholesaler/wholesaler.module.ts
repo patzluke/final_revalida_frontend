@@ -18,6 +18,8 @@ import { cropSpecializationReducer } from './states/cropspecialization-state/cro
 import { CropSpecializationEffects } from './states/cropspecialization-state/cropspecialization.effects';
 import { TooltipModule } from 'primeng/tooltip';
 import { PostAdvertisementResponseListComponent } from './components/post-advertisement-response-list/post-advertisement-response-list.component';
+import { PostAdvertisementResponsesEffects } from './states/postadvertisement-responses-state/postadvertisement-responses.effects';
+import { postAdvertisementResponsesReducer } from './states/postadvertisement-responses-state/postadvertisement-responses.reducer';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,15 @@ import { PostAdvertisementResponseListComponent } from './components/post-advert
     TooltipModule,
     StoreModule.forFeature('postAdvertisementList', postAdvertisementReducer),
     StoreModule.forFeature('cropSpecializationList', cropSpecializationReducer),
-    EffectsModule.forFeature([PostAdvertisementEffects, CropSpecializationEffects]),
+    StoreModule.forFeature(
+      'postAdvertisementResponsesList',
+      postAdvertisementResponsesReducer
+    ),
+    EffectsModule.forFeature([
+      PostAdvertisementEffects,
+      CropSpecializationEffects,
+      PostAdvertisementResponsesEffects,
+    ]),
   ],
 })
 export class WholesalerModule {}

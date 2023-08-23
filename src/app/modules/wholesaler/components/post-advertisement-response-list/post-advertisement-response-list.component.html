@@ -60,71 +60,65 @@
             <h3 class="text-success">Replies</h3>
             <hr />
             <ul class="comments">
-              <li class="clearfix">
-                <img
-                  src="http://localhost:8080/api/file/display/image/WIN_20230220_16_25_22_Pro.jpg"
-                  class="avatar"
-                  alt=""
-                />
-                <div class="post-comments">
-                  <p
-                    class="meta"
-                    style="
-                      display: flex;
-                      flex-direction: row;
-                      justify-content: space-between;
-                    "
-                  >
-                    <span> Dec 18, 2014 <a href="#">JohnDoe</a> says : </span>
-                    <i class="pull-right"
-                      ><a href="#"><small>Reply</small></a></i
-                    >
-                  </p>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Etiam a sapien odio, sit amet
-                  </p>
-                </div>
-              </li>
-              <li class="clearfix">
-                <img
-                  src="http://localhost:8080/api/file/display/image/WIN_20230220_16_25_22_Pro.jpg"
-                  class="avatar"
-                  alt=""
-                />
-                <div class="post-comments">
-                  <p
-                    class="meta"
-                    style="
-                      display: flex;
-                      flex-direction: row;
-                      justify-content: space-between;
-                    "
-                  >
-                    <span> Dec 18, 2014 <a href="#">JohnDoe</a> says : </span>
-                    <i class="pull-right"
-                      ><a href="#"><small>Reply</small></a></i
-                    >
-                  </p>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Etiam a sapien odio, sit amet
-                  </p>
-                </div>
-
-                <!-- <ul class="comments">
+              <ng-container
+                *ngFor="
+                  let response of selectPostAdvertisementResponses$ | async
+                "
+              >
                 <li class="clearfix">
-                    <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
-                    <div class="post-comments">
-                        <p class="meta">Dec 20, 2014 <a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Etiam a sapien odio, sit amet
-                        </p>
-                    </div>
+                  <img
+                    [src]="response.farmer.user.image"
+                    class="avatar"
+                    alt=""
+                  />
+                  <div class="post-comments">
+                    <p
+                      class="meta"
+                      style="
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                      "
+                    >
+                      <span>
+                        {{ response.dateCreated | date : "MM/dd/yyyy h:mm aa" }}
+                        <a href="#">{{
+                          response.farmer.user.lastName.concat(
+                            " ",
+                            response.farmer.user.firstName
+                          )
+                        }}</a>
+                        says :
+                      </span>
+                      <i class="pull-right"
+                        ><a *ngIf="!response.isAccepted" href="#"><small>Accept Offer</small></a>
+                        <a  *ngIf="response.isAccepted" href="#"><small>Unaccept offer</small></a></i
+                      >
+                    </p>
+                    <p>
+                      <b>Offer: </b>
+                      <br>
+                      <b><i>Qty: </i> </b> {{response.quantity}},
+                      <b><i>Price: </i> </b> ₱{{response.price | number: "1.2"}}
+                      <br>
+                     {{response.message}}
+                    </p>
+                  </div>
+
+                  <!-- <ul class="comments">
+                  <li class="clearfix">
+                      <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
+                      <div class="post-comments">
+                          <p class="meta">Dec 20, 2014 <a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+                          <p>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                              Etiam a sapien odio, sit amet
+                          </p>
+                      </div>
+                  </li>
+              </ul> -->
                 </li>
-            </ul> -->
-              </li>
+              </ng-container>
             </ul>
           </div>
         </div>

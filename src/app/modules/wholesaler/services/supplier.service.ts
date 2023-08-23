@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { FileDetails } from '../models/fileDetails';
 import { PostAdvertisement } from '../models/post-advertisement';
 import { CropSpecialization } from '../models/crop-specialization';
+import { PostAdvertisementResponse } from '../models/post-advertisement-response';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +42,12 @@ export class SupplierService {
   selectAllCropSpecialization = () => {
     return this.http.get<CropSpecialization[]>(
       `${this.baseUrl}/supplier/get/cropspecialization`
+    );
+  };
+
+  selectAllPostAdvertisementResponsesByPostId = (postId: number) => {
+    return this.http.get<PostAdvertisementResponse[]>(
+      `${this.baseUrl}/supplier/get/postadvertisementresponse/${postId}`
     );
   };
 
