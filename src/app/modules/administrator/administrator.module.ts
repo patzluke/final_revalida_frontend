@@ -21,9 +21,21 @@ import { ButtonModule } from 'primeng/button';
 import { FarmerComplaintComponent } from './pages/farmer-complaint/farmer-complaint.component';
 import { farmerComplaintReducer } from './states/farmercomplaint-state/farmercomplaint.reducer';
 import { FarmerComplaintEffects } from './states/farmercomplaint-state/farmercomplaint.effects';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { CardModule } from 'primeng/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { CalendarModule } from 'primeng/calendar';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
-  declarations: [LandingPageComponent, FarmingTipComponent, FarmerComplaintComponent],
+  declarations: [
+    LandingPageComponent,
+    FarmingTipComponent,
+    FarmerComplaintComponent,
+    ProfileComponent,
+  ],
   imports: [
     CommonModule,
     AdministratorRoutingModule,
@@ -39,9 +51,15 @@ import { FarmerComplaintEffects } from './states/farmercomplaint-state/farmercom
     ReactiveFormsModule,
     FormsModule,
     ButtonModule,
+    CardModule,
+    MatDividerModule,
+    DialogModule,
+    InputTextModule,
+    CalendarModule,
+    PasswordModule,
     StoreModule.forFeature('farmingTipList', farmingTipReducer),
     StoreModule.forFeature('farmerComplaintsList', farmerComplaintReducer),
-    EffectsModule.forFeature([FarmingTipEffects, FarmerComplaintEffects])
+    EffectsModule.forFeature([FarmingTipEffects, FarmerComplaintEffects]),
   ],
 })
 export class AdministratorModule {}

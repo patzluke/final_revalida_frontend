@@ -5,6 +5,7 @@ import { PostAdvertisementComponent } from './components/post-advertisement/post
 import { PostAdvertisementResponsesComponent } from './components/post-advertisement-responses/post-advertisement-responses.component';
 import { PostAdvertisementListComponent } from './components/post-advertisement-list/post-advertisement-list.component';
 import { PostAdvertisementResponseListComponent } from './components/post-advertisement-response-list/post-advertisement-response-list.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'post-advertisement-responses-list/:postId',
     component: PostAdvertisementResponseListComponent,
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
   },
 ];
 

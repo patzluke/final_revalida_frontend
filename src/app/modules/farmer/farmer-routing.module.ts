@@ -11,60 +11,62 @@ import { CropOrdersComponent } from './components/crop-orders/crop-orders.compon
 import { CropPaymentComponent } from './components/crop-payment/crop-payment.component';
 import { CourseEnrolledComponent } from './components/course-enrolled/course-enrolled.component';
 import { ViewReportComponent } from './components/view-report/view-report.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   {
     path: 'complaints/add',
-    component: ComplaintPageComponent
+    component: ComplaintPageComponent,
   },
   {
     path: 'complaints/edit/:farmerComplaintId',
-    component: ComplaintPageComponent
+    component: ComplaintPageComponent,
   },
   {
     path: 'complaint-status',
-    component: ComplaintStatusComponent
+    component: ComplaintStatusComponent,
   },
   {
     path: 'crop-advertisements',
-    component: CropAdvertisementsComponent
+    component: CropAdvertisementsComponent,
   },
   {
     path: 'sell-product',
-    component: SellProductComponent
+    component: SellProductComponent,
   },
   {
     path: 'edit-crop',
-    component: EditCropComponent
+    component: EditCropComponent,
   },
   {
     path: 'add-crop',
-    component: AddCropComponent
+    component: AddCropComponent,
   },
   {
     path: 'crop-orders',
-    component: CropOrdersComponent
+    component: CropOrdersComponent,
   },
   {
     path: 'crop-payment',
-    component: CropPaymentComponent
+    component: CropPaymentComponent,
   },
   {
     path: 'course-enrolled',
-    component: CourseEnrolledComponent
+    component: CourseEnrolledComponent,
   },
   {
     path: 'view-report',
-    component: ViewReportComponent
-  }
-]
+    component: ViewReportComponent,
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  },
+];
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes)
-  ],
-  exports: [RouterModule]
+  imports: [CommonModule, RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class FarmerRoutingModule { }
+export class FarmerRoutingModule {}

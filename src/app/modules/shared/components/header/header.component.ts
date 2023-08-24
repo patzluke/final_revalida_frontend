@@ -42,7 +42,6 @@ export class HeaderComponent implements OnInit {
 
       if (trg.dataset['tween']) {
         const tween = tweens[trg.dataset['tween']];
-        console.log('targe', trg.dataset['tween']);
 
         if (!gsap.isTweening(trg)) {
           tween.play(0);
@@ -54,7 +53,6 @@ export class HeaderComponent implements OnInit {
       const trg = event.target as HTMLElement;
       if (trg.dataset['tween']) {
         const tween = tweens[trg.dataset['tween']];
-        console.log('targe', trg.dataset['tween']);
 
         if (!gsap.isTweening(trg)) {
           tween.pause(0);

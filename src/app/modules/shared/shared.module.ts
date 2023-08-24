@@ -12,9 +12,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { SideNavComponent } from './components/header/side-nav/side-nav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LandingRoutingModule } from '../landing/landing-routing.module';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, SideNavComponent],
+  declarations: [HeaderComponent, FooterComponent, SideNavComponent, LoaderComponent],
   imports: [
     CommonModule,
     MatToolbarModule,
