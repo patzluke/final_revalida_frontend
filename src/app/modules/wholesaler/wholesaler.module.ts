@@ -29,6 +29,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { PasswordModule } from 'primeng/password';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { MatIconModule } from '@angular/material/icon';
     DropdownModule,
     PasswordModule,
     MatIconModule,
-
+    MatButtonModule,
     StoreModule.forFeature('postAdvertisementList', postAdvertisementReducer),
     StoreModule.forFeature('cropSpecializationList', cropSpecializationReducer),
     StoreModule.forFeature(

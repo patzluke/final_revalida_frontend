@@ -33,6 +33,7 @@ import { PasswordModule } from 'primeng/password';
 import { MatIconModule } from '@angular/material/icon';
 import { postAdvertisementResponsesReducer } from './states/postadvertisement-responses-state/postadvertisement-responses.reducer';
 import { PostAdvertisementResponsesEffects } from './states/postadvertisement-responses-state/postadvertisement-responses.effects';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { PostAdvertisementResponsesEffects } from './states/postadvertisement-re
     DropdownModule,
     PasswordModule,
     MatIconModule,
+    MatButtonModule,
     StoreModule.forFeature(
       'SingleFarmerComplaintsList',
       farmerComplaintReducer

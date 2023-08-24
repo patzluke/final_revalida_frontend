@@ -190,6 +190,35 @@
 >
   <div>
     <div class="container">
+      <div class="center-container">
+        <div class="change-image-container">
+          <img *ngIf="changeImage" class="profile-image" />
+          <img
+            *ngIf="!changeImage"
+            class="profile-image"
+            src="assets/images/user-icon.png"
+          />
+          <div class="camera-icon-container">
+            <button mat-icon-button (click)="selectFile.click()">
+              <mat-icon>photo_camera</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <input
+          hidden
+          type="file"
+          id="img"
+          value="select"
+          #selectFile
+          (change)="onFileSelected($event)"
+        />
+
+        <div *ngIf="isMaxSize">
+          <p [ngStyle]="{ color: 'red' }">Image size is too large</p>
+        </div>
+      </div>
+
       <form [formGroup]="personalInfoForm">
         <h4><i>Required Fields *</i></h4>
         <div class="form-field">

@@ -127,6 +127,33 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  changeImage: boolean = false;
+  isMaxSize: boolean = false;
+
+  onFileSelected = (event: Event) => {
+    const files = (event.target as HTMLInputElement).files;
+
+    if (files && files.length > 0) {
+      const file = files[0];
+      const maxSize = 1 * 1024 * 1024; // 1mb max size
+
+      if (file.size <= maxSize) {
+        // const fileHandle: FileHandle = {
+        //   file: file,
+        //   url: this.sanitizer.bypassSecurityTrustUrl(
+        //     window.URL.createObjectURL(file)
+        //   ),
+        // };
+        // this.professorImage = fileHandle;
+        this.changeImage = false;
+        this.isMaxSize = false;
+      } else {
+        this.isMaxSize = true;
+        this.changeImage = true;
+      }
+    }
+  };
+
   updateProfileInfo = () => {
     if (this.personalInfoForm.valid) {
       // update
