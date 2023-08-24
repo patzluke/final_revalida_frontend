@@ -21,6 +21,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { postAdvertisementReducer } from './states/postadvertisement-state/postadvertisement.reducer';
 import { PostAdvertisementEffects } from './states/postadvertisement-state/postadvertisement.effects';
+import { postAdvertisementResponsesReducer } from './states/postadvertisement-responses-state/postadvertisement-responses.reducer';
+import { PostAdvertisementResponsesEffects } from './states/postadvertisement-responses-state/postadvertisement-responses.effects';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,11 @@ import { PostAdvertisementEffects } from './states/postadvertisement-state/posta
       'postAdvertisementList (Farmer Acc)',
       postAdvertisementReducer
     ),
-    EffectsModule.forFeature([FarmerComplaintEffects, PostAdvertisementEffects]),
+    StoreModule.forFeature(
+      'postAdvertisementResponsesList (Farmer)',
+      postAdvertisementResponsesReducer
+    ),
+    EffectsModule.forFeature([FarmerComplaintEffects, PostAdvertisementEffects, PostAdvertisementResponsesEffects]),
     FontAwesomeModule,
   ],
 })
