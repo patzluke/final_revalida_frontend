@@ -15,6 +15,12 @@
               required
               placeholder="Your name.."
               formControlName="name"
+              [ngClass]="{
+                'invalid-field':
+                  emailForm.controls['name'].invalid &&
+                  (emailForm.controls['name'].dirty ||
+                    emailForm.controls['name'].touched)
+              }"
             />
           </div>
 
@@ -28,6 +34,12 @@
               required
               placeholder="Email here.."
               formControlName="email"
+              [ngClass]="{
+                'invalid-field':
+                  emailForm.controls['email'].invalid &&
+                  (emailForm.controls['email'].dirty ||
+                    emailForm.controls['email'].touched)
+              }"
             />
           </div>
 
@@ -40,6 +52,12 @@
               required
               placeholder="Write something here.."
               formControlName="message"
+              [ngClass]="{
+                'invalid-field':
+                  emailForm.controls['message'].invalid &&
+                  (emailForm.controls['message'].dirty ||
+                    emailForm.controls['message'].touched)
+              }"
             ></textarea>
           </div>
 

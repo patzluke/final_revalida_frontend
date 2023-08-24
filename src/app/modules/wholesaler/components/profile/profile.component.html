@@ -1,0 +1,503 @@
+<app-side-nav>
+  <section>
+    <div class="container">
+      <div class="profile-container">
+        <div class="left-container">
+          <p-card>
+            <div class="image-container">
+              <img class="user-image" src="assets/images/user-icon.png" />
+            </div>
+            <div class="left-text">
+              <h3><b>Leo Orolfo Cruz</b></h3>
+              <div class="social-container">
+                <div class="social-icon-container">
+                  <a href="http://fb.com" target="_blank">
+                    <img class="social-icon" src="assets/images/fb-icon.png" />
+                  </a>
+                </div>
+                <div class="social-icon-container">
+                  <a href="http://instagram.com" target="_blank">
+                    <img class="social-icon" src="assets/images/ig-icon.png" />
+                  </a>
+                </div>
+              </div>
+              <div class="left-user-det">
+                <div class="left-user-det-content">
+                  <div class="user-det-icon-container">
+                    <img
+                      class="user-det-icon"
+                      src="assets/images/mobile-icon.png"
+                    />
+                  </div>
+
+                  <div class="user-det-text">
+                    <p><b>Mobile number</b></p>
+                    <h4>+639569411313</h4>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+
+                <div class="left-user-det-content">
+                  <div class="user-det-icon-container">
+                    <img
+                      class="user-det-icon"
+                      src="assets/images/email-icon.png"
+                    />
+                  </div>
+
+                  <div class="user-det-text">
+                    <p><b>Email</b></p>
+                    <h4>lcruz@gmail.com</h4>
+                  </div>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <div class="left-user-det-content">
+                  <div class="user-det-icon-container">
+                    <img
+                      class="user-det-icon"
+                      src="assets/images/calendar-icon.png"
+                    />
+                  </div>
+
+                  <div class="user-det-text">
+                    <p><b>Birthday</b></p>
+                    <h4>Aug 22, 1999</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </p-card>
+        </div>
+        <div class="right-container">
+          <p-card>
+            <div class="right-header">
+              <div class="header-text">
+                <h1><b>Profile</b></h1>
+              </div>
+
+              <div class="edit-button-container">
+                <button
+                  pButton
+                  pRipple
+                  label="Edit"
+                  icon="pi pi-user-edit"
+                  iconPos="right"
+                  class="edit-button"
+                  (click)="showEditProfileDetDialog()"
+                ></button>
+              </div>
+            </div>
+
+            <div class="profile-second-text">
+              <div class="left-second">
+                <div class="second-subtext">
+                  <p class="label">First name</p>
+                  <p>Leo</p>
+                </div>
+
+                <div class="second-subtext">
+                  <p class="label">Middle name</p>
+                  <p>Orolfo</p>
+                </div>
+
+                <div class="second-subtext">
+                  <p class="label">Civil status</p>
+                  <p>Single</p>
+                </div>
+
+                <div class="second-subtext" style="margin-bottom: -1.5rem">
+                  <p class="label">Address</p>
+                  <p style="line-height: 16px">
+                    455 Gumitna Pinalagdan, Paombong, Bulacan
+                  </p>
+                </div>
+              </div>
+
+              <div class="right-second">
+                <div class="second-subtext">
+                  <p class="label">Last Name</p>
+                  <p>Cruz</p>
+                </div>
+
+                <div class="second-subtext">
+                  <p class="label">Gender</p>
+                  <p>Male</p>
+                </div>
+
+                <div class="second-subtext">
+                  <p class="label">Nationality</p>
+                  <p>Filipino</p>
+                </div>
+              </div>
+            </div>
+          </p-card>
+
+          <div style="margin-top: 1rem">
+            <p-card>
+              <div class="right-header">
+                <div class="header-text">
+                  <h1><b>Account Details</b></h1>
+                </div>
+
+                <div class="edit-button-container">
+                  <button
+                    pButton
+                    pRipple
+                    label="Edit"
+                    icon="pi pi-user-edit"
+                    iconPos="right"
+                    class="edit-button"
+                    (click)="showEditPasswordDetDialog()"
+                  ></button>
+                </div>
+              </div>
+              <div class="profile-second-text">
+                <div class="left-second">
+                  <div class="second-subtext" style="margin-bottom: 0">
+                    <p class="label">Username</p>
+                    <p>leocruz22</p>
+                  </div>
+                </div>
+                <div class="right-second">
+                  <div
+                    class="second-subtext"
+                    style="margin-bottom: 0; padding-bottom: 5px"
+                  >
+                    <p class="label">Current Password</p>
+                    <p>********</p>
+                  </div>
+                </div>
+              </div>
+            </p-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</app-side-nav>
+
+<!-- Edit profile modal -->
+<p-dialog
+  header="Edit Profile Details"
+  [(visible)]="editProfileDetail"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [maximizable]="true"
+>
+  <div>
+    <div class="container">
+      <form [formGroup]="personalInfoForm">
+        <h4><i>Required Fields *</i></h4>
+        <div class="form-field">
+          <label>First name *</label>
+          <div>
+            <input
+              [ngClass]="{
+                'invalid-field':
+                  personalInfoForm.controls['firstName'].invalid &&
+                  (personalInfoForm.controls['firstName'].dirty ||
+                    personalInfoForm.controls['firstName'].touched)
+              }"
+              formControlName="firstName"
+              type="text"
+              pInputText
+            />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Middle name </label>
+          <div>
+            <input formControlName="middleName" type="text" pInputText />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Last name *</label>
+          <div>
+            <input
+              [ngClass]="{
+                'invalid-field':
+                  personalInfoForm.controls['lastName'].invalid &&
+                  (personalInfoForm.controls['lastName'].dirty ||
+                    personalInfoForm.controls['lastName'].touched)
+              }"
+              formControlName="lastName"
+              type="text"
+              pInputText
+            />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Birthdate *</label>
+          <div>
+            <p-calendar
+              [ngClass]="{
+                'spec-field':
+                  personalInfoForm.controls['birthdate'].invalid &&
+                  (personalInfoForm.controls['birthdate'].dirty ||
+                    personalInfoForm.controls['birthdate'].touched)
+              }"
+              formControlName="birthdate"
+              [showIcon]="true"
+              [maxDate]="dateToday"
+            ></p-calendar>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Gender *</label>
+          <div>
+            <p-dropdown
+              [ngClass]="{
+                'spec-field':
+                  personalInfoForm.controls['gender'].invalid &&
+                  (personalInfoForm.controls['gender'].dirty ||
+                    personalInfoForm.controls['gender'].touched)
+              }"
+              formControlName="gender"
+              placeholder="Select gender"
+              [options]="genders"
+              optionLabel="gender"
+              optionValue="gender"
+            ></p-dropdown>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Nationality *</label>
+          <div>
+            <input
+              [ngClass]="{
+                'invalid-field':
+                  personalInfoForm.controls['nationality'].invalid &&
+                  (personalInfoForm.controls['nationality'].dirty ||
+                    personalInfoForm.controls['nationality'].touched)
+              }"
+              formControlName="nationality"
+              type="text"
+              pInputText
+            />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Civil status *</label>
+          <div>
+            <p-dropdown
+              [ngClass]="{
+                'spec-field':
+                  personalInfoForm.controls['civilStatus'].invalid &&
+                  (personalInfoForm.controls['civilStatus'].dirty ||
+                    personalInfoForm.controls['civilStatus'].touched)
+              }"
+              formControlName="civilStatus"
+              placeholder="Select civil status"
+              [options]="civilStatus"
+              optionLabel="status"
+              optionValue="status"
+            ></p-dropdown>
+          </div>
+        </div>
+
+        <h1>Edit Contact Details</h1>
+        <div class="form-field">
+          <label>Address *</label>
+          <div>
+            <input
+              [ngClass]="{
+                'invalid-field':
+                  personalInfoForm.controls['address'].invalid &&
+                  (personalInfoForm.controls['address'].dirty ||
+                    personalInfoForm.controls['address'].touched)
+              }"
+              formControlName="address"
+              type="text"
+              pInputText
+            />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Email address *</label>
+          <div>
+            <input
+              [ngClass]="{
+                'invalid-field':
+                  personalInfoForm.controls['email'].invalid &&
+                  (personalInfoForm.controls['email'].dirty ||
+                    personalInfoForm.controls['email'].touched)
+              }"
+              formControlName="email"
+              type="text"
+              pInputText
+            />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Contact number *</label>
+          <div>
+            <input
+              [ngClass]="{
+                'invalid-field':
+                  personalInfoForm.controls['contactNo'].invalid &&
+                  (personalInfoForm.controls['contactNo'].dirty ||
+                    personalInfoForm.controls['contactNo'].touched)
+              }"
+              formControlName="contactNo"
+              type="text"
+              pInputText
+            />
+          </div>
+        </div>
+
+        <div class="form-field" style="margin-top: 1rem">
+          <label>Social media accounts</label>
+          <div>
+            <ng-container formArrayName="socials">
+              <div
+                *ngFor="let control of socialsFormArray.controls; let i = index"
+              >
+                <div class="input-form-day">
+                  <p-dropdown
+                    [options]="socialType"
+                    optionLabel="type"
+                    [formControlName]="i"
+                    placeholder="Select social"
+                    [editable]="true"
+                    class="form-array-dp"
+                  >
+                    <ng-template let-socialType pTemplate="item">
+                      <div class="social-dropdown-item">
+                        <img
+                          class="social-logo"
+                          [src]="getSocialLogoUrl(socialType.type)"
+                        />
+                        {{ socialType.type }}
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                  <button
+                    pButton
+                    icon="pi pi-times"
+                    class="delete-btn p-button-rounded p-button-danger"
+                    (click)="deleteSocial(i)"
+                  ></button>
+                </div>
+              </div>
+
+              <button
+                pButton
+                icon="pi pi-check"
+                label="add another"
+                class="add-btn p-button-rounded"
+                (click)="addSocial()"
+              ></button>
+            </ng-container>
+          </div>
+        </div>
+      </form>
+
+      <div class="action-container">
+        <button
+          pButton
+          label="Update"
+          class="update-btn"
+          (click)="updateProfileInfo()"
+        ></button>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
+<!-- Edit password modal -->
+<p-dialog
+  header="Change Password"
+  [(visible)]="editPassword"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [maximizable]="true"
+>
+  <div>
+    <div class="container">
+      <form [formGroup]="passwordForm">
+        <div class="alert alert-info info" role="alert">
+          <div class="info-icon"><mat-icon class="icon">info</mat-icon></div>
+          <div class="info-text">
+            <p>
+              Password must contain at least one number, one lowercase and one
+              uppercase letter, and must be at least six characters long.
+            </p>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Current Password *</label>
+          <div>
+            <p-password
+              [ngClass]="{
+                'spec-field':
+                  passwordForm.controls['currentPassword'].invalid &&
+                  (passwordForm.controls['currentPassword'].dirty ||
+                    passwordForm.controls['currentPassword'].touched)
+              }"
+              formControlName="currentPassword"
+              [toggleMask]="true"
+            ></p-password>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>New Password *</label>
+          <div>
+            <p-password
+              [ngClass]="{
+                'spec-field':
+                  passwordForm.controls['newPassword'].invalid &&
+                  (passwordForm.controls['newPassword'].dirty ||
+                    passwordForm.controls['newPassword'].touched)
+              }"
+              formControlName="newPassword"
+              [toggleMask]="true"
+            ></p-password>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Confirm Password *</label>
+          <div>
+            <p-password
+              formControlName="confirmPassword"
+              [toggleMask]="true"
+            ></p-password>
+          </div>
+          <div
+            *ngIf="
+              passwordForm.hasError('passwordMismatch') &&
+              (passwordForm.get('confirmPassword')?.dirty ||
+                passwordForm.get('confirmPassword')?.touched)
+            "
+          >
+            <p>Password Mismatch</p>
+          </div>
+        </div>
+      </form>
+      <div class="action-container">
+        <button
+          pButton
+          label="Update"
+          class="update-btn"
+          (click)="updatePassword()"
+        ></button>
+      </div>
+    </div>
+  </div>
+</p-dialog>

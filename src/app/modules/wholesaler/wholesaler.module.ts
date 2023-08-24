@@ -20,6 +20,15 @@ import { TooltipModule } from 'primeng/tooltip';
 import { PostAdvertisementResponseListComponent } from './components/post-advertisement-response-list/post-advertisement-response-list.component';
 import { PostAdvertisementResponsesEffects } from './states/postadvertisement-responses-state/postadvertisement-responses.effects';
 import { postAdvertisementResponsesReducer } from './states/postadvertisement-responses-state/postadvertisement-responses.reducer';
+import { ProfileComponent } from './components/profile/profile.component';
+import { CardModule } from 'primeng/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { PasswordModule } from 'primeng/password';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -28,6 +37,7 @@ import { postAdvertisementResponsesReducer } from './states/postadvertisement-re
     ReportViewPageComponent,
     PostAdvertisementListComponent,
     PostAdvertisementResponseListComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -39,6 +49,15 @@ import { postAdvertisementResponsesReducer } from './states/postadvertisement-re
     ButtonModule,
     TableModule,
     TooltipModule,
+    CardModule,
+    MatDividerModule,
+    DialogModule,
+    InputTextModule,
+    CalendarModule,
+    DropdownModule,
+    PasswordModule,
+    MatIconModule,
+
     StoreModule.forFeature('postAdvertisementList', postAdvertisementReducer),
     StoreModule.forFeature('cropSpecializationList', cropSpecializationReducer),
     StoreModule.forFeature(

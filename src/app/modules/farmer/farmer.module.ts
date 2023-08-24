@@ -21,6 +21,16 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { postAdvertisementReducer } from './states/postadvertisement-state/postadvertisement.reducer';
 import { PostAdvertisementEffects } from './states/postadvertisement-state/postadvertisement.effects';
+import { ProfileComponent } from './components/profile/profile.component';
+import { CardModule } from 'primeng/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { PasswordModule } from 'primeng/password';
+import { MatIconModule } from '@angular/material/icon';
 import { postAdvertisementResponsesReducer } from './states/postadvertisement-responses-state/postadvertisement-responses.reducer';
 import { PostAdvertisementResponsesEffects } from './states/postadvertisement-responses-state/postadvertisement-responses.effects';
 
@@ -36,6 +46,7 @@ import { PostAdvertisementResponsesEffects } from './states/postadvertisement-re
     CropPaymentComponent,
     CourseEnrolledComponent,
     ViewReportComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +55,15 @@ import { PostAdvertisementResponsesEffects } from './states/postadvertisement-re
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
+    CardModule,
+    MatDividerModule,
+    ButtonModule,
+    DialogModule,
+    InputTextModule,
+    CalendarModule,
+    DropdownModule,
+    PasswordModule,
+    MatIconModule,
     StoreModule.forFeature(
       'SingleFarmerComplaintsList',
       farmerComplaintReducer
@@ -56,7 +76,11 @@ import { PostAdvertisementResponsesEffects } from './states/postadvertisement-re
       'postAdvertisementResponsesList (Farmer)',
       postAdvertisementResponsesReducer
     ),
-    EffectsModule.forFeature([FarmerComplaintEffects, PostAdvertisementEffects, PostAdvertisementResponsesEffects]),
+    EffectsModule.forFeature([
+      FarmerComplaintEffects,
+      PostAdvertisementEffects,
+      PostAdvertisementResponsesEffects,
+    ]),
     FontAwesomeModule,
   ],
 })
