@@ -20,38 +20,46 @@ export class ContactComponent implements OnInit {
   }
 
   submitForm() {
-    const serviceID = 'service_djx0he9';
-    const templateID = 'template_vxnvypd';
-    const userID = '2L6p-bZnm7eoJXSgU';
+    if (this.emailForm.valid) {
+      const serviceID = 'service_djx0he9';
+      const templateID = 'template_vxnvypd';
+      const userID = '2L6p-bZnm7eoJXSgU';
 
-    const templateData = {
-      name: this.emailForm.controls['name'].getRawValue(),
-      email: this.emailForm.controls['email'].getRawValue(),
-      message: this.emailForm.controls['message'].getRawValue(),
-    };
+      const templateData = {
+        name: this.emailForm.controls['name'].getRawValue(),
+        email: this.emailForm.controls['email'].getRawValue(),
+        message: this.emailForm.controls['message'].getRawValue(),
+      };
 
-    emailjs.send(serviceID, templateID, templateData, userID).then(
-      (res: EmailJSResponseStatus) => {
-        console.log('email sent');
-        Swal.fire({
-          title: 'Successfully sent',
-          text: 'Email sent',
+      emailjs.send(serviceID, templateID, templateData, userID).then(
+        (res: EmailJSResponseStatus) => {
+          console.log('email sent');
+          Swal.fire({
+            title: 'Successfully sent',
+            text: 'Email sent',
 
-          confirmButtonText: 'OK',
-        });
-        this.emailForm.reset();
-      },
-      (error) => {
-        console.log(error.text);
-        Swal.fire({
-          title: 'Error while sending email',
-          text: 'Try Again',
-          icon: 'error',
-          confirmButtonText: 'OK',
-        });
-      }
-    );
+            confirmButtonText: 'OK',
+          });
+          this.emailForm.reset();
+        },
+        (error) => {
+          console.log(error.text);
+          Swal.fire({
+            title: 'Error while sending email',
+            text: 'Try Again',
+            icon: 'error',
+            confirmButtonText: 'OK',
+          });
+        }
+      );
+    } else {
+      Object.keys(this.emailForm.controls).forEach((field) => {
+        const control = this.emailForm.get(field);
+        if (control?.invalid) {
+          control.markAsTouched();
+          control?.setErrors({ invalid: true });
+        }
+      });
+    }
   }
-
-  // validators
 }

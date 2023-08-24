@@ -21,6 +21,16 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { postAdvertisementReducer } from './states/postadvertisement-state/postadvertisement.reducer';
 import { PostAdvertisementEffects } from './states/postadvertisement-state/postadvertisement.effects';
+import { ProfileComponent } from './components/profile/profile.component';
+import { CardModule } from 'primeng/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { PasswordModule } from 'primeng/password';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -34,6 +44,7 @@ import { PostAdvertisementEffects } from './states/postadvertisement-state/posta
     CropPaymentComponent,
     CourseEnrolledComponent,
     ViewReportComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +53,15 @@ import { PostAdvertisementEffects } from './states/postadvertisement-state/posta
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
+    CardModule,
+    MatDividerModule,
+    ButtonModule,
+    DialogModule,
+    InputTextModule,
+    CalendarModule,
+    DropdownModule,
+    PasswordModule,
+    MatIconModule,
     StoreModule.forFeature(
       'SingleFarmerComplaintsList',
       farmerComplaintReducer
@@ -50,7 +70,10 @@ import { PostAdvertisementEffects } from './states/postadvertisement-state/posta
       'postAdvertisementList (Farmer Acc)',
       postAdvertisementReducer
     ),
-    EffectsModule.forFeature([FarmerComplaintEffects, PostAdvertisementEffects]),
+    EffectsModule.forFeature([
+      FarmerComplaintEffects,
+      PostAdvertisementEffects,
+    ]),
     FontAwesomeModule,
   ],
 })

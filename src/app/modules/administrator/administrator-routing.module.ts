@@ -4,6 +4,7 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
 import { FarmingTipComponent } from './pages/farming-tip/farming-tip.component';
 import { FarmerComplaintComponent } from './pages/farmer-complaint/farmer-complaint.component';
 import { farmerUserGuard } from 'src/app/guards/farmer-user.guard';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'farmercomplaint',
     component: FarmerComplaintComponent,
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
   },
 ];
 
