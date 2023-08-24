@@ -13,8 +13,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { Observable, map } from 'rxjs';
-import { AddressService } from '../../service/address.service';
+import { RegisterService } from '../../service/registration.service';
 import { gsap } from 'gsap';
+import { User } from '../../models/user';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration-form',
@@ -57,9 +60,9 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private addressService: AddressService,
+    private registerService: RegisterService,
     private elementRef: ElementRef,
-    private fb: FormBuilder
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -155,10 +158,10 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       'socials'
     ] as FormArray;
 
-    this.barangays = this.addressService.getBarangay();
-    this.cities = this.addressService.getCities();
-    this.provinces = this.addressService.getProvinces();
-    this.regions = this.addressService.getRegions();
+    this.barangays = this.registerService.getBarangay();
+    this.cities = this.registerService.getCities();
+    this.provinces = this.registerService.getProvinces();
+    this.regions = this.registerService.getRegions();
   }
 
   passwordMatchValidator = (
@@ -309,7 +312,6 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       });
     }
     console.log(this.personalInfoForm.value, this.contactDetailsForm.value);
-
   }
 
   moveToReviewTab(): void {
@@ -327,31 +329,41 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   }
 
   submit = () => {
-    this.personalInfoForm.controls['status'].patchValue(true);
-    this.personalInfoForm.controls['activeDeactive'].patchValue(true);
-    this.personalInfoForm.controls['dateCreated'].patchValue(this.dateToday);
-
-    const signupData = {
-      usertType: this.personalInfoForm.controls['userType'].getRawValue(),
+    const signupData: any = {
+      userType: this.personalInfoForm.controls['userType'].getRawValue(),
       username: this.personalInfoForm.controls['username'].getRawValue(),
       password: this.personalInfoForm.controls['password'].getRawValue(),
       firstName: this.personalInfoForm.controls['firstName'].getRawValue(),
       middleName: this.personalInfoForm.controls['middleName'].getRawValue(),
       lastName: this.personalInfoForm.controls['lastName'].getRawValue(),
-      birthdate: this.personalInfoForm.controls['birthdate'].getRawValue(),
+      birthDate: this.personalInfoForm.controls['birthdate'].getRawValue(),
       gender: this.personalInfoForm.controls['gender'].getRawValue(),
       nationality: this.personalInfoForm.controls['nationality'].getRawValue(),
-      status: this.personalInfoForm.controls['status'].getRawValue(),
-      dateCreated: this.personalInfoForm.controls['dateCreated'].getRawValue(),
-      activeDeactive:
-        this.personalInfoForm.controls['activeDeactive'].getRawValue(),
-
       address: this.contactDetailsForm.controls['address'].getRawValue(),
       email: this.contactDetailsForm.controls['email'].getRawValue(),
       contactNo: this.contactDetailsForm.controls['contactNo'].getRawValue(),
       socials: this.contactDetailsForm.controls['socials'].getRawValue(),
     };
-
+    Swal.fire({
+      title: 'Are you sure you want to register?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Save changes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.registerService.registerUser(signupData).subscribe({
+          next: (data) => {
+            Swal.fire('Success', "You've Successfully registered!", 'success');
+            this._router.navigateByUrl('/login');
+          },
+          error: (err) => {
+            Swal.fire('Failed to Register!', `Something Went Wrong`, 'error');
+          },
+        });
+      }
+    });
     console.log('signup data', signupData);
     // alert if succesfull
     // password validator
