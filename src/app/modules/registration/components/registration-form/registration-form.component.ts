@@ -58,8 +58,10 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private addressService: AddressService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private fb: FormBuilder
   ) {}
+
   ngOnInit(): void {
     const element = this.elementRef.nativeElement.querySelector('.logo');
     const letters = gsap.utils.toArray('.letter') as HTMLElement[];
@@ -306,6 +308,8 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
         }
       });
     }
+    console.log(this.personalInfoForm.value, this.contactDetailsForm.value);
+
   }
 
   moveToReviewTab(): void {

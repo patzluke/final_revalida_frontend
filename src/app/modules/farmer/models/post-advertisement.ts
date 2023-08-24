@@ -19,4 +19,7 @@ export interface PostAdvertisement {
   //for inserting and updating advertisement
   supplierId: number;
   cropSpecializationId: number;
+
+  //for front end logic - read less or read more
+  showFullDescription?: boolean;
 }

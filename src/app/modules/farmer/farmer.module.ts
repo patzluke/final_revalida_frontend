@@ -31,6 +31,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { PasswordModule } from 'primeng/password';
 import { MatIconModule } from '@angular/material/icon';
+import { postAdvertisementResponsesReducer } from './states/postadvertisement-responses-state/postadvertisement-responses.reducer';
+import { PostAdvertisementResponsesEffects } from './states/postadvertisement-responses-state/postadvertisement-responses.effects';
 
 @NgModule({
   declarations: [
@@ -70,9 +72,14 @@ import { MatIconModule } from '@angular/material/icon';
       'postAdvertisementList (Farmer Acc)',
       postAdvertisementReducer
     ),
+    StoreModule.forFeature(
+      'postAdvertisementResponsesList (Farmer)',
+      postAdvertisementResponsesReducer
+    ),
     EffectsModule.forFeature([
       FarmerComplaintEffects,
       PostAdvertisementEffects,
+      PostAdvertisementResponsesEffects,
     ]),
     FontAwesomeModule,
   ],

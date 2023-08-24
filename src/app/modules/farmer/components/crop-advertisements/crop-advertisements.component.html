@@ -1,4 +1,79 @@
 <div class="background-pic">
+  <div class="modal fade" id="addOffer" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form [formGroup]="addAdvertisementResponseForm">
+            <div class="row mt-2 row-cols-lg-4">
+              <div class="col-lg-3">
+                <label class="form-label">Price:</label>
+                <input
+                  class="form-control"
+                  formControlName="price"
+                  type="number"
+                  min="0"
+                />
+              </div>
+              <div class="col-lg-3">
+                <label class="form-label">Quantity:</label>
+                <input
+                  class="form-control"
+                  formControlName="quantity"
+                  type="text"
+                  min="0"
+                />
+              </div>
+              <div class="col-lg-3">
+                <label class="form-label">Measurement:</label>
+                <select formControlName="measurement" class="form-select">
+                  <option value="kg">Kilograms (Kg)</option>
+                  <option value="tn">Tons (tn)</option>
+                </select>
+              </div>
+              <div class="col-lg-3">
+                <label class="form-label">Preferred Payment:</label>
+                <select
+                  formControlName="preferredPaymentMode"
+                  class="form-select"
+                >
+                  <option value="UnionBank">UnionBank</option>
+                  <option value="Gcash">Gcash</option>
+                </select>
+              </div>
+            </div>
+            <div class="row d-flex flex-row flex-wrap mt-2">
+              <div class="col">
+                <label class="form-label">Message:</label>
+                <textarea
+                  class="form-control"
+                  formControlName="message"
+                  rows="2"
+                ></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="this.addAdvertisementResponseForm.reset()"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            (click)="addOfferSubmit()"
+          >
+            Send Offer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
   <app-side-nav>
     <div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
       <div class="main" data-aos="fade-right" data-aos-duration="333">
@@ -12,7 +87,9 @@
           <div class="row">
             <div
               class="col-lg-6 mb-3"
-              *ngFor="let post of (selectPostAdvertisements$ | async)?.slice(startIndex(), endIndex())"
+              *ngFor="
+                let post of advertisements.slice(startIndex(), endIndex())
+              "
               data-aos="fade-right"
               data-aos-duration="333"
             >
@@ -27,22 +104,21 @@
                     {{ post.cropName }}
                   </h2>
                   <p class="card-text description" data-aos="fade-right">
-                    {{ post.description }}
-                    <!-- <ng-container
+                    <ng-container
                       *ngIf="!post.showFullDescription; else fullDescription"
                     >
-                      {{ post.crop_description | slice : 1000 }}
+                      {{ post.description | slice : 1000 }}
 
                       <button
                         (click)="toggleDescription(post)"
                         type="button"
                         class="btn btn-outline-secondary"
                       >
-                        Read More
+                        View Description
                       </button>
                     </ng-container>
                     <ng-template #fullDescription>
-                      {{ post.crop_description }}
+                      {{ post.description }}
                       <button
                         (click)="toggleDescription(post)"
                         type="button"
@@ -50,14 +126,28 @@
                       >
                         Read Less
                       </button>
-                    </ng-template> -->
+                    </ng-template>
                   </p>
                 </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
-                    <p data-aos="fade-right">
-                      <b>Qty:</b>&nbsp; {{ post.quantity }},
-                      <b>Price:</b>&nbsp; ₱{{ post.price | number: "1.2" }}
+                    <p
+                      data-aos="fade-right"
+                      class="d-flex flex-row justify-content-between align-items-center"
+                    >
+                      <span>
+                        <b>Qty:</b>&nbsp; {{ post.quantity }},
+                        <b>Price:</b>&nbsp; ₱{{ post.price | number : "1.2" }}
+                      </span>
+                      <button
+                        type="button"
+                        class="btn btn-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#addOffer"
+                        (click)="selectAdvertisement(post)"
+                      >
+                        Offer
+                      </button>
                     </p>
                   </li>
                 </ul>
@@ -86,7 +176,7 @@
                   <li class="page-item">
                     <button
                       class="page-link"
-                      [disabled]="endIndex() >= posts.length"
+                      [disabled]="endIndex() >= advertisements.length"
                       (click)="changePage(currentPage + 1)"
                     >
                       Next

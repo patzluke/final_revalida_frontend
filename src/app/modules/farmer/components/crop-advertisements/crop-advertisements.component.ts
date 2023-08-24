@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { PostAdvertisementActions } from '../../states/postadvertisement-state/postadvertisement.actions';
 import { selectPostAdvertisements } from '../../states/postadvertisement-state/postadvertisement.selectors';
+import { PostAdvertisement } from '../../models/post-advertisement';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PostAdvertisementResponsesActions } from '../../states/postadvertisement-responses-state/postadvertisement-responses.actions';
+import { PostAdvertisementResponse } from '../../models/post-advertisement-response';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crop-advertisements',
@@ -9,15 +14,40 @@ import { selectPostAdvertisements } from '../../states/postadvertisement-state/p
   styleUrls: ['./crop-advertisements.component.scss'],
 })
 export class CropAdvertisementsComponent implements OnInit {
+  advertisements: PostAdvertisement[] = [];
+
+  //formGroups
+  addAdvertisementResponseForm: FormGroup;
 
   //selectors
   selectPostAdvertisements$ = this.store.select(selectPostAdvertisements());
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private fb: FormBuilder) {
+    this.addAdvertisementResponseForm = fb.group({
+      postResponseId: [0, Validators.required],
+      price: [0, Validators.required],
+      quantity: [''],
+      dateCreated: [''],
+      dateModified: [''],
+      message: [''],
+      preferredPaymentMode: ['', Validators.required],
+
+      measurement: [''],
+
+      postId: [0],
+      farmerId: [0],
+    });
+  }
 
   ngOnInit(): void {
     this.store.dispatch({
       type: PostAdvertisementActions.GET_POSTADVERTISEMENT,
+    });
+
+    this.selectPostAdvertisements$.subscribe((data) => {
+      data.map((ads) => {
+        this.advertisements.push({ ...ads, showFullDescription: false });
+      });
     });
   }
 
@@ -36,54 +66,48 @@ export class CropAdvertisementsComponent implements OnInit {
     this.currentPage = newPage;
   }
 
-   // Toggle description visibility
-   toggleDescription(post: any): void {
-    post.showFullDescription = !post.showFullDescription;
+  // Toggle description visibility
+  toggleDescription(post: PostAdvertisement): void {
+    this.advertisements = this.advertisements.map((ads) => {
+      if (ads.postId == post.postId) {
+        ads.showFullDescription = !ads.showFullDescription;
+      }
+      return ads;
+    });
   }
 
-  posts: {
-    postId: number;
-    crop_specialization_id: number;
-    crop_name: string;
-    crop_description: string;
-    crop_image: string;
-    quantity: number;
-  }[] = [
-    {
-      postId: 1,
-      crop_specialization_id: 1,
-      crop_name: 'Potato',
-      crop_description:
-        'Planting seed potatoes at the right time is important. Seed potatoes growing in soil that is too cold and wet may rot while potatoes that grow in soil that is too warm, may not produce well. It is best to plant seed potatoes after the chance of hard frost has past, but while you are still experiencing light frosts. If you are concerned that the weather may get too warm or too cold too fast in your area, you can try chitting your seed potatoes to help get a jump on the season. Plant the seed potatoes about 2-3 inches deep and about 24 inches apart. Light frost may kill any new growth above the soil line once they sprout, but do not panic. This will not kill the potatoes plant and the potatoes will regrow their foliage quickly. Now that you know these few tips on cutting and planting seed potatoes, you can look forward to a successful potato harvest.',
-      crop_image: './../../../../../assets/images/potato.png',
-      quantity: 50,
-    },
-    {
-      postId: 2,
-      crop_specialization_id: 1,
-      crop_name: 'Oats',
-      crop_description:
-        'oats, (Avena sativa), domesticated cereal grass (family Poaceae) grown primarily for its edible starchy grains. Oats are widely cultivated in the temperate regions of the world and are second only to rye in their ability to survive in poor soils. Although oats are used chiefly as livestock feed, some are processed for human consumption, especially as breakfast foods. The plants provide good hay and, under proper conditions, furnish excellent grazing and make good silage (stalk feed preserved by fermentation).',
-      crop_image: './../../../../../assets/images/oats.png',
-      quantity: 50,
-    },
-    {
-      postId: 3,
-      crop_specialization_id: 1,
-      crop_name: 'Corn',
-      crop_description:
-        'Corn has several health benefits. Because of the high fiber content, it can aid with digestion. It also contains valuable B vitamins, which are important to your overall health. Corn also provides our bodies with essential minerals such as zinc, magnesium, copper, iron and manganese.',
-      crop_image: './../../../../../assets/images/corn.png',
-      quantity: 50,
-    },
-    {
-      postId: 4,
-      crop_specialization_id: 1,
-      crop_name: 'Melon',
-      crop_description:
-        'melon, (Cucumis melo), trailing vine in the gourd family (Cucurbitaceae), grown for its often musky-scented edible fruit. The melon plant is native to central Asia, and its many cultivated varieties are widely grown in warm regions around the world.',
-      crop_image: './../../../../../assets/images/melons.png',
-      quantity: 50,
-    },
-  ];
+  selectAdvertisement(post: PostAdvertisement) {
+    this.addAdvertisementResponseForm.get('postId')?.patchValue(post.postId);
+  }
+
+  addOfferSubmit() {
+    let addAdvertisementResponseFormValues =
+      this.addAdvertisementResponseForm.value;
+    let newAdvertisementResponse: PostAdvertisementResponse = {
+      price: addAdvertisementResponseFormValues.price,
+      quantity: `${addAdvertisementResponseFormValues.quantity} ${addAdvertisementResponseFormValues.measurement}`,
+      message: addAdvertisementResponseFormValues.message,
+      preferredPaymentMode:
+        addAdvertisementResponseFormValues.preferredPaymentMode,
+      farmerId: localStorage.getItem('userNo') as any,
+      postId: addAdvertisementResponseFormValues.postId,
+    };
+
+    Swal.fire({
+      title: 'Are you sure you want to edit your complaint?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Save changes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.store.dispatch({
+          type: PostAdvertisementResponsesActions.ADD_POSTADVERTISEMENTRESPONSES,
+          postAdvertisementResponse: newAdvertisementResponse,
+        });
+      }
+    });
+    this.addAdvertisementResponseForm.reset();
+  }
 }
