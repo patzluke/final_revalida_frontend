@@ -6,8 +6,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
-import { AddressService } from 'src/app/modules/registration/service/address.service';
 
 @Component({
   selector: 'app-profile',
@@ -41,7 +41,10 @@ export class ProfileComponent implements OnInit {
     },
   ];
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit(): void {
     this.personalInfoForm = this.formBuilder.group({
@@ -128,6 +131,33 @@ export class ProfileComponent implements OnInit {
         return 'path-to-default-logo.png';
     }
   }
+
+  changeImage: boolean = false;
+  isMaxSize: boolean = false;
+
+  onFileSelected = (event: Event) => {
+    const files = (event.target as HTMLInputElement).files;
+
+    if (files && files.length > 0) {
+      const file = files[0];
+      const maxSize = 1 * 1024 * 1024; // 1mb max size
+
+      if (file.size <= maxSize) {
+        // const fileHandle: FileHandle = {
+        //   file: file,
+        //   url: this.sanitizer.bypassSecurityTrustUrl(
+        //     window.URL.createObjectURL(file)
+        //   ),
+        // };
+        // this.professorImage = fileHandle;
+        this.changeImage = false;
+        this.isMaxSize = false;
+      } else {
+        this.isMaxSize = true;
+        this.changeImage = true;
+      }
+    }
+  };
 
   updateProfileInfo = () => {
     if (this.personalInfoForm.valid) {
