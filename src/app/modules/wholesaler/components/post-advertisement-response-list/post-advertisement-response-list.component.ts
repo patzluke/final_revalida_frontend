@@ -15,9 +15,10 @@ import { PostAdvertisementResponse } from '../../models/post-advertisement-respo
   styleUrls: ['./post-advertisement-response-list.component.scss'],
 })
 export class PostAdvertisementResponseListComponent implements OnInit {
+
   selectedPostId!: number;
   selectedPostAdvertisement?: PostAdvertisement;
-
+  postAdvertisementResponses: PostAdvertisementResponse[] = [];
   //selectors
   selectPostAdvertisementResponses$ = this.store.select(
     selectPostAdvertisementResponses()
@@ -26,7 +27,7 @@ export class PostAdvertisementResponseListComponent implements OnInit {
   constructor(
     private store: Store,
     private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +48,12 @@ export class PostAdvertisementResponseListComponent implements OnInit {
         .select(selectPostAdvertisement(this.selectedPostId))
         .subscribe((data) => {
           this.selectedPostAdvertisement = data;
+        });
+
+      this.store
+        .select(selectPostAdvertisementResponses())
+        .subscribe((data) => {
+          this.postAdvertisementResponses = data;
         });
     });
   }

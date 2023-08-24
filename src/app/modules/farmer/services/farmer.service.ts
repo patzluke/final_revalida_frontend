@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FarmerComplaint } from '../models/farmercomplaint';
 import { PostAdvertisement } from '../models/post-advertisement';
+import { PostAdvertisementResponse } from '../models/post-advertisement-response';
 
 @Injectable({
   providedIn: 'root',
@@ -49,7 +50,10 @@ export class FarmerService {
     );
   };
 
-  isUserLoggedIn = () => {
-    return localStorage.getItem('token') || false;
+  insertIntoPostAdvertisementResponse = (response: PostAdvertisementResponse) => {
+    return this.http.post<PostAdvertisementResponse>(
+      `${this.baseUrl}/farmer/insert/postadvertisementresponse`,
+      response
+    );
   };
 }
