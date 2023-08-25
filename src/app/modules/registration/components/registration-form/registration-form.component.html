@@ -83,8 +83,24 @@
                       [toggleMask]="true"
                     ></p-password>
                   </div>
-                  <div *ngIf="personalInfoForm.hasError('minLength')">
-                    <p>Password Min Length</p>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      personalInfoForm.get('password')?.hasError('minlength')
+                    "
+                  >
+                    <p>Password should be at least 6 characters long.</p>
+                  </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      personalInfoForm.get('password')?.hasError('pattern')
+                    "
+                  >
+                    <p>
+                      Password should contain at least one lowercase letter, one
+                      uppercase letter, and one digit.
+                    </p>
                   </div>
                 </div>
 
@@ -97,13 +113,15 @@
                     ></p-password>
                   </div>
                   <div
+                    class="invalid-text"
                     *ngIf="
-                      personalInfoForm.hasError('passwordMismatch') &&
-                      (personalInfoForm.get('confirmPassword')?.dirty ||
-                        personalInfoForm.get('confirmPassword')?.touched)
+                      personalInfoForm
+                        .get('confirmPassword')
+                        ?.hasError('passwordMismatch') &&
+                      personalInfoForm.controls['confirmPassword'].touched
                     "
                   >
-                    <p>Password Mismatch</p>
+                    <p>Password mismatch.</p>
                   </div>
                 </div>
 
@@ -202,6 +220,25 @@
                       type="text"
                       pInputText
                     />
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>Civil status *</label>
+                  <div>
+                    <p-dropdown
+                      [ngClass]="{
+                        'spec-field':
+                          personalInfoForm.controls['civilStatus'].invalid &&
+                          (personalInfoForm.controls['civilStatus'].dirty ||
+                            personalInfoForm.controls['civilStatus'].touched)
+                      }"
+                      formControlName="civilStatus"
+                      placeholder="Select civil status"
+                      [options]="civilStatus"
+                      optionLabel="status"
+                      optionValue="status"
+                    ></p-dropdown>
                   </div>
                 </div>
               </form>
@@ -384,6 +421,12 @@
                       pInputText
                     />
                   </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="contactDetailsForm.get('email')?.hasError('email')"
+                  >
+                    <p>Invalid email.</p>
+                  </div>
                 </div>
 
                 <div class="form-field">
@@ -515,6 +558,13 @@
                   <p><b>Nationality:</b></p>
                   <h4>
                     {{ personalInfoForm.get("nationality")?.value }}
+                  </h4>
+                </div>
+
+                <div class="result-div">
+                  <p><b>Civil status:</b></p>
+                  <h4>
+                    {{ personalInfoForm.get("civilStatus")?.value }}
                   </h4>
                 </div>
 

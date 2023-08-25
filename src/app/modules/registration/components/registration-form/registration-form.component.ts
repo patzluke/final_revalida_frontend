@@ -28,6 +28,12 @@ import { Router } from '@angular/router';
 export class RegistrationFormComponent implements OnInit, OnDestroy {
   userType = [{ type: 'Farmer' }, { type: 'Supplier' }];
   genders = [{ gender: 'Male' }, { gender: 'Female' }];
+  civilStatus = [
+    { status: 'Married' },
+    { status: 'Single' },
+    { status: 'Divorced' },
+    { status: 'Widowed' },
+  ];
   personalInfoForm!: FormGroup;
   contactDetailsForm!: FormGroup;
   socialsFormArray!: FormArray;
@@ -138,6 +144,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
         status: [''],
         dateCreated: [''],
         activeDeactive: [''],
+        civilStatus: ['', Validators.required],
       },
       { validator: this.passwordMatchValidator }
     );
@@ -339,6 +346,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       birthDate: this.personalInfoForm.controls['birthdate'].getRawValue(),
       gender: this.personalInfoForm.controls['gender'].getRawValue(),
       nationality: this.personalInfoForm.controls['nationality'].getRawValue(),
+      civilStatus: this.personalInfoForm.controls['civilStatus'].getRawValue(),
       address: this.contactDetailsForm.controls['address'].getRawValue(),
       email: this.contactDetailsForm.controls['email'].getRawValue(),
       contactNo: this.contactDetailsForm.controls['contactNo'].getRawValue(),
@@ -365,7 +373,5 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       }
     });
     console.log('signup data', signupData);
-    // alert if succesfull
-    // password validator
   };
 }

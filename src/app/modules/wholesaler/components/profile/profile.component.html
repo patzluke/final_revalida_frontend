@@ -74,7 +74,7 @@
           <p-card>
             <div class="right-header">
               <div class="header-text">
-                <h1><b>Profile</b></h1>
+                <h1><b>Profile Details</b></h1>
               </div>
 
               <div class="edit-button-container">
@@ -90,7 +90,7 @@
               </div>
             </div>
 
-            <div class="profile-second-text">
+            <div class="profile-second">
               <div class="left-second">
                 <div class="second-subtext">
                   <p class="label">First name</p>
@@ -107,17 +107,17 @@
                   <p>Single</p>
                 </div>
 
-                <div class="second-subtext" style="margin-bottom: -1.5rem">
+                <div class="second-subtext res-second-subtext">
                   <p class="label">Address</p>
                   <p style="line-height: 16px">
-                    455 Gumitna Pinalagdan, Paombong, Bulacan
+                    455 Gumitna Pinalagdan, Paombong, Bulacan, REGION III
                   </p>
                 </div>
               </div>
 
               <div class="right-second">
                 <div class="second-subtext">
-                  <p class="label">Last Name</p>
+                  <p class="label">Last name</p>
                   <p>Cruz</p>
                 </div>
 
@@ -144,7 +144,6 @@
                 <div class="edit-button-container">
                   <button
                     pButton
-                    pRipple
                     label="Edit"
                     icon="pi pi-user-edit"
                     iconPos="right"
@@ -153,19 +152,16 @@
                   ></button>
                 </div>
               </div>
-              <div class="profile-second-text">
+              <div class="profile-third">
                 <div class="left-second">
-                  <div class="second-subtext" style="margin-bottom: 0">
+                  <div class="second-subtext third-subtext">
                     <p class="label">Username</p>
                     <p>leocruz22</p>
                   </div>
                 </div>
                 <div class="right-second">
-                  <div
-                    class="second-subtext"
-                    style="margin-bottom: 0; padding-bottom: 5px"
-                  >
-                    <p class="label">Current Password</p>
+                  <div class="second-subtext third-subtext">
+                    <p class="label">Current password</p>
                     <p>********</p>
                   </div>
                 </div>
@@ -334,7 +330,11 @@
           </div>
         </div>
 
-        <h1>Edit Contact Details</h1>
+        <p-divider align="left">
+          <div class="inline-flex align-items-center" style="margin-top: 1rem">
+            <h1>Contact Details</h1>
+          </div>
+        </p-divider>
         <div class="form-field">
           <label>Address *</label>
           <div>
@@ -353,7 +353,7 @@
         </div>
 
         <div class="form-field">
-          <label>Email address *</label>
+          <label>Email *</label>
           <div>
             <input
               [ngClass]="{
@@ -366,6 +366,12 @@
               type="text"
               pInputText
             />
+          </div>
+          <div
+            class="invalid-text"
+            *ngIf="personalInfoForm.get('email')?.hasError('email')"
+          >
+            <p>Invalid email.</p>
           </div>
         </div>
 
@@ -458,7 +464,7 @@
   <div>
     <div class="container">
       <form [formGroup]="passwordForm">
-        <div class="alert alert-info info" role="alert">
+        <div class="alert alert-warning info">
           <div class="info-icon"><mat-icon class="icon">info</mat-icon></div>
           <div class="info-text">
             <p>
@@ -467,6 +473,8 @@
             </p>
           </div>
         </div>
+
+        <h4><i>Required Fields *</i></h4>
 
         <div class="form-field">
           <label>Current Password *</label>
@@ -498,24 +506,47 @@
               [toggleMask]="true"
             ></p-password>
           </div>
+          <div
+            class="invalid-text"
+            *ngIf="passwordForm.get('newPassword')?.hasError('minlength')"
+          >
+            <p>Password should be at least 6 characters long.</p>
+          </div>
+          <div
+            class="invalid-text"
+            *ngIf="passwordForm.get('newPassword')?.hasError('pattern')"
+          >
+            <p>
+              Password should contain at least one lowercase letter, one
+              uppercase letter, and one digit.
+            </p>
+          </div>
         </div>
 
         <div class="form-field">
           <label>Confirm Password *</label>
           <div>
             <p-password
+              [ngClass]="{
+                'spec-field':
+                  passwordForm.controls['confirmPassword'].invalid &&
+                  (passwordForm.controls['confirmPassword'].dirty ||
+                    passwordForm.controls['confirmPassword'].touched)
+              }"
               formControlName="confirmPassword"
               [toggleMask]="true"
             ></p-password>
           </div>
           <div
+            class="invalid-text"
             *ngIf="
-              passwordForm.hasError('passwordMismatch') &&
-              (passwordForm.get('confirmPassword')?.dirty ||
-                passwordForm.get('confirmPassword')?.touched)
+              passwordForm
+                .get('confirmPassword')
+                ?.hasError('passwordMismatch') &&
+              passwordForm.controls['confirmPassword'].touched
             "
           >
-            <p>Password Mismatch</p>
+            <p>Password mismatch.</p>
           </div>
         </div>
       </form>
