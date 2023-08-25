@@ -6,8 +6,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { AddressService } from 'src/app/modules/registration/service/address.service';
 
 @Component({
   selector: 'app-profile',
