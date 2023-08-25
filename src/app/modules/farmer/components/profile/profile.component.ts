@@ -6,8 +6,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
