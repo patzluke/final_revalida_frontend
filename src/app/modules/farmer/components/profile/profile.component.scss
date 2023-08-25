@@ -220,7 +220,7 @@ section {
 
 // modal styles
 .form-field {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 .p-inputtext {
@@ -360,6 +360,24 @@ b {
 
 .form-field label {
   margin-bottom: 0.5rem;
+}
+
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+  margin-right: 1rem;
+}
+
+.checkbox-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.checkbox-container .label {
+  font-size: 1.1rem;
+  vertical-align: 5px;
 }
 
 //-----------RESPONSIVE-----------

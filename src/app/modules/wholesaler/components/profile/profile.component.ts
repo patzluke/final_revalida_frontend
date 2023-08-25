@@ -5,7 +5,11 @@ import {
   FormBuilder,
   Validators,
   FormControl,
+  AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+import { FileDetails } from '../../models/fileDetails';
 
 @Component({
   selector: 'app-profile',
@@ -30,23 +34,33 @@ export class ProfileComponent implements OnInit {
   passwordForm!: FormGroup;
   dateToday: Date = new Date();
 
-  socialType = [
-    {
-      type: 'Facebook: ',
-    },
-    {
-      type: 'Instagram: ',
-    },
-  ];
+  facebookSelected: boolean = false;
+  instagramSelected: boolean = false;
+  facebookLink: string = 'Facebook: ';
+  instagramLink: string = 'Instagram: ';
+  socialLinksAdded: boolean = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  changeImage: boolean = false;
+  isMaxSize: boolean = false;
+
+  selectedImage!: File;
+  imagePreviewUrl!: string | ArrayBuffer;
+
+  //image upload
+  fileDetails!: FileDetails;
+  fileUris: Array<string> = [];
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit(): void {
     this.personalInfoForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       middleName: [''],
       lastName: ['', Validators.required],
-      birthdate: ['', Validators.required],
+      birthdate: ['', [Validators.required, this.ageValidator]],
       gender: ['', Validators.required],
       nationality: ['', Validators.required],
       civilStatus: ['', Validators.required],
@@ -107,51 +121,41 @@ export class ProfileComponent implements OnInit {
     this.editPassword = true;
   }
 
-  deleteSocial = (i: number) => {
-    this.socialsFormArray.removeAt(i);
-  };
-
-  addSocial = () => {
-    this.socialsFormArray.push(new FormControl());
-  };
-
-  getSocialLogoUrl(socialType: string): string {
-    switch (socialType) {
-      case 'Facebook: ':
-        return '/assets/images/fb-logo.png';
-      case 'Instagram: ':
-        return '/assets/images/ig-logo.png';
-      // Add more cases for other social media types
-      default:
-        return 'path-to-default-logo.png';
+  addSocialLinks(): void {
+    this.socialsFormArray.clear();
+    if (this.facebookSelected && this.facebookLink.trim() !== '') {
+      this.socialsFormArray.push(new FormControl(this.facebookLink));
+    }
+    if (this.instagramSelected && this.instagramLink.trim() !== '') {
+      this.socialsFormArray.push(new FormControl(this.instagramLink));
     }
   }
 
-  changeImage: boolean = false;
-  isMaxSize: boolean = false;
+  ageValidator(control: AbstractControl): ValidationErrors | null {
+    const birthdate = control.value;
 
-  onFileSelected = (event: Event) => {
-    const files = (event.target as HTMLInputElement).files;
-
-    if (files && files.length > 0) {
-      const file = files[0];
-      const maxSize = 1 * 1024 * 1024; // 1mb max size
-
-      if (file.size <= maxSize) {
-        // const fileHandle: FileHandle = {
-        //   file: file,
-        //   url: this.sanitizer.bypassSecurityTrustUrl(
-        //     window.URL.createObjectURL(file)
-        //   ),
-        // };
-        // this.professorImage = fileHandle;
-        this.changeImage = false;
-        this.isMaxSize = false;
-      } else {
-        this.isMaxSize = true;
-        this.changeImage = true;
-      }
+    if (!birthdate) {
+      return null;
     }
+    const currentDate = new Date();
+    const age = currentDate.getFullYear() - birthdate.getFullYear();
+
+    if (age < 18) {
+      return { underage: true };
+    }
+    return null;
+  }
+
+  onImageSelected = (event: any) => {
+    const selectedFile = event.target.files[0];
+    this.selectedImage = selectedFile;
+
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.imagePreviewUrl = e.target.result;
+      this.changeImage = true;
+    };
+    reader.readAsDataURL(selectedFile);
   };
 
   updateProfileInfo = () => {

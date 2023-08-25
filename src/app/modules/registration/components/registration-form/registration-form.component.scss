@@ -58,12 +58,12 @@
 }
 
 .left-container {
-  width: 50%;
+  width: 55%;
   padding: 1rem 2rem;
 }
 
 .right-container {
-  width: 50%;
+  width: 45%;
   padding-right: 2rem;
   position: relative;
 }
@@ -111,7 +111,7 @@
 .social-logo {
   width: 2rem;
   height: 2rem;
-  margin-right: 1rem;
+  margin: 1rem 0;
 }
 
 .invalid-field {
@@ -182,6 +182,71 @@ label {
 }
 
 .p-button.submit-btn:hover {
+  color: #ffffff;
+  //background: #8da17f;
+  background: #18332f;
+}
+
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+  margin-right: 1rem;
+}
+
+.checkbox-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.checkbox-container .label {
+  font-size: 1.1rem;
+  vertical-align: 5px;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  background-color: transparent;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  border-color: #8da17f;
+  color: #8da17f;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center;
+}
+
+.upload-image-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 2rem;
+}
+
+.upload-image {
+  width: 12rem;
+  height: 9rem;
+  filter: none;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.mat-icon {
+  margin-right: 1rem;
+}
+
+.p-button.upload-btn {
+  color: #ffffff;
+  //background: #18332f;
+  background: #8da17f;
+  border: #8da17f;
+}
+
+.p-button.upload-btn:hover {
   color: #ffffff;
   //background: #8da17f;
   background: #18332f;
