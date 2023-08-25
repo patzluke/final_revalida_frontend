@@ -5,7 +5,7 @@
       <div class="content">
         <div class="left-container">
           <div>
-            <div class="icon-container">
+            <!-- <div class="icon-container">
               <h1 class="logo" routerLink="/home">
                 <div class="letter">A</div>
                 <div class="letter">g</div>
@@ -18,7 +18,7 @@
                 <div class="letter">g</div>
                 <div class="letter">e</div>
               </h1>
-            </div>
+            </div> -->
 
             <div class="sub-text">
               <h1><b>Create your account</b></h1>
@@ -184,6 +184,14 @@
                       [showIcon]="true"
                       [maxDate]="dateToday"
                     ></p-calendar>
+                  </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      personalInfoForm.get('birthdate')?.hasError('underage')
+                    "
+                  >
+                    Age must be at least 18 years old.
                   </div>
                 </div>
 
@@ -449,50 +457,64 @@
 
                 <div class="form-field" style="margin-top: 1rem">
                   <label>Social media accounts</label>
-                  <div>
-                    <ng-container formArrayName="socials">
-                      <div
-                        *ngFor="
-                          let control of socialsFormArray.controls;
-                          let i = index
-                        "
-                      >
-                        <div class="input-form-day">
-                          <p-dropdown
-                            [options]="socialType"
-                            optionLabel="type"
-                            [formControlName]="i"
-                            placeholder="Select social"
-                            [editable]="true"
-                            class="form-array-dp"
-                          >
-                            <ng-template let-socialType pTemplate="item">
-                              <div class="social-dropdown-item">
-                                <img
-                                  class="social-logo"
-                                  [src]="getSocialLogoUrl(socialType.type)"
-                                />
-                                {{ socialType.type }}
-                              </div>
-                            </ng-template>
-                          </p-dropdown>
-                          <button
-                            pButton
-                            icon="pi pi-times"
-                            class="delete-btn p-button-rounded p-button-danger"
-                            (click)="deleteSocial(i)"
-                          ></button>
-                        </div>
-                      </div>
+                  <div class="checkbox-container">
+                    <label>
+                      <input
+                        type="checkbox"
+                        [(ngModel)]="facebookSelected"
+                        (change)="addSocialLinks()"
+                        [ngModelOptions]="{ standalone: true }"
+                        class="custom-checkbox"
+                      />
+                      <img
+                        src="/assets/images/fb-logo.png"
+                        alt="Facebook Logo"
+                        class="social-logo"
+                      />
+                      Facebook
+                    </label>
+                    <label>
+                      <input
+                        type="checkbox"
+                        [(ngModel)]="instagramSelected"
+                        (change)="addSocialLinks()"
+                        [ngModelOptions]="{ standalone: true }"
+                        class="custom-checkbox"
+                      />
+                      <img
+                        src="/assets/images/ig-logo.png"
+                        alt="Instagram Logo"
+                        class="social-logo"
+                      />
+                      Instagram
+                    </label>
+                  </div>
+                </div>
 
-                      <button
-                        pButton
-                        icon="pi pi-check"
-                        label="add another"
-                        class="add-btn p-button-rounded"
-                        (click)="addSocial()"
-                      ></button>
-                    </ng-container>
+                <div
+                  class="form-field"
+                  *ngIf="facebookSelected || instagramSelected"
+                >
+                  <label>Account Links:</label>
+                  <div *ngIf="facebookSelected" style="margin-bottom: 1rem">
+                    <input
+                      pInputText
+                      type="text"
+                      placeholder="Facebook"
+                      [(ngModel)]="facebookLink"
+                      (change)="addSocialLinks()"
+                      [ngModelOptions]="{ standalone: true }"
+                    />
+                  </div>
+                  <div *ngIf="instagramSelected">
+                    <input
+                      pInputText
+                      type="text"
+                      placeholder="Instagram"
+                      [(ngModel)]="instagramLink"
+                      (change)="addSocialLinks()"
+                      [ngModelOptions]="{ standalone: true }"
+                    />
                   </div>
                 </div>
               </form>
@@ -510,12 +532,119 @@
                   pRipple
                   label="Next"
                   class="next-btn"
+                  (click)="moveToValidIdTab()"
+                ></button>
+              </div>
+            </p-tabPanel>
+
+            <p-tabPanel
+              header="Valid Id"
+              [disabled]="contactDetailsForm.invalid"
+            >
+              <div>
+                <h4>
+                  <i>Required Fields *</i>
+                </h4>
+
+                <form [formGroup]="validIdForm">
+                  <div class="form-field">
+                    <label>Type of valid Id *</label>
+                    <div>
+                      <p-dropdown
+                        [ngClass]="{
+                          'spec-field':
+                            validIdForm.controls['validIdType'].invalid &&
+                            (validIdForm.controls['validIdType'].dirty ||
+                              validIdForm.controls['validIdType'].touched)
+                        }"
+                        formControlName="validIdType"
+                        placeholder="Select valid id type"
+                        [options]="validIds"
+                        optionLabel="type"
+                        optionValue="type"
+                      ></p-dropdown>
+                    </div>
+                  </div>
+
+                  <div class="form-field">
+                    <label>Id number *</label>
+                    <div>
+                      <input
+                        [ngClass]="{
+                          'invalid-field':
+                            validIdForm.controls['validIdNumber'].invalid &&
+                            (validIdForm.controls['validIdNumber'].dirty ||
+                              validIdForm.controls['validIdNumber'].touched)
+                        }"
+                        formControlName="validIdNumber"
+                        type="text"
+                        pInputText
+                      />
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 1rem">
+                    <label>Valid Id image *</label>
+                    <div class="upload-image-container">
+                      <div>
+                        <button
+                          pButton
+                          class="upload-btn"
+                          (click)="selectFile.click()"
+                        >
+                          <mat-icon class="mat-icon">cloud_upload</mat-icon>
+                          Upload image
+                        </button>
+                      </div>
+                      <img
+                        *ngIf="changeImage && imagePreviewUrl"
+                        class="upload-image"
+                        [src]="imagePreviewUrl"
+                      />
+                      <img
+                        *ngIf="!changeImage"
+                        class="upload-image"
+                        src="/assets/images/upload.png"
+                      />
+                    </div>
+
+                    <input
+                      hidden
+                      type="file"
+                      id="img"
+                      value="select"
+                      accept="image/*"
+                      #selectFile
+                      (change)="onImageSelected($event)"
+                    />
+
+                    <div *ngIf="isMaxSize">
+                      <p [ngStyle]="{ color: 'red' }">
+                        Image size is too large
+                      </p>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="action-container">
+                <button
+                  pButton
+                  type="button"
+                  label="Previous"
+                  class="p-button-secondary"
+                  (click)="activeIndex = 1"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  label="Next"
+                  class="next-btn"
                   (click)="moveToReviewTab()"
                 ></button>
               </div>
             </p-tabPanel>
 
-            <p-tabPanel header="Review" [disabled]="contactDetailsForm.invalid">
+            <p-tabPanel header="Review" [disabled]="validIdForm.invalid">
               <div>
                 <div class="result-div">
                   <p><b>Creating an account as:</b></p>
@@ -589,12 +718,39 @@
                   </h4>
                 </div>
 
-                <div class="result-div">
+                <div
+                  class="result-div"
+                  *ngIf="socialsFormArray && socialsFormArray.length > 0"
+                >
                   <p><b>Social media accounts:</b></p>
-                  <h4 *ngFor="let socialControl of socialsFormArray.controls">
-                    {{ socialControl.value }}
+                  <ng-container
+                    *ngFor="let socialControl of socialsFormArray.controls"
+                  >
+                    <h4 *ngIf="socialControl.value" style="margin-bottom: -1px">
+                      {{ socialControl.value }}
+                    </h4>
+                  </ng-container>
+                </div>
+
+                <div class="result-div">
+                  <p><b>Valid Id type:</b></p>
+                  <h4>
+                    {{ validIdForm.get("validIdType")?.value }}
                   </h4>
                 </div>
+
+                <div class="result-div">
+                  <p><b>Id number:</b></p>
+                  <h4>
+                    {{ validIdForm.get("validIdNumber")?.value }}
+                  </h4>
+                </div>
+
+                <img
+                  *ngIf="changeImage && imagePreviewUrl"
+                  class="upload-image"
+                  [src]="imagePreviewUrl"
+                />
               </div>
 
               <div class="action-container">
@@ -603,7 +759,7 @@
                   type="button"
                   label="Previous"
                   class="p-button-secondary"
-                  (click)="activeIndex = 1"
+                  (click)="activeIndex = 2"
                 ></button>
                 <button
                   pButton
