@@ -1,7 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
 section {
   background-color: #e8f4ef;
   height: 100%;
   padding: 8rem 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+.container {
+  font-family: "Montserrat", sans-serif;
 }
 
 .profile-container {
@@ -164,22 +171,21 @@ section {
 
 .edit-button {
   border-radius: 20px;
-  //   background-color: white;
-  //   color: black;
+  background: #8da17f;
+  border: #8da17f;
+}
+
+.p-button.edit-button:hover {
+  color: #ffffff;
+  //background: #8da17f;
+  background: #18332f;
 }
 
 .profile-second {
-  margin-bottom: 1rem;
   display: flex;
   width: 100%;
-  padding: 1rem 1.5rem;
-  border-radius: 20px;
-}
-
-.profile-second-title {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
+  height: 14rem;
 }
 
 .profile-second-text {
@@ -202,6 +208,14 @@ section {
 
 .label {
   color: rgb(126, 125, 125);
+}
+
+.profile-third {
+  height: 3.1rem;
+  display: flex;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: -1.2rem;
 }
 
 // modal styles
@@ -289,7 +303,8 @@ info-text {
 
 .info-icon {
   width: 20%;
-  margin-right: 1.1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .icon {
@@ -328,8 +343,44 @@ info-text {
     0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-@media (max-width: 1082px) {
-  .profile-second-text {
-    margin-bottom: 0;
+.invalid-text {
+  color: red;
+}
+
+.p-dialog .p-dialog-header .p-dialog-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+b {
+  color: #6a6969;
+  font-family: "Montserrat", sans-serif;
+}
+
+.form-field label {
+  margin-bottom: 0.5rem;
+}
+
+//-----------RESPONSIVE-----------
+@media (max-width: 1920px) {
+  .res-second-subtext {
+    margin-bottom: -10px;
+    width: 120%;
+  }
+}
+
+@media (max-width: 1090px) {
+  .profile-container {
+    display: block;
+  }
+
+  .left-container {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .right-container {
+    width: 100%;
   }
 }

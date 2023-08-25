@@ -29,6 +29,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { PasswordModule } from 'primeng/password';
 import { MatButtonModule } from '@angular/material/button';
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { MatButtonModule } from '@angular/material/button';
     CalendarModule,
     PasswordModule,
     MatButtonModule,
+    DividerModule,
     StoreModule.forFeature('farmingTipList', farmingTipReducer),
     StoreModule.forFeature('farmerComplaintsList', farmerComplaintReducer),
     EffectsModule.forFeature([FarmingTipEffects, FarmerComplaintEffects]),

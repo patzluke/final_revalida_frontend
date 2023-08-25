@@ -34,6 +34,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { postAdvertisementResponsesReducer } from './states/postadvertisement-responses-state/postadvertisement-responses.reducer';
 import { PostAdvertisementResponsesEffects } from './states/postadvertisement-responses-state/postadvertisement-responses.effects';
 import { MatButtonModule } from '@angular/material/button';
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { MatButtonModule } from '@angular/material/button';
     PasswordModule,
     MatIconModule,
     MatButtonModule,
+    DividerModule,
     StoreModule.forFeature(
       'SingleFarmerComplaintsList',
       farmerComplaintReducer

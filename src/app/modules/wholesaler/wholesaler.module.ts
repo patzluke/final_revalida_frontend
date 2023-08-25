@@ -30,6 +30,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { PasswordModule } from 'primeng/password';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { MatButtonModule } from '@angular/material/button';
     PasswordModule,
     MatIconModule,
     MatButtonModule,
+    DividerModule,
     StoreModule.forFeature('postAdvertisementList', postAdvertisementReducer),
     StoreModule.forFeature('cropSpecializationList', cropSpecializationReducer),
     StoreModule.forFeature(
