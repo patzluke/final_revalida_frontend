@@ -1,96 +1,110 @@
-<div class="mainBg" data-aos="zoom-out">
-  <div class="main" data-aos="fade-right">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col">
-          <div class="d-flex flex-row-reverse mb-3 mt-3">
-            <button
-              type="submit"
-              class="btn btn-danger ms-2"
-              data-aos="fade-right"
-              [routerLink]="['/home']"
+<app-header></app-header>
+<section class="login-section">
+  <div class="container">
+    <!-- <p-card> -->
+    <div class="login-container">
+      <div class="left-container">
+        <form [formGroup]="loginForm">
+          <h1 data-aos="fade-right">Log in</h1>
+
+          <div class="form-field" data-aos="fade-right">
+            <label for="username">Username</label>
+
+            <input
+              [ngClass]="{
+                'invalid-field':
+                  loginForm.controls['username'].invalid &&
+                  (loginForm.controls['username'].dirty ||
+                    loginForm.controls['username'].touched)
+              }"
+              type="text"
+              class="form-control"
+              id="username"
+              formControlName="username"
+            />
+          </div>
+          <div class="form-field" data-aos="fade-right">
+            <label for="password"> Password</label>
+            <input
+              [ngClass]="{
+                'invalid-field':
+                  loginForm.controls['password'].invalid &&
+                  (loginForm.controls['password'].dirty ||
+                    loginForm.controls['password'].touched)
+              }"
+              type="{{ showPassword ? 'text' : 'password' }}"
+              class="form-control"
+              id="password"
+              formControlName="password"
+            />
+          </div>
+
+          <div data-aos="fade-right" class="checkbox-container">
+            <input
+              type="checkbox"
+              style="margin-right: 0.5rem"
+              class="checkbox-cus"
+              (change)="showPasswordFunction($event)"
+            />
+            <label for="btncheck1" data-aos="fade-right"
+              >&nbsp;<fa-icon [icon]="faLockOpen"></fa-icon>&nbsp;Show
+              password</label
             >
-              <fa-icon
-                [icon]="faClose"
-                [animation]="'shake'"
-                [size]="'lg'"
-              ></fa-icon>
+          </div>
+
+          <div class="action-container">
+            <button
+              pButton
+              type="submit"
+              data-aos="fade-right"
+              class="login-btn"
+              (click)="onSubmit()"
+            >
+              <fa-icon [icon]="faRightToBracket"></fa-icon>
+              &nbsp; LOG IN
             </button>
           </div>
 
-          <form [formGroup]="loginForm">
-            <p
-              class="h1 mb-3 mt-3 text-light text-shadow"
-              data-aos="fade-right"
+          <div data-aos="fade-right">
+            <a
+              class="forgot-password"
+              [routerLink]="['/forgot-password/user-role-email']"
+              >Forgot password?</a
             >
-              LOGIN
-            </p>
-            <div class="form-floating mb-3" data-aos="fade-right">
-              <input
-                type="text"
-                class="form-control"
-                id="username"
-                placeholder="Username"
-                formControlName="username"
-              />
-              <label for="username"
-                ><fa-icon [icon]="faUser"></fa-icon>&nbsp;Username</label
-              >
-            </div>
-            <div class="form-floating" data-aos="fade-right">
-              <input
-                type="{{ showPassword ? 'text' : 'password' }}"
-                class="form-control"
-                id="password"
-                placeholder="Password"
-                formControlName="password"
-              />
-              <label for="password"
-                ><fa-icon [icon]="faLock"></fa-icon>&nbsp; Password</label
-              >
-            </div>
-            <div
-              class="d-flex flex-row-reverse mb-3 mt-3"
-              data-aos="fade-right"
-            >
-              <label for="btncheck1" class="text-light" data-aos="fade-right"
-                >&nbsp;<fa-icon [icon]="faLockOpen"></fa-icon>&nbsp;Show
-                password</label
-              >
-              <input type="checkbox" (change)="showPasswordFunction($event)" />
-            </div>
-            <div class="mb-3 mt-3">
-              <button
-                type="submit"
-                class="btn btn-primary w-100"
-                data-aos="fade-right"
-                (click)="onSubmit()"
-              >
-                <fa-icon
-                  [icon]="faRightToBracket"
-                  [animation]="'bounce'"
-                  [size]="'lg'"
-                ></fa-icon>
-                &nbsp; Login
-              </button>
-            </div>
-
-            <div class="d-flex flex-row-reverse mb-3 mt-3">
-              <a
-                class="link-opacity-100 text-light"
-                data-aos="fade-right"
-                [routerLink]="['/forgot-password/user-role-email']"
-                >Forgot password?</a
-              >
-            </div>
-          </form>
-          <div class="text-center">
-            <p class="text-light" data-aos="fade-right">
-              Not a member? <a [routerLink]="['/signup']">Register here!</a>
-            </p>
           </div>
+        </form>
+      </div>
+      <div class="right-container">
+        <h1 data-aos="fade-right">Sign in</h1>
+        <h3 data-aos="fade-right">JOIN US TODAY!</h3>
+        <p data-aos="fade-right">
+          AgriBridge believe in the power of connection. Our mission is to unite
+          farmers, retailers, and suppliers in a seamless ecosystem, fostering a
+          thriving agricultural community that benefits everyone involved.
+        </p>
+        <p data-aos="fade-right" style="margin-bottom: 1.5rem">
+          Your personal data will be used to support your experience on this
+          website, to manage access to your account and for other purposes
+          described in our
+          <span class="privacy" [routerLink]="['/privacy-policy']"
+            >privacy policy</span
+          >.
+        </p>
+
+        <div class="action-container" style="margin-top: 2rem">
+          <button
+            [routerLink]="['/signup']"
+            pButton
+            type="submit"
+            data-aos="fade-right"
+            class="login-btn"
+            label="SIGN IN"
+          ></button>
         </div>
       </div>
     </div>
+    <!-- </p-card> -->
   </div>
-</div>
+</section>
+<div class="wave-container2"></div>
+<app-footer></app-footer>
