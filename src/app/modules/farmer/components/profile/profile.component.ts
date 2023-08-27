@@ -56,6 +56,10 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    setTimeout(() => {
+      //window.location.reload();
+    }, 1000);
+
     this.personalInfoForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       middleName: [''],

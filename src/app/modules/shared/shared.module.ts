@@ -33,6 +33,11 @@ import { LoaderComponent } from './components/loader/loader.component';
     MatExpansionModule,
     LandingRoutingModule,
   ],
-  exports: [HeaderComponent, FooterComponent, SideNavComponent],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    SideNavComponent,
+    LoaderComponent,
+  ],
 })
 export class SharedModule {}
