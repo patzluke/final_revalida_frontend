@@ -15,7 +15,12 @@ import { LandingRoutingModule } from '../landing/landing-routing.module';
 import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, SideNavComponent, LoaderComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    SideNavComponent,
+    LoaderComponent,
+  ],
   imports: [
     CommonModule,
     MatToolbarModule,

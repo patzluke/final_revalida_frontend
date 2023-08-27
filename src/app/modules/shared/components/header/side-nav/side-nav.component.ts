@@ -9,10 +9,14 @@ import { Observable, map, shareReplay } from 'rxjs';
   styleUrls: ['./side-nav.component.scss'],
 })
 export class SideNavComponent {
+  isMinWidth800: boolean = false;
+
   constructor(
     private breakpointObserver: BreakpointObserver,
     private _router: Router
-  ) {}
+  ) {
+    this.isMinWidth800 = window.innerWidth > 800;
+  }
 
   ngOnInit() {
     this.isHandset$ = this.breakpointObserver
@@ -23,7 +27,7 @@ export class SideNavComponent {
       );
   }
 
-  isSidebarExpanded = true;
+  isSidebarExpanded = false;
   isHandset$!: Observable<boolean>;
   userType = localStorage.getItem('userType');
 
@@ -38,6 +42,13 @@ export class SideNavComponent {
   @HostListener('window:resize', ['$event'])
   onWindowResize(event: any) {
     this.isSidebarExpanded = !this.isHandset$;
+    this.isMinWidth800 = window.innerWidth > 800;
+  }
+
+  sideNav: boolean = false;
+  toggleSidenav(): void {
+    this.isSidebarExpanded = !this.isSidebarExpanded;
+    this.sideNav = !this.sideNav;
   }
 
   logout = () => {
