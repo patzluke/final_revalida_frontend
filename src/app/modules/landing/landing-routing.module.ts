@@ -7,6 +7,7 @@ import { WhoWeAreComponent } from './pages/who-we-are/who-we-are.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { OurProcessComponent } from './pages/our-process/our-process.component';
 import { SustainabilityComponent } from './pages/sustainability/sustainability.component';
+import { AdvertisementsComponent } from './pages/advertisements/advertisements.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'sustainability',
     component: SustainabilityComponent,
+  },
+  {
+    path: 'crop-advertisements',
+    component: AdvertisementsComponent,
   },
 ];
 

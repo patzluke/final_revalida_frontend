@@ -1,0 +1,135 @@
+<!-- redirect to login -->
+
+<app-header></app-header>
+<section>
+  <div class="container" data-aos="fade-right" data-aos-duration="333">
+    <div><p class="h1 mb-3 title">CROP ADVERTISEMENTS</p></div>
+    <div class="filter-container">
+      <div class="search-container">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            type="text"
+            pInputText
+            placeholder="Search"
+            (keyup)="applyFilter($event)"
+            #input
+          />
+        </span>
+      </div>
+
+      <div class="dropdown-container">
+        <p-multiSelect [options]="cropTypes" optionLabel="type"></p-multiSelect>
+      </div>
+    </div>
+
+    <div
+      class="card bg-light-subtle"
+      *ngFor="
+        let post of filteredAdvertisements.slice(startIndex(), endIndex())
+      "
+    >
+      <div class="image-container"><img src="{{ post.cropImage }}" /></div>
+
+      <div class="card-body">
+        <div class="text-section">
+          <div class="crop-name">
+            <h2>
+              <b>{{ post.cropName }}</b>
+            </h2>
+          </div>
+          <div class="poster-name">
+            <p>
+              {{ post.supplier?.user?.firstName }}
+              {{ post.supplier?.user?.middleName }}
+              {{ post.supplier?.user?.lastName }}
+            </p>
+          </div>
+
+          <div class="price-qty-container">
+            <h3><b>Price:</b>&nbsp; ₱{{ post.price | number : "1.2" }}</h3>
+            <h3><b>Qty:</b>&nbsp; {{ post.quantity }}</h3>
+          </div>
+
+          <div class="description-container">
+            <h3><b>Description:</b></h3>
+            <h3 class="card-text">
+              <ng-container
+                *ngIf="post.showFullDescription; else fullDescription"
+              >
+                {{ post.description | slice : 1000 }}
+
+                <button
+                  (click)="toggleDescription(post)"
+                  type="button"
+                  class="btn btn-outline-secondary"
+                >
+                  View Description
+                </button>
+              </ng-container>
+              <ng-template #fullDescription>
+                {{ post.description }}
+                <button
+                  (click)="toggleDescription(post)"
+                  type="button"
+                  class="btn btn-outline-secondary"
+                >
+                  Read Less
+                </button>
+              </ng-template>
+            </h3>
+          </div>
+        </div>
+        <div class="cta-section">
+          <button
+            pButton
+            type="button"
+            class="offer-btn"
+            label="OFFER"
+            data-bs-toggle="modal"
+            data-bs-target="#addOffer"
+            (click)="selectAdvertisement(post)"
+          ></button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isSearchResultEmpty" class="no-info">
+      <img class="no-info-image" src="assets/images/no-result.png" />
+      <div class="no-info-text">
+        <h1>No results found</h1>
+        <p>We couldn't find what you searched for.</p>
+        <p>Try searching again.</p>
+      </div>
+    </div>
+
+    <div class="pagination pagination-md justify-content-end">
+      <li class="page-item">
+        <button
+          class="page-link"
+          [disabled]="currentPage === 1"
+          (click)="changePage(currentPage - 1)"
+        >
+          Previous
+        </button>
+      </li>
+      <li class="page-item">
+        <button class="page-link" disabled>
+          {{ currentPage }}
+        </button>
+      </li>
+
+      <li class="page-item">
+        <button
+          class="page-link"
+          [disabled]="endIndex() >= advertisements.length"
+          (click)="changePage(currentPage + 1)"
+        >
+          Next
+        </button>
+      </li>
+    </div>
+  </div>
+</section>
+<div class="wave-container2"></div>
+<app-footer> </app-footer>
