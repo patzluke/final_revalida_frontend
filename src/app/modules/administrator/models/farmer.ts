@@ -3,5 +3,7 @@ import { User } from './user';
 export interface Farmer {
   farmerId?: number;
   cropSpecializationId?: string;
-  user: User;
+  user?: User;
+
+  //for account verification variables
 }

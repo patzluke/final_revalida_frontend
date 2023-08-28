@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { PostAdvertisementActions } from '../../states/postadvertisement-state/postadvertisement.actions';
 import { selectPostAdvertisements } from '../../states/postadvertisement-state/postadvertisement.selectors';
@@ -46,6 +46,9 @@ export class CropAdvertisementsComponent implements OnInit {
 
     this.selectPostAdvertisements$.subscribe((data) => {
       data.map((ads) => {
+        if (this.advertisements.find((item) => item.postId == ads.postId)) {
+          return;
+        }
         this.advertisements.push({ ...ads, showFullDescription: false });
       });
     });

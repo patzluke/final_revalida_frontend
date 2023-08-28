@@ -1,15 +1,14 @@
-export interface User {
-  userId?: number;
-  activeDeactive?: boolean;
-  activeStatus: boolean;
+export interface UserApplicants {
+  applicantId?: number;
   address: string;
   birthDate: string;
+  civilStatus: string;
   contactNo: string;
-  dateCreated: string;
+  dateRegistered: string;
   email: string;
   firstName: string;
   gender: string;
-  image: string;
+  validIdPicture: string;
   lastName: string;
   middleName: string;
   nationality: string;
@@ -18,4 +17,5 @@ export interface User {
   userType: string;
   username: string;
   isValidated: boolean;
+  isActivated: boolean;
 }

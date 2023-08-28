@@ -406,6 +406,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       socials: this.contactDetailsForm.controls['socials'].getRawValue(),
       validIdType: this.validIdForm.controls['validIdType'].getRawValue(),
       validIdNumber: this.validIdForm.controls['validIdNumber'].getRawValue(),
+      validIdPicture: '',
     };
     Swal.fire({
       title: 'Are you sure you want to register?',
@@ -416,19 +417,31 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       confirmButtonText: 'Save changes',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.registerService.registerUser(signupData).subscribe({
-          next: (data) => {
-            Swal.fire('Success', "You've Successfully registered!", 'success');
-            this._router.navigateByUrl('/login');
+        this.registerService.upload(this.selectedImage).subscribe({
+          next: (value) => {
+            signupData.validIdPicture = `${value.fileUri.concat(
+              value.fileName
+            )}`;
+            this.registerService.registerUser(signupData).subscribe({
+              next: (data) => {
+                Swal.fire('Success', "You've Successfully registered. You may now sign in! Please Wait for a text message for your account Verification!", 'success');
+                this._router.navigateByUrl('/login');
+              },
+              error: (err: HttpErrorResponse) => {
+                if (err.error.message == 'username already exists') {
+                  Swal.fire('Failed to Register!', `Username already exists!`, 'error');
+                } else if (err.error.message == 'email already exists') {
+                  Swal.fire('Failed to Register!', `Email already exists!`, 'error');
+                } else if (err.error.message == 'mobile number already exists') {
+                  Swal.fire('Failed to Register!', `Mobile number already exists!`, 'error');
+                } else {
+                  Swal.fire('Failed to Register!', `Something went wrong.`, 'error');
+                }
+              },
+            });
           },
-          error: (err: HttpErrorResponse) => {
-            if (err.error.message == 'username already exists') {
-              Swal.fire('Failed to Register!', `Username already exists!`, 'error');
-            } else if (err.error.message == 'email already exists') {
-              Swal.fire('Failed to Register!', `Email already exists!`, 'error');
-            } else {
-              Swal.fire('Failed to Register!', `Something went wrong.`, 'error');
-            }
+          error: (e) => {
+            Swal.fire('Failed to Register!', `Something went wrong.`, 'error');
           },
         });
       }

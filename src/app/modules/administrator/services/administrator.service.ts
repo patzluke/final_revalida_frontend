@@ -4,6 +4,8 @@ import { FarmingTip } from '../models/farmingTip';
 import { FarmerComplaint } from '../models/farmercomplaint';
 import { Farmer } from '../models/farmer';
 import { Supplier } from '../models/supplier';
+import { UserApplicants } from '../models/userapplicants';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +19,12 @@ export class AdminService {
       username,
       password,
     });
+  };
+
+  selectAllUserApplicants = () => {
+    return this.http.get<UserApplicants[]>(
+      `${this.baseUrl}/admin/get/userapplicants`
+    );
   };
 
   selectAllFarmers = () => {
@@ -60,6 +68,13 @@ export class AdminService {
   updateIntoFarmerComplaint = (farmerComplaint: FarmerComplaint) => {
     return this.http.put<FarmerComplaint>(
       `${this.baseUrl}/admin/update/farmercomplaints`,
+      farmerComplaint
+    );
+  };
+
+  validateUserAccount = (farmerComplaint: Farmer | User) => {
+    return this.http.put<Farmer | Supplier>(
+      `${this.baseUrl}/admin/verify/account`,
       farmerComplaint
     );
   };

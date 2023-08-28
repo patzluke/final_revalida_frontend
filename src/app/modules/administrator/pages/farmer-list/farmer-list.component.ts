@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FarmerComplaint } from '../../models/farmercomplaint';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { FarmerComplaintActions } from '../../states/farmercomplaint-state/farmercomplaint.actions';
 import { FarmerActions } from '../../states/farmer-state/farmer.actions';
-import { selectFarmers } from '../../states/farmer-state/farmer.selectors';
 import { Farmer } from '../../models/farmer';
+import {
+  selectFarmersNotValidated,
+  selectFarmersValidated,
+} from '../../states/farmer-state/farmer.selectors';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-farmer-list',
@@ -18,18 +22,21 @@ export class FarmerListComponent implements OnInit {
   loading: boolean = true;
 
   farmers: Farmer[] = [];
+
   selectedReadDate: string | undefined = '';
+  selectedFarmerToVerify?: Farmer;
 
   //Formgroups
   editFarmerForm: FormGroup;
 
   //selectors
-  selectFarmers$ = this.store.select(selectFarmers());
+  selectFarmersValidated$ = this.store.select(selectFarmersValidated());
+  selectFarmersNotValidated$ = this.store.select(selectFarmersNotValidated());
 
-  constructor(
-    private store: Store,
-    private fb: FormBuilder,
-  ) {
+  //ElementRefs
+  @ViewChild('verifyFarmerClose') modalElement!: ElementRef;
+
+  constructor(private store: Store, private fb: FormBuilder) {
     this.editFarmerForm = fb.group({
       farmerComplaintId: [0, Validators.required],
       adminReplyMessage: ['', Validators.required],
@@ -44,15 +51,17 @@ export class FarmerListComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch({ type: FarmerActions.GET_FARMER });
-    this.selectFarmers$.subscribe({
+    this.selectFarmersValidated$.subscribe({
       next: (data) => {
         this.farmers = data;
         this.loading = false;
+        console.log(data);
       },
     });
   }
 
   selectFarmer(farmer: Farmer) {
+    this.selectedFarmerToVerify = farmer;
     // let updatedFarmerComplaint = { ...farmer };
     // updatedFarmerComplaint.adminReplyMessage =
     //   updatedFarmerComplaint.adminReplyMessage != null
@@ -76,8 +85,7 @@ export class FarmerListComponent implements OnInit {
   }
 
   editFarmerSubmit() {
-    let addEditFarmerComplaintFormValues =
-      this.editFarmerForm.getRawValue();
+    let addEditFarmerComplaintFormValues = this.editFarmerForm.getRawValue();
     let updatedFarmerComplaint: FarmerComplaint = {
       farmerComplaintId: addEditFarmerComplaintFormValues.farmerComplaintId,
       adminReplyMessage: addEditFarmerComplaintFormValues.adminReplyMessage,
@@ -87,6 +95,65 @@ export class FarmerListComponent implements OnInit {
     this.store.dispatch({
       type: FarmerComplaintActions.UPDATE_FARMERCOMPLAINT,
       farmerComplaint: updatedFarmerComplaint,
+    });
+  }
+
+  selectFarmerToVerify(farmer: Farmer) {
+    this.selectedFarmerToVerify = farmer;
+  }
+
+  verifyAccount() {
+    Swal.fire({
+      title: 'Verify Account?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Save changes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let updatedUser = { ...this.selectedFarmerToVerify?.user };
+        updatedUser.isValidated = true;
+        let updatedFarmerToVerify: Farmer = {
+          ...this.selectedFarmerToVerify,
+          user: updatedUser,
+        };
+        this.store.dispatch({
+          type: FarmerActions.UPDATE_FARMER_STATUS,
+          farmer: updatedFarmerToVerify,
+        });
+        const nativeModal = this.modalElement.nativeElement;
+        nativeModal.click();
+        Swal.fire('Success', 'Account Successfully Verified!', 'success');
+      }
+    });
+  }
+
+  refuseSubmittedId() {
+    Swal.fire({
+      title: 'Ask Farmer to re-Submit a valid ID?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Save changes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let updatedUser = { ...this.selectedFarmerToVerify?.user };
+        updatedUser.isValidated = false;
+        updatedUser.validIdPicture = '';
+        let updatedFarmerToVerify: Farmer = {
+          ...this.selectedFarmerToVerify,
+          user: updatedUser,
+        };
+        this.store.dispatch({
+          type: FarmerActions.UPDATE_FARMER_STATUS,
+          farmer: updatedFarmerToVerify,
+        });
+        const nativeModal = this.modalElement.nativeElement;
+        nativeModal.click();
+        Swal.fire('Success', 'Message sent to Farmer', 'success');
+      }
     });
   }
 }
