@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginService } from '../../service/login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,7 +16,6 @@ import {
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated,
 })
 export class LoginComponent {
   faRightToBracket = faRightToBracket;

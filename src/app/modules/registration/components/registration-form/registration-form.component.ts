@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
