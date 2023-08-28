@@ -1,79 +1,6 @@
-<div class="background-pic">
-  <div class="modal fade" id="addOffer" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-body">
-          <form [formGroup]="addAdvertisementResponseForm">
-            <div class="row mt-2 row-cols-lg-4">
-              <div class="col-lg-3">
-                <label class="form-label">Price:</label>
-                <input
-                  class="form-control"
-                  formControlName="price"
-                  type="number"
-                  min="0"
-                />
-              </div>
-              <div class="col-lg-3">
-                <label class="form-label">Quantity:</label>
-                <input
-                  class="form-control"
-                  formControlName="quantity"
-                  type="text"
-                  min="0"
-                />
-              </div>
-              <div class="col-lg-3">
-                <label class="form-label">Measurement:</label>
-                <select formControlName="measurement" class="form-select">
-                  <option value="kg">Kilograms (Kg)</option>
-                  <option value="tn">Tons (tn)</option>
-                </select>
-              </div>
-              <div class="col-lg-3">
-                <label class="form-label">Preferred Payment:</label>
-                <select
-                  formControlName="preferredPaymentMode"
-                  class="form-select"
-                >
-                  <option value="UnionBank">UnionBank</option>
-                  <option value="Gcash">Gcash</option>
-                </select>
-              </div>
-            </div>
-            <div class="row d-flex flex-row flex-wrap mt-2">
-              <div class="col">
-                <label class="form-label">Message:</label>
-                <textarea
-                  class="form-control"
-                  formControlName="message"
-                  rows="2"
-                ></textarea>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-            (click)="this.addAdvertisementResponseForm.reset()"
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-dismiss="modal"
-            (click)="addOfferSubmit()"
-          >
-            Send Offer
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- <app-loader></app-loader> -->
+<!-- search and filter -->
+<!-- <div class="background-pic">
   <app-side-nav>
     <div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
       <div class="main" data-aos="fade-right" data-aos-duration="333">
@@ -83,7 +10,6 @@
               <p class="h1 mb-3 text-light">CROP ADVERTISEMENTS</p>
             </div>
           </div>
-
           <div class="row">
             <div
               class="col-lg-6 mb-3"
@@ -190,4 +116,215 @@
       </div>
     </div>
   </app-side-nav>
+</div> -->
+<app-side-nav>
+  <section>
+    <div class="container" data-aos="fade-right" data-aos-duration="333">
+      <div><p class="h1 mb-3 title">CROP ADVERTISEMENTS</p></div>
+      <div class="filter-container">
+        <div class="search-container">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              type="text"
+              pInputText
+              placeholder="Search"
+              (keyup)="applyFilter($event)"
+              #input
+            />
+          </span>
+        </div>
+
+        <div class="dropdown-container">
+          <p-multiSelect
+            [options]="cropTypes"
+            optionLabel="type"
+          ></p-multiSelect>
+        </div>
+      </div>
+
+      <div
+        class="card bg-light-subtle"
+        *ngFor="
+          let post of filteredAdvertisements.slice(startIndex(), endIndex())
+        "
+      >
+        <div class="image-container"><img src="{{ post.cropImage }}" /></div>
+
+        <div class="card-body">
+          <div class="text-section">
+            <div class="crop-name">
+              <h2>
+                <b>{{ post.cropName }}</b>
+              </h2>
+            </div>
+            <div class="poster-name">
+              <p>
+                {{ post.supplier?.user?.firstName }}
+                {{ post.supplier?.user?.middleName }}
+                {{ post.supplier?.user?.lastName }}
+              </p>
+            </div>
+
+            <div class="price-qty-container">
+              <h3><b>Price:</b>&nbsp; ₱{{ post.price | number : "1.2" }}</h3>
+              <h3><b>Qty:</b>&nbsp; {{ post.quantity }}</h3>
+            </div>
+
+            <div class="description-container">
+              <h3><b>Description:</b></h3>
+              <h3 class="card-text">
+                <ng-container
+                  *ngIf="post.showFullDescription; else fullDescription"
+                >
+                  {{ post.description | slice : 1000 }}
+
+                  <button
+                    (click)="toggleDescription(post)"
+                    type="button"
+                    class="btn btn-outline-secondary"
+                  >
+                    View Description
+                  </button>
+                </ng-container>
+                <ng-template #fullDescription>
+                  {{ post.description }}
+                  <button
+                    (click)="toggleDescription(post)"
+                    type="button"
+                    class="btn btn-outline-secondary"
+                  >
+                    Read Less
+                  </button>
+                </ng-template>
+              </h3>
+            </div>
+          </div>
+          <div class="cta-section">
+            <button
+              pButton
+              type="button"
+              class="offer-btn"
+              label="OFFER"
+              data-bs-toggle="modal"
+              data-bs-target="#addOffer"
+              (click)="selectAdvertisement(post)"
+            ></button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="isSearchResultEmpty" class="no-info">
+        <img class="no-info-image" src="assets/images/no-result.png" />
+        <div class="no-info-text">
+          <h1>No results found</h1>
+          <p>We couldn't find what you searched for.</p>
+          <p>Try searching again.</p>
+        </div>
+      </div>
+
+      <div class="pagination pagination-md justify-content-end">
+        <li class="page-item">
+          <button
+            class="page-link"
+            [disabled]="currentPage === 1"
+            (click)="changePage(currentPage - 1)"
+          >
+            Previous
+          </button>
+        </li>
+        <li class="page-item">
+          <button class="page-link" disabled>
+            {{ currentPage }}
+          </button>
+        </li>
+
+        <li class="page-item">
+          <button
+            class="page-link"
+            [disabled]="endIndex() >= advertisements.length"
+            (click)="changePage(currentPage + 1)"
+          >
+            Next
+          </button>
+        </li>
+      </div>
+    </div>
+  </section>
+</app-side-nav>
+<!-- modal -->
+<div class="modal fade" id="addOffer" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form [formGroup]="addAdvertisementResponseForm">
+          <div class="row mt-2 row-cols-lg-4">
+            <div class="col-lg-3">
+              <label class="form-label">Price:</label>
+              <input
+                class="form-control"
+                formControlName="price"
+                type="number"
+                min="0"
+              />
+            </div>
+            <div class="col-lg-3">
+              <label class="form-label">Quantity:</label>
+              <input
+                class="form-control"
+                formControlName="quantity"
+                type="text"
+                min="0"
+              />
+            </div>
+            <div class="col-lg-3">
+              <label class="form-label">Measurement:</label>
+              <select formControlName="measurement" class="form-select">
+                <option value="kg">Kilograms (Kg)</option>
+                <option value="tn">Tons (tn)</option>
+              </select>
+            </div>
+            <div class="col-lg-3">
+              <label class="form-label">Preferred Payment:</label>
+              <select
+                formControlName="preferredPaymentMode"
+                class="form-select"
+              >
+                <option value="UnionBank">UnionBank</option>
+                <option value="Gcash">Gcash</option>
+              </select>
+            </div>
+          </div>
+          <div class="row d-flex flex-row flex-wrap mt-2">
+            <div class="col">
+              <label class="form-label">Message:</label>
+              <textarea
+                class="form-control"
+                formControlName="message"
+                rows="2"
+              ></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="this.addAdvertisementResponseForm.reset()"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="addOfferSubmit()"
+        >
+          Send Offer
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

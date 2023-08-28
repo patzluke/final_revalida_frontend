@@ -35,6 +35,7 @@ import { postAdvertisementResponsesReducer } from './states/postadvertisement-re
 import { PostAdvertisementResponsesEffects } from './states/postadvertisement-responses-state/postadvertisement-responses.effects';
 import { MatButtonModule } from '@angular/material/button';
 import { DividerModule } from 'primeng/divider';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { DividerModule } from 'primeng/divider';
     MatIconModule,
     MatButtonModule,
     DividerModule,
+    MultiSelectModule,
     StoreModule.forFeature(
       'SingleFarmerComplaintsList',
       farmerComplaintReducer
