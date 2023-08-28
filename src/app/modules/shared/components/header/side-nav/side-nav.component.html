@@ -42,17 +42,36 @@
           </a>
           <a
             mat-list-item
-            routerLink="/administrator/farmercomplaint"
+            routerLink="/administrator/farmers"
             routerLinkActive="router-link-active"
             class="mt-1"
           >
-            <mat-icon class="nav-icon">notification_important</mat-icon>
+            <mat-icon class="nav-icon">people</mat-icon>
             <span class="white-text" *ngIf="!(isHandset$ | async)"
-              >Complaints</span
+              >Farmers</span
             >
           </a>
           <a
             mat-list-item
+            routerLink="/administrator/suppliers"
+            class="mt-1"
+          >
+            <mat-icon class="nav-icon">people</mat-icon>
+            <span class="white-text" *ngIf="!(isHandset$ | async)"
+              >Suppliers</span
+            >
+          </a>
+          <a
+          mat-list-item
+          routerLink="/administrator/farmercomplaint"
+          class="mt-1"
+        >
+          <mat-icon class="nav-icon">notification_important</mat-icon>
+          <span class="white-text" *ngIf="!(isHandset$ | async)"
+            >Complaints</span
+          >
+        </a>
+          <a mat-list-item routerLink="/administrator/profile">
             routerLink="/administrator/profile"
             routerLinkActive="router-link-active"
           >

@@ -9,6 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+
 import { FileDetails } from 'src/app/modules/wholesaler/models/fileDetails';
 
 @Component({

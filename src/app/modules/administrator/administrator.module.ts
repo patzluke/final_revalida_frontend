@@ -29,6 +29,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { PasswordModule } from 'primeng/password';
 import { MatButtonModule } from '@angular/material/button';
+import { TabViewModule } from 'primeng/tabview';
+import { FarmerListComponent } from './pages/farmer-list/farmer-list.component';
+import { farmerReducer } from './states/farmer-state/farmer.reducer';
+import { FarmerEffects } from './states/farmer-state/farmer.effects';
+import { SupplierListComponent } from './pages/supplier-list/supplier-list.component';
+import { supplierReducer } from './states/supplier-state/supplier.reducer';
+import { SupplierEffects } from './states/supplier-state/supplier.effects';
 import { DividerModule } from 'primeng/divider';
 
 @NgModule({
@@ -37,6 +44,8 @@ import { DividerModule } from 'primeng/divider';
     FarmingTipComponent,
     FarmerComplaintComponent,
     ProfileComponent,
+    FarmerListComponent,
+    SupplierListComponent,
   ],
   imports: [
     CommonModule,
@@ -45,6 +54,7 @@ import { DividerModule } from 'primeng/divider';
     TableModule,
     SliderModule,
     TagModule,
+    TabViewModule,
     ProgressBarModule,
     DropdownModule,
     MultiSelectModule,
@@ -63,7 +73,9 @@ import { DividerModule } from 'primeng/divider';
     DividerModule,
     StoreModule.forFeature('farmingTipList', farmingTipReducer),
     StoreModule.forFeature('farmerComplaintsList', farmerComplaintReducer),
-    EffectsModule.forFeature([FarmingTipEffects, FarmerComplaintEffects]),
+    StoreModule.forFeature('farmerList', farmerReducer),
+    StoreModule.forFeature('supplierList', supplierReducer),
+    EffectsModule.forFeature([FarmingTipEffects, FarmerComplaintEffects, FarmerEffects, SupplierEffects]),
   ],
 })
 export class AdministratorModule {}

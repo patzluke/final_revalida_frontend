@@ -3,8 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { FarmingTipComponent } from './pages/farming-tip/farming-tip.component';
 import { FarmerComplaintComponent } from './pages/farmer-complaint/farmer-complaint.component';
-import { farmerUserGuard } from 'src/app/guards/farmer-user.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { FarmerListComponent } from './pages/farmer-list/farmer-list.component';
+import { SupplierListComponent } from './pages/supplier-list/supplier-list.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,14 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+  },
+  {
+    path: 'farmers',
+    component: FarmerListComponent,
+  },
+  {
+    path: 'suppliers',
+    component: SupplierListComponent,
   },
 ];
 

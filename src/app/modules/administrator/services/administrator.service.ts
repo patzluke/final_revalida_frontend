@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FarmingTip } from '../models/farmingTip';
 import { FarmerComplaint } from '../models/farmercomplaint';
+import { Farmer } from '../models/farmer';
+import { Supplier } from '../models/supplier';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +17,14 @@ export class AdminService {
       username,
       password,
     });
+  };
+
+  selectAllFarmers = () => {
+    return this.http.get<Farmer[]>(`${this.baseUrl}/admin/get/farmers`);
+  };
+
+  selectAllSuppliers = () => {
+    return this.http.get<Supplier[]>(`${this.baseUrl}/admin/get/suppliers`);
   };
 
   selectAllFarmingTip = () => {

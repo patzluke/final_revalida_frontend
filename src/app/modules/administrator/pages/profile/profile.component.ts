@@ -8,6 +8,7 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
+
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileDetails } from 'src/app/modules/wholesaler/models/fileDetails';
 
@@ -44,6 +45,7 @@ export class ProfileComponent implements OnInit {
 
   selectedImage!: File;
   imagePreviewUrl!: string | ArrayBuffer;
+
 
   //image upload
   fileDetails!: FileDetails;

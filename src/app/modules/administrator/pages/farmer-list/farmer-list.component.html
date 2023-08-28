@@ -1,0 +1,175 @@
+<app-side-nav>
+  <p-tabView [style]="{ width: '100%' }">
+    <p-tabPanel header="Accounts">
+      <!-- Modal Edit Course -->
+      <div
+        class="modal fade"
+        id="editFarmerComplaint"
+        tabindex="-1"
+        aria-labelledby="myModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editFarmerComplaintLabel">
+                Reply to Complaint
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="editFarmerForm">
+                <div class="row d-flex flex-row flex-wrap mt-2">
+                  <div class="col">
+                    <label class="form-label">Complaint:</label>
+                    <textarea
+                      class="form-control"
+                      formControlName="complaintMessage"
+                      rows="3"
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="row d-flex flex-row flex-wrap mt-2">
+                  <div class="col">
+                    <label class="form-label">Reply:</label>
+                    <textarea
+                      class="form-control"
+                      formControlName="adminReplyMessage"
+                      rows="2"
+                    ></textarea>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div
+              class="modal-footer d-flex flex-row"
+              style="justify-content: space-between"
+            >
+              <p>
+                <i
+                  >Date Read:
+                  {{ selectedReadDate | date : "MM/dd/yyyy h:mm aa" }}</i
+                >
+              </p>
+              <div>
+                <button
+                  type="button"
+                  class="btn btn-secondary me-2"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-dismiss="modal"
+                  (click)="editFarmerSubmit()"
+                >
+                  Save changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p-table
+        #dt1
+        [value]="farmers"
+        dataKey="id"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10, 15, 20]"
+        [loading]="loading"
+        [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [globalFilterFields]="[
+          'user.lastName',
+          'user.firstName',
+          'user.middleName',
+          'user.email'
+        ]"
+      >
+        <ng-template pTemplate="caption">
+          <div class="flex">
+            <span class="p-input-icon-left ml-auto">
+              <input
+                #pInputText
+                type="text"
+                (input)="dt1.filterGlobal(pInputText.value, 'contains')"
+                placeholder="Search keyword"
+              />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="min-width: 15rem">
+              <div class="flex align-items-center">Farmer Name</div>
+            </th>
+            <th style="min-width: 15rem">
+              <div class="flex align-items-center">Email</div>
+            </th>
+            <th style="min-width: 15rem">
+              <div class="flex align-items-center text-center">Status</div>
+            </th>
+            <th style="min-width: 15rem">
+              <div class="flex align-items-center text-center">Action</div>
+            </th>
+          </tr></ng-template
+        >
+
+        <ng-template pTemplate="body" let-farmer>
+          <tr>
+            <td style="width: 25%">
+              <span class="ml-1 vertical-align-middle"
+                >{{ farmer.user.lastName }}
+                {{ farmer.user.firstName }}
+                {{ farmer.user.middleName }}</span
+              >
+            </td>
+
+            <td style="width: 25%">
+              {{ farmer.user.email }}
+            </td>
+
+            <td style="width: 25%" class="text-center">
+              {{ farmer.user.activeStatus ? "Active" : "Inactive" }}
+            </td>
+            <td class="text-center" style="width: 25%">
+              <p-button
+                (click)="selectFarmer(farmer)"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#editFarmerComplaint"
+                icon="pi pi-eye"
+                styleClass="p-button-rounded p-button-text"
+              ></p-button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="7">No customers found.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+    <p-tabPanel header="For Account Verification">
+      <p>
+        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
+        illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+        explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
+        odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+        voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non
+        numquam eius modi.
+      </p>
+    </p-tabPanel>
+  </p-tabView>
+</app-side-nav>
