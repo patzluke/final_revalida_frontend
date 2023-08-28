@@ -15,7 +15,6 @@ import { FileDetails } from '../../models/fileDetails';
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class ProfileComponent implements OnInit {
   editProfileDetail: boolean = false;

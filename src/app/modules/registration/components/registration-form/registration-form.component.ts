@@ -27,7 +27,6 @@ import { FileDetails } from 'src/app/modules/wholesaler/models/fileDetails';
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',
   styleUrls: ['./registration-form.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class RegistrationFormComponent implements OnInit, OnDestroy {
   userType = [{ type: 'Farmer' }, { type: 'Supplier' }];
