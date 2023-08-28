@@ -4,9 +4,14 @@ import { FarmerState } from './farmer.reducer';
 export const selectFarmerState =
   createFeatureSelector<FarmerState>('farmerList');
 
-export const selectFarmers = () =>
+export const selectFarmersValidated = () =>
   createSelector(selectFarmerState, (state: FarmerState) =>
-    state.farmers.filter((farmers) => farmers)
+    state.farmers.filter((farmer) => farmer.user?.isValidated)
+  );
+
+export const selectFarmersNotValidated = () =>
+  createSelector(selectFarmerState, (state: FarmerState) =>
+    state.farmers.filter((farmer) => !farmer.user?.isValidated)
   );
 
 export const selectFarmer = (farmerId: number) =>

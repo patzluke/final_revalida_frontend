@@ -14,6 +14,10 @@
   background-color: #e8f4ef;
 }
 
+// ::ng-deep .p-card-body {
+//   background-color: #e8f4ef;
+// }
+
 ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
   background-color: #e8f4ef;
 }
@@ -54,7 +58,12 @@
 }
 
 ::ng-deep .p-card {
-  border-radius: 30px !important;
+  border-radius: 30px;
+}
+
+::ng-deep .p-card .p-card-body {
+  border-radius: 30px;
+  background-color: #e8f4ef;
 }
 
 .content {

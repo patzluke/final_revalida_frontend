@@ -5,8 +5,9 @@ export const selectSupplierState =
   createFeatureSelector<SupplierState>('supplierList');
 
 export const selectSuppliers = () =>
-  createSelector(selectSupplierState, (state: SupplierState) =>
-    state.suppliers.filter((suppliers) => suppliers)
+  createSelector(
+    selectSupplierState,
+    (state: SupplierState) => state.suppliers
   );
 
 export const selectSupplier = (supplierId: number) =>

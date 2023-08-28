@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { User } from '../models/user';
+import { FileDetails } from '../models/fileDetails';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +36,15 @@ export class RegisterService {
       .get<any[]>(`${this.serverUrlJson}/barangay`)
       .pipe(tap((x) => x));
   };
+
+  upload(file: File): Observable<FileDetails> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    return this.http.post<FileDetails>(
+      `${this.baseUrl}/file/insert/image`,
+      formData
+    );
+  }
 
   registerUser = (user: User) => {
     return this.http.post<User>(`${this.baseUrl}/registration/user`, user);

@@ -1,19 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { PostAdvertisementActions } from '../../states/postadvertisement-state/postadvertisement.actions';
-import { selectPostAdvertisements } from '../../states/postadvertisement-state/postadvertisement.selectors';
-import { PostAdvertisement } from '../../models/post-advertisement';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PostAdvertisementResponsesActions } from '../../states/postadvertisement-responses-state/postadvertisement-responses.actions';
-import { PostAdvertisementResponse } from '../../models/post-advertisement-response';
+import { PostAdvertisement } from 'src/app/modules/farmer/models/post-advertisement';
+import { PostAdvertisementResponse } from 'src/app/modules/farmer/models/post-advertisement-response';
+import { PostAdvertisementResponsesActions } from 'src/app/modules/farmer/states/postadvertisement-responses-state/postadvertisement-responses.actions';
+import { PostAdvertisementActions } from 'src/app/modules/farmer/states/postadvertisement-state/postadvertisement.actions';
+import { selectPostAdvertisements } from 'src/app/modules/farmer/states/postadvertisement-state/postadvertisement.selectors';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-crop-advertisements',
-  templateUrl: './crop-advertisements.component.html',
-  styleUrls: ['./crop-advertisements.component.scss'],
+  selector: 'app-advertisements',
+  templateUrl: './advertisements.component.html',
+  styleUrls: ['./advertisements.component.scss'],
 })
-export class CropAdvertisementsComponent implements OnInit {
+export class AdvertisementsComponent implements OnInit {
   advertisements: PostAdvertisement[] = [];
   cropTypes = [
     { type: 'Feed Crops' },
@@ -51,9 +51,6 @@ export class CropAdvertisementsComponent implements OnInit {
 
     this.selectPostAdvertisements$.subscribe((data) => {
       data.map((ads) => {
-        if (this.advertisements.find((item) => item.postId == ads.postId)) {
-          return;
-        }
         this.advertisements.push({ ...ads, showFullDescription: false });
       });
     });

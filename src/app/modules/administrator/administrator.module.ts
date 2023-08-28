@@ -37,6 +37,9 @@ import { SupplierListComponent } from './pages/supplier-list/supplier-list.compo
 import { supplierReducer } from './states/supplier-state/supplier.reducer';
 import { SupplierEffects } from './states/supplier-state/supplier.effects';
 import { DividerModule } from 'primeng/divider';
+import { userApplicantsReducer } from './states/userapplicant-state/userapplicant.reducer';
+import { UserApplicantEffects } from './states/userapplicant-state/userapplicant.effects';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -71,11 +74,13 @@ import { DividerModule } from 'primeng/divider';
     PasswordModule,
     MatButtonModule,
     DividerModule,
+    TooltipModule,
     StoreModule.forFeature('farmingTipList', farmingTipReducer),
     StoreModule.forFeature('farmerComplaintsList', farmerComplaintReducer),
     StoreModule.forFeature('farmerList', farmerReducer),
     StoreModule.forFeature('supplierList', supplierReducer),
-    EffectsModule.forFeature([FarmingTipEffects, FarmerComplaintEffects, FarmerEffects, SupplierEffects]),
+    StoreModule.forFeature('userApplicantList', userApplicantsReducer),
+    EffectsModule.forFeature([FarmingTipEffects, FarmerComplaintEffects, FarmerEffects, SupplierEffects, UserApplicantEffects]),
   ],
 })
 export class AdministratorModule {}
