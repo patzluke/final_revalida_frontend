@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FarmingTipState } from '../../states/farmingtip-state/farmingtip.reducer';
 import { Store } from '@ngrx/store';
-import { FarmingTipActions } from '../../states/farmingtip-state/farmingtip.actions';
-import { FarmingTip } from '../../models/farmingTip';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
 import { FarmerComplaint } from '../../models/farmercomplaint';
 import { FarmerComplaintActions } from '../../states/farmercomplaint-state/farmercomplaint.actions';
 import { selectFarmerComplaints } from '../../states/farmercomplaint-state/farmercomplaint.selectors';
@@ -47,19 +44,6 @@ export class FarmerComplaintComponent implements OnInit {
         this.farmerComplaints = data;
         this.loading = false;
       },
-    });
-  }
-
-  addFarmingTipSubmit() {
-    let addEditFarmingTipFormValues =
-      this.addEditFarmerComplaintForm.getRawValue();
-    let addFarmingTip: FarmingTip = {
-      farmingTipId: addEditFarmingTipFormValues.farmingTipId,
-      tipMessage: addEditFarmingTipFormValues.tipMessage,
-    };
-    this.store.dispatch({
-      type: FarmingTipActions.ADD_FARMINGTIP,
-      farmingTip: addFarmingTip,
     });
   }
 

@@ -6,6 +6,8 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
+import { DialogService } from 'primeng/dynamicdialog';
+
 
 @Component({
   selector: 'app-profile',
@@ -39,7 +41,8 @@ export class ProfileComponent implements OnInit {
     },
   ];
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) {
+  }
 
   ngOnInit(): void {
     this.personalInfoForm = this.formBuilder.group({

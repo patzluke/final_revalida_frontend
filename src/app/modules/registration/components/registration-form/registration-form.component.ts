@@ -18,6 +18,7 @@ import { gsap } from 'gsap';
 import { User } from '../../models/user';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-registration-form',
@@ -358,13 +359,18 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
             Swal.fire('Success', "You've Successfully registered!", 'success');
             this._router.navigateByUrl('/login');
           },
-          error: (err) => {
-            Swal.fire('Failed to Register!', `Something Went Wrong`, 'error');
+          error: (err: HttpErrorResponse) => {
+            if (err.error.message == 'username already exists') {
+              Swal.fire('Failed to Register!', `Username already exists!`, 'error');
+            } else if (err.error.message == 'email already exists') {
+              Swal.fire('Failed to Register!', `Email already exists!`, 'error');
+            } else {
+              Swal.fire('Failed to Register!', `Something went wrong.`, 'error');
+            }
           },
         });
       }
     });
-    console.log('signup data', signupData);
     // alert if succesfull
     // password validator
   };
