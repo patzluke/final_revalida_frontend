@@ -12,6 +12,10 @@ import { SustainabilityComponent } from './pages/sustainability/sustainability.c
 import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { AdvertisementsComponent } from './pages/advertisements/advertisements.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { InputTextModule } from 'primeng/inputtext';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -20,6 +24,7 @@ import { CardModule } from 'primeng/card';
     ContactComponent,
     OurProcessComponent,
     SustainabilityComponent,
+    AdvertisementsComponent,
   ],
   imports: [
     CommonModule,
@@ -29,6 +34,8 @@ import { CardModule } from 'primeng/card';
     ReactiveFormsModule,
     ButtonModule,
     CardModule,
+    MultiSelectModule,
+    InputTextModule,
   ],
 })
 export class LandingModule {}
