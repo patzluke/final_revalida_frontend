@@ -1,15 +1,12 @@
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import {
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
-import {
+  AbstractControl,
   FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { Observable, map } from 'rxjs';
@@ -19,19 +16,26 @@ import { User } from '../../models/user';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FileDetails } from 'src/app/modules/wholesaler/models/fileDetails';
 
 @Component({
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',
   styleUrls: ['./registration-form.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class RegistrationFormComponent implements OnInit, OnDestroy {
   userType = [{ type: 'Farmer' }, { type: 'Supplier' }];
   genders = [{ gender: 'Male' }, { gender: 'Female' }];
+  civilStatus = [
+    { status: 'Married' },
+    { status: 'Single' },
+    { status: 'Divorced' },
+    { status: 'Widowed' },
+  ];
   personalInfoForm!: FormGroup;
   contactDetailsForm!: FormGroup;
   socialsFormArray!: FormArray;
+  validIdForm!: FormGroup;
 
   activeIndex: number = 0;
   dateToday: Date = new Date();
@@ -50,15 +54,33 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   selectedBarangay: any;
   address: string = '';
 
-  socialType = [
-    {
-      type: 'Facebook: ',
-    },
-    {
-      type: 'Instagram: ',
-    },
-  ];
+  facebookSelected: boolean = false;
+  instagramSelected: boolean = false;
+  facebookLink: string = 'Facebook: ';
+  instagramLink: string = 'Instagram: ';
+  socialLinksAdded: boolean = false;
 
+  changeImage: boolean = false;
+  isMaxSize: boolean = false;
+
+  selectedImage!: File;
+  imagePreviewUrl!: string | ArrayBuffer;
+
+  //image upload
+  fileDetails!: FileDetails;
+  fileUris: Array<string> = [];
+
+  validIds = [
+    { type: "Driver's License" },
+    { type: 'SSS Card' },
+    { type: 'Unified Multi-purpose ID' },
+    { type: 'Philippine Identification System (PhilSys) ID' },
+    { type: 'Tax Identification Number (TIN)' },
+    { type: 'Voter’s ID' },
+    { type: 'Postal ID' },
+    { type: 'PhilHealth' },
+    { type: 'NBI Clearance' },
+  ];
   constructor(
     private formBuilder: FormBuilder,
     private registerService: RegisterService,
@@ -133,12 +155,13 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
         firstName: ['', Validators.required],
         middleName: [''],
         lastName: ['', Validators.required],
-        birthdate: ['', Validators.required],
+        birthdate: ['', [Validators.required, this.ageValidator]],
         gender: ['', Validators.required],
         nationality: ['', Validators.required],
         status: [''],
         dateCreated: [''],
         activeDeactive: [''],
+        civilStatus: ['', Validators.required],
       },
       { validator: this.passwordMatchValidator }
     );
@@ -158,6 +181,11 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     this.socialsFormArray = this.contactDetailsForm.controls[
       'socials'
     ] as FormArray;
+
+    this.validIdForm = this.formBuilder.group({
+      validIdType: ['', Validators.required],
+      validIdNumber: ['', Validators.required],
+    });
 
     this.barangays = this.registerService.getBarangay();
     this.cities = this.registerService.getCities();
@@ -280,26 +308,6 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     this.contactDetailsForm.controls['address'].patchValue(this.address);
   };
 
-  deleteSocial = (i: number) => {
-    this.socialsFormArray.removeAt(i);
-  };
-
-  addSocial = () => {
-    this.socialsFormArray.push(new FormControl());
-  };
-
-  getSocialLogoUrl(socialType: string): string {
-    switch (socialType) {
-      case 'Facebook: ':
-        return '/assets/images/fb-logo.png';
-      case 'Instagram: ':
-        return '/assets/images/ig-logo.png';
-      // Add more cases for other social media types
-      default:
-        return 'path-to-default-logo.png';
-    }
-  }
-
   moveToContactDetailsTab(): void {
     if (this.personalInfoForm.valid) {
       this.activeIndex = 1;
@@ -315,7 +323,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     console.log(this.personalInfoForm.value, this.contactDetailsForm.value);
   }
 
-  moveToReviewTab(): void {
+  moveToValidIdTab(): void {
     if (this.contactDetailsForm.valid) {
       this.activeIndex = 2;
     } else {
@@ -329,6 +337,57 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  moveToReviewTab(): void {
+    if (this.validIdForm.valid) {
+      this.activeIndex = 3;
+    } else {
+      Object.keys(this.validIdForm.controls).forEach((field) => {
+        const control = this.validIdForm.get(field);
+        if (control?.invalid) {
+          control.markAsTouched();
+          control?.setErrors({ invalid: true });
+        }
+      });
+    }
+  }
+
+  addSocialLinks(): void {
+    this.socialsFormArray.clear();
+    if (this.facebookSelected && this.facebookLink.trim() !== '') {
+      this.socialsFormArray.push(new FormControl(this.facebookLink));
+    }
+    if (this.instagramSelected && this.instagramLink.trim() !== '') {
+      this.socialsFormArray.push(new FormControl(this.instagramLink));
+    }
+  }
+
+  ageValidator(control: AbstractControl): ValidationErrors | null {
+    const birthdate = control.value;
+
+    if (!birthdate) {
+      return null;
+    }
+    const currentDate = new Date();
+    const age = currentDate.getFullYear() - birthdate.getFullYear();
+
+    if (age < 18) {
+      return { underage: true };
+    }
+    return null;
+  }
+
+  onImageSelected = (event: any) => {
+    const selectedFile = event.target.files[0];
+    this.selectedImage = selectedFile;
+
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.imagePreviewUrl = e.target.result;
+      this.changeImage = true;
+    };
+    reader.readAsDataURL(selectedFile);
+  };
+
   submit = () => {
     const signupData: any = {
       userType: this.personalInfoForm.controls['userType'].getRawValue(),
@@ -340,10 +399,13 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       birthDate: this.personalInfoForm.controls['birthdate'].getRawValue(),
       gender: this.personalInfoForm.controls['gender'].getRawValue(),
       nationality: this.personalInfoForm.controls['nationality'].getRawValue(),
+      civilStatus: this.personalInfoForm.controls['civilStatus'].getRawValue(),
       address: this.contactDetailsForm.controls['address'].getRawValue(),
       email: this.contactDetailsForm.controls['email'].getRawValue(),
       contactNo: this.contactDetailsForm.controls['contactNo'].getRawValue(),
       socials: this.contactDetailsForm.controls['socials'].getRawValue(),
+      validIdType: this.validIdForm.controls['validIdType'].getRawValue(),
+      validIdNumber: this.validIdForm.controls['validIdNumber'].getRawValue(),
     };
     Swal.fire({
       title: 'Are you sure you want to register?',
@@ -373,5 +435,6 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     });
     // alert if succesfull
     // password validator
+    console.log('signup data', signupData);
   };
 }

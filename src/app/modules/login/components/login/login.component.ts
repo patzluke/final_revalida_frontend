@@ -1,10 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginService } from '../../service/login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import Swal from 'sweetalert2';
-import { faRightToBracket, faClose, faUser, faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons';
+import {
+  faRightToBracket,
+  faClose,
+  faUser,
+  faLock,
+  faLockOpen,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -12,11 +18,11 @@ import { faRightToBracket, faClose, faUser, faLock, faLockOpen } from '@fortawes
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  faRightToBracket = faRightToBracket
-  faClose = faClose
-  faUser = faUser
-  faLock = faLock
-  faLockOpen = faLockOpen
+  faRightToBracket = faRightToBracket;
+  faClose = faClose;
+  faUser = faUser;
+  faLock = faLock;
+  faLockOpen = faLockOpen;
   showPassword: boolean = false;
   loginForm: FormGroup;
 
@@ -88,6 +94,13 @@ export class LoginComponent {
         });
     } else {
       this.loginForm.markAllAsTouched();
+      Object.keys(this.loginForm.controls).forEach((field) => {
+        const control = this.loginForm.get(field);
+        if (control?.invalid) {
+          control.markAsTouched();
+          control?.setErrors({ invalid: true });
+        }
+      });
     }
   };
 

@@ -7,14 +7,14 @@
   padding-bottom: 5rem;
 }
 
-.p-card,
-.p-tabview .p-tabview-panels,
-.p-tabview .p-tabview-nav {
+::ng-deep .p-card,
+::ng-deep .p-tabview .p-tabview-panels,
+::ng-deep .p-tabview .p-tabview-nav {
   // white
   background-color: #e8f4ef;
 }
 
-.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
   background-color: #e8f4ef;
 }
 
@@ -41,7 +41,11 @@
 }
 
 .sub-text h1 {
-  margin-bottom: 5px;
+  margin-bottom: 1rem;
+  font-size: 50px;
+  color: #2d5605;
+  font-weight: bold;
+  font-family: "Circular Std";
 }
 
 .signin-link {
@@ -49,7 +53,7 @@
   cursor: pointer;
 }
 
-.p-card {
+::ng-deep .p-card {
   border-radius: 30px !important;
 }
 
@@ -58,12 +62,12 @@
 }
 
 .left-container {
-  width: 50%;
+  width: 55%;
   padding: 1rem 2rem;
 }
 
 .right-container {
-  width: 50%;
+  width: 45%;
   padding-right: 2rem;
   position: relative;
 }
@@ -82,19 +86,19 @@
   margin-top: 1rem;
 }
 
-.p-inputtext {
+::ng-deep .p-inputtext {
   width: 100%;
 }
 
-.p-dropdown {
+::ng-deep .p-dropdown {
   width: 100%;
 }
 
-.p-password {
+::ng-deep .p-password {
   width: 100%;
 }
 
-.p-calendar {
+::ng-deep .p-calendar {
   width: 100%;
 }
 
@@ -104,23 +108,23 @@
   justify-content: space-between;
 }
 
-.p-tabview .p-tabview-panels {
+::ng-deep .p-tabview .p-tabview-panels {
   padding: 1rem 0;
 }
 
 .social-logo {
   width: 2rem;
   height: 2rem;
-  margin-right: 1rem;
+  margin: 1rem 0;
 }
 
 .invalid-field {
   border: 1px solid red;
 }
 
-.spec-field .p-dropdown,
-.spec-field .p-password,
-.spec-field .p-calendar {
+::ng-deep .spec-field .p-dropdown,
+::ng-deep .spec-field .p-password,
+::ng-deep .spec-field .p-calendar {
   border: 1px solid red;
   border-radius: 5px;
 }
@@ -130,20 +134,35 @@ label {
   margin-bottom: 0.5rem;
 }
 
+.invalid-text {
+  color: red;
+}
+
 // buttons
 .p-button.next-btn {
-  color: #ffffff;
-  //background: #18332f;
-  background: #8da17f;
-  border: #8da17f;
+  border: 1px solid #2d5605;
+  background-color: #2d5605;
+  color: #fff;
+  border-radius: 25px;
   width: 6rem;
+  text-align: center;
+  height: 3rem;
 }
 
 .p-button.next-btn:hover {
-  color: #ffffff;
-  //background: #8da17f;
-  background: #18332f;
-  width: 6rem;
+  border: 1px solid #2d5605;
+  background-color: transparent;
+  color: #2d5605;
+}
+
+.p-button.prev-btn {
+  border-radius: 25px;
+}
+
+.p-button.prev-btn:hover {
+  border: 1px solid #2d5605 !important;
+  background-color: transparent !important;
+  color: #2d5605 !important;
 }
 
 .form-array-dp .p-dropdown {
@@ -158,7 +177,7 @@ label {
   margin-top: 1rem;
 }
 
-.p-dropdown-items-wrapper::-webkit-scrollbar {
+::ng-deep .p-dropdown-items-wrapper::-webkit-scrollbar {
   display: none;
 }
 
@@ -171,13 +190,82 @@ label {
 }
 
 .p-button.submit-btn {
+  border: 1px solid #2d5605;
+  background-color: #2d5605;
+  color: #fff;
+  border-radius: 25px;
+  //width: 6rem;
+  text-align: center;
+  height: 3rem;
+}
+
+.p-button.submit-btn:hover {
+  border: 1px solid #2d5605;
+  background-color: transparent;
+  color: #2d5605;
+}
+
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+  margin-right: 1rem;
+  vertical-align: -3px;
+}
+
+.checkbox-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.checkbox-container .label {
+  font-size: 1.1rem;
+  vertical-align: 5px;
+}
+
+::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  background-color: transparent;
+}
+
+::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  border-color: #8da17f;
+  color: #8da17f;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center;
+}
+
+.upload-image-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 2rem;
+}
+
+.upload-image {
+  width: 12rem;
+  height: 9rem;
+  filter: none;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.mat-icon {
+  margin-right: 1rem;
+}
+
+.p-button.upload-btn {
   color: #ffffff;
   //background: #18332f;
   background: #8da17f;
   border: #8da17f;
 }
 
-.p-button.submit-btn:hover {
+.p-button.upload-btn:hover {
   color: #ffffff;
   //background: #8da17f;
   background: #18332f;

@@ -1,18 +1,211 @@
-.mainBg {
-    display: flex;
-    justify-content: center;
-    background-image: url("./../../../../../assets/images/login.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    width: 100%;
-    padding: 50px;
+// .mainBg {
+//   display: flex;
+//   justify-content: center;
+//   background-image: url("./../../../../../assets/images/login.png");
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   background-size: cover;
+//   background-attachment: fixed;
+//   width: 100%;
+//   padding: 50px;
+// }
+
+// .main {
+//   box-shadow: 1px 1px 10px black;
+//   padding: 50px;
+//   backdrop-filter: blur(30px);
+//   border-radius: 10px;
+// }
+
+//-------------leo
+.login-section {
+  background-color: #e8f4ef !important;
+  padding-top: 8rem;
+  padding-bottom: 5rem;
 }
 
-.main {
-    box-shadow: 1px 1px 10px black;
-    padding: 50px;
-    backdrop-filter: blur(30px);
-    border-radius: 10px;
+.login-container {
+  display: flex;
+  gap: 2rem;
+  //padding: 2rem;
+}
+
+.login-container h1 {
+  font-size: 50px;
+  margin-bottom: 2.5rem;
+  color: #2d5605;
+  font-weight: bold;
+  font-family: "Circular Std";
+}
+
+.left-container {
+  width: 50%;
+  padding: 2rem;
+}
+
+.right-container {
+  width: 50%;
+  background-color: #c8dec9;
+  //background-color: #8ba17f;
+  padding: 2rem;
+}
+
+.right-container p {
+  font-size: 1.1rem;
+  font-family: "Circular Std";
+  margin-bottom: 1rem;
+  //color: #2d5605;
+  //font-weight: bold;
+  //line-height: 1.2rem;
+}
+
+.right-container h3 {
+  font-family: "Circular Std";
+  margin-bottom: 1rem;
+  //color: #2d5605;
+  font-weight: bold;
+}
+
+.form-field {
+  margin-top: 1rem;
+}
+
+.form-field label {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #2d5605;
+  font-weight: 500;
+  font-family: "Circular Std";
+}
+
+.form-control {
+  border-radius: 25px;
+  height: 3rem;
+}
+
+.checkbox-container {
+  margin-top: 1rem;
+}
+
+.checkbox-container label {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #2d5605;
+  font-weight: 500;
+  font-family: "Circular Std";
+}
+
+.checkbox-cus {
+  width: 16px;
+  height: 16px;
+  vertical-align: -2px;
+}
+
+.action-container {
+  margin: 1rem 0;
+}
+
+.p-button.login-btn {
+  border: 1px solid #2d5605;
+  background-color: #2d5605;
+  color: #fff;
+  border-radius: 25px;
+  width: 8rem;
+  text-align: center;
+  height: 3rem;
+}
+
+.p-button.login-btn:hover {
+  border: 1px solid #2d5605;
+  background-color: transparent;
+  color: #2d5605;
+}
+
+.p-button-label {
+  font-weight: 400;
+}
+
+.forgot-password {
+  text-decoration: none;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #2d5605;
+  font-weight: 500;
+  font-family: "Circular Std";
+  position: relative;
+  transition: color 0.5s ease-in-out;
+}
+
+.forgot-password::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #8ba17f, #8ba17f);
+  transition: width 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.forgot-password:hover::before {
+  width: 100%;
+}
+
+.privacy {
+  cursor: pointer;
+  position: relative;
+  transition: color 0.5s ease-in-out;
+  text-decoration: none;
+}
+
+.privacy::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #8ba17f, #8ba17f);
+  transition: width 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.privacy:hover::before {
+  width: 100%;
+}
+
+.wave-container2 {
+  height: 10vh;
+  background-color: #e8f4ef;
+  position: relative;
+}
+
+.wave-container2::before {
+  content: "";
+  width: 100%;
+  height: 52px;
+  position: absolute;
+  bottom: -0.3%;
+  left: 0;
+  background-size: auto;
+  background-repeat: repeat no-repeat;
+  background-position: 20vw bottom;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1200 134' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 22L33 19C82 13 133 14 200 29C267 44 333 67 400 70C467 74 533 59 600 40C667 22 733 0 800 0C867 0 933 22 1000 29C1067 37 1133 29 1167 26L1200 22V134H1167C1133 134 1067 134 1000 134C933 134 867 134 800 134C733 134 667 134 600 134C533 134 467 134 400 134C333 134 267 134 200 134C133 134 67 134 33 134H0V22.332Z' fill='%2318332f'/></svg>");
+}
+
+.invalid-field {
+  border: 1px solid red;
+}
+
+@media (max-width: 838px) {
+  .login-container {
+    display: block;
+  }
+
+  .left-container {
+    width: 100%;
+  }
+
+  .right-container {
+    width: 100%;
+  }
 }

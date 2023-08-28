@@ -36,6 +36,7 @@ import { FarmerEffects } from './states/farmer-state/farmer.effects';
 import { SupplierListComponent } from './pages/supplier-list/supplier-list.component';
 import { supplierReducer } from './states/supplier-state/supplier.reducer';
 import { SupplierEffects } from './states/supplier-state/supplier.effects';
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { SupplierEffects } from './states/supplier-state/supplier.effects';
     CalendarModule,
     PasswordModule,
     MatButtonModule,
+    DividerModule,
     StoreModule.forFeature('farmingTipList', farmingTipReducer),
     StoreModule.forFeature('farmerComplaintsList', farmerComplaintReducer),
     StoreModule.forFeature('farmerList', farmerReducer),
