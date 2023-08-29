@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { FarmerComplaint } from '../models/farmercomplaint';
 import { PostAdvertisement } from '../models/post-advertisement';
 import { PostAdvertisementResponse } from '../models/post-advertisement-response';
+import { CropSpecialization } from '../models/crop-specialization';
 
 @Injectable({
   providedIn: 'root',
@@ -50,10 +51,18 @@ export class FarmerService {
     );
   };
 
-  insertIntoPostAdvertisementResponse = (response: PostAdvertisementResponse) => {
+  insertIntoPostAdvertisementResponse = (
+    response: PostAdvertisementResponse
+  ) => {
     return this.http.post<PostAdvertisementResponse>(
       `${this.baseUrl}/farmer/insert/postadvertisementresponse`,
       response
+    );
+  };
+
+  selectAllCropSpecialization = () => {
+    return this.http.get<CropSpecialization[]>(
+      `${this.baseUrl}/supplier/get/cropspecialization`
     );
   };
 }

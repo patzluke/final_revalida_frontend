@@ -1,129 +1,13 @@
 <!-- <app-loader></app-loader> -->
-<!-- search and filter -->
-<!-- <div class="background-pic">
-  <app-side-nav>
-    <div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
-      <div class="main" data-aos="fade-right" data-aos-duration="333">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <p class="h1 mb-3 text-light">CROP ADVERTISEMENTS</p>
-            </div>
-          </div>
-          <div class="row">
-            <div
-              class="col-lg-6 mb-3"
-              *ngFor="
-                let post of advertisements.slice(startIndex(), endIndex())
-              "
-              data-aos="fade-right"
-              data-aos-duration="333"
-            >
-              <div class="card" style="height: 100%">
-                <img
-                  src="{{ post.cropImage }}"
-                  class="card-img-top"
-                  width="100%"
-                />
-                <div class="card-body">
-                  <h2 class="card-title" data-aos="fade-right">
-                    {{ post.cropName }}
-                  </h2>
-                  <p class="card-text description" data-aos="fade-right">
-                    <ng-container
-                      *ngIf="!post.showFullDescription; else fullDescription"
-                    >
-                      {{ post.description | slice : 1000 }}
-
-                      <button
-                        (click)="toggleDescription(post)"
-                        type="button"
-                        class="btn btn-outline-secondary"
-                      >
-                        View Description
-                      </button>
-                    </ng-container>
-                    <ng-template #fullDescription>
-                      {{ post.description }}
-                      <button
-                        (click)="toggleDescription(post)"
-                        type="button"
-                        class="btn btn-outline-secondary"
-                      >
-                        Read Less
-                      </button>
-                    </ng-template>
-                  </p>
-                </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">
-                    <p
-                      data-aos="fade-right"
-                      class="d-flex flex-row justify-content-between align-items-center"
-                    >
-                      <span>
-                        <b>Qty:</b>&nbsp; {{ post.quantity }},
-                        <b>Price:</b>&nbsp; ₱{{ post.price | number : "1.2" }}
-                      </span>
-                      <button
-                        type="button"
-                        class="btn btn-success"
-                        data-bs-toggle="modal"
-                        data-bs-target="#addOffer"
-                        (click)="selectAdvertisement(post)"
-                      >
-                        Offer
-                      </button>
-                    </p>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="mb-3 mt-3">
-                <div class="pagination pagination-md justify-content-end">
-                  <li class="page-item">
-                    <button
-                      class="page-link"
-                      [disabled]="currentPage === 1"
-                      (click)="changePage(currentPage - 1)"
-                    >
-                      Previous
-                    </button>
-                  </li>
-                  <li class="page-item">
-                    <button class="page-link" disabled>
-                      {{ currentPage }}
-                    </button>
-                  </li>
-
-                  <li class="page-item">
-                    <button
-                      class="page-link"
-                      [disabled]="endIndex() >= advertisements.length"
-                      (click)="changePage(currentPage + 1)"
-                    >
-                      Next
-                    </button>
-                  </li>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </app-side-nav>
-</div> -->
 <app-side-nav>
   <section>
     <div class="container" data-aos="fade-right" data-aos-duration="333">
-      <div><p class="h1 mb-3 title">CROP ADVERTISEMENTS</p></div>
+      <div style="margin-bottom: 3rem">
+        <p class="h1 mb-3 title">CROP ADVERTISEMENTS</p>
+      </div>
       <div class="filter-container">
         <div class="search-container">
-          <span class="p-input-icon-left">
+          <span class="p-input-icon-left w-100">
             <i class="pi pi-search"></i>
             <input
               type="text"
@@ -135,11 +19,27 @@
           </span>
         </div>
 
-        <div class="dropdown-container">
-          <p-multiSelect
-            [options]="cropTypes"
-            optionLabel="type"
-          ></p-multiSelect>
+        <div class="right-filter">
+          <div class="dropdown-container">
+            <p-dropdown
+              [options]="sortingOptions"
+              [(ngModel)]="selectedSortingOption"
+              placeholder="Sort"
+              (ngModelChange)="sortAdvertisements()"
+              dropdownIcon="pi pi-sort-alt"
+            ></p-dropdown>
+          </div>
+
+          <div class="dropdown-container">
+            <p-multiSelect
+              [options]="cropTypes"
+              optionLabel="specializationName"
+              placeholder="Filter by type"
+              [(ngModel)]="selectedCropTypes"
+              (ngModelChange)="filterAdvertisementsByType()"
+              dropdownIcon="pi pi-filter"
+            ></p-multiSelect>
+          </div>
         </div>
       </div>
 
@@ -160,42 +60,55 @@
             </div>
             <div class="poster-name">
               <p>
+                <i class="pi pi-user" style="margin-right: 10px"></i>
                 {{ post.supplier?.user?.firstName }}
                 {{ post.supplier?.user?.middleName }}
                 {{ post.supplier?.user?.lastName }}
               </p>
             </div>
-
+            <mat-divider class="divider"></mat-divider>
             <div class="price-qty-container">
-              <h3><b>Price:</b>&nbsp; ₱{{ post.price | number : "1.2" }}</h3>
-              <h3><b>Qty:</b>&nbsp; {{ post.quantity }}</h3>
+              <div class="pqt-container">
+                <h3 class="label">
+                  <i class="pi pi-money-bill pqt-icon"></i><b>Price</b>
+                </h3>
+                <h3>₱{{ post.price | number : "1.2" }}</h3>
+              </div>
+              <div class="pqt-container">
+                <h3 class="label">
+                  <i class="pi pi-database pqt-icon"></i><b>Quantity</b>
+                </h3>
+                <h3>{{ post.quantity }}</h3>
+              </div>
+              <div class="pqt-container">
+                <h3 class="label">
+                  <i class="pi pi-sun pqt-icon"></i>
+                  <b>Crop type</b>
+                </h3>
+                <h3>
+                  {{ post.cropSpecialization?.specializationName }}
+                </h3>
+              </div>
             </div>
 
+            <mat-divider class="divider"></mat-divider>
+
             <div class="description-container">
-              <h3><b>Description:</b></h3>
+              <h3><b>Description</b></h3>
               <h3 class="card-text">
                 <ng-container
-                  *ngIf="post.showFullDescription; else fullDescription"
+                  *ngIf="!post.showFullDescription; else fullDescription"
                 >
-                  {{ post.description | slice : 1000 }}
-
-                  <button
-                    (click)="toggleDescription(post)"
-                    type="button"
-                    class="btn btn-outline-secondary"
+                  {{ post.description | slice : 0 : 50 }}
+                  <span *ngIf="post.description.length > 50" class="see-more"
+                    >... <a (click)="toggleDescription(post)">See more</a></span
                   >
-                    View Description
-                  </button>
                 </ng-container>
                 <ng-template #fullDescription>
                   {{ post.description }}
-                  <button
-                    (click)="toggleDescription(post)"
-                    type="button"
-                    class="btn btn-outline-secondary"
+                  <span class="see-more" style="margin-left: 1rem">
+                    <a (click)="toggleDescription(post)">See less</a></span
                   >
-                    Read Less
-                  </button>
                 </ng-template>
               </h3>
             </div>
@@ -206,9 +119,7 @@
               type="button"
               class="offer-btn"
               label="OFFER"
-              data-bs-toggle="modal"
-              data-bs-target="#addOffer"
-              (click)="selectAdvertisement(post)"
+              (click)="selectAdvertisement(post); toggleDialog()"
             ></button>
           </div>
         </div>
@@ -252,79 +163,121 @@
     </div>
   </section>
 </app-side-nav>
+
 <!-- modal -->
-<div class="modal fade" id="addOffer" tabindex="-1">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-body">
-        <form [formGroup]="addAdvertisementResponseForm">
-          <div class="row mt-2 row-cols-lg-4">
-            <div class="col-lg-3">
-              <label class="form-label">Price:</label>
-              <input
-                class="form-control"
-                formControlName="price"
-                type="number"
-                min="0"
-              />
-            </div>
-            <div class="col-lg-3">
-              <label class="form-label">Quantity:</label>
-              <input
-                class="form-control"
-                formControlName="quantity"
-                type="text"
-                min="0"
-              />
-            </div>
-            <div class="col-lg-3">
-              <label class="form-label">Measurement:</label>
-              <select formControlName="measurement" class="form-select">
-                <option value="kg">Kilograms (Kg)</option>
-                <option value="tn">Tons (tn)</option>
-              </select>
-            </div>
-            <div class="col-lg-3">
-              <label class="form-label">Preferred Payment:</label>
-              <select
-                formControlName="preferredPaymentMode"
-                class="form-select"
-              >
-                <option value="UnionBank">UnionBank</option>
-                <option value="Gcash">Gcash</option>
-              </select>
-            </div>
+<p-dialog
+  header="Place an offer"
+  [modal]="true"
+  [(visible)]="openDialog"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [maximizable]="true"
+>
+  <div class="container">
+    <div>
+      <form [formGroup]="addAdvertisementResponseForm">
+        <div>
+          <div class="form-field">
+            <label class="form-label">Price:</label>
+            <input
+              [ngClass]="{
+                'invalid-field':
+                  addAdvertisementResponseForm.controls['price'].invalid &&
+                  (addAdvertisementResponseForm.controls['price'].dirty ||
+                    addAdvertisementResponseForm.controls['price'].touched)
+              }"
+              pInputText
+              formControlName="price"
+              type="number"
+              min="0"
+            />
           </div>
-          <div class="row d-flex flex-row flex-wrap mt-2">
-            <div class="col">
-              <label class="form-label">Message:</label>
-              <textarea
-                class="form-control"
-                formControlName="message"
-                rows="2"
-              ></textarea>
-            </div>
+          <div class="form-field">
+            <label class="form-label">Quantity:</label>
+            <input
+              [ngClass]="{
+                'invalid-field':
+                  addAdvertisementResponseForm.controls['quantity'].invalid &&
+                  (addAdvertisementResponseForm.controls['quantity'].dirty ||
+                    addAdvertisementResponseForm.controls['quantity'].touched)
+              }"
+              pInputText
+              formControlName="quantity"
+              type="text"
+              min="0"
+            />
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-          (click)="this.addAdvertisementResponseForm.reset()"
-        >
-          Cancel
-        </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-dismiss="modal"
-          (click)="addOfferSubmit()"
-        >
-          Send Offer
-        </button>
-      </div>
+          <div class="form-field">
+            <label class="form-label">Measurement:</label>
+            <p-dropdown
+              [ngClass]="{
+                'spec-field':
+                  addAdvertisementResponseForm.controls['measurement']
+                    .invalid &&
+                  (addAdvertisementResponseForm.controls['measurement'].dirty ||
+                    addAdvertisementResponseForm.controls['measurement']
+                      .touched)
+              }"
+              formControlName="measurement"
+              placeholder="Select measurement"
+              [options]="measurementOptions"
+              optionLabel="label"
+              optionValue="value"
+            >
+            </p-dropdown>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Preferred Payment:</label>
+            <p-dropdown
+              [ngClass]="{
+                'spec-field':
+                  addAdvertisementResponseForm.controls['preferredPaymentMode']
+                    .invalid &&
+                  (addAdvertisementResponseForm.controls['preferredPaymentMode']
+                    .dirty ||
+                    addAdvertisementResponseForm.controls[
+                      'preferredPaymentMode'
+                    ].touched)
+              }"
+              formControlName="preferredPaymentMode"
+              placeholder="Select payment method"
+              [options]="paymentOptions"
+              optionLabel="label"
+              optionValue="value"
+            >
+            </p-dropdown>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">Message:</label>
+          <textarea
+            [ngClass]="{
+              'spec-field':
+                addAdvertisementResponseForm.controls['message'].invalid &&
+                (addAdvertisementResponseForm.controls['message'].dirty ||
+                  addAdvertisementResponseForm.controls['message'].touched)
+            }"
+            pInputTextarea
+            formControlName="message"
+            rows="2"
+          ></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="action-container">
+      <button
+        pButton
+        class="p-button-outlined p-button-secondary"
+        (click)="this.addAdvertisementResponseForm.reset(); toggleDialog()"
+      >
+        Cancel
+      </button>
+      <button pButton class="submit-btn" (click)="addOfferSubmit()">
+        Send Offer
+      </button>
     </div>
   </div>
-</div>
+</p-dialog>

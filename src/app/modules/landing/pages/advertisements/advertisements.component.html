@@ -3,10 +3,12 @@
 <app-header></app-header>
 <section>
   <div class="container" data-aos="fade-right" data-aos-duration="333">
-    <div><p class="h1 mb-3 title">CROP ADVERTISEMENTS</p></div>
+    <div style="margin-bottom: 3rem">
+      <p class="h1 mb-3 title">CROP ADVERTISEMENTS</p>
+    </div>
     <div class="filter-container">
       <div class="search-container">
-        <span class="p-input-icon-left">
+        <span class="p-input-icon-left w-100">
           <i class="pi pi-search"></i>
           <input
             type="text"
@@ -18,8 +20,27 @@
         </span>
       </div>
 
-      <div class="dropdown-container">
-        <p-multiSelect [options]="cropTypes" optionLabel="type"></p-multiSelect>
+      <div class="right-filter">
+        <div class="dropdown-container">
+          <p-dropdown
+            [options]="sortingOptions"
+            [(ngModel)]="selectedSortingOption"
+            placeholder="Sort"
+            (ngModelChange)="sortAdvertisements()"
+            dropdownIcon="pi pi-sort-alt"
+          ></p-dropdown>
+        </div>
+
+        <div class="dropdown-container">
+          <p-multiSelect
+            [options]="cropTypes"
+            optionLabel="specializationName"
+            placeholder="Filter by type"
+            [(ngModel)]="selectedCropTypes"
+            (ngModelChange)="filterAdvertisementsByType()"
+            dropdownIcon="pi pi-filter"
+          ></p-multiSelect>
+        </div>
       </div>
     </div>
 
@@ -40,42 +61,55 @@
           </div>
           <div class="poster-name">
             <p>
+              <i class="pi pi-user" style="margin-right: 10px"></i>
               {{ post.supplier?.user?.firstName }}
               {{ post.supplier?.user?.middleName }}
               {{ post.supplier?.user?.lastName }}
             </p>
           </div>
-
+          <mat-divider class="divider"></mat-divider>
           <div class="price-qty-container">
-            <h3><b>Price:</b>&nbsp; ₱{{ post.price | number : "1.2" }}</h3>
-            <h3><b>Qty:</b>&nbsp; {{ post.quantity }}</h3>
+            <div class="pqt-container">
+              <h3 class="label">
+                <i class="pi pi-money-bill pqt-icon"></i><b>Price</b>
+              </h3>
+              <h3>₱{{ post.price | number : "1.2" }}</h3>
+            </div>
+            <div class="pqt-container">
+              <h3 class="label">
+                <i class="pi pi-database pqt-icon"></i><b>Quantity</b>
+              </h3>
+              <h3>{{ post.quantity }}</h3>
+            </div>
+            <div class="pqt-container">
+              <h3 class="label">
+                <i class="pi pi-sun pqt-icon"></i>
+                <b>Crop type</b>
+              </h3>
+              <h3>
+                {{ post.cropSpecialization?.specializationName }}
+              </h3>
+            </div>
           </div>
 
+          <mat-divider class="divider"></mat-divider>
+
           <div class="description-container">
-            <h3><b>Description:</b></h3>
+            <h3><b>Description</b></h3>
             <h3 class="card-text">
               <ng-container
-                *ngIf="post.showFullDescription; else fullDescription"
+                *ngIf="!post.showFullDescription; else fullDescription"
               >
-                {{ post.description | slice : 1000 }}
-
-                <button
-                  (click)="toggleDescription(post)"
-                  type="button"
-                  class="btn btn-outline-secondary"
+                {{ post.description | slice : 0 : 50 }}
+                <span *ngIf="post.description.length > 50" class="see-more"
+                  >... <a (click)="toggleDescription(post)">See more</a></span
                 >
-                  View Description
-                </button>
               </ng-container>
               <ng-template #fullDescription>
                 {{ post.description }}
-                <button
-                  (click)="toggleDescription(post)"
-                  type="button"
-                  class="btn btn-outline-secondary"
+                <span class="see-more" style="margin-left: 1rem">
+                  <a (click)="toggleDescription(post)">See less</a></span
                 >
-                  Read Less
-                </button>
               </ng-template>
             </h3>
           </div>
@@ -86,9 +120,8 @@
             type="button"
             class="offer-btn"
             label="OFFER"
-            data-bs-toggle="modal"
-            data-bs-target="#addOffer"
-            (click)="selectAdvertisement(post)"
+            [routerLink]="['/login']"
+            (click)="toggleDialog()"
           ></button>
         </div>
       </div>
@@ -132,4 +165,4 @@
   </div>
 </section>
 <div class="wave-container2"></div>
-<app-footer> </app-footer>
+<app-footer></app-footer>
