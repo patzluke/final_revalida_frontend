@@ -6,6 +6,7 @@ import { PostAdvertisementResponse } from '../models/post-advertisement-response
 import { FileDetails } from '../../registration/models/fileDetails';
 import { Observable } from 'rxjs';
 import { Farmer } from '../models/farmer';
+import { CropSpecialization } from '../models/crop-specialization';
 
 @Injectable({
   providedIn: 'root',
@@ -72,15 +73,19 @@ export class FarmerService {
   };
 
   findOneByUserId = (userId: number) => {
-    return this.http.get<Farmer>(
-      `${this.baseUrl}/farmer/get/farmer/${userId}`
-    );
+    return this.http.get<Farmer>(`${this.baseUrl}/farmer/get/farmer/${userId}`);
   };
 
   updateAdminInfo = (adminInfo: any) => {
     return this.http.put<Farmer>(
       `${this.baseUrl}/farmer/update/farmer`,
       adminInfo
+    );
+  };
+
+  selectAllCropSpecialization = () => {
+    return this.http.get<CropSpecialization[]>(
+      `${this.baseUrl}/supplier/get/cropspecialization`
     );
   };
 }
