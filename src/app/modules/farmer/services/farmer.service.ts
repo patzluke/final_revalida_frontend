@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { FarmerComplaint } from '../models/farmercomplaint';
 import { PostAdvertisement } from '../models/post-advertisement';
 import { PostAdvertisementResponse } from '../models/post-advertisement-response';
+import { FileDetails } from '../../registration/models/fileDetails';
+import { Observable } from 'rxjs';
+import { Farmer } from '../models/farmer';
 import { CropSpecialization } from '../models/crop-specialization';
 
 @Injectable({
@@ -57,6 +60,26 @@ export class FarmerService {
     return this.http.post<PostAdvertisementResponse>(
       `${this.baseUrl}/farmer/insert/postadvertisementresponse`,
       response
+    );
+  };
+
+  upload = (file: File): Observable<FileDetails> => {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    return this.http.post<FileDetails>(
+      `${this.baseUrl}/file/insert/image`,
+      formData
+    );
+  };
+
+  findOneByUserId = (userId: number) => {
+    return this.http.get<Farmer>(`${this.baseUrl}/farmer/get/farmer/${userId}`);
+  };
+
+  updateAdminInfo = (adminInfo: any) => {
+    return this.http.put<Farmer>(
+      `${this.baseUrl}/farmer/update/farmer`,
+      adminInfo
     );
   };
 
