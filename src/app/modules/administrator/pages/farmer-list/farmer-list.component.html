@@ -177,30 +177,132 @@
               ></button>
             </div>
             <div class="modal-body">
-                <div class="row d-flex flex-row flex-wrap mt-2">
-                  <div class="col">
-                   farmer details
+              <section style="background-color: #eee">
+                <div class="container py-5">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="card mb-4">
+                        <div class="card-body text-center">
+                          <img
+                            [src]="selectedFarmerToVerify?.user?.image ||'assets/images/user-icon.png'"
+                            alt="avatar"
+                            class="rounded-circle img-fluid"
+                            style="width: 150px"
+                          />
+                          <p
+                            *ngIf="selectedFarmerToVerify?.user?.validIdPicture"
+                            class="text-muted mt-4"
+                          >
+                            <a
+                              href="{{
+                                selectedFarmerToVerify?.user?.validIdPicture
+                              }}"
+                              target="_blank"
+                              >view submitted valid ID</a
+                            >
+                          </p>
+                          <p
+                            *ngIf="
+                              !selectedFarmerToVerify?.user?.validIdPicture
+                            "
+                            class="text-muted mt-4"
+                          >
+                            No Submitted ID yet
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-8">
+                      <div class="card mb-4">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <p class="mb-0">First Name</p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0">
+                                {{ selectedFarmerToVerify?.user?.firstName }}
+                              </p>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <p class="mb-0">Middle Name</p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0">
+                                {{ selectedFarmerToVerify?.user?.middleName }}
+                              </p>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <p class="mb-0">Last Name</p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0">
+                                {{ selectedFarmerToVerify?.user?.lastName }}
+                              </p>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0">Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">
+                                {{ selectedFarmerToVerify?.user?.email }}
+                              </p>
+                            </div>
+                          </div>
+
+                          <hr />
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0">Mobile</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">
+                                {{ selectedFarmerToVerify?.user?.contactNo }}
+                              </p>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0">Address</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">
+                                {{ selectedFarmerToVerify?.user?.address }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-
+              </section>
             </div>
-            <div
-              class="modal-footer"
-            >
-                <button
-                  type="button"
-                  class="btn btn-secondary me-2"
-                  (click)="refuseSubmittedId()"
-                >
-                  Refuse Submitted ID
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  (click)="verifyAccount()"
-                >
-                  Verify
-                </button>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary me-2"
+                (click)="refuseSubmittedId()"
+              >
+                Refuse Submitted ID
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="verifyAccount()"
+              >
+                Verify
+              </button>
             </div>
           </div>
         </div>
@@ -216,7 +318,12 @@
         [loading]="loading"
         [paginator]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [globalFilterFields]="['user.lastName', 'user.firstName', 'user.middleName', 'user.email']"
+        [globalFilterFields]="[
+          'user.lastName',
+          'user.firstName',
+          'user.middleName',
+          'user.email'
+        ]"
       >
         <ng-template pTemplate="caption">
           <div class="flex">
@@ -224,9 +331,7 @@
               <input
                 #pInputTextfarmers
                 type="text"
-                (input)="
-                  dt1.filterGlobal(pInputTextfarmers.value, 'contains')
-                "
+                (input)="dt1.filterGlobal(pInputTextfarmers.value, 'contains')"
                 placeholder="Search keyword"
               />
             </span>
@@ -264,9 +369,7 @@
             </td>
 
             <td style="width: 25%" class="text-center">
-              {{
-                farmer.user.isValidated ? "Verified" : "Not Yet Verified"
-              }}
+              {{ farmer.user.isValidated ? "Verified" : "Not Yet Verified" }}
             </td>
             <td class="text-center" style="width: 25%">
               <p-button
