@@ -25,7 +25,7 @@ const routes: Routes = [
     component: PostAdvertisementResponseListComponent,
   },
   {
-    path: 'validation/:validationCode',
+    path: 'profile',
     component: ProfileComponent,
   },
 ];

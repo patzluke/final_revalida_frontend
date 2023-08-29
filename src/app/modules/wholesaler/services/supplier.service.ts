@@ -5,6 +5,7 @@ import { FileDetails } from '../models/fileDetails';
 import { PostAdvertisement } from '../models/post-advertisement';
 import { CropSpecialization } from '../models/crop-specialization';
 import { PostAdvertisementResponse } from '../models/post-advertisement-response';
+import { Supplier } from '../models/supplier';
 
 @Injectable({
   providedIn: 'root',
@@ -60,12 +61,25 @@ export class SupplierService {
     );
   };
 
-  upload(file: File): Observable<FileDetails> {
+  upload = (file: File): Observable<FileDetails> => {
     const formData: FormData = new FormData();
     formData.append('file', file);
     return this.http.post<FileDetails>(
       `${this.baseUrl}/file/insert/image`,
       formData
     );
-  }
+  };
+
+  findOneByUserId = (userId: number) => {
+    return this.http.get<Supplier>(
+      `${this.baseUrl}/supplier/get/supplier/${userId}`
+    );
+  };
+
+  updateAdminInfo = (adminInfo: any) => {
+    return this.http.put<Supplier>(
+      `${this.baseUrl}/supplier/update/supplier`,
+      adminInfo
+    );
+  };
 }

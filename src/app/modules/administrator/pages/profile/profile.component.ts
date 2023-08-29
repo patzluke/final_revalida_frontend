@@ -255,8 +255,6 @@ export class ProfileComponent implements OnInit {
               this.personalInfoForm.controls['contactNo'].getRawValue(),
             socials: this.personalInfoForm.controls['socials'].getRawValue(),
           };
-          console.log(profileData);
-          console.log(this.facebookSelected, this.instagramSelected);
 
           this.adminService.updateAdminInfo(profileData).subscribe({
             next: (data) => {
