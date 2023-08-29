@@ -6,6 +6,9 @@ import { Farmer } from '../models/farmer';
 import { Supplier } from '../models/supplier';
 import { UserApplicants } from '../models/userapplicants';
 import { User } from '../models/user';
+import { Administrator } from '../models/administrator';
+import { FileDetails } from '../../registration/models/fileDetails';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +22,19 @@ export class AdminService {
       username,
       password,
     });
+  };
+
+  findOneByUserId = (userId: number) => {
+    return this.http.get<Administrator>(
+      `${this.baseUrl}/admin/get/admin/${userId}`
+    );
+  };
+
+  updateAdminInfo = (adminInfo: any) => {
+    return this.http.put<Administrator>(
+      `${this.baseUrl}/admin/update/admin`,
+      adminInfo
+    );
   };
 
   selectAllUserApplicants = () => {
@@ -78,4 +94,13 @@ export class AdminService {
       farmerComplaint
     );
   };
+
+  upload = (file: File): Observable<FileDetails> => {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    return this.http.post<FileDetails>(
+      `${this.baseUrl}/file/insert/image`,
+      formData
+    );
+  }
 }
