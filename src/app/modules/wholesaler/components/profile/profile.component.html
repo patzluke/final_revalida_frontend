@@ -6,18 +6,39 @@
         <div class="left-container">
           <p-card>
             <div class="image-container">
-              <img class="user-image" src="assets/images/user-icon.png" />
+              <img
+                class="user-image"
+                [src]="user.user?.image || 'assets/images/user-icon.png'"
+              />
             </div>
             <div class="left-text">
-              <h3><b>Leo Orolfo Cruz</b></h3>
+              <h3>
+                <b>{{
+                  user.user?.lastName +
+                    ", " +
+                    user.user?.firstName +
+                    " " +
+                    user.user?.middleName
+                }}</b>
+              </h3>
               <div class="social-container">
                 <div class="social-icon-container">
-                  <a href="http://fb.com" target="_blank">
+                  <a
+                    href="{{
+                      facebookLink || 'https://www.facebook.com/'
+                    }}"
+                    target="_blank"
+                  >
                     <img class="social-icon" src="assets/images/fb-icon.png" />
                   </a>
                 </div>
                 <div class="social-icon-container">
-                  <a href="http://instagram.com" target="_blank">
+                  <a
+                    href="{{
+                      instagramLink || 'https://www.instagram.com/'
+                    }}"
+                    target="_blank"
+                  >
                     <img class="social-icon" src="assets/images/ig-icon.png" />
                   </a>
                 </div>
@@ -33,7 +54,7 @@
 
                   <div class="user-det-text">
                     <p><b>Mobile number</b></p>
-                    <h4>+639569411313</h4>
+                    <h4>{{ user.user?.contactNo }}</h4>
                   </div>
                 </div>
                 <mat-divider></mat-divider>
@@ -48,7 +69,7 @@
 
                   <div class="user-det-text">
                     <p><b>Email</b></p>
-                    <h4>lcruz@gmail.com</h4>
+                    <h4>{{ user.user?.email }}</h4>
                   </div>
                 </div>
 
@@ -64,7 +85,7 @@
 
                   <div class="user-det-text">
                     <p><b>Birthday</b></p>
-                    <h4>Aug 22, 1999</h4>
+                    <h4>{{ user.user?.birthDate | date }}</h4>
                   </div>
                 </div>
               </div>
@@ -95,23 +116,23 @@
               <div class="left-second">
                 <div class="second-subtext">
                   <p class="label">First name</p>
-                  <p>Leo</p>
+                  <p>{{ user.user?.firstName }}</p>
                 </div>
 
                 <div class="second-subtext">
                   <p class="label">Middle name</p>
-                  <p>Orolfo</p>
+                  <p>{{ user.user?.middleName }}</p>
                 </div>
 
                 <div class="second-subtext">
                   <p class="label">Civil status</p>
-                  <p>Single</p>
+                  <p>{{ user.user?.civilStatus }}</p>
                 </div>
 
                 <div class="second-subtext res-second-subtext">
                   <p class="label">Address</p>
                   <p style="line-height: 16px">
-                    455 Gumitna Pinalagdan, Paombong, Bulacan, REGION III
+                    {{ user.user?.address }}
                   </p>
                 </div>
               </div>
@@ -119,17 +140,17 @@
               <div class="right-second">
                 <div class="second-subtext">
                   <p class="label">Last name</p>
-                  <p>Cruz</p>
+                  <p>{{ user.user?.lastName }}</p>
                 </div>
 
                 <div class="second-subtext">
                   <p class="label">Gender</p>
-                  <p>Male</p>
+                  <p>{{ user.user?.gender }}</p>
                 </div>
 
                 <div class="second-subtext">
                   <p class="label">Nationality</p>
-                  <p>Filipino</p>
+                  <p>{{ user.user?.nationality }}</p>
                 </div>
               </div>
             </div>
@@ -157,7 +178,7 @@
                 <div class="left-second">
                   <div class="second-subtext third-subtext">
                     <p class="label">Username</p>
-                    <p>leocruz22</p>
+                    <p>{{ user.user?.username }}</p>
                   </div>
                 </div>
                 <div class="right-second">
@@ -174,7 +195,6 @@
     </div>
   </section>
 </app-side-nav>
-
 <!-- Edit profile modal -->
 <p-dialog
   header="Edit Profile Details"
@@ -190,12 +210,12 @@
       <div class="center-container">
         <div class="change-image-container">
           <img
-            *ngIf="changeImage && imagePreviewUrl"
+            *ngIf="imagePreviewUrl"
             class="profile-image"
             [src]="imagePreviewUrl"
           />
           <img
-            *ngIf="!changeImage"
+            *ngIf="!imagePreviewUrl"
             class="profile-image"
             src="assets/images/user-icon.png"
           />
@@ -269,18 +289,18 @@
             <p-calendar
               [ngClass]="{
                 'spec-field':
-                  personalInfoForm.controls['birthdate'].invalid &&
-                  (personalInfoForm.controls['birthdate'].dirty ||
-                    personalInfoForm.controls['birthdate'].touched)
+                  personalInfoForm.controls['birthDate'].invalid &&
+                  (personalInfoForm.controls['birthDate'].dirty ||
+                    personalInfoForm.controls['birthDate'].touched)
               }"
-              formControlName="birthdate"
+              formControlName="birthDate"
               [showIcon]="true"
               [maxDate]="dateToday"
             ></p-calendar>
           </div>
           <div
             class="invalid-text"
-            *ngIf="personalInfoForm.get('birthdate')?.hasError('underage')"
+            *ngIf="personalInfoForm.get('birthDate')?.hasError('underage')"
           >
             Age must be at least 18 years old.
           </div>
@@ -501,7 +521,7 @@
 
         <h4><i>Required Fields *</i></h4>
 
-        <div class="form-field">
+        <!-- <div class="form-field">
           <label>Current Password *</label>
           <div>
             <p-password
@@ -515,7 +535,7 @@
               [toggleMask]="true"
             ></p-password>
           </div>
-        </div>
+        </div> -->
 
         <div class="form-field">
           <label>New Password *</label>

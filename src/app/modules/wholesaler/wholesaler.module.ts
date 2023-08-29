@@ -20,7 +20,6 @@ import { TooltipModule } from 'primeng/tooltip';
 import { PostAdvertisementResponseListComponent } from './components/post-advertisement-response-list/post-advertisement-response-list.component';
 import { PostAdvertisementResponsesEffects } from './states/postadvertisement-responses-state/postadvertisement-responses.effects';
 import { postAdvertisementResponsesReducer } from './states/postadvertisement-responses-state/postadvertisement-responses.reducer';
-import { ProfileComponent } from './components/profile/profile.component';
 import { CardModule } from 'primeng/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { DialogModule } from 'primeng/dialog';
@@ -31,6 +30,7 @@ import { PasswordModule } from 'primeng/password';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { DividerModule } from 'primeng/divider';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   FormGroup,
   FormArray,
@@ -8,8 +8,13 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
+
 import { DomSanitizer } from '@angular/platform-browser';
-import { FileDetails } from '../../models/fileDetails';
+import { FileDetails } from 'src/app/modules/wholesaler/models/fileDetails';
+import Swal from 'sweetalert2';
+import { Farmer } from '../../models/farmer';
+import { SupplierService } from '../../services/supplier.service';
+import { Supplier } from '../../models/supplier';
 
 @Component({
   selector: 'app-profile',
@@ -35,13 +40,14 @@ export class ProfileComponent implements OnInit {
 
   facebookSelected: boolean = false;
   instagramSelected: boolean = false;
-  facebookLink: string = 'Facebook: ';
-  instagramLink: string = 'Instagram: ';
+  facebookLink: string = '';
+  instagramLink: string = '';
   socialLinksAdded: boolean = false;
 
   changeImage: boolean = false;
   isMaxSize: boolean = false;
 
+  user: Supplier = { user: undefined };
   selectedImage!: File;
   imagePreviewUrl!: string | ArrayBuffer;
 
@@ -49,17 +55,21 @@ export class ProfileComponent implements OnInit {
   fileDetails!: FileDetails;
   fileUris: Array<string> = [];
 
+  //ElementRefs
   constructor(
     private formBuilder: FormBuilder,
-    private sanitizer: DomSanitizer
-  ) {}
-
-  ngOnInit(): void {
+    private sanitizer: DomSanitizer,
+    private supplierService: SupplierService
+  ) {
     this.personalInfoForm = this.formBuilder.group({
+      userId: 0,
+      farmerId: 0,
+      image: [''],
+      username: [''],
       firstName: ['', Validators.required],
       middleName: [''],
       lastName: ['', Validators.required],
-      birthdate: ['', [Validators.required, this.ageValidator]],
+      birthDate: [new Date(''), [Validators.required, this.ageValidator]],
       gender: ['', Validators.required],
       nationality: ['', Validators.required],
       civilStatus: ['', Validators.required],
@@ -75,7 +85,7 @@ export class ProfileComponent implements OnInit {
 
     this.passwordForm = this.formBuilder.group(
       {
-        currentPassword: ['', Validators.required],
+        //currentPassword: ['', Validators.required],
         newPassword: [
           '',
           [
@@ -88,6 +98,34 @@ export class ProfileComponent implements OnInit {
       },
       { validator: this.passwordMatchValidator }
     );
+  }
+
+  ngOnInit(): void {
+    this.supplierService
+      .findOneByUserId(localStorage.getItem('userId') as any)
+      .subscribe((data) => {
+        this.user = data;
+
+        this.facebookSelected = this.user.user?.socials?.find((social) =>
+          social.includes('facebook') ? true : false
+        )
+          ? true
+          : false;
+        this.facebookLink =
+          (this.user.user?.socials?.find((social) =>
+            social.includes('facebook') ? true : false
+          ) as string) || '';
+
+        this.instagramSelected = this.user.user?.socials?.find((social) =>
+          social.includes('instagram') ? true : false
+        )
+          ? true
+          : false;
+        this.instagramLink =
+          (this.user.user?.socials?.find((social) =>
+            social.includes('instagram') ? true : false
+          ) as string) || '';
+      });
   }
 
   passwordMatchValidator = (
@@ -113,10 +151,19 @@ export class ProfileComponent implements OnInit {
   };
 
   showEditProfileDetDialog() {
+    this.personalInfoForm.patchValue({
+      supplierId: this.user.supplierId,
+      ...this.user.user,
+      birthDate: new Date(this.user.user?.birthDate as string),
+    });
+    this.imagePreviewUrl = this.user.user?.image as string;
     this.editProfileDetail = true;
+    this.personalInfoForm.disable();
+    this.personalInfoForm.get('email')?.enable();
   }
 
   showEditPasswordDetDialog() {
+    this.passwordForm.reset();
     this.editPassword = true;
   }
 
@@ -131,7 +178,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ageValidator(control: AbstractControl): ValidationErrors | null {
-    const birthdate = control.value;
+    const birthdate = new Date(control.value);
 
     if (!birthdate) {
       return null;
@@ -159,25 +206,78 @@ export class ProfileComponent implements OnInit {
 
   updateProfileInfo = () => {
     if (this.personalInfoForm.valid) {
-      // update
-      const profileData = {
-        firstName: this.personalInfoForm.controls['firstName'].getRawValue(),
-        middleName: this.personalInfoForm.controls['middleName'].getRawValue(),
-        lastName: this.personalInfoForm.controls['lastName'].getRawValue(),
-        birthdate: this.personalInfoForm.controls['birthdate'].getRawValue(),
-        gender: this.personalInfoForm.controls['gender'].getRawValue(),
-        nationality:
-          this.personalInfoForm.controls['nationality'].getRawValue(),
-        civilStatus:
-          this.personalInfoForm.controls['civilStatus'].getRawValue(),
+      this.editProfileDetail = false;
+      Swal.fire({
+        title: 'Are you sure you want to update your profile?',
+        icon: 'warning',
+        showDenyButton: true,
+        confirmButtonColor: '#3085d6',
+        denyButtonColor: '#d33',
+        denyButtonText: 'cancel',
+        confirmButtonText: 'Save changes',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // update
+          if (this.selectedImage) {
+            this.supplierService.upload(this.selectedImage).subscribe({
+              next: (data) => {
+                this.imagePreviewUrl = `${data.fileUri.concat(data.fileName)}`;
+              },
+              error: (err) => {
+                Swal.fire(
+                  'Failed to Change Picture!',
+                  `Something went wrong.`,
+                  'error'
+                );
+              },
+            });
+          }
 
-        address: this.personalInfoForm.controls['address'].getRawValue(),
-        email: this.personalInfoForm.controls['email'].getRawValue(),
-        contactNo: this.personalInfoForm.controls['contactNo'].getRawValue(),
-        socials: this.personalInfoForm.controls['socials'].getRawValue(),
-      };
+          const profileData = {
+            userId: this.personalInfoForm.controls['userId'].getRawValue(),
+            farmerId: this.personalInfoForm.controls['farmerId'].getRawValue(),
+            image: this.imagePreviewUrl,
+            firstName:
+              this.personalInfoForm.controls['firstName'].getRawValue(),
+            middleName:
+              this.personalInfoForm.controls['middleName'].getRawValue(),
+            lastName: this.personalInfoForm.controls['lastName'].getRawValue(),
+            birthDate:
+              this.personalInfoForm.controls['birthDate'].getRawValue(),
+            gender: this.personalInfoForm.controls['gender'].getRawValue(),
+            nationality:
+              this.personalInfoForm.controls['nationality'].getRawValue(),
+            civilStatus:
+              this.personalInfoForm.controls['civilStatus'].getRawValue(),
 
-      console.log('update profile details data', profileData);
+            address: this.personalInfoForm.controls['address'].getRawValue(),
+            email: this.personalInfoForm.controls['email'].getRawValue(),
+            contactNo:
+              this.personalInfoForm.controls['contactNo'].getRawValue(),
+            socials: this.personalInfoForm.controls['socials'].getRawValue(),
+          };
+
+          this.supplierService.updateAdminInfo(profileData).subscribe({
+            next: (data) => {
+              this.user = { ...data };
+              this.personalInfoForm.patchValue({
+                supplierId: data.supplierId,
+                ...data.user,
+              });
+              Swal.fire('Success', 'Profile Successfully updated!', 'success');
+            },
+            error: (err) => {
+              Swal.fire(
+                'Failed to Update Profile!',
+                `Something went wrong.`,
+                'error'
+              );
+            },
+          });
+        } else if (result.isDenied) {
+          this.editProfileDetail = true;
+        }
+      });
     } else {
       Object.keys(this.personalInfoForm.controls).forEach((field) => {
         const control = this.personalInfoForm.get(field);
@@ -195,10 +295,39 @@ export class ProfileComponent implements OnInit {
       const newPassword = this.passwordForm.get('newPassword')?.value;
 
       const passwordData = {
+        userId: localStorage.getItem('userId'),
         password: newPassword,
       };
 
-      console.log('update password', passwordData);
+      this.editPassword = false;
+      Swal.fire({
+        title: 'Are you sure you want to update your password?',
+        icon: 'warning',
+        showDenyButton: true,
+        confirmButtonColor: '#3085d6',
+        denyButtonColor: '#d33',
+        denyButtonText: 'cancel',
+        confirmButtonText: 'Save changes',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.supplierService.updateAdminInfo(passwordData).subscribe({
+            next: (data) => {
+              this.user = { ...data };
+              this.passwordForm.reset();
+              Swal.fire('Success', 'Password Successfully updated!', 'success');
+            },
+            error: (err) => {
+              Swal.fire(
+                'Failed to Update Password!',
+                `Something went wrong.`,
+                'error'
+              );
+            },
+          });
+        } else if (result.isDenied) {
+          this.editPassword = true;
+        }
+      });
 
       // if (this.validateCurrentPassword(currentPassword)) {
       //   // service

@@ -255,14 +255,12 @@ export class ProfileComponent implements OnInit {
               this.personalInfoForm.controls['contactNo'].getRawValue(),
             socials: this.personalInfoForm.controls['socials'].getRawValue(),
           };
-          console.log(profileData);
-          console.log(this.facebookSelected, this.instagramSelected);
 
           this.farmerService.updateAdminInfo(profileData).subscribe({
             next: (data) => {
               this.user = { ...data };
               this.personalInfoForm.patchValue({
-                administratorId: data.farmerId,
+                farmerId: data.farmerId,
                 ...data.user,
               });
               Swal.fire('Success', 'Profile Successfully updated!', 'success');
