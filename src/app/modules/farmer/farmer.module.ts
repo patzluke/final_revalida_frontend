@@ -36,6 +36,9 @@ import { PostAdvertisementResponsesEffects } from './states/postadvertisement-re
 import { MatButtonModule } from '@angular/material/button';
 import { DividerModule } from 'primeng/divider';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { cropSpecializationReducer } from './states/cropspecialization-state/cropspecialization.reducer';
+import { CropSpecializationEffects } from './states/cropspecialization-state/cropspecialization.effects';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -70,6 +73,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     MatButtonModule,
     DividerModule,
     MultiSelectModule,
+    InputTextareaModule,
     StoreModule.forFeature(
       'SingleFarmerComplaintsList',
       farmerComplaintReducer
@@ -82,10 +86,12 @@ import { MultiSelectModule } from 'primeng/multiselect';
       'postAdvertisementResponsesList (Farmer)',
       postAdvertisementResponsesReducer
     ),
+    StoreModule.forFeature('cropSpecializationList', cropSpecializationReducer),
     EffectsModule.forFeature([
       FarmerComplaintEffects,
       PostAdvertisementEffects,
       PostAdvertisementResponsesEffects,
+      CropSpecializationEffects,
     ]),
     FontAwesomeModule,
   ],
