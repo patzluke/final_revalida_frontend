@@ -36,6 +36,7 @@ export class ProfileComponent implements OnInit {
   personalInfoForm!: FormGroup;
   socialsFormArray!: FormArray;
   passwordForm!: FormGroup;
+  validIdForm!: FormGroup;
   dateToday: Date = new Date();
 
   facebookSelected: boolean = false;
@@ -46,6 +47,18 @@ export class ProfileComponent implements OnInit {
 
   changeImage: boolean = false;
   isMaxSize: boolean = false;
+
+  validIds = [
+    { type: "Driver's License" },
+    { type: 'SSS Card' },
+    { type: 'Unified Multi-purpose ID (UMID)' },
+    { type: 'Philippine Identification System (PhilSys) ID' },
+    { type: 'Tax Identification Number (TIN)' },
+    { type: 'Voter’s ID' },
+    { type: 'Postal ID' },
+    { type: 'PhilHealth' },
+    { type: 'NBI Clearance' },
+  ];
 
   user: Supplier = { user: undefined };
   selectedImage!: File;
@@ -98,6 +111,11 @@ export class ProfileComponent implements OnInit {
       },
       { validator: this.passwordMatchValidator }
     );
+
+    this.validIdForm = this.formBuilder.group({
+      validIdType: ['', Validators.required],
+      validIdNumber: ['', Validators.required],
+    });
   }
 
   ngOnInit(): void {
@@ -345,9 +363,28 @@ export class ProfileComponent implements OnInit {
     }
   };
 
-  // validateCurrentPassword = (currentPassword: string): boolean => {
-  //   //return currentPassword === this.professorPass.password;
-  //   return false;
-  //   // get current pass
-  // };
+  verifyBtn: boolean = false;
+  toggleVerifyActBtn = () => {
+    this.verifyBtn = !this.verifyBtn;
+  };
+
+  verifyAccount = () => {
+    if (this.validIdForm.valid) {
+      const validIdData = {
+        validIdType: this.validIdForm.controls['validIdType'].getRawValue(),
+        validIdNumber: this.validIdForm.controls['validIdNumber'].getRawValue(),
+        validIdPicture: '',
+      };
+
+      console.log('valid id data', validIdData);
+    } else {
+      Object.keys(this.validIdForm.controls).forEach((field) => {
+        const control = this.validIdForm.get(field);
+        if (control?.invalid) {
+          control.markAsTouched();
+          control?.setErrors({ invalid: true });
+        }
+      });
+    }
+  };
 }

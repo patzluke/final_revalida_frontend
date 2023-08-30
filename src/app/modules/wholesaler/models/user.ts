@@ -18,4 +18,5 @@ export interface User {
   socials: string[];
   userType: string;
   username: string;
+  isValidated?: boolean;
 }
