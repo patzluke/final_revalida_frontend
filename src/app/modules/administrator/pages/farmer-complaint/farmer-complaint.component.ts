@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FarmerComplaint } from '../../models/farmercomplaint';
 import { FarmerComplaintActions } from '../../states/farmercomplaint-state/farmercomplaint.actions';
 import { selectFarmerComplaints } from '../../states/farmercomplaint-state/farmercomplaint.selectors';
+import { FileDetails } from 'src/app/modules/registration/models/fileDetails';
 @Component({
   selector: 'app-farmer-complaint',
   templateUrl: './farmer-complaint.component.html',
@@ -47,7 +48,25 @@ export class FarmerComplaintComponent implements OnInit {
     });
   }
 
+  selectedImage!: File;
+  imagePreviewUrl!: string | ArrayBuffer;
+
+  //image upload
+  fileDetails!: FileDetails;
+  fileUris: Array<string> = [];
+  onImageSelected = (event: any) => {
+    const selectedFile = event.target.files[0];
+    this.selectedImage = selectedFile;
+
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.imagePreviewUrl = e.target.result;
+    };
+    reader.readAsDataURL(selectedFile);
+  };
+
   selectFarmerComplaint(farmerComplaint: FarmerComplaint) {
+    this.imagePreviewUrl = farmerComplaint.image!;
     let updatedFarmerComplaint = { ...farmerComplaint };
     updatedFarmerComplaint.adminReplyMessage =
       updatedFarmerComplaint.adminReplyMessage != null

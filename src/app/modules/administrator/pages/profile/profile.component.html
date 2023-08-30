@@ -210,14 +210,8 @@
       <div class="center-container">
         <div class="change-image-container">
           <img
-            *ngIf="imagePreviewUrl"
             class="profile-image"
-            [src]="imagePreviewUrl"
-          />
-          <img
-            *ngIf="!imagePreviewUrl"
-            class="profile-image"
-            src="assets/images/user-icon.png"
+            [src]="imagePreviewUrl || 'assets/images/user-icon.png'"
           />
           <div class="camera-icon-container">
             <button mat-icon-button (click)="selectFile.click()">

@@ -15,12 +15,64 @@
           <form [formGroup]="addEditFarmingTipForm">
             <div class="row d-flex flex-row flex-wrap mt-2">
               <div class="col">
-                <label class="form-label">Tip:</label>
+                <label class="form-label">Title:</label>
+                <input
+                  class="form-control"
+                  formControlName="title"
+                  type="text"
+                />
+              </div>
+            </div>
+            <div class="row d-flex flex-row flex-wrap mt-2">
+              <div class="col">
+                <label class="form-label">Description:</label>
                 <textarea
                   class="form-control"
-                  formControlName="tipMessage"
+                  formControlName="description"
                   rows="3"
                 ></textarea>
+              </div>
+            </div>
+            <div class="row d-flex flex-row flex-wrap mt-2">
+              <div class="col">
+                <label class="form-label">image:</label>
+                <input
+                  class="form-control"
+                  type="file"
+                  id="formFile"
+                  hidden
+                  #selectFile
+                  (change)="onImageSelected($event)"
+                />
+                <div class="input-group mb-3">
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    (click)="selectFile.click()"
+                  >
+                    <i class="pi pi-cloud-upload"></i>
+                  </button>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Select Photo"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <label class="form-label">link:</label>
+                <input
+                  class="form-control"
+                  formControlName="link"
+                  type="text"
+                />
+              </div>
+              <div class="row d-flex flex-row flex-wrap mt-2">
+                <img
+                  [src]="imagePreviewUrl || 'assets/images/upload.png'"
+                  style="height: 20rem"
+                />
               </div>
             </div>
           </form>
@@ -71,13 +123,65 @@
           <form [formGroup]="addEditFarmingTipForm">
             <div class="row d-flex flex-row flex-wrap mt-2">
               <div class="col">
-                <label class="form-label">Tip:</label>
+                <label class="form-label">Title:</label>
+                <input
+                  class="form-control"
+                  formControlName="title"
+                  type="text"
+                />
+              </div>
+            </div>
+            <div class="row d-flex flex-row flex-wrap mt-2">
+              <div class="col">
+                <label class="form-label">Description:</label>
                 <textarea
                   class="form-control"
-                  formControlName="tipMessage"
+                  formControlName="description"
                   rows="3"
                 ></textarea>
               </div>
+            </div>
+            <div class="row d-flex flex-row flex-wrap mt-2">
+              <div class="col">
+                <label class="form-label">image:</label>
+                <input
+                  class="form-control"
+                  type="file"
+                  id="formFile"
+                  hidden
+                  #selectFile
+                  (change)="onImageSelected($event)"
+                />
+                <div class="input-group mb-3">
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    (click)="selectFile.click()"
+                  >
+                    <i class="pi pi-cloud-upload"></i>
+                  </button>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Add/Change Photo"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <label class="form-label">link:</label>
+                <input
+                  class="form-control"
+                  formControlName="link"
+                  type="text"
+                />
+              </div>
+            </div>
+            <div class="row d-flex flex-row flex-wrap mt-2">
+              <img
+                [src]="imagePreviewUrl || 'assets/images/upload.png'"
+                style="height: 20rem"
+              />
             </div>
           </form>
         </div>
@@ -160,7 +264,7 @@
     <ng-template pTemplate="header">
       <tr>
         <th style="min-width: 15rem">
-          <div class="flex align-items-center">Tip Message</div>
+          <div class="flex align-items-center">Title</div>
         </th>
         <th style="min-width: 15rem">
           <div class="flex align-items-center text-center">Action</div>
@@ -179,9 +283,7 @@
             width="32"
             style="vertical-align: middle"
           /> -->
-          <span class="ml-1 vertical-align-middle">{{
-            farmingTip.tipMessage
-          }}</span>
+          <span class="ml-1 vertical-align-middle">{{ farmingTip.title }}</span>
         </td>
         <td class="text-center" style="width: 5%">
           <p-button

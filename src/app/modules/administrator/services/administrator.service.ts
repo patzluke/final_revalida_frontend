@@ -88,10 +88,10 @@ export class AdminService {
     );
   };
 
-  validateUserAccount = (farmerComplaint: Farmer | User) => {
-    return this.http.put<Farmer | Supplier>(
+  validateUserAccount = (user: Farmer | Supplier) => {
+    return this.http.put<Supplier | Farmer>(
       `${this.baseUrl}/admin/verify/account`,
-      farmerComplaint
+      user
     );
   };
 
@@ -102,5 +102,5 @@ export class AdminService {
       `${this.baseUrl}/file/insert/image`,
       formData
     );
-  }
+  };
 }
