@@ -36,9 +36,13 @@ import { PostAdvertisementResponsesEffects } from './states/postadvertisement-re
 import { MatButtonModule } from '@angular/material/button';
 import { DividerModule } from 'primeng/divider';
 import { MultiSelectModule } from 'primeng/multiselect';
+<<<<<<< HEAD
+import { TableModule } from 'primeng/table';
+=======
 import { cropSpecializationReducer } from './states/cropspecialization-state/cropspecialization.reducer';
 import { CropSpecializationEffects } from './states/cropspecialization-state/cropspecialization.effects';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+>>>>>>> 7d4ab1198563ca5a3a1e880deee1b8dcbb6e9714
 
 @NgModule({
   declarations: [
@@ -56,6 +60,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
   ],
   imports: [
     CommonModule,
+    TableModule,
     FarmerRoutingModule,
     ChartModule,
     SharedModule,
@@ -96,4 +101,4 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     FontAwesomeModule,
   ],
 })
-export class FarmerModule {}
+export class FarmerModule { }

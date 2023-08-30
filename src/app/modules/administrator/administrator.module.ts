@@ -83,4 +83,4 @@ import { TooltipModule } from 'primeng/tooltip';
     EffectsModule.forFeature([FarmingTipEffects, FarmerComplaintEffects, FarmerEffects, SupplierEffects, UserApplicantEffects]),
   ],
 })
-export class AdministratorModule {}
+export class AdministratorModule { }
