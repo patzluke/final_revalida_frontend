@@ -66,12 +66,17 @@
               {{ post.supplier?.user?.middleName }}
               {{ post.supplier?.user?.lastName }}
             </p>
+            <p>
+              <i class="pi pi-calendar" style="margin-right: 1rem"></i
+              >{{ post.datePosted | date : "MMM dd, yyyy hh:mm a" }}
+            </p>
           </div>
+
           <mat-divider class="divider"></mat-divider>
           <div class="price-qty-container">
             <div class="pqt-container">
               <h3 class="label">
-                <i class="pi pi-money-bill pqt-icon"></i><b>Price</b>
+                <i class="pi pi-money-bill pqt-icon"></i><b>Budget</b>
               </h3>
               <h3>₱{{ post.price | number : "1.2" }}</h3>
             </div>

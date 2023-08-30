@@ -73,7 +73,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   validIds = [
     { type: "Driver's License" },
     { type: 'SSS Card' },
-    { type: 'Unified Multi-purpose ID' },
+    { type: 'Unified Multi-purpose ID (UMID)' },
     { type: 'Philippine Identification System (PhilSys) ID' },
     { type: 'Tax Identification Number (TIN)' },
     { type: 'Voter’s ID' },
@@ -81,6 +81,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     { type: 'PhilHealth' },
     { type: 'NBI Clearance' },
   ];
+
   constructor(
     private formBuilder: FormBuilder,
     private registerService: RegisterService,
@@ -424,18 +425,40 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
             )}`;
             this.registerService.registerUser(signupData).subscribe({
               next: (data) => {
-                Swal.fire('Success', "You've Successfully registered. You may now sign in! Please Wait for a text message for your account Verification!", 'success');
+                Swal.fire(
+                  'Success',
+                  "You've Successfully registered. You may now sign in! Please Wait for a text message for your account Verification!",
+                  'success'
+                );
                 this._router.navigateByUrl('/login');
               },
               error: (err: HttpErrorResponse) => {
                 if (err.error.message == 'username already exists') {
-                  Swal.fire('Failed to Register!', `Username already exists!`, 'error');
+                  Swal.fire(
+                    'Failed to Register!',
+                    `Username already exists!`,
+                    'error'
+                  );
                 } else if (err.error.message == 'email already exists') {
-                  Swal.fire('Failed to Register!', `Email already exists!`, 'error');
-                } else if (err.error.message == 'mobile number already exists') {
-                  Swal.fire('Failed to Register!', `Mobile number already exists!`, 'error');
+                  Swal.fire(
+                    'Failed to Register!',
+                    `Email already exists!`,
+                    'error'
+                  );
+                } else if (
+                  err.error.message == 'mobile number already exists'
+                ) {
+                  Swal.fire(
+                    'Failed to Register!',
+                    `Mobile number already exists!`,
+                    'error'
+                  );
                 } else {
-                  Swal.fire('Failed to Register!', `Something went wrong.`, 'error');
+                  Swal.fire(
+                    'Failed to Register!',
+                    `Something went wrong.`,
+                    'error'
+                  );
                 }
               },
             });
