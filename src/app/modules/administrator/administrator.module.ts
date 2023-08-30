@@ -40,6 +40,9 @@ import { DividerModule } from 'primeng/divider';
 import { userApplicantsReducer } from './states/userapplicant-state/userapplicant.reducer';
 import { UserApplicantEffects } from './states/userapplicant-state/userapplicant.effects';
 import { TooltipModule } from 'primeng/tooltip';
+import { CourseListComponent } from './pages/course-list/course-list.component';
+import { courseReducer } from './states/course-state/course.reducer';
+import { CourseEffects } from './states/course-state/course.effects';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,7 @@ import { TooltipModule } from 'primeng/tooltip';
     ProfileComponent,
     FarmerListComponent,
     SupplierListComponent,
+    CourseListComponent,
   ],
   imports: [
     CommonModule,
@@ -80,7 +84,15 @@ import { TooltipModule } from 'primeng/tooltip';
     StoreModule.forFeature('farmerList', farmerReducer),
     StoreModule.forFeature('supplierList', supplierReducer),
     StoreModule.forFeature('userApplicantList', userApplicantsReducer),
-    EffectsModule.forFeature([FarmingTipEffects, FarmerComplaintEffects, FarmerEffects, SupplierEffects, UserApplicantEffects]),
+    StoreModule.forFeature('courseList', courseReducer),
+    EffectsModule.forFeature([
+      FarmingTipEffects,
+      FarmerComplaintEffects,
+      FarmerEffects,
+      SupplierEffects,
+      UserApplicantEffects,
+      CourseEffects,
+    ]),
   ],
 })
 export class AdministratorModule {}
