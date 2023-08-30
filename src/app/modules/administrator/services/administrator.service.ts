@@ -9,6 +9,7 @@ import { User } from '../models/user';
 import { Administrator } from '../models/administrator';
 import { FileDetails } from '../../registration/models/fileDetails';
 import { Observable } from 'rxjs';
+import { Course } from '../models/course';
 
 @Injectable({
   providedIn: 'root',
@@ -101,6 +102,30 @@ export class AdminService {
     return this.http.post<FileDetails>(
       `${this.baseUrl}/file/insert/image`,
       formData
+    );
+  };
+
+  selectAllCourses = () => {
+    return this.http.get<Course[]>(`${this.baseUrl}/admin/get/course`);
+  };
+
+  insertIntoCourses = (course: Course) => {
+    return this.http.post<Course>(
+      `${this.baseUrl}/admin/insert/course`,
+      course
+    );
+  };
+
+  updateIntoCourses = (course: Course) => {
+    return this.http.put<Course>(
+      `${this.baseUrl}/admin/update/course`,
+      course
+    );
+  };
+
+  deleteCourse = (courseId: number) => {
+    return this.http.delete<Course>(
+      `${this.baseUrl}/admin/delete/course/${courseId}`
     );
   };
 }
