@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Supplier } from '../../models/supplier';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { selectSuppliers } from '../../states/supplier-state/supplier.selectors';
+import {
+  selectSuppliersNotValidated,
+  selectSuppliersValidated,
+} from '../../states/supplier-state/supplier.selectors';
 import { Store } from '@ngrx/store';
 import { SupplierActions } from '../../states/supplier-state/supplier.actions';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-supplier-list',
   templateUrl: './supplier-list.component.html',
-  styleUrls: ['./supplier-list.component.scss']
+  styleUrls: ['./supplier-list.component.scss'],
 })
 export class SupplierListComponent implements OnInit {
   statuses!: any[];
@@ -16,75 +20,94 @@ export class SupplierListComponent implements OnInit {
   loading: boolean = true;
 
   suppliers: Supplier[] = [];
+
   selectedReadDate: string | undefined = '';
+  selectedSupplierToVerify?: Supplier;
 
   //Formgroups
-  editFarmerForm: FormGroup;
 
   //selectors
-  selectSuppliers$ = this.store.select(selectSuppliers());
+  selectSuppliersValidated$ = this.store.select(selectSuppliersValidated());
+  selectSuppliersNotValidated$ = this.store.select(
+    selectSuppliersNotValidated()
+  );
 
-  constructor(
-    private store: Store,
-    private fb: FormBuilder,
-  ) {
-    this.editFarmerForm = fb.group({
-      farmerComplaintId: [0, Validators.required],
-      adminReplyMessage: ['', Validators.required],
-      complaintMessage: ['', Validators.required],
-      isRead: [false],
-      isResolved: [false],
-      readDate: [''],
-      dateSubmitted: [''],
-      farmer: [{}],
-    });
+  //ElementRefs
+  @ViewChild('verifySupplierClose') modalElement!: ElementRef;
+
+  constructor(private store: Store) {
+
   }
 
   ngOnInit() {
     this.store.dispatch({ type: SupplierActions.GET_SUPPLIER });
-    this.selectSuppliers$.subscribe({
+    this.selectSuppliersValidated$.subscribe({
       next: (data) => {
-        this.suppliers = data;
+        console.log(data);
+
         this.loading = false;
       },
     });
   }
 
-  selectFarmer(supplier: Supplier) {
-    // let updatedFarmerComplaint = { ...farmer };
-    // updatedFarmerComplaint.adminReplyMessage =
-    //   updatedFarmerComplaint.adminReplyMessage != null
-    //     ? updatedFarmerComplaint.adminReplyMessage
-    //     : '';
-    // updatedFarmerComplaint.isRead = true;
-    // this.store.dispatch({
-    //   type: FarmerComplaintActions.UPDATE_FARMERCOMPLAINT_STATUS,
-    //   farmerComplaint: updatedFarmerComplaint,
-    // });
-    // this.editFarmerForm.patchValue({ ...updatedFarmerComplaint });
-    // this.editFarmerForm.get('complaintMessage')?.disable();
-    // this.selectFarmerComplaints$.subscribe({
-    //   next: (data) => {
-    //     this.selectedReadDate = data.find(
-    //       (complaint) =>
-    //         complaint.farmerComplaintId == farmerComplaint.farmerComplaintId
-    //     )?.readDate;
-    //   },
-    // });
+  selectSupplierToVerify(supplier: Supplier) {
+    this.selectedSupplierToVerify = supplier;
   }
 
-  editFarmerSubmit() {
-    // let addEditFarmerComplaintFormValues =
-    //   this.editFarmerForm.getRawValue();
-    // let updatedFarmerComplaint: FarmerComplaint = {
-    //   farmerComplaintId: addEditFarmerComplaintFormValues.farmerComplaintId,
-    //   adminReplyMessage: addEditFarmerComplaintFormValues.adminReplyMessage,
-    //   isRead: addEditFarmerComplaintFormValues.isRead,
-    // };
+  verifyAccount() {
+    Swal.fire({
+      title: 'Verify Account?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Save changes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let updatedUser = { ...this.selectedSupplierToVerify?.user };
+        updatedUser.isValidated = true;
+        let updatedSupplierToVerify: Supplier = {
+          ...this.selectedSupplierToVerify,
+          user: updatedUser,
+        };
+        this.store.dispatch({
+          type: SupplierActions.UPDATE_SUPPLIER_STATUS,
+          supplier: updatedSupplierToVerify,
+        });
+        const nativeModal = this.modalElement.nativeElement;
+        nativeModal.click();
+        Swal.fire('Success', 'Account Successfully Verified!', 'success');
+      }
+    });
+  }
 
-    // this.store.dispatch({
-    //   type: FarmerComplaintActions.UPDATE_FARMERCOMPLAINT,
-    //   farmerComplaint: updatedFarmerComplaint,
-    // });
+  refuseSubmittedId() {
+    Swal.fire({
+      title: 'Ask Supplier to re-Submit a valid ID?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Save changes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let updatedUser = { ...this.selectedSupplierToVerify?.user };
+        updatedUser.isValidated = false;
+        updatedUser.validIdPicture = '';
+        let updatedSupplierToVerify: Supplier = {
+          ...this.selectedSupplierToVerify,
+          user: updatedUser,
+        };
+        console.log(updatedSupplierToVerify);
+
+        this.store.dispatch({
+          type: SupplierActions.UPDATE_SUPPLIER_STATUS,
+          supplier: updatedSupplierToVerify,
+        });
+        const nativeModal = this.modalElement.nativeElement;
+        nativeModal.click();
+        Swal.fire('Success', 'Message sent to Supplier', 'success');
+      }
+    });
   }
 }

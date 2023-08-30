@@ -12,7 +12,7 @@
           type="button"
           class="sidebar-toggle custom-icon-button"
           (click)="toggleSidebar()"
-          *ngIf="!(isHandset$ | async)"
+
         >
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
@@ -21,7 +21,7 @@
             src="assets/images/agribridge-logo.png"
             class="header-logo"
             alt="Logo"
-            *ngIf="!(isHandset$ | async)"
+
           />
           <h1>AgriBridge</h1>
         </div>
@@ -36,7 +36,7 @@
             class="mt-1"
           >
             <i class="pi pi-comment nav-icon"></i>
-            <span class="white-text" *ngIf="!(isHandset$ | async)"
+            <span class="white-text"
               >Farming Tips</span
             >
           </a>
@@ -47,7 +47,7 @@
             class="mt-1"
           >
             <i class="pi pi-users nav-icon"></i>
-            <span class="white-text" *ngIf="!(isHandset$ | async)"
+            <span class="white-text"
               >Farmers</span
             >
           </a>
@@ -58,7 +58,7 @@
             class="mt-1"
           >
             <i class="pi pi-users nav-icon"></i>
-            <span class="white-text" *ngIf="!(isHandset$ | async)"
+            <span class="white-text"
               >Suppliers</span
             >
           </a>
@@ -69,7 +69,7 @@
             class="mt-1"
           >
             <i class="pi pi-megaphone nav-icon"></i>
-            <span class="white-text" *ngIf="!(isHandset$ | async)"
+            <span class="white-text"
               >Complaints</span
             >
           </a>
@@ -79,7 +79,7 @@
             routerLinkActive="router-link-active"
           >
             <i class="pi pi-user nav-icon"></i>
-            <span class="white-text" *ngIf="!(isHandset$ | async)"
+            <span class="white-text"
               >Profile</span
             >
           </a>
@@ -104,7 +104,7 @@
             class="mt-1"
           >
             <mat-icon class="nav-icon">rate_review</mat-icon>
-            <span class="white-text" *ngIf="!(isHandset$ | async)"
+            <span class="white-text"
               >Advertisements</span
             >
           </a>
@@ -115,7 +115,7 @@
             class="mt-1"
           >
             <mat-icon class="nav-icon"> terrain</mat-icon>
-            <span class="white-text" *ngIf="!(isHandset$ | async)">Crops</span>
+            <span class="white-text" >Crops</span>
           </a>
           <a
             mat-list-item
@@ -124,7 +124,7 @@
             class="mt-1"
           >
             <mat-icon class="nav-icon">notification_important</mat-icon>
-            <span class="white-text" *ngIf="!(isHandset$ | async)"
+            <span class="white-text"
               >Your Complaints</span
             >
           </a>
@@ -134,7 +134,7 @@
             routerLinkActive="router-link-active"
           >
             <mat-icon class="nav-icon">account_circle</mat-icon>
-            <span class="white-text" *ngIf="!(isHandset$ | async)"
+            <span class="white-text"
               >Profile</span
             >
           </a>
@@ -159,7 +159,7 @@
             class="mt-1"
           >
             <mat-icon class="nav-icon">local_mall</mat-icon>
-            <span class="white-text" *ngIf="!(isHandset$ | async)"
+            <span class="white-text"
               >Advertisements</span
             >
           </a>
@@ -169,7 +169,7 @@
             routerLinkActive="router-link-active"
           >
             <mat-icon class="nav-icon">account_circle</mat-icon>
-            <span class="white-text" *ngIf="!(isHandset$ | async)"
+            <span class="white-text"
               >Profile</span
             >
           </a>
@@ -244,8 +244,32 @@
         routerLinkActive="router-link-active"
         class="mt-1"
       >
-        <mat-icon class="nav-icon">rate_review</mat-icon>
-        <span class="white-text">Farming Tips</span>
+        <i class="pi pi-comment nav-icon"></i>
+        <span class="white-text"
+          >Farming Tips</span
+        >
+      </a>
+      <a
+        mat-list-item
+        routerLink="/administrator/farmers"
+        routerLinkActive="router-link-active"
+        class="mt-1"
+      >
+        <i class="pi pi-users nav-icon"></i>
+        <span class="white-text" 
+          >Farmers</span
+        >
+      </a>
+      <a
+        mat-list-item
+        routerLink="/administrator/suppliers"
+        routerLinkActive="router-link-active"
+        class="mt-1"
+      >
+        <i class="pi pi-users nav-icon"></i>
+        <span class="white-text"
+          >Suppliers</span
+        >
       </a>
       <a
         mat-list-item
@@ -253,16 +277,29 @@
         routerLinkActive="router-link-active"
         class="mt-1"
       >
-        <mat-icon class="nav-icon">notification_important</mat-icon>
-        <span class="white-text">Complaints</span>
+        <i class="pi pi-megaphone nav-icon"></i>
+        <span class="white-text"
+          >Complaints</span
+        >
       </a>
       <a
         mat-list-item
         routerLink="/administrator/profile"
         routerLinkActive="router-link-active"
       >
-        <mat-icon class="nav-icon">account_circle</mat-icon>
-        <span class="white-text">Profile</span>
+        <i class="pi pi-user nav-icon"></i>
+        <span class="white-text"
+          >Profile</span
+        >
+      </a>
+      <a
+        mat-list-item
+        class="logout"
+        routerLink="/login"
+        (click)="logout()"
+      >
+        <i class="pi pi-sign-out nav-icon"></i>
+        <span class="white-text">Logout</span>
       </a>
     </ng-container>
   </mat-nav-list>
@@ -276,7 +313,9 @@
         class="mt-1"
       >
         <mat-icon class="nav-icon">rate_review</mat-icon>
-        <span class="white-text">Advertisements</span>
+        <span class="white-text"
+          >Advertisements</span
+        >
       </a>
       <a
         mat-list-item
@@ -285,7 +324,7 @@
         class="mt-1"
       >
         <mat-icon class="nav-icon"> terrain</mat-icon>
-        <span class="white-text">Crops</span>
+        <span class="white-text" >Crops</span>
       </a>
       <a
         mat-list-item
@@ -294,7 +333,9 @@
         class="mt-1"
       >
         <mat-icon class="nav-icon">notification_important</mat-icon>
-        <span class="white-text">Your Complaints</span>
+        <span class="white-text"
+          >Your Complaints</span
+        >
       </a>
       <a
         mat-list-item
@@ -302,7 +343,18 @@
         routerLinkActive="router-link-active"
       >
         <mat-icon class="nav-icon">account_circle</mat-icon>
-        <span class="white-text">Profile</span>
+        <span class="white-text"
+          >Profile</span
+        >
+      </a>
+      <a
+        mat-list-item
+        class="logout"
+        routerLink="/login"
+        (click)="logout()"
+      >
+        <i class="pi pi-sign-out nav-icon"></i>
+        <span class="white-text">Logout</span>
       </a>
     </ng-container>
   </mat-nav-list>
@@ -316,7 +368,9 @@
         class="mt-1"
       >
         <mat-icon class="nav-icon">local_mall</mat-icon>
-        <span class="white-text">Advertisements</span>
+        <span class="white-text"
+          >Advertisements</span
+        >
       </a>
       <a
         mat-list-item
@@ -324,7 +378,18 @@
         routerLinkActive="router-link-active"
       >
         <mat-icon class="nav-icon">account_circle</mat-icon>
-        <span class="white-text">Profile</span>
+        <span class="white-text"
+          >Profile</span
+        >
+      </a>
+      <a
+        mat-list-item
+        class="logout"
+        routerLink="/login"
+        (click)="logout()"
+      >
+        <i class="pi pi-sign-out nav-icon"></i>
+        <span class="white-text">Logout</span>
       </a>
     </ng-container>
   </mat-nav-list>
