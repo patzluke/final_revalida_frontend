@@ -7,6 +7,8 @@ import { FarmerComplaint } from '../../models/farmercomplaint';
 import { Router } from '@angular/router';
 import { faSave, faCancel, faAdd, faEye } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import { FormGroup } from '@angular/forms';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-complaint-status',
@@ -16,6 +18,13 @@ import Swal from 'sweetalert2';
 export class ComplaintStatusComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 8; // Number of items to show per page
+
+  complaintForm!: FormGroup
+  addComplaintForm!: FormGroup
+
+  farmerComplaint: FarmerComplaint[] = []
+
+  loading: boolean = true;
 
   startIndex(): number {
     return (this.currentPage - 1) * this.itemsPerPage;

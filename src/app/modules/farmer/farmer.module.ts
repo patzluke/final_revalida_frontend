@@ -36,6 +36,7 @@ import { PostAdvertisementResponsesEffects } from './states/postadvertisement-re
 import { MatButtonModule } from '@angular/material/button';
 import { DividerModule } from 'primeng/divider';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
   ],
   imports: [
     CommonModule,
+    TableModule,
     FarmerRoutingModule,
     ChartModule,
     SharedModule,
@@ -90,4 +92,4 @@ import { MultiSelectModule } from 'primeng/multiselect';
     FontAwesomeModule,
   ],
 })
-export class FarmerModule {}
+export class FarmerModule { }
