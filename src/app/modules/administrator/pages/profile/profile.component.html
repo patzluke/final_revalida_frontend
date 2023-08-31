@@ -1,3 +1,8 @@
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0"
+/>
+
 <app-loader></app-loader>
 <app-side-nav>
   <section>
@@ -14,7 +19,9 @@
             <div class="left-text">
               <h3>
                 <ng-container *ngIf="user.user?.isValidated">
-                  <i class="pi pi-verified verified-icon"></i>
+                  <span class="material-symbols-rounded verified-icon">
+                    verified
+                  </span>
                 </ng-container>
                 <b>{{
                   user.user?.lastName +
