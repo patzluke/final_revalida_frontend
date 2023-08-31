@@ -13,8 +13,6 @@ export const initialState: CourseState = {
 export const courseReducer = createReducer(
   initialState,
   on(setCourseState, (state, { courses }) => {
-    console.log(courses, ' hey');
-
     return { ...state, courses: courses };
   }),
   on(addCoursetate, (state, { course }) => {
@@ -23,7 +21,7 @@ export const courseReducer = createReducer(
   on(updateCoursetate, (state, { course }) => {
     return {
       ...state,
-      farmingTips: state.courses.map((oldCourse) =>
+      courses: state.courses.map((oldCourse) =>
       oldCourse.courseId == course.courseId
           ? course
           : oldCourse
@@ -33,7 +31,7 @@ export const courseReducer = createReducer(
   on(deleteCoursetate, (state, { courseId }) => {
     return {
       ...state,
-      farmingTips: state.courses.filter(
+      courses: state.courses.filter(
         (oldCourse) => oldCourse.courseId !== courseId
       ),
     };
