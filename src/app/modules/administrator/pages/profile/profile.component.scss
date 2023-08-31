@@ -428,6 +428,10 @@ b {
   display: none;
 }
 
+::ng-deep .confirm-password .p-password-panel {
+  display: none;
+}
+
 //-----------RESPONSIVE-----------
 @media (max-width: 1920px) {
   .res-second-subtext {

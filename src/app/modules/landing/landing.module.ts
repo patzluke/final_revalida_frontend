@@ -24,6 +24,8 @@ import { CropSpecializationEffects } from './states/cropspecialization-state/cro
 import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { FieldsetModule } from 'primeng/fieldset';
+import { PanelModule } from 'primeng/panel';
 
 @NgModule({
   declarations: [
