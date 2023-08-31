@@ -1,2 +1,182 @@
 <app-loader></app-loader>
-<app-side-nav></app-side-nav>
+<app-side-nav>
+  <!-- Add complaint modal form -->
+
+  <div class="modal fade" id="addComplaint" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="addFarmingTipLabel">Add Complaint</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="complaintForm">
+            <div class="form-floating mt-3 mb-3">
+              <select
+                class="form-select"
+                id="complaintTitle"
+                formControlName="complaintTitle"
+              >
+                <option selected>Open this select menu</option>
+                <option value="Payment Issue">Payment issue</option>
+                <option value="Technical Issue">Technical issue</option>
+                <option value="Others">Others</option>
+              </select>
+              <label for="floatingSelect">Select complaint type...</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <textarea
+                class="form-control"
+                placeholder="Elaborate your concern"
+                id="complaintMessage"
+                formControlName="complaintMessage"
+                style="height: 250px"
+              ></textarea>
+              <label for="complaintMessage">Comments</label>
+            </div>
+
+            <div class="form-control mb-3">
+              <label for="image" class="form-label mt-2">Select picture</label>
+              <input
+                class="form-control form-control-lg"
+                id="image"
+                type="file"
+                formControlName="image"
+                (change)="onImageSelect($event)"
+                formControlName="image"
+              />
+              <div class="mb-3 mt-3">
+                <p>{{ imageUrl }}</p>
+              </div>
+              <div class="mb-3 mt-3">
+                <img [src]="imageUrl" width="100%" />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            (click)="addFarmerComplaint()"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p-table
+    #dt1
+    [value]="farmerComplaints"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 15, 20]"
+    [loading]="loading"
+    [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="['complaintTitle']"
+  >
+    <ng-template pTemplate="caption">
+      <div class="d-flex flex-row-reverse">
+        <button
+          class="btn btn-primary ms-1"
+          data-bs-toggle="modal"
+          data-bs-target="#addComplaint"
+        >
+          Add complaint
+        </button>
+        <span class="p-input-icon-left ml-auto">
+          <input
+            #pInputText
+            type="text"
+            class="form-control me-5"
+            (input)="dt1.filterGlobal(pInputText.value, 'contains')"
+            placeholder="Search keyword"
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center">Complaint Title</div>
+        </th>
+
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center">Read</div>
+        </th>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center">Resolved</div>
+        </th>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center">Date Submitted</div>
+        </th>
+
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center text-center">Action</div>
+        </th>
+      </tr></ng-template
+    >
+
+    <ng-template pTemplate="body" let-farmerComplaints>
+      <tr>
+        <td>
+          <span class="ml-1 vertical-align-middle">{{
+            farmerComplaints.complaintTitle
+          }}</span>
+        </td>
+
+        <td>
+          <span class="ml-1 vertical-align-middle">{{
+            farmerComplaints.isRead
+          }}</span>
+        </td>
+        <td>
+          <span class="ml-1 vertical-align-middle">{{
+            farmerComplaints.isResolved
+          }}</span>
+        </td>
+        <td>
+          <span class="ml-1 vertical-align-middle">{{
+            farmerComplaints.dateSubmitted | date : "MMMM d, yyyy HH:mm a"
+          }}</span>
+        </td>
+        <td class="text-center" style="width: 5%">
+          <p-button
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#editFarmingTip"
+            icon="pi pi-pencil"
+            styleClass="p-button-rounded p-button-text"
+          ></p-button>
+          <p-button
+            icon="pi pi-times"
+            styleClass="p-button-rounded p-button-danger p-button-text"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="7" class="text-center">No Complaints Found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</app-side-nav>
