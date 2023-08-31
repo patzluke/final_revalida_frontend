@@ -255,6 +255,37 @@ label {
   display: none;
 }
 
+.summary-field {
+  display: flex;
+  //justify-content: space-between;
+}
+
+.summary-field .form-label {
+  width: 50%;
+}
+
+.summary-field .offer-text {
+  width: 50%;
+}
+
+.edit-offer-btn-container {
+  width: 100%;
+  text-align: end;
+  margin: 1rem 0;
+}
+
+.p-button.edit-offer-btn {
+  height: 2.5rem;
+  background-color: #1450a3;
+  border: #1450a3;
+}
+
+.has-offer-container {
+  color: red;
+  font-size: 1.1rem;
+  margin: 1rem 0;
+}
+
 @media (max-width: 800px) {
   .filter-container {
     display: block;
@@ -286,6 +317,30 @@ label {
 
   .no-info-text p {
     font-size: 1rem;
+  }
+
+  .summary-field {
+    display: block;
+    //justify-content: space-between;
+  }
+
+  .summary-field .form-label {
+    width: 100%;
+  }
+
+  .summary-field .offer-text {
+    width: 100%;
+  }
+}
+
+@media (max-width: 642px) {
+  .action-container {
+    display: block;
+    text-align: center;
+  }
+
+  .cancel-btn {
+    display: none;
   }
 }
 

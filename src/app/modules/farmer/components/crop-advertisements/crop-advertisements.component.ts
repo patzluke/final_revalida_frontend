@@ -25,6 +25,8 @@ export class CropAdvertisementsComponent implements OnInit {
   sortingOptions = [
     { label: 'Sort A-Z', value: 'asc' },
     { label: 'Sort Z-A', value: 'desc' },
+    { label: 'Newest to Oldest', value: 'newest' }, // Newest to oldest
+    { label: 'Oldest to Newest', value: 'oldest' }, // Oldest to newest
   ];
 
   measurementOptions = [
@@ -41,6 +43,7 @@ export class CropAdvertisementsComponent implements OnInit {
 
   //formGroups
   addAdvertisementResponseForm: FormGroup;
+  finalOfferForm: FormGroup;
 
   //selectors
   selectPostAdvertisements$ = this.store.select(selectPostAdvertisements());
@@ -48,8 +51,23 @@ export class CropAdvertisementsComponent implements OnInit {
 
   constructor(private store: Store, private fb: FormBuilder) {
     this.addAdvertisementResponseForm = fb.group({
-      postResponseId: [0, Validators.required],
-      price: [0, Validators.required],
+      postResponseId: [''],
+      price: ['', Validators.required],
+      quantity: ['', Validators.required],
+      dateCreated: [''],
+      dateModified: [''],
+      message: [''],
+      preferredPaymentMode: ['', Validators.required],
+
+      measurement: ['', Validators.required],
+
+      postId: [0],
+      farmerId: [0],
+    });
+
+    this.finalOfferForm = fb.group({
+      postResponseId: [''],
+      price: ['', Validators.required],
       quantity: ['', Validators.required],
       dateCreated: [''],
       dateModified: [''],
@@ -155,6 +173,8 @@ export class CropAdvertisementsComponent implements OnInit {
           });
         }
       });
+
+      console.log('advertisement response', newAdvertisementResponse);
       this.addAdvertisementResponseForm.reset();
       this.openDialog = false;
     } else {
@@ -209,6 +229,47 @@ export class CropAdvertisementsComponent implements OnInit {
       this.filteredAdvertisements.sort((a, b) =>
         b.cropName.localeCompare(a.cropName)
       );
+    } else if (this.selectedSortingOption === 'newest') {
+      this.filteredAdvertisements.sort((a, b) => {
+        const aDate = a.datePosted ? new Date(a.datePosted).getTime() : 0;
+        const bDate = b.datePosted ? new Date(b.datePosted).getTime() : 0;
+        return bDate - aDate;
+      });
+    } else if (this.selectedSortingOption === 'oldest') {
+      this.filteredAdvertisements.sort((a, b) => {
+        const aDate = a.datePosted ? new Date(a.datePosted).getTime() : 0;
+        const bDate = b.datePosted ? new Date(b.datePosted).getTime() : 0;
+        return aDate - bDate;
+      });
     }
   }
+
+  hasOffer: boolean = true;
+  openViewOfferDialog: boolean = false;
+  editFinalOffer: boolean = false;
+
+  toggleViewOffer = () => {
+    this.openViewOfferDialog = !this.openViewOfferDialog;
+  };
+
+  toggleEditFinalOffer = () => {
+    this.editFinalOffer = !this.editFinalOffer;
+  };
+
+  submitFinalOffer = () => {
+    if (this.finalOfferForm.valid) {
+      let finalOfferValues = this.addAdvertisementResponseForm.value;
+
+      console.log(finalOfferValues);
+      //redirect to products page
+    } else {
+      Object.keys(this.finalOfferForm.controls).forEach((field) => {
+        const control = this.finalOfferForm.get(field);
+        if (control?.invalid) {
+          control.markAsTouched();
+          control?.setErrors({ invalid: true });
+        }
+      });
+    }
+  };
 }
