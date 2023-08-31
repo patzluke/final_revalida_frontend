@@ -11,7 +11,7 @@ export interface FarmerComplaint {
   dateSubmitted?: string;
   activeDeactive?: boolean;
   farmer?: Farmer;
-
+  image?: string;
   //For inserting
   farmerId?: number;
 }

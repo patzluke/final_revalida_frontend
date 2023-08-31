@@ -36,3 +36,8 @@ export const updateSingleFarmerComplaintState = createAction(
   FarmerComplaintActions.UPDATE_FARMERCOMPLAINT_STATUS_SUCCESS,
   props<{ farmerComplaint: FarmerComplaint }>()
 );
+
+export const addFarmerComplaintState = createAction(
+  FarmerComplaintActions.ADD_FARMERCOMPLAINT,
+  props<{ farmerComplaint: FarmerComplaint }>()
+)

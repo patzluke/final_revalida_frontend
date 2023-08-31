@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { faAdd, faCancel, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -10,6 +11,8 @@ export class SellProductComponent {
 
   currentPage: number = 1;
   itemsPerPage: number = 3; // Number of items to show per page
+
+  addCrop!: FormGroup
 
   startIndex(): number {
     return (this.currentPage - 1) * this.itemsPerPage;
