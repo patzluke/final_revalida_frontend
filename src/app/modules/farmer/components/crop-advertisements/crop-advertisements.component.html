@@ -119,25 +119,16 @@
               </h3>
             </div>
 
-            <div *ngIf="hasOffer" class="has-offer-container">
+            <div *ngIf="(selectPostAdvertisementResponseByPostId$(post) | async)?.isAccepted" class="has-offer-container">
               <p>
                 Your offer has been accepted by the supplier. View your offer
                 and place your final offer.
               </p>
             </div>
           </div>
-
           <div class="cta-section">
-            <p *ngIf="selectPostAdvertisementResponseByPostId$(post) | async"><i>You've placed an offer to this already</i></p>
             <button
-              *ngIf="selectPostAdvertisementResponseByPostId$(post) | async"
-              pButton
-              type="button"
-              class="offer-btn"
-              label="View Offer"
-            ></button>
-            <button
-              *ngIf="!hasOffer"
+              *ngIf="!(selectPostAdvertisementResponseByPostId$(post) | async)"
               pButton
               type="button"
               class="offer-btn"
@@ -145,7 +136,7 @@
               (click)="selectAdvertisement(post); toggleDialog()"
             ></button>
             <button
-              *ngIf="hasOffer"
+              *ngIf="(selectPostAdvertisementResponseByPostId$(post) | async)"
               pButton
               type="button"
               class="offer-btn"
