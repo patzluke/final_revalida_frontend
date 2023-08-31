@@ -49,13 +49,22 @@
 
               <div class="form-floating mb-3" data-aos="fade-right">
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
                   id="quantity"
                   placeholder="quantity"
                   formControlName="quantity"
                 />
                 <label for="quantity">Quantity</label>
+              </div>
+
+              <div class="form-floating mb-3" data-aos="fade-right">
+                <select id="measurement" class="form-select" formControlName="measurement">
+                  <option [value]="'kg'">Kilograms (Kg)</option>
+                  <option [value]="'tn'">Tons (tn)</option>
+                </select>
+
+                <label for="measurement">Measurement</label>
               </div>
 
               <div class="form-floating mb-3" data-aos="fade-right">
@@ -81,7 +90,6 @@
               </div>
               <div class="input-group mb-3" data-aos="fade-right">
                 <input
-                  #imageInput
                   type="file"
                   class="form-control"
                   accept="image/*"

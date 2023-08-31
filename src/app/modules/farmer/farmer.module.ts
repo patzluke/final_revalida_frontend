@@ -40,6 +40,12 @@ import { TableModule } from 'primeng/table';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { cropSpecializationReducer } from './states/cropspecialization-state/cropspecialization.reducer';
 import { CropSpecializationEffects } from './states/cropspecialization-state/cropspecialization.effects';
+import { CoursesComponent } from './components/courses/courses.component';
+import { courseReducer } from './states/course-state/course.reducer';
+import { CourseEffects } from './states/course-state/course.effects';
+import { TabViewModule } from 'primeng/tabview';
+import { coursesEnrolledReducer } from './states/course-enrolled-state/course-enrolled.reducer';
+import { CourseEnrolledEffects } from './states/course-enrolled-state/course-enrolled.effects';
 
 @NgModule({
   declarations: [
@@ -54,10 +60,12 @@ import { CropSpecializationEffects } from './states/cropspecialization-state/cro
     CourseEnrolledComponent,
     ViewReportComponent,
     ProfileComponent,
+    CoursesComponent,
   ],
   imports: [
     CommonModule,
     TableModule,
+    TabViewModule,
     FarmerRoutingModule,
     ChartModule,
     SharedModule,
@@ -89,11 +97,15 @@ import { CropSpecializationEffects } from './states/cropspecialization-state/cro
       postAdvertisementResponsesReducer
     ),
     StoreModule.forFeature('cropSpecializationList', cropSpecializationReducer),
+    StoreModule.forFeature('courseList', courseReducer),
+    StoreModule.forFeature('coursesEnrolledList', coursesEnrolledReducer),
     EffectsModule.forFeature([
       FarmerComplaintEffects,
       PostAdvertisementEffects,
       PostAdvertisementResponsesEffects,
       CropSpecializationEffects,
+      CourseEffects,
+      CourseEnrolledEffects
     ]),
     FontAwesomeModule,
   ],
