@@ -289,3 +289,7 @@ label {
     display: none;
   }
 }
+
+::ng-deep .confirm-password .p-password-panel {
+  display: none;
+}

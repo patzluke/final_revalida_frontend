@@ -370,13 +370,58 @@ export class ProfileComponent implements OnInit {
 
   verifyAccount = () => {
     if (this.validIdForm.valid) {
-      const validIdData = {
-        validIdType: this.validIdForm.controls['validIdType'].getRawValue(),
-        validIdNumber: this.validIdForm.controls['validIdNumber'].getRawValue(),
-        validIdPicture: '',
-      };
+      this.verifyBtn = false;
+      Swal.fire({
+        title: 'Are you sure you want to update your valid id?',
+        icon: 'warning',
+        showDenyButton: true,
+        confirmButtonColor: '#3085d6',
+        denyButtonColor: '#d33',
+        denyButtonText: 'cancel',
+        confirmButtonText: 'Save changes',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (this.selectedImage) {
+            this.supplierService.upload(this.selectedImage).subscribe({
+              next: (data) => {
+                this.imagePreviewUrl = `${data.fileUri.concat(data.fileName)}`;
+              },
+              error: (err) => {
+                Swal.fire(
+                  'Failed to Change Picture!',
+                  `Something went wrong.`,
+                  'error'
+                );
+              },
+            });
+          }
 
-      console.log('valid id data', validIdData);
+          const validIdData = {
+            userId: localStorage.getItem('userId'),
+            validIdType: this.validIdForm.controls['validIdType'].getRawValue(),
+            validIdNumber:
+              this.validIdForm.controls['validIdNumber'].getRawValue(),
+            validIdPicture: this.imagePreviewUrl,
+          };
+
+          this.supplierService.updateAdminInfo(validIdData).subscribe({
+            next: (data) => {
+              this.user = { ...data };
+              this.validIdForm.reset();
+              Swal.fire('Success', 'Valid Id Successfully updated!', 'success');
+            },
+            error: (err) => {
+              Swal.fire(
+                'Failed to Update Valid Id!',
+                `Something went wrong.`,
+                'error'
+              );
+            },
+          });
+        } else if (result.isDenied) {
+          this.editPassword = true;
+        }
+      });
     } else {
       Object.keys(this.validIdForm.controls).forEach((field) => {
         const control = this.validIdForm.get(field);

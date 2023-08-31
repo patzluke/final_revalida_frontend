@@ -385,6 +385,7 @@ b {
 .verified-icon {
   color: #037fff;
   margin-right: 1rem;
+  vertical-align: -5px;
 }
 
 .verify-container {
@@ -425,6 +426,10 @@ b {
 }
 
 ::ng-deep .p-dropdown-items-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+::ng-deep .confirm-password .p-password-panel {
   display: none;
 }
 
