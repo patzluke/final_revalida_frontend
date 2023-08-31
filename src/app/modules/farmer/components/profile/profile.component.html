@@ -1,3 +1,8 @@
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0"
+/>
+
 <app-loader></app-loader>
 <app-side-nav>
   <section>
@@ -14,7 +19,9 @@
             <div class="left-text">
               <h3>
                 <ng-container *ngIf="user.user?.isValidated">
-                  <i class="pi pi-verified verified-icon"></i>
+                  <span class="material-symbols-rounded verified-icon">
+                    verified
+                  </span>
                 </ng-container>
                 <b>{{
                   user.user?.lastName +
@@ -94,8 +101,8 @@
         <div class="right-container">
           <div class="verify-container" *ngIf="!user.user?.isValidated">
             <button pButton class="verify-btn" (click)="toggleVerifyActBtn()">
-              <i class="pi pi-verified" style="margin-right: 1rem"></i> Verify
-              account
+              <i class="pi pi-verified" style="margin-right: 0.5rem"></i> Verify
+              Account
             </button>
           </div>
           <p-card>
@@ -215,14 +222,8 @@
       <div class="center-container">
         <div class="change-image-container">
           <img
-            *ngIf="imagePreviewUrl"
             class="profile-image"
-            [src]="imagePreviewUrl"
-          />
-          <img
-            *ngIf="!imagePreviewUrl"
-            class="profile-image"
-            src="assets/images/user-icon.png"
+            [src]="imagePreviewUrl || 'assets/images/user-icon.png'"
           />
           <div class="camera-icon-container">
             <button mat-icon-button (click)="selectFile.click()">
@@ -577,6 +578,7 @@
           <label>Confirm Password *</label>
           <div>
             <p-password
+              class="confirm-password"
               [ngClass]="{
                 'spec-field':
                   passwordForm.controls['confirmPassword'].invalid &&
@@ -672,14 +674,8 @@
             </button>
           </div>
           <img
-            *ngIf="changeImage && imagePreviewUrl"
             class="upload-image"
-            [src]="imagePreviewUrl"
-          />
-          <img
-            *ngIf="!changeImage"
-            class="upload-image"
-            src="/assets/images/upload.png"
+            [src]="imagePreviewUrl || '/assets/images/upload.png'"
           />
         </div>
         <input
