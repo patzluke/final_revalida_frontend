@@ -95,4 +95,4 @@ import { CourseEffects } from './states/course-state/course.effects';
     ]),
   ],
 })
-export class AdministratorModule {}
+export class AdministratorModule { }

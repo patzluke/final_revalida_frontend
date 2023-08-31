@@ -13,6 +13,9 @@
             </div>
             <div class="left-text">
               <h3>
+                <ng-container *ngIf="user.user?.isValidated">
+                  <i class="pi pi-verified verified-icon"></i>
+                </ng-container>
                 <b>{{
                   user.user?.lastName +
                     ", " +
@@ -24,9 +27,7 @@
               <div class="social-container">
                 <div class="social-icon-container">
                   <a
-                    href="{{
-                      facebookLink || 'https://www.facebook.com/'
-                    }}"
+                    href="{{ facebookLink || 'https://www.facebook.com/' }}"
                     target="_blank"
                   >
                     <img class="social-icon" src="assets/images/fb-icon.png" />
@@ -34,9 +35,7 @@
                 </div>
                 <div class="social-icon-container">
                   <a
-                    href="{{
-                      instagramLink || 'https://www.instagram.com/'
-                    }}"
+                    href="{{ instagramLink || 'https://www.instagram.com/' }}"
                     target="_blank"
                   >
                     <img class="social-icon" src="assets/images/ig-icon.png" />
@@ -93,6 +92,12 @@
           </p-card>
         </div>
         <div class="right-container">
+          <div class="verify-container" *ngIf="!user.user?.isValidated">
+            <button pButton class="verify-btn" (click)="toggleVerifyActBtn()">
+              <i class="pi pi-verified" style="margin-right: 1rem"></i> Verify
+              account
+            </button>
+          </div>
           <p-card>
             <div class="right-header">
               <div class="header-text">
@@ -597,6 +602,103 @@
           (click)="updatePassword()"
         ></button>
       </div>
+    </div>
+  </div>
+</p-dialog>
+
+<!-- verify account modal -->
+<p-dialog
+  header="Verify your Account"
+  [(visible)]="verifyBtn"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [maximizable]="true"
+>
+  <div class="container">
+    <form [formGroup]="validIdForm">
+      <div class="form-field">
+        <label>Type of valid Id *</label>
+        <div>
+          <p-dropdown
+            [ngClass]="{
+              'spec-field':
+                validIdForm.controls['validIdType'].invalid &&
+                (validIdForm.controls['validIdType'].dirty ||
+                  validIdForm.controls['validIdType'].touched)
+            }"
+            formControlName="validIdType"
+            placeholder="Select valid id type"
+            [options]="validIds"
+            optionLabel="type"
+            optionValue="type"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label>Id number *</label>
+        <div>
+          <input
+            [ngClass]="{
+              'invalid-field':
+                validIdForm.controls['validIdNumber'].invalid &&
+                (validIdForm.controls['validIdNumber'].dirty ||
+                  validIdForm.controls['validIdNumber'].touched)
+            }"
+            formControlName="validIdNumber"
+            type="text"
+            pInputText
+          />
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem">
+        <label>Valid Id image *</label>
+        <div class="upload-image-container">
+          <div>
+            <button pButton class="verify-btn" (click)="selectFile.click()">
+              <mat-icon class="mat-icon" style="margin-right: 1rem"
+                >cloud_upload</mat-icon
+              >
+              Upload image
+            </button>
+          </div>
+          <img
+            *ngIf="changeImage && imagePreviewUrl"
+            class="upload-image"
+            [src]="imagePreviewUrl"
+          />
+          <img
+            *ngIf="!changeImage"
+            class="upload-image"
+            src="/assets/images/upload.png"
+          />
+        </div>
+        <input
+          hidden
+          type="file"
+          id="img"
+          value="select"
+          accept="image/*"
+          #selectFile
+          (change)="onImageSelected($event)"
+        />
+
+        <div *ngIf="isMaxSize">
+          <p [ngStyle]="{ color: 'red' }">Image size is too large</p>
+        </div>
+      </div>
+    </form>
+
+    <div class="action-container">
+      <button
+        pButton
+        label="Submit"
+        class="update-btn"
+        (click)="verifyAccount()"
+      ></button>
     </div>
   </div>
 </p-dialog>

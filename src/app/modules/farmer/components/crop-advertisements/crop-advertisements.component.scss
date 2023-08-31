@@ -55,6 +55,8 @@ section {
   font-family: "Circular Std";
   font-size: 1rem;
   color: #4b4b4b;
+  display: flex;
+  justify-content: space-between;
 }
 
 .price-qty-container {
@@ -305,5 +307,9 @@ label {
   .no-info-text h1 {
     font-size: 2rem;
     margin-bottom: 10px;
+  }
+
+  .poster-name {
+    display: block;
   }
 }
