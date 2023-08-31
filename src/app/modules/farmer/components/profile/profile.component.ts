@@ -377,42 +377,33 @@ export class ProfileComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           if (this.selectedImage) {
-            this.farmerService.upload(this.selectedImage).subscribe({
-              next: (data) => {
-                this.imagePreviewUrl = `${data.fileUri.concat(data.fileName)}`;
-              },
-              error: (err) => {
-                Swal.fire(
-                  'Failed to Change Picture!',
-                  `Something went wrong.`,
-                  'error'
-                );
-              },
+            this.farmerService.upload(this.selectedImage).forEach((data) => {
+              this.imagePreviewUrl = `${data.fileUri.concat(data.fileName)}`;
+            }).then(()=> {
+              const validIdData = {
+                userId: localStorage.getItem('userId'),
+                validIdType: this.validIdForm.controls['validIdType'].getRawValue(),
+                validIdNumber:
+                  this.validIdForm.controls['validIdNumber'].getRawValue(),
+                validIdPicture: this.imagePreviewUrl,
+              };
+
+              this.farmerService.updateAdminInfo(validIdData).subscribe({
+                next: (data) => {
+                  this.user = { ...data };
+                  this.validIdForm.reset();
+                  Swal.fire('Success', 'Valid Id Successfully updated!', 'success');
+                },
+                error: (err) => {
+                  Swal.fire(
+                    'Failed to Update Valid Id!',
+                    `Something went wrong.`,
+                    'error'
+                  );
+                },
+              });
             });
           }
-
-          const validIdData = {
-            userId: localStorage.getItem('userId'),
-            validIdType: this.validIdForm.controls['validIdType'].getRawValue(),
-            validIdNumber:
-              this.validIdForm.controls['validIdNumber'].getRawValue(),
-            validIdPicture: this.imagePreviewUrl,
-          };
-
-          this.farmerService.updateAdminInfo(validIdData).subscribe({
-            next: (data) => {
-              this.user = { ...data };
-              this.validIdForm.reset();
-              Swal.fire('Success', 'Valid Id Successfully updated!', 'success');
-            },
-            error: (err) => {
-              Swal.fire(
-                'Failed to Update Valid Id!',
-                `Something went wrong.`,
-                'error'
-              );
-            },
-          });
         } else if (result.isDenied) {
           this.editPassword = true;
         }
