@@ -119,7 +119,16 @@
             </div>
           </div>
           <div class="cta-section">
+            <p *ngIf="selectPostAdvertisementResponseByPostId$(post) | async"><i>You've placed an offer to this already</i></p>
             <button
+              *ngIf="selectPostAdvertisementResponseByPostId$(post) | async"
+              pButton
+              type="button"
+              class="offer-btn"
+              label="View Offer"
+            ></button>
+            <button
+            *ngIf="!(selectPostAdvertisementResponseByPostId$(post) | async)"
               pButton
               type="button"
               class="offer-btn"

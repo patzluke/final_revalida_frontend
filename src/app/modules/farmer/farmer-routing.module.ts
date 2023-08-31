@@ -12,6 +12,7 @@ import { CropPaymentComponent } from './components/crop-payment/crop-payment.com
 import { CourseEnrolledComponent } from './components/course-enrolled/course-enrolled.component';
 import { ViewReportComponent } from './components/view-report/view-report.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { CoursesComponent } from './components/courses/courses.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,10 @@ const routes: Routes = [
   {
     path: 'view-report',
     component: ViewReportComponent,
+  },
+  {
+    path: 'courses',
+    component: CoursesComponent,
   },
   {
     path: 'profile',

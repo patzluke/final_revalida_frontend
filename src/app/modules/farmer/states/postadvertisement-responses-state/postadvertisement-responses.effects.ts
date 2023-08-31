@@ -4,6 +4,7 @@ import { map, mergeMap, switchMap, catchError, of, tap } from 'rxjs';
 import {
   PostAdvertisementResponsesActions,
   addAdvertisementResponsesState,
+  setPostAdvertisementResponsesState,
 } from './postadvertisement-responses.actions';
 import Swal from 'sweetalert2';
 import { PostAdvertisementResponse } from '../../models/post-advertisement-response';
@@ -17,27 +18,27 @@ export class PostAdvertisementResponsesEffects {
     private farmerService: FarmerService
   ) {}
 
-  // getPostAdvertisementResponse$ = createEffect(
-  //   () => {
-  //     return this.actions$.pipe(
-  //       ofType(
-  //         PostAdvertisementResponsesActions.GET_POSTADVERTISEMENTRESPONSES
-  //       ),
-  //       mergeMap((data: { postId: number }) =>
-  //         this.farmerService
-  //           .selectAllPostAdvertisementResponsesByPostId(data.postId)
-  //           .pipe(
-  //             map((postAdvertisementResponses) =>
-  //               setPostAdvertisementResponsesState({
-  //                 postAdvertisementResponses: postAdvertisementResponses,
-  //               })
-  //             )
-  //           )
-  //       )
-  //     );
-  //   },
-  //   { dispatch: true }
-  // );
+  getPostAdvertisementResponse$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(
+          PostAdvertisementResponsesActions.GET_POSTADVERTISEMENTRESPONSES
+        ),
+        mergeMap((data: { farmerId: number }) =>
+          this.farmerService
+            .selectAllPostAdvertisementResponsesByFarmerId(data.farmerId)
+            .pipe(
+              map((postAdvertisementResponses) =>
+              setPostAdvertisementResponsesState({
+                  postAdvertisementResponses: postAdvertisementResponses,
+                })
+              )
+            )
+        )
+      );
+    },
+    { dispatch: true }
+  );
 
   insertAdvertisementResponse$ = createEffect(() => {
     return this.actions$.pipe(
@@ -67,31 +68,4 @@ export class PostAdvertisementResponsesEffects {
       )
     );
   });
-
-  // updatePostAdvertisementResponse$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(
-  //       PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES
-  //     ),
-  //     switchMap((data: { postAdvertisementResponse: PostAdvertisementResponse }) =>
-  //       this.supplierService
-  //         .updatePostAdvertisementResponsesIsAcceptedStatus(
-  //           data.postAdvertisementResponse
-  //         )
-  //         .pipe(
-  //           map((postAdvertisementResponse: PostAdvertisementResponse) =>
-  //           updatePostAdvertisementResponsesState({
-  //             postAdvertisementResponse: postAdvertisementResponse,
-  //             })
-  //           ),
-  //           catchError((error: HttpErrorResponse) => {
-  //             Swal.fire('Failed to Update!', `Something Went Wrong`, 'error');
-  //             return of({
-  //               type: PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES_FAILED,
-  //             });
-  //           })
-  //         )
-  //     )
-  //   );
-  // });
 }

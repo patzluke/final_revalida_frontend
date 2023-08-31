@@ -11,6 +11,7 @@ import { selectCropSpecializations } from '../../states/cropspecialization-state
 import { CropSpecializationActions } from '../../states/cropspecialization-state/cropspecialization.actions';
 import { CropSpecialization } from '../../models/crop-specialization';
 import { faL } from '@fortawesome/free-solid-svg-icons';
+import { selectPostAdvertisementResponseByPostId } from '../../states/postadvertisement-responses-state/postadvertisement-responses.selectors';
 
 @Component({
   selector: 'app-crop-advertisements',
@@ -45,6 +46,9 @@ export class CropAdvertisementsComponent implements OnInit {
   //selectors
   selectPostAdvertisements$ = this.store.select(selectPostAdvertisements());
   selectCropSpecializations$ = this.store.select(selectCropSpecializations());
+  selectPostAdvertisementResponseByPostId$ = (post: PostAdvertisement) => {
+    return this.store.select(selectPostAdvertisementResponseByPostId(post.postId as number, localStorage.getItem("userNo") as any));
+  };
 
   constructor(private store: Store, private fb: FormBuilder) {
     this.addAdvertisementResponseForm = fb.group({
@@ -61,6 +65,7 @@ export class CropAdvertisementsComponent implements OnInit {
       postId: [0],
       farmerId: [0],
     });
+
   }
 
   ngOnInit(): void {
@@ -70,6 +75,11 @@ export class CropAdvertisementsComponent implements OnInit {
 
     this.store.dispatch({
       type: PostAdvertisementActions.GET_POSTADVERTISEMENT,
+    });
+
+    this.store.dispatch({
+      type: PostAdvertisementResponsesActions.GET_POSTADVERTISEMENTRESPONSES,
+      farmerId: localStorage.getItem("userNo")
     });
 
     this.selectPostAdvertisements$.subscribe((data) => {
@@ -140,12 +150,13 @@ export class CropAdvertisementsComponent implements OnInit {
         postId: addAdvertisementResponseFormValues.postId,
       };
 
+      this.openDialog = false;
       Swal.fire({
         title: 'Are you sure you want to send this offer?',
         icon: 'warning',
-        showCancelButton: true,
+        showDenyButton: true,
         confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        denyButtonColor: '#d33',
         confirmButtonText: 'Send offer',
       }).then((result) => {
         if (result.isConfirmed) {
@@ -153,10 +164,14 @@ export class CropAdvertisementsComponent implements OnInit {
             type: PostAdvertisementResponsesActions.ADD_POSTADVERTISEMENTRESPONSES,
             postAdvertisementResponse: newAdvertisementResponse,
           });
+          this.addAdvertisementResponseForm.reset();
+        } else if (result.isDenied) {
+          this.openDialog = true;
+        } else if (result.isDismissed) {
+          this.addAdvertisementResponseForm.reset();
+          this.openDialog = false;
         }
       });
-      this.addAdvertisementResponseForm.reset();
-      this.openDialog = false;
     } else {
       Object.keys(this.addAdvertisementResponseForm.controls).forEach(
         (field) => {
