@@ -1,0 +1,425 @@
+section {
+  background-color: #e8f4ef;
+  height: auto;
+  padding: 60px;
+}
+
+.container {
+  height: 100%;
+}
+
+.card {
+  width: 100%;
+  flex-direction: row;
+  border: 0;
+  box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
+  margin: 1.5rem auto;
+  padding: 0;
+  min-height: 18rem;
+  border-right: 7px solid #2d5605;
+}
+
+.image-container {
+  width: 40%;
+  height: 20rem;
+  align-self: center;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  // border-radius: 0.7em;
+  margin: auto;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.text-section {
+  width: 100%;
+  padding-left: 1rem;
+  font-family: "Circular Std";
+}
+
+.crop-name {
+  color: #2d5605;
+  font-family: "Circular Std";
+  display: flex;
+  justify-content: space-between;
+}
+
+.crop-name h2 {
+  font-family: "Circular Std";
+  font-size: 1.8rem;
+}
+
+.poster-name {
+  margin-top: -1rem;
+  font-family: "Circular Std";
+  font-size: 1rem;
+  color: #4b4b4b;
+  display: flex;
+  justify-content: space-between;
+}
+
+.price-qty-container {
+  display: flex;
+  color: rgb(80, 80, 80);
+  justify-content: space-between;
+  padding-right: 2rem;
+  margin: 0.5rem 0 -5px 0;
+}
+
+.pqt-container {
+}
+
+.pqt-container .label {
+  margin-bottom: -1px;
+}
+
+.pqt-icon {
+  margin-right: 10px;
+}
+
+h3 {
+  font-family: "Circular Std";
+  font-size: 1.2rem;
+}
+
+.crop-type-container {
+  margin-top: -10px;
+  color: rgb(80, 80, 80);
+}
+
+.description-container {
+  margin-top: 1rem;
+  color: rgb(80, 80, 80);
+}
+
+.card-text {
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+  color: rgb(80, 80, 80);
+  font-family: "Circular Std";
+}
+
+.cta-section {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  height: auto;
+}
+
+.p-button.offer-btn {
+  border: 1px solid #2d5605;
+  background-color: #2d5605;
+  color: #f9f9f9;
+  border-radius: 25px;
+  text-align: center;
+  height: 3rem;
+}
+
+.p-button.offer-btn:hover {
+  border: 1px solid #2d5605;
+  background-color: transparent;
+  color: #2d5605;
+}
+
+::ng-deep .p-button-label {
+  font-weight: 500;
+}
+
+.filter-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-container {
+  width: 40%;
+}
+
+.right-filter {
+  display: flex;
+  width: 30%;
+  gap: 1rem;
+}
+
+.title {
+  font-family: "Circular Std";
+  color: #2d5605;
+  font-weight: bold;
+}
+
+.dropdown-container {
+  width: 50%;
+}
+
+::ng-deep .p-inputtext {
+  width: 100%;
+}
+
+::ng-deep .p-dropdown {
+  width: 100%;
+}
+
+::ng-deep .p-multiselect {
+  width: 100%;
+}
+
+.no-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.no-info-image {
+  width: 50%;
+  height: 50%;
+}
+
+.no-info-text {
+  text-align: center;
+  color: #2d5605;
+  margin-bottom: 2rem;
+}
+
+.no-info-text h1 {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  font-family: "Circular Std";
+}
+
+.no-info-text p {
+  font-family: "Circular Std";
+  margin-bottom: -1px;
+  font-size: 1.5rem;
+}
+
+::ng-deep .mat-divider.divider {
+  background-color: #2d5605;
+  width: 100%;
+}
+
+.see-more {
+  color: #838383;
+  cursor: pointer;
+}
+
+.form-field {
+  margin-top: 1rem;
+}
+
+label {
+  color: rgb(126, 125, 125);
+}
+
+.action-container {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cta-container {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  width: 100%;
+}
+
+::ng-deep .p-card {
+  width: 50%;
+  margin: auto auto 3rem auto;
+  border-radius: 10px;
+}
+
+::ng-deep .p-card .p-card-body,
+::ng-deep .p-card .p-card-content {
+  padding: 0;
+}
+
+.user-image {
+  border-radius: 100%;
+  width: 3rem;
+  height: 3rem;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+  background-color: #f9f9f9;
+}
+
+.cta-text {
+  background-color: #f0f2f5;
+  border-radius: 25px;
+  width: 100%;
+  color: #65676b;
+  display: flex;
+  padding-left: 1rem;
+  cursor: pointer;
+}
+
+.cta-text p {
+  width: 100%;
+  font-size: 17px;
+  height: auto;
+  margin: auto;
+}
+
+.cta-text:hover {
+  background-color: #dcdee0;
+}
+
+.icons {
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: #545454;
+}
+
+.icons:hover {
+  color: #2d5605;
+}
+
+.invalid-field {
+  border: 1px solid red;
+}
+
+::ng-deep .spec-field .p-dropdown,
+::ng-deep .spec-field .p-password,
+::ng-deep .spec-field .p-calendar {
+  border: 1px solid red;
+  border-radius: 5px;
+}
+
+.crop-image-container {
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.crop-image {
+  height: 50%;
+  width: 50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.p-button.submit-btn {
+  color: #ffffff;
+  //background: #18332f;
+  background: #8da17f;
+  border: #8da17f;
+}
+
+.p-button.submit-btn:hover {
+  color: #ffffff;
+  //background: #8da17f;
+  background: #18332f;
+}
+
+::ng-deep .p-dialog-content::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .filter-container {
+    display: block;
+  }
+
+  .search-container {
+    width: 100%;
+  }
+
+  .right-filter {
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  .cta-container {
+    width: 100%;
+  }
+  ::ng-deep .p-card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 787px) {
+  .card {
+    display: block;
+  }
+
+  .image-container {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  .no-info-text h1 {
+    font-size: 3rem;
+  }
+
+  .no-info-text p {
+    font-size: 1rem;
+  }
+
+  .summary-field {
+    display: block;
+    //justify-content: space-between;
+  }
+
+  .summary-field .form-label {
+    width: 100%;
+  }
+
+  .summary-field .offer-text {
+    width: 100%;
+  }
+}
+
+@media (max-width: 642px) {
+  .action-container {
+    display: block;
+    text-align: center;
+  }
+
+  .cancel-btn {
+    display: none;
+  }
+}
+
+@media (max-width: 571px) {
+  .crop-name {
+    text-align: center;
+  }
+
+  .poster-name {
+    text-align: center;
+  }
+
+  .price-qty-container {
+    display: block;
+    padding: 0;
+    text-align: center;
+  }
+
+  .no-info-text h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .poster-name {
+    display: block;
+  }
+
+  .crop-name {
+    display: block;
+  }
+
+  .ed-btn-container {
+    display: none;
+  }
+}

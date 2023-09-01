@@ -33,6 +33,7 @@ export class CropAdvertisementsComponent implements OnInit {
   measurementOptions = [
     { label: 'Kilograms (Kg)', value: 'kg' },
     { label: 'Tons (tn)', value: 'tn' },
+    { label: 'Milliliter (ml)', value: 'ml' },
   ];
 
   paymentOptions = [
@@ -50,7 +51,12 @@ export class CropAdvertisementsComponent implements OnInit {
   selectPostAdvertisements$ = this.store.select(selectPostAdvertisements());
   selectCropSpecializations$ = this.store.select(selectCropSpecializations());
   selectPostAdvertisementResponseByPostId$ = (post: PostAdvertisement) => {
-    return this.store.select(selectPostAdvertisementResponseByPostId(post.postId as number, localStorage.getItem("userNo") as any));
+    return this.store.select(
+      selectPostAdvertisementResponseByPostId(
+        post.postId as number,
+        localStorage.getItem('userNo') as any
+      )
+    );
   };
 
   constructor(private store: Store, private fb: FormBuilder) {
@@ -83,7 +89,6 @@ export class CropAdvertisementsComponent implements OnInit {
       postId: [0],
       farmerId: [0],
     });
-
   }
 
   ngOnInit(): void {
@@ -97,7 +102,7 @@ export class CropAdvertisementsComponent implements OnInit {
 
     this.store.dispatch({
       type: PostAdvertisementResponsesActions.GET_POSTADVERTISEMENTRESPONSES,
-      farmerId: localStorage.getItem("userNo")
+      farmerId: localStorage.getItem('userNo'),
     });
 
     this.selectPostAdvertisements$.subscribe((data) => {

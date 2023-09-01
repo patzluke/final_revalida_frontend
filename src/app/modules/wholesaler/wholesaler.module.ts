@@ -31,6 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { DividerModule } from 'primeng/divider';
 import { ProfileComponent } from './components/profile/profile.component';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     MatIconModule,
     MatButtonModule,
     DividerModule,
+    MultiSelectModule,
     StoreModule.forFeature('postAdvertisementList', postAdvertisementReducer),
     StoreModule.forFeature('cropSpecializationList', cropSpecializationReducer),
     StoreModule.forFeature(
