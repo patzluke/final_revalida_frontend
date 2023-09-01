@@ -64,7 +64,9 @@
                 <i class="pi pi-user" style="margin-right: 10px"></i>
                 {{ post.supplier?.user?.firstName }}
                 {{ post.supplier?.user?.middleName }}
-                {{ post.supplier?.user?.lastName }}
+                {{ post.supplier?.user?.lastName }} &nbsp; ({{
+                  post.supplier?.user?.contactNo
+                }})
               </p>
               <p>
                 <i class="pi pi-calendar" style="margin-right: 1rem"></i
@@ -332,6 +334,11 @@
         >
       </p>
     </div>
+    <div class="pending-text">
+      <p *ngIf="!finalOfferForm.controls['isAccepted'].getRawValue()">
+        Supplier hasn't accepted your offer yet.
+      </p>
+    </div>
 
     <mat-divider class="divider"></mat-divider>
     <div class="edit-offer-btn-container">
@@ -497,7 +504,18 @@
             formControlName="mobilenumBanknumber"
           />
           <h3 class="offer-text" *ngIf="!editFinalOffer">
-            {{ finalOfferForm.getRawValue().mobilenumBanknumber }}
+            <!-- {{ finalOfferForm.getRawValue().mobilenumBanknumber }} -->
+            <input
+              [ngClass]="{
+                'invalid-field':
+                  finalOfferForm.controls['mobilenumBanknumber'].invalid &&
+                  (finalOfferForm.controls['mobilenumBanknumber'].dirty ||
+                    finalOfferForm.controls['mobilenumBanknumber'].touched)
+              }"
+              pInputText
+              type="text"
+              formControlName="mobilenumBanknumber"
+            />
           </h3>
         </div>
       </form>
@@ -515,7 +533,12 @@
       >
         Cancel
       </button>
-      <button pButton class="submit-btn" (click)="submitFinalOffer()">
+      <button
+        pButton
+        [disabled]="!finalOfferForm.controls['isAccepted'].getRawValue()"
+        class="submit-btn"
+        (click)="submitFinalOffer()"
+      >
         Send Final Offer
       </button>
     </div>

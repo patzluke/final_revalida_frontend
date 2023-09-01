@@ -72,7 +72,7 @@
       <div
         class="card bg-light-subtle"
         *ngFor="
-          let post of (selectPostAdvertisements$ | async)!.slice(startIndex(), endIndex())
+          let post of filteredAdvertisements.slice(startIndex(), endIndex())
         "
       >
         <div class="image-container"><img src="{{ post.cropImage }}" /></div>
@@ -109,7 +109,9 @@
                 <i class="pi pi-user" style="margin-right: 10px"></i>
                 {{ post.supplier?.user?.firstName }}
                 {{ post.supplier?.user?.middleName }}
-                {{ post.supplier?.user?.lastName }}
+                {{ post.supplier?.user?.lastName }} &nbsp; ({{
+                  post.supplier?.user?.contactNo
+                }})
               </p>
               <p>
                 <i class="pi pi-calendar" style="margin-right: 1rem"></i

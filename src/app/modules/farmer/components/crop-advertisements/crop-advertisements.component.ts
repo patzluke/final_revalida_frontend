@@ -92,6 +92,8 @@ export class CropAdvertisementsComponent implements OnInit {
       //crop_orders table fields
       supplierId: [0, Validators.required],
       address: ['', Validators.required],
+
+      isAccepted: [''],
     });
   }
 
@@ -301,7 +303,10 @@ export class CropAdvertisementsComponent implements OnInit {
         farmerId: localStorage.getItem('userNo'),
         supplierId: data?.postAdvertisement?.supplier?.supplierId,
         address: data?.postAdvertisement?.supplier?.user.address,
+        isAccepted: data?.isAccepted,
       });
+
+      console.log(data);
     });
     this.finalOfferForm.controls['cropName'].disable();
     this.openViewOfferDialog = !this.openViewOfferDialog;
