@@ -35,6 +35,7 @@ export class CropAdvertisementsComponent implements OnInit {
   measurementOptions = [
     { label: 'Kilograms (Kg)', value: 'kg' },
     { label: 'Tons (tn)', value: 'tn' },
+    { label: 'Milliliter (ml)', value: 'ml' },
   ];
 
   paymentOptions = [
