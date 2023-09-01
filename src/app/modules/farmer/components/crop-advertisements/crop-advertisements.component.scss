@@ -286,6 +286,12 @@ label {
   margin: 1rem 0;
 }
 
+.pending-text {
+  text-align: center;
+  color: rgb(191, 20, 20);
+  font-size: 1.1rem;
+}
+
 @media (max-width: 800px) {
   .filter-container {
     display: block;
