@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { PostAdvertisementState } from './postadvertisement.reducer';
 
 export const selectPostAdvertisementState =
-  createFeatureSelector<PostAdvertisementState>('postAdvertisementList');
+  createFeatureSelector<PostAdvertisementState>('postAdvertisementList (supplier)');
 
 export const selectPostAdvertisements = () =>
   createSelector(

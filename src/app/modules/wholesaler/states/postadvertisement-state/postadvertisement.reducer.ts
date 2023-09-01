@@ -1,11 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import {
-  addPostAdvertisementState,
-  deletePostAdvertisementState,
-  setPostAdvertisementState,
-  updatePostAdvertisementState,
-} from './postadvertisement.actions';
 import { PostAdvertisement } from '../../models/post-advertisement';
+import { addPostAdvertisementStateSupplierSide, deletePostAdvertisementStateSupplierSide, setPostAdvertisementStateSupplierSide, updatePostAdvertisementStateSupplierSide } from './postadvertisement.actions';
 
 export interface PostAdvertisementState {
   postAdvertisements: PostAdvertisement[];
@@ -15,28 +10,28 @@ export const initialState: PostAdvertisementState = {
   postAdvertisements: [],
 };
 
-export const postAdvertisementReducer = createReducer(
+export const postAdvertisementReducerSupplierSide = createReducer(
   initialState,
-  on(setPostAdvertisementState, (state, { postAdvertisements }) => {
+  on(setPostAdvertisementStateSupplierSide, (state, { postAdvertisements }) => {
     return { ...state, postAdvertisements: postAdvertisements };
   }),
-  on(addPostAdvertisementState, (state, { postAdvertisement }) => {
+  on(addPostAdvertisementStateSupplierSide, (state, { postAdvertisement }) => {
     return {
       ...state,
       postAdvertisements: [postAdvertisement, ...state.postAdvertisements],
     };
   }),
-  on(updatePostAdvertisementState, (state, { postAdvertisement }) => {
+  on(updatePostAdvertisementStateSupplierSide, (state, { postAdvertisement }) => {
     return {
       ...state,
-      postAdvertisements: state.postAdvertisements.map((oldPostAdvertisement) =>
-        oldPostAdvertisement.postId == postAdvertisement.postId
+      postAdvertisements: state.postAdvertisements.map((oldPostAdvertisement) => {
+       return oldPostAdvertisement.postId as number == postAdvertisement.postId as number
           ? postAdvertisement
           : oldPostAdvertisement
-      ),
+    }),
     };
   }),
-  on(deletePostAdvertisementState, (state, { postId }) => {
+  on(deletePostAdvertisementStateSupplierSide, (state, { postId }) => {
     return {
       ...state,
       postAdvertisements: state.postAdvertisements.filter(

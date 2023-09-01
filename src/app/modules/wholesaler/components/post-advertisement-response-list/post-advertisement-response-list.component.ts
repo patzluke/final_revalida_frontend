@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { selectPostAdvertisement } from '../../states/postadvertisement-state/postadvertisement.selectors';
 import { ActivatedRoute } from '@angular/router';
 import { PostAdvertisement } from '../../models/post-advertisement';
-import { PostAdvertisementActions } from '../../states/postadvertisement-state/postadvertisement.actions';
+import { PostAdvertisementActionsSupplierSide } from '../../states/postadvertisement-state/postadvertisement.actions';
 import { PostAdvertisementResponsesActions } from '../../states/postadvertisement-responses-state/postadvertisement-responses.actions';
 import { selectPostAdvertisementResponses } from '../../states/postadvertisement-responses-state/postadvertisement-responses.selectors';
 import { PostAdvertisementResponse } from '../../models/post-advertisement-response';
@@ -35,7 +35,7 @@ export class PostAdvertisementResponseListComponent implements OnInit {
       this.selectedPostId = data['postId'];
 
       this.store.dispatch({
-        type: PostAdvertisementActions.GET_POSTADVERTISEMENT,
+        type: PostAdvertisementActionsSupplierSide.GET_POSTADVERTISEMENT,
         supplierId: localStorage.getItem('userNo'),
       });
 
