@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { PostAdvertisementActions } from '../../states/postadvertisement-state/postadvertisement.actions';
+import { PostAdvertisementActionsSupplierSide } from '../../states/postadvertisement-state/postadvertisement.actions';
 import {
   selectPostAdvertisement,
   selectPostAdvertisements,
@@ -34,7 +34,7 @@ export class PostAdvertisementListComponent implements OnInit {
 
   user: Supplier = { user: undefined };
 
-  selectedPostAdvertisement!: PostAdvertisement;
+  selectedPostAdvertisement?: PostAdvertisement;
 
   //Formgroups
   addPostAdvertisementForm: FormGroup;
@@ -111,7 +111,7 @@ export class PostAdvertisementListComponent implements OnInit {
       });
 
     this.store.dispatch({
-      type: PostAdvertisementActions.GET_POSTADVERTISEMENT,
+      type: PostAdvertisementActionsSupplierSide.GET_POSTADVERTISEMENT,
       supplierId: localStorage.getItem('userNo'),
     });
 
@@ -133,7 +133,6 @@ export class PostAdvertisementListComponent implements OnInit {
         this.cropTypes = data;
       },
     });
-    console.log('post advetisements', this.postAdvertisements);
     this.filteredAdvertisements = this.postAdvertisements;
   }
 
@@ -149,7 +148,7 @@ export class PostAdvertisementListComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.store.dispatch({
-          type: PostAdvertisementActions.DELETE_POSTADVERTISEMENT,
+          type: PostAdvertisementActionsSupplierSide.DELETE_POSTADVERTISEMENT,
           postId: advertisement.postId,
         });
       }
@@ -288,7 +287,7 @@ export class PostAdvertisementListComponent implements OnInit {
                 value.fileName
               )}`;
               this.store.dispatch({
-                type: PostAdvertisementActions.ADD_POSTADVERTISEMENT,
+                type: PostAdvertisementActionsSupplierSide.ADD_POSTADVERTISEMENT,
                 postAdvertisement: advertisement,
               });
 
@@ -340,14 +339,14 @@ export class PostAdvertisementListComponent implements OnInit {
       let advertisement: PostAdvertisement = {
         ...this.editPostAdvertisementForm.value,
         supplierId: localStorage.getItem('userNo') as any,
-        cropImage: this.selectedPostAdvertisement.cropImage,
+        cropImage: this.selectedPostAdvertisement?.cropImage,
       };
       if (this.selectedImageEdit != undefined) {
         this.supplierService.upload(this.selectedImageEdit).subscribe({
           next: (value) => {
             advertisement.cropImage = `${value.fileUri.concat(value.fileName)}`;
             this.store.dispatch({
-              type: PostAdvertisementActions.UPDATE_POSTADVERTISEMENT,
+              type: PostAdvertisementActionsSupplierSide.UPDATE_POSTADVERTISEMENT,
               postAdvertisement: advertisement,
             });
           },
@@ -357,7 +356,7 @@ export class PostAdvertisementListComponent implements OnInit {
         });
       } else {
         this.store.dispatch({
-          type: PostAdvertisementActions.UPDATE_POSTADVERTISEMENT,
+          type: PostAdvertisementActionsSupplierSide.UPDATE_POSTADVERTISEMENT,
           postAdvertisement: advertisement,
         });
       }

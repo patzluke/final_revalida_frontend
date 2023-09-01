@@ -5,16 +5,16 @@ import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SupplierService } from '../../services/supplier.service';
 import {
-  PostAdvertisementActions,
-  addPostAdvertisementState,
-  deletePostAdvertisementState,
-  setPostAdvertisementState,
-  updatePostAdvertisementState,
+  PostAdvertisementActionsSupplierSide,
+  addPostAdvertisementStateSupplierSide,
+  deletePostAdvertisementStateSupplierSide,
+  setPostAdvertisementStateSupplierSide,
+  updatePostAdvertisementStateSupplierSide,
 } from './postadvertisement.actions';
 import { PostAdvertisement } from '../../models/post-advertisement';
 
 @Injectable()
-export class PostAdvertisementEffects {
+export class PostAdvertisementEffectsSupplierSide {
   constructor(
     private actions$: Actions,
     private supplierService: SupplierService
@@ -23,13 +23,13 @@ export class PostAdvertisementEffects {
   getPostAdvertisements$ = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(PostAdvertisementActions.GET_POSTADVERTISEMENT),
+        ofType(PostAdvertisementActionsSupplierSide.GET_POSTADVERTISEMENT),
         mergeMap((data: { supplierId: number }) =>
           this.supplierService
             .selectPostAdvertisementBySupplierId(data.supplierId)
             .pipe(
               map((postAdvertisements) =>
-                setPostAdvertisementState({
+                setPostAdvertisementStateSupplierSide({
                   postAdvertisements: postAdvertisements,
                 })
               )
@@ -42,13 +42,13 @@ export class PostAdvertisementEffects {
 
   insertPostAdvertisement$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(PostAdvertisementActions.ADD_POSTADVERTISEMENT),
+      ofType(PostAdvertisementActionsSupplierSide.ADD_POSTADVERTISEMENT),
       switchMap((data: { postAdvertisement: PostAdvertisement }) =>
         this.supplierService
           .insertIntoPostAdvertisement(data.postAdvertisement)
           .pipe(
             map((postAdvertisement: PostAdvertisement) =>
-              addPostAdvertisementState({
+              addPostAdvertisementStateSupplierSide({
                 postAdvertisement: postAdvertisement,
               })
             ),
@@ -60,7 +60,7 @@ export class PostAdvertisementEffects {
                 'error'
               );
               return of({
-                type: PostAdvertisementActions.ADD_POSTADVERTISEMENT_FAILED,
+                type: PostAdvertisementActionsSupplierSide.ADD_POSTADVERTISEMENT_FAILED,
               });
             })
           )
@@ -70,13 +70,13 @@ export class PostAdvertisementEffects {
 
   updatePostAdvertisement$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(PostAdvertisementActions.UPDATE_POSTADVERTISEMENT),
-      switchMap((data: { postAdvertisement: PostAdvertisement }) =>
+      ofType(PostAdvertisementActionsSupplierSide.UPDATE_POSTADVERTISEMENT),
+      mergeMap((data: { postAdvertisement: PostAdvertisement }) =>
         this.supplierService
           .updateIntoPostAdvertisement(data.postAdvertisement)
           .pipe(
             map((postAdvertisement: PostAdvertisement) =>
-              updatePostAdvertisementState({
+              updatePostAdvertisementStateSupplierSide({
                 postAdvertisement: postAdvertisement,
               })
             ),
@@ -86,7 +86,7 @@ export class PostAdvertisementEffects {
             catchError((error: HttpErrorResponse) => {
               Swal.fire('Failed to Update!', `Something Went Wrong`, 'error');
               return of({
-                type: PostAdvertisementActions.UPDATE_POSTADVERTISEMENT_FAILED,
+                type: PostAdvertisementActionsSupplierSide.UPDATE_POSTADVERTISEMENT_FAILED,
               });
             })
           )
@@ -96,11 +96,11 @@ export class PostAdvertisementEffects {
 
   softDeletePostAdvertisement$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(PostAdvertisementActions.DELETE_POSTADVERTISEMENT),
+      ofType(PostAdvertisementActionsSupplierSide.DELETE_POSTADVERTISEMENT),
       switchMap((data: { postId: number }) =>
         this.supplierService.softDeletePostAdvertisement(data.postId).pipe(
           map((postAdvertisement: PostAdvertisement) =>
-            deletePostAdvertisementState({
+            deletePostAdvertisementStateSupplierSide({
               postId: postAdvertisement.postId as number,
             })
           ),
@@ -110,7 +110,7 @@ export class PostAdvertisementEffects {
           catchError((error) => {
             Swal.fire('Failed to Delete!', `Something Went Wrong`, 'error');
             return of({
-              type: PostAdvertisementActions.DELETE_POSTADVERTISEMENT_FAILED,
+              type: PostAdvertisementActionsSupplierSide.DELETE_POSTADVERTISEMENT_FAILED,
             });
           })
         )

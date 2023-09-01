@@ -72,7 +72,7 @@
       <div
         class="card bg-light-subtle"
         *ngFor="
-          let post of filteredAdvertisements.slice(startIndex(), endIndex())
+          let post of (selectPostAdvertisements$ | async)!.slice(startIndex(), endIndex())
         "
       >
         <div class="image-container"><img src="{{ post.cropImage }}" /></div>

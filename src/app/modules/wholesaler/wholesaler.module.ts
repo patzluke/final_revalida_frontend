@@ -9,8 +9,6 @@ import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { postAdvertisementReducer } from './states/postadvertisement-state/postadvertisement.reducer';
-import { PostAdvertisementEffects } from './states/postadvertisement-state/postadvertisement.effects';
 import { PostAdvertisementListComponent } from './components/post-advertisement-list/post-advertisement-list.component';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
@@ -32,6 +30,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { DividerModule } from 'primeng/divider';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { postAdvertisementReducerSupplierSide } from './states/postadvertisement-state/postadvertisement.reducer';
+import { PostAdvertisementEffectsSupplierSide } from './states/postadvertisement-state/postadvertisement.effects';
 
 @NgModule({
   declarations: [
@@ -63,14 +63,14 @@ import { MultiSelectModule } from 'primeng/multiselect';
     MatButtonModule,
     DividerModule,
     MultiSelectModule,
-    StoreModule.forFeature('postAdvertisementList', postAdvertisementReducer),
+    StoreModule.forFeature('postAdvertisementList (supplier)', postAdvertisementReducerSupplierSide),
     StoreModule.forFeature('cropSpecializationList', cropSpecializationReducer),
     StoreModule.forFeature(
       'postAdvertisementResponsesList',
       postAdvertisementResponsesReducer
     ),
     EffectsModule.forFeature([
-      PostAdvertisementEffects,
+      PostAdvertisementEffectsSupplierSide,
       CropSpecializationEffects,
       PostAdvertisementResponsesEffects,
     ]),

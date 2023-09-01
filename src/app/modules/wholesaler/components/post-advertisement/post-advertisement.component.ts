@@ -5,13 +5,13 @@ import { Subscription, interval } from 'rxjs';
 import { SupplierService } from '../../services/supplier.service';
 import { FileDetails } from '../../models/fileDetails';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PostAdvertisementActions } from '../../states/postadvertisement-state/postadvertisement.actions';
 import { PostAdvertisement } from '../../models/post-advertisement';
 import { selectPostAdvertisement } from '../../states/postadvertisement-state/postadvertisement.selectors';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { CropSpecializationActions } from '../../states/cropspecialization-state/cropspecialization.actions';
 import { selectCropSpecializations } from '../../states/cropspecialization-state/cropspecialization.selectors';
+import { PostAdvertisementActionsSupplierSide } from '../../states/postadvertisement-state/postadvertisement.actions';
 
 @Component({
   selector: 'app-post-advertisement',
@@ -72,7 +72,7 @@ export class PostAdvertisementComponent implements OnInit {
       type: CropSpecializationActions.GET_CROPSPECIALIZATION,
     });
     this.store.dispatch({
-      type: PostAdvertisementActions.GET_POSTADVERTISEMENT,
+      type: PostAdvertisementActionsSupplierSide.GET_POSTADVERTISEMENT,
       supplierId: localStorage.getItem('userNo'),
     });
     this.activatedRoute.params.subscribe((data) => {
@@ -124,7 +124,7 @@ export class PostAdvertisementComponent implements OnInit {
                 value.fileName
               )}`;
               this.store.dispatch({
-                type: PostAdvertisementActions.ADD_POSTADVERTISEMENT,
+                type: PostAdvertisementActionsSupplierSide.ADD_POSTADVERTISEMENT,
                 postAdvertisement: advertisement,
               });
               if (value) {
@@ -172,7 +172,7 @@ export class PostAdvertisementComponent implements OnInit {
                   value.fileName
                 )}`;
                 this.store.dispatch({
-                  type: PostAdvertisementActions.UPDATE_POSTADVERTISEMENT,
+                  type: PostAdvertisementActionsSupplierSide.UPDATE_POSTADVERTISEMENT,
                   postAdvertisement: advertisement,
                 });
               },
@@ -182,7 +182,7 @@ export class PostAdvertisementComponent implements OnInit {
             });
           } else {
             this.store.dispatch({
-              type: PostAdvertisementActions.UPDATE_POSTADVERTISEMENT,
+              type: PostAdvertisementActionsSupplierSide.UPDATE_POSTADVERTISEMENT,
               postAdvertisement: advertisement,
             });
           }
