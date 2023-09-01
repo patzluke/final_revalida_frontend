@@ -1,6 +1,9 @@
 export interface FarmingTip {
   farmingTipId?: number;
-  tipMessage: string;
+  title: string;
+  description: string;
+  image: string;
+  link: string;
   dateCreated?: string;
   dateModified?: string;
 }

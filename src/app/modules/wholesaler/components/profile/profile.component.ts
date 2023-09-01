@@ -36,6 +36,7 @@ export class ProfileComponent implements OnInit {
   personalInfoForm!: FormGroup;
   socialsFormArray!: FormArray;
   passwordForm!: FormGroup;
+  validIdForm!: FormGroup;
   dateToday: Date = new Date();
 
   facebookSelected: boolean = false;
@@ -46,6 +47,18 @@ export class ProfileComponent implements OnInit {
 
   changeImage: boolean = false;
   isMaxSize: boolean = false;
+
+  validIds = [
+    { type: "Driver's License" },
+    { type: 'SSS Card' },
+    { type: 'Unified Multi-purpose ID (UMID)' },
+    { type: 'Philippine Identification System (PhilSys) ID' },
+    { type: 'Tax Identification Number (TIN)' },
+    { type: 'Voter’s ID' },
+    { type: 'Postal ID' },
+    { type: 'PhilHealth' },
+    { type: 'NBI Clearance' },
+  ];
 
   user: Supplier = { user: undefined };
   selectedImage!: File;
@@ -98,6 +111,11 @@ export class ProfileComponent implements OnInit {
       },
       { validator: this.passwordMatchValidator }
     );
+
+    this.validIdForm = this.formBuilder.group({
+      validIdType: ['', Validators.required],
+      validIdNumber: ['', Validators.required],
+    });
   }
 
   ngOnInit(): void {
@@ -345,9 +363,87 @@ export class ProfileComponent implements OnInit {
     }
   };
 
-  // validateCurrentPassword = (currentPassword: string): boolean => {
-  //   //return currentPassword === this.professorPass.password;
-  //   return false;
-  //   // get current pass
-  // };
+  verifyBtn: boolean = false;
+  toggleVerifyActBtn = () => {
+    this.verifyBtn = !this.verifyBtn;
+  };
+
+  verifyAccount = () => {
+    if (this.validIdForm.valid) {
+      this.verifyBtn = false;
+      Swal.fire({
+        title: 'Are you sure you want to update your valid id?',
+        icon: 'warning',
+        showDenyButton: true,
+        confirmButtonColor: '#3085d6',
+        denyButtonColor: '#d33',
+        denyButtonText: 'cancel',
+        confirmButtonText: 'Save changes',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (this.selectedImage) {
+            this.supplierService.upload(this.selectedImage).forEach((data) => {
+              this.imagePreviewUrl = `${data.fileUri.concat(data.fileName)}`;
+            }).then(()=> {
+              const validIdData = {
+                userId: localStorage.getItem('userId'),
+                validIdType: this.validIdForm.controls['validIdType'].getRawValue(),
+                validIdNumber:
+                  this.validIdForm.controls['validIdNumber'].getRawValue(),
+                validIdPicture: this.imagePreviewUrl,
+              };
+
+              this.supplierService.updateAdminInfo(validIdData).subscribe({
+                next: (data) => {
+                  this.user = { ...data };
+                  this.validIdForm.reset();
+                  Swal.fire('Success', 'Valid Id Successfully updated!', 'success');
+                },
+                error: (err) => {
+                  Swal.fire(
+                    'Failed to Update Valid Id!',
+                    `Something went wrong.`,
+                    'error'
+                  );
+                },
+              });
+            });
+          }
+
+          const validIdData = {
+            userId: localStorage.getItem('userId'),
+            validIdType: this.validIdForm.controls['validIdType'].getRawValue(),
+            validIdNumber:
+              this.validIdForm.controls['validIdNumber'].getRawValue(),
+            validIdPicture: this.imagePreviewUrl,
+          };
+
+          this.supplierService.updateAdminInfo(validIdData).subscribe({
+            next: (data) => {
+              this.user = { ...data };
+              this.validIdForm.reset();
+              Swal.fire('Success', 'Valid Id Successfully updated!', 'success');
+            },
+            error: (err) => {
+              Swal.fire(
+                'Failed to Update Valid Id!',
+                `Something went wrong.`,
+                'error'
+              );
+            },
+          });
+        } else if (result.isDenied) {
+          this.editPassword = true;
+        }
+      });
+    } else {
+      Object.keys(this.validIdForm.controls).forEach((field) => {
+        const control = this.validIdForm.get(field);
+        if (control?.invalid) {
+          control.markAsTouched();
+          control?.setErrors({ invalid: true });
+        }
+      });
+    }
+  };
 }

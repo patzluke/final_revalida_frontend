@@ -1,0 +1,228 @@
+<app-side-nav>
+  <div class="modal fade" id="addFarmingTip" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addFarmingTipLabel">Add Course</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="addEditCourseForm">
+            <div class="row d-flex flex-row flex-wrap mt-2">
+              <div class="col">
+                <label class="form-label">Course Name:</label>
+                <input
+                  class="form-control"
+                  formControlName="courseName"
+                  type="text"
+                />
+              </div>
+              <div class="col">
+                <label class="form-label">Training Duration:</label>
+                <input
+                  class="form-control"
+                  formControlName="durationInDays"
+                  type="number"
+                  min="1"
+                />
+              </div>
+            </div>
+            <div class="row d-flex flex-row flex-wrap mt-2">
+              <div class="col">
+                <label class="form-label">Description:</label>
+                <textarea
+                  class="form-control"
+                  formControlName="description"
+                  rows="3"
+                ></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            (click)="addCourseSubmit()"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit Course -->
+  <div
+    class="modal fade"
+    id="editFarmingTip"
+    tabindex="-1"
+    aria-labelledby="myModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editFarmingTipModalLabel">
+            Edit Course
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="addEditCourseForm">
+            <div class="row d-flex flex-row flex-wrap mt-2">
+              <div class="col">
+                <label class="form-label">Course Name:</label>
+                <input
+                  class="form-control"
+                  formControlName="courseName"
+                  type="text"
+                />
+              </div>
+              <div class="col">
+                <label class="form-label">Training Duration:</label>
+                <input
+                  class="form-control"
+                  formControlName="durationInDays"
+                  type="number"
+                  min="1"
+                />
+              </div>
+            </div>
+            <div class="row d-flex flex-row flex-wrap mt-2">
+              <div class="col">
+                <label class="form-label">Description:</label>
+                <textarea
+                  class="form-control"
+                  formControlName="description"
+                  rows="3"
+                ></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div
+          class="modal-footer"
+        >
+            <button
+              type="button"
+              class="btn btn-secondary me-2"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              (click)="editCourseSubmit ()"
+            >
+              Save changes
+            </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p-table
+    #dt1
+    [value]="(selectCourses$ | async)!"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 15, 20]"
+    [loading]="loading"
+    [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="['tipMessage']"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <span class="p-input-icon-left ml-auto">
+          <input
+            #pInputText
+            type="text"
+            (input)="dt1.filterGlobal(pInputText.value, 'contains')"
+            placeholder="Search keyword"
+          />
+        </span>
+        <button
+          class="btn btn-primary ms-1"
+          data-bs-toggle="modal"
+          data-bs-target="#addFarmingTip"
+          (click)="addEditCourseForm.reset()"
+        >
+          Add Course
+        </button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center">Course</div>
+        </th>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center">Description</div>
+        </th>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center text-center">Training Duration</div>
+        </th>
+        <th style="min-width: 15rem">
+          <div class="flex align-items-center text-center">Action</div>
+        </th>
+      </tr></ng-template
+    >
+
+    <ng-template pTemplate="body" let-course>
+      <tr>
+        <td style="width: 20%">
+          <span class="ml-1">{{ course.courseName }}</span>
+        </td>
+        <td style="width: 40%">
+          <span class="ml-1">{{ course.description }}</span>
+        </td>
+        <td class="text-center" style="width: 5%">
+          <span class="ml-1 text-center">{{ course.durationInDays }} {{course.durationInDays == 1 ? 'Day' : 'Days'}}</span>
+        </td>
+        <td class="text-center" style="width: 20%">
+          <p-button
+            (click)="selectCourse(course)"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#editFarmingTip"
+            icon="pi pi-pencil"
+            styleClass="p-button-rounded p-button-text"
+          ></p-button>
+          <p-button
+            (click)="deleteCourse(course)"
+            icon="pi pi-times"
+            styleClass="p-button-rounded p-button-danger p-button-text"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="7" class="text-center">No Tips Found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</app-side-nav>

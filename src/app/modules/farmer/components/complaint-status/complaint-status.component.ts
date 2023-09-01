@@ -47,6 +47,42 @@ export class ComplaintStatusComponent implements OnInit {
 
   imageUrl: string | ArrayBuffer | null = null;
 
+  //selectors
+  selectFarmerComplaints$ = this.store.select(selectFarmerComplaints());
+
+  constructor(
+    private store: Store<FarmerComplaintState>,
+    private _router: Router,
+    private builder: FormBuilder
+  ) {
+    this.complaintForm = builder.group({
+      complaintTitle: ['', Validators.required],
+      complaintMessage: ['', Validators.required],
+      image: [null],
+      farmerId: ['', Validators.required],
+    })
+  }
+
+  ngOnInit() {
+    this.store.dispatch({
+      type: FarmerComplaintActions.GET_SINGLE_FARMERCOMPLAINTS,
+      farmerId: localStorage.getItem('userNo'),
+    });
+
+    this.selectFarmerComplaints$.subscribe((data) => {
+      this.farmerComplaints = data;
+      this.loading = false
+    });
+  }
+
+  navigateToAddComplaint() {
+    this._router.navigateByUrl('/farmer/complaints/add');
+  }
+
+  navigateToEditComplaint(farmerComplaintId: any) {
+    this._router.navigateByUrl(`/farmer/complaints/edit/${farmerComplaintId}`);
+  }
+
   onImageSelect(event: any): void {
 
     const file = event.target.files[0];
@@ -89,44 +125,6 @@ export class ComplaintStatusComponent implements OnInit {
       this.complaintForm.reset()
     }
   }
-
-  //selectors
-  selectFarmerComplaints$ = this.store.select(selectFarmerComplaints());
-
-  constructor(
-    private store: Store<FarmerComplaintState>,
-    private _router: Router,
-    private builder: FormBuilder
-  ) {
-    this.complaintForm = builder.group({
-      complaintTitle: ['', Validators.required],
-      complaintMessage: ['', Validators.required],
-      image: [null],
-      farmerId: ['', Validators.required],
-    })
-  }
-
-  ngOnInit() {
-    this.store.dispatch({
-      type: FarmerComplaintActions.GET_SINGLE_FARMERCOMPLAINTS,
-      farmerId: localStorage.getItem('userNo'),
-    });
-
-    this.selectFarmerComplaints$.subscribe((data) => {
-      this.farmerComplaints = data;
-      this.loading = false
-    });
-  }
-
-  navigateToAddComplaint() {
-    this._router.navigateByUrl('/farmer/complaints/add');
-  }
-
-  navigateToEditComplaint(farmerComplaintId: any) {
-    this._router.navigateByUrl(`/farmer/complaints/edit/${farmerComplaintId}`);
-  }
-
-
 
   cancelComplaint(farmerComplaintId: any) {
     Swal.fire({

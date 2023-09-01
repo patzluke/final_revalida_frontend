@@ -38,6 +38,7 @@
               [(ngModel)]="selectedCropTypes"
               (ngModelChange)="filterAdvertisementsByType()"
               dropdownIcon="pi pi-filter"
+              [filter]="false"
             ></p-multiSelect>
           </div>
         </div>
@@ -65,12 +66,17 @@
                 {{ post.supplier?.user?.middleName }}
                 {{ post.supplier?.user?.lastName }}
               </p>
+              <p>
+                <i class="pi pi-calendar" style="margin-right: 1rem"></i
+                >{{ post.datePosted | date : "MMM dd, yyyy hh:mm a" }}
+              </p>
             </div>
+
             <mat-divider class="divider"></mat-divider>
             <div class="price-qty-container">
               <div class="pqt-container">
                 <h3 class="label">
-                  <i class="pi pi-money-bill pqt-icon"></i><b>Price</b>
+                  <i class="pi pi-money-bill pqt-icon"></i><b>Budget</b>
                 </h3>
                 <h3>₱{{ post.price | number : "1.2" }}</h3>
               </div>
@@ -112,14 +118,30 @@
                 </ng-template>
               </h3>
             </div>
+
+            <div *ngIf="(selectPostAdvertisementResponseByPostId$(post) | async)?.isAccepted" class="has-offer-container">
+              <p>
+                Your offer has been accepted by the supplier. View your offer
+                and place your final offer.
+              </p>
+            </div>
           </div>
           <div class="cta-section">
             <button
+              *ngIf="!(selectPostAdvertisementResponseByPostId$(post) | async)"
               pButton
               type="button"
               class="offer-btn"
               label="OFFER"
               (click)="selectAdvertisement(post); toggleDialog()"
+            ></button>
+            <button
+              *ngIf="(selectPostAdvertisementResponseByPostId$(post) | async)"
+              pButton
+              type="button"
+              class="offer-btn"
+              label="VIEW OFFER"
+              (click)="toggleViewOffer()"
             ></button>
           </div>
         </div>
@@ -277,6 +299,180 @@
       </button>
       <button pButton class="submit-btn" (click)="addOfferSubmit()">
         Send Offer
+      </button>
+    </div>
+  </div>
+</p-dialog>
+
+<!-- View offer modal -->
+<p-dialog
+  header="View offer"
+  [modal]="true"
+  [(visible)]="openViewOfferDialog"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [maximizable]="true"
+>
+  <div class="container">
+    <div>
+      <h1 class="crop-name">Place your final offer.</h1>
+      <p>
+        <i>
+          Note: You can edit your initial offer and send it as your final offer,
+          or simply send your initial offer as your final.</i
+        >
+      </p>
+    </div>
+
+    <mat-divider class="divider"></mat-divider>
+    <div class="edit-offer-btn-container">
+      <button
+        class="edit-offer-btn"
+        icon="pi pi-pencil"
+        iconPos="right"
+        label="Edit"
+        pButton
+        (click)="toggleEditFinalOffer()"
+      ></button>
+    </div>
+
+    <div>
+      <form [formGroup]="finalOfferForm">
+        <div>
+          <div
+            class="form-field"
+            [ngClass]="{
+              'form-field': editFinalOffer,
+              'summary-field': !editFinalOffer
+            }"
+          >
+            <label class="form-label">Price:</label>
+            <input
+              *ngIf="editFinalOffer"
+              [ngClass]="{
+                'invalid-field':
+                  finalOfferForm.controls['price'].invalid &&
+                  (finalOfferForm.controls['price'].dirty ||
+                    finalOfferForm.controls['price'].touched)
+              }"
+              pInputText
+              formControlName="price"
+              type="number"
+              min="0"
+            />
+            <h3 class="offer-text" *ngIf="!editFinalOffer">₱ 3000.00</h3>
+          </div>
+          <div
+            [ngClass]="{
+              'form-field': editFinalOffer,
+              'summary-field': !editFinalOffer
+            }"
+          >
+            <label class="form-label">Quantity:</label>
+            <input
+              *ngIf="editFinalOffer"
+              [ngClass]="{
+                'invalid-field':
+                  finalOfferForm.controls['quantity'].invalid &&
+                  (finalOfferForm.controls['quantity'].dirty ||
+                    finalOfferForm.controls['quantity'].touched)
+              }"
+              pInputText
+              formControlName="quantity"
+              type="text"
+              min="0"
+            />
+            <h3 class="offer-text" *ngIf="!editFinalOffer">1000</h3>
+          </div>
+          <div
+            [ngClass]="{
+              'form-field': editFinalOffer,
+              'summary-field': !editFinalOffer
+            }"
+          >
+            <label class="form-label">Measurement:</label>
+            <p-dropdown
+              *ngIf="editFinalOffer"
+              [ngClass]="{
+                'spec-field':
+                  finalOfferForm.controls['measurement'].invalid &&
+                  (finalOfferForm.controls['measurement'].dirty ||
+                    finalOfferForm.controls['measurement'].touched)
+              }"
+              formControlName="measurement"
+              placeholder="Select measurement"
+              [options]="measurementOptions"
+              optionLabel="label"
+              optionValue="value"
+            >
+            </p-dropdown>
+            <h3 class="offer-text" *ngIf="!editFinalOffer">Kg</h3>
+          </div>
+
+          <div
+            [ngClass]="{
+              'form-field': editFinalOffer,
+              'summary-field': !editFinalOffer
+            }"
+          >
+            <label class="form-label">Preferred Payment:</label>
+            <p-dropdown
+              *ngIf="editFinalOffer"
+              [ngClass]="{
+                'spec-field':
+                  finalOfferForm.controls['preferredPaymentMode'].invalid &&
+                  (finalOfferForm.controls['preferredPaymentMode'].dirty ||
+                    finalOfferForm.controls['preferredPaymentMode'].touched)
+              }"
+              formControlName="preferredPaymentMode"
+              placeholder="Select payment method"
+              [options]="paymentOptions"
+              optionLabel="label"
+              optionValue="value"
+            >
+            </p-dropdown>
+            <h3 class="offer-text" *ngIf="!editFinalOffer">Gcash</h3>
+          </div>
+        </div>
+
+        <div
+          [ngClass]="{
+            'form-field': editFinalOffer,
+            'summary-field': !editFinalOffer
+          }"
+        >
+          <label class="form-label">Message:</label>
+          <textarea
+            *ngIf="editFinalOffer"
+            [ngClass]="{
+              'spec-field':
+                finalOfferForm.controls['message'].invalid &&
+                (finalOfferForm.controls['message'].dirty ||
+                  finalOfferForm.controls['message'].touched)
+            }"
+            pInputTextarea
+            formControlName="message"
+            rows="2"
+          ></textarea>
+          <h3 class="offer-text" *ngIf="!editFinalOffer">
+            Freshly harvested rice from Banaue Rice Terraces.
+          </h3>
+        </div>
+      </form>
+      <mat-divider class="divider" style="margin-top: 1rem"></mat-divider>
+    </div>
+
+    <div class="action-container">
+      <button
+        pButton
+        class="p-button-outlined p-button-secondary cancel-btn"
+        (click)="this.finalOfferForm.reset(); toggleViewOffer()"
+      >
+        Cancel
+      </button>
+      <button pButton class="submit-btn" (click)="submitFinalOffer()">
+        Send Final Offer
       </button>
     </div>
   </div>

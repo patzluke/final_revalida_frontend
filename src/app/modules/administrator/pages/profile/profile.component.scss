@@ -382,6 +382,57 @@ b {
   vertical-align: 5px;
 }
 
+.verified-icon {
+  color: #037fff;
+  margin-right: 1rem;
+  vertical-align: -5px;
+}
+
+.verify-container {
+  width: 100%;
+  text-align: end;
+  margin-top: -3.8rem;
+  margin-bottom: 1rem;
+}
+
+.p-button.verify-btn {
+  color: #ffffff;
+  //background: #18332f;
+  background: #1450a3;
+  border: #1450a3;
+  border-radius: 25px;
+}
+
+.p-button.verify-btn:hover {
+  color: #ffffff;
+  //background: #8da17f;
+  background: #18332f;
+}
+
+.upload-image-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 2rem;
+}
+
+.upload-image {
+  width: 12rem;
+  height: 9rem;
+  filter: none;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+::ng-deep .p-dropdown-items-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+::ng-deep .confirm-password .p-password-panel {
+  display: none;
+}
+
 //-----------RESPONSIVE-----------
 @media (max-width: 1920px) {
   .res-second-subtext {
@@ -402,5 +453,16 @@ b {
 
   .right-container {
     width: 100%;
+  }
+}
+
+@media (max-width: 1012px) {
+  .verify-container {
+    // width: 50%;
+    // position: absolute;
+    // top: 8rem;
+    // left: 42rem;
+    // text-align: start;
+    display: none;
   }
 }

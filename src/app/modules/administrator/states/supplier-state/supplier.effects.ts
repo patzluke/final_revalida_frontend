@@ -4,7 +4,13 @@ import { catchError, map, mergeMap, switchMap, tap, of } from 'rxjs';
 import Swal from 'sweetalert2';
 import { AdminService } from '../../services/administrator.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { SupplierActions, setSupplierState } from './supplier.actions';
+import {
+  SupplierActions,
+  setSupplierState,
+  updateSupplierState,
+} from './supplier.actions';
+import { Supplier } from '../../models/supplier';
+import { FarmerActions } from '../farmer-state/farmer.actions';
 
 @Injectable()
 export class SupplierEffects {
@@ -26,29 +32,25 @@ export class SupplierEffects {
     { dispatch: true }
   );
 
-  // updateFarmerComplaint$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(FarmerComplaintActions.UPDATE_FARMERCOMPLAINT),
-  //     switchMap((data: { farmerComplaint: FarmerComplaint }) =>
-  //       this.adminService.updateIntoFarmerComplaint(data.farmerComplaint).pipe(
-  //         map((farmerComplaint: FarmerComplaint) =>
-  //           updateFarmerComplaintState({
-  //             farmerComplaint: farmerComplaint,
-  //           })
-  //         ),
-  //         tap(() => {
-  //           Swal.fire('Success', "You've successfully replied!", 'success');
-  //         }),
-  //         catchError((error: HttpErrorResponse) => {
-  //           console.log(error, ' hey');
-
-  //           Swal.fire('Failed to Update!', `Something Went Wrong`, 'error');
-  //           return of({
-  //             type: FarmerComplaintActions.UPDATE_FARMERCOMPLAINT_FAILED,
-  //           });
-  //         })
-  //       )
-  //     )
-  //   );
-  // });
+  updateSupplier$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SupplierActions.UPDATE_SUPPLIER_STATUS),
+      switchMap((data: { supplier: Supplier }) =>
+        this.adminService.validateUserAccount(data.supplier).pipe(
+          map((supplier: Supplier) => {
+            return updateSupplierState({
+              supplier: supplier,
+            });
+          }),
+          catchError((error: HttpErrorResponse) => {
+            console.log(error);
+            Swal.fire('Failed to Update!', `Something Went Wrong`, 'error');
+            return of({
+              type: SupplierActions.UPDATE_SUPPLIER_STATUS_FAILED,
+            });
+          })
+        )
+      )
+    );
+  });
 }

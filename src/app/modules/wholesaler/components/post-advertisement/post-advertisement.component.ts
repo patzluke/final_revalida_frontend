@@ -51,6 +51,7 @@ export class PostAdvertisementComponent implements OnInit {
       cropName: ['', Validators.required],
       description: ['', Validators.required],
       quantity: [, Validators.required],
+      measurement: [''],
       price: [, Validators.required],
       datePosted: [''],
       dateModified: [''],
@@ -85,6 +86,8 @@ export class PostAdvertisementComponent implements OnInit {
               supplierId: data?.supplier?.supplierId,
               cropSpecializationId:
                 data?.cropSpecialization?.cropSpecializationId,
+              quantity: data?.quantity.split(' ')[0],
+              measurement: data?.quantity.split(' ')[1],
             });
           });
       }
@@ -92,14 +95,12 @@ export class PostAdvertisementComponent implements OnInit {
   }
 
   onImageSelected(event: any): void {
-    const selectedFile = event.target.files[0];
-    this.selectedImage = selectedFile;
-
+    this.selectedImage = event.target.files[0];
     const reader = new FileReader();
     reader.onload = (e: any) => {
       this.imagePreviewUrl = e.target.result;
     };
-    reader.readAsDataURL(selectedFile);
+    reader.readAsDataURL(this.selectedImage);
   }
 
   addEditPostAdvertisementSubmit() {
@@ -158,6 +159,9 @@ export class PostAdvertisementComponent implements OnInit {
         } else {
           let advertisement: PostAdvertisement = {
             ...this.addEditPostAdvertisementForm.value,
+            quantity: this.addEditPostAdvertisementForm.value.quantity
+              .split(' ')[0]
+              .concat(' ', this.addEditPostAdvertisementForm.value.measurement),
             supplierId: localStorage.getItem('userNo') as any,
             cropImage: this.selectedPostAdvertisement.cropImage,
           };

@@ -32,36 +32,39 @@ export class SellProductComponent {
   faPenToSquare = faPenToSquare
   faTrash = faTrash
   suppliers: {
-    crop_id: number,
-    farmer_id: number,
-    crop_name: string,
+    cropName: string,
     price: number,
     quantity: number,
-    crop_image: string
+    mobileNumBankNumber: string,
+    paymentMode: string
   }[] = [
       {
-        crop_id: 1,
-        farmer_id: 1,
-        crop_name: 'Corn Crops',
-        price: 500,
-        quantity: 100,
-        crop_image: './../../../../../assets/images/corn.png'
-      },
-      {
-        crop_id: 2,
-        farmer_id: 1,
-        crop_name: 'Potato Crops',
+        cropName: 'Corn',
         price: 1500,
-        quantity: 300,
-        crop_image: './../../../../../assets/images/potato.png'
+        quantity: 25,
+        mobileNumBankNumber: '8923-5839-5387',
+        paymentMode: 'BANK'
       },
       {
-        crop_id: 1,
-        farmer_id: 1,
-        crop_name: 'Kamote Crops',
-        price: 1200,
-        quantity: 600,
-        crop_image: './../../../../../assets/images/kamote.png'
+        cropName: 'Potato',
+        price: 1600,
+        quantity: 30,
+        mobileNumBankNumber: '09123456789',
+        paymentMode: 'GCASH'
       },
+      {
+        cropName: 'Kamote',
+        price: 1700,
+        quantity: 35,
+        mobileNumBankNumber: '09123456789',
+        paymentMode: 'GCASH'
+      },
+      {
+        cropName: 'Tubo',
+        price: 1600,
+        quantity: 40,
+        mobileNumBankNumber: '8923-5839-5387',
+        paymentMode: 'BANK'
+      }
     ]
 }

@@ -36,12 +36,10 @@ export class FarmerEffects {
       switchMap((data: { farmer: Farmer }) =>
         this.adminService.validateUserAccount(data.farmer).pipe(
           map((farmer: Farmer) => {
-            console.log(farmer)
             return updateFarmerState({
               farmer: farmer,
-            })
-          }
-          ),
+            });
+          }),
           catchError((error: HttpErrorResponse) => {
             console.log(error, ' hey');
             Swal.fire('Failed to Update!', `Something Went Wrong`, 'error');

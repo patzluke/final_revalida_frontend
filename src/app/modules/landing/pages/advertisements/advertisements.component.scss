@@ -55,6 +55,8 @@ section {
   font-family: "Circular Std";
   font-size: 1rem;
   color: #4b4b4b;
+  display: flex;
+  justify-content: space-between;
 }
 
 .price-qty-container {
@@ -249,6 +251,10 @@ label {
   border: 1px solid red;
 }
 
+::ng-deep .p-multiselect-items-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
 .wave-container2 {
   height: 10vh;
   background-color: #e8f4ef;
@@ -266,10 +272,6 @@ label {
   background-repeat: repeat no-repeat;
   background-position: 20vw bottom;
   background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1200 134' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 22L33 19C82 13 133 14 200 29C267 44 333 67 400 70C467 74 533 59 600 40C667 22 733 0 800 0C867 0 933 22 1000 29C1067 37 1133 29 1167 26L1200 22V134H1167C1133 134 1067 134 1000 134C933 134 867 134 800 134C733 134 667 134 600 134C533 134 467 134 400 134C333 134 267 134 200 134C133 134 67 134 33 134H0V22.332Z' fill='%2318332f'/></svg>");
-}
-
-::ng-deep .p-multiselect-items-wrapper::-webkit-scrollbar {
-  display: none;
 }
 
 @media (max-width: 800px) {
@@ -324,5 +326,9 @@ label {
   .no-info-text h1 {
     font-size: 2rem;
     margin-bottom: 10px;
+  }
+
+  .poster-name {
+    display: block;
   }
 }

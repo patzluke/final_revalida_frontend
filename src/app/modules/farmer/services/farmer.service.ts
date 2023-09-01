@@ -7,6 +7,8 @@ import { FileDetails } from '../../registration/models/fileDetails';
 import { Observable } from 'rxjs';
 import { Farmer } from '../models/farmer';
 import { CropSpecialization } from '../models/crop-specialization';
+import { Course } from '../models/course';
+import { CourseEnrolled } from '../models/courseEnrolled';
 
 @Injectable({
   providedIn: 'root',
@@ -86,6 +88,29 @@ export class FarmerService {
   selectAllCropSpecialization = () => {
     return this.http.get<CropSpecialization[]>(
       `${this.baseUrl}/supplier/get/cropspecialization`
+    );
+  };
+
+  selectAllCourses = () => {
+    return this.http.get<Course[]>(`${this.baseUrl}/farmer/get/course`);
+  };
+
+  selectAllCoursesEnrolledByFarmer = (farmerId: number) => {
+    return this.http.get<CourseEnrolled[]>(
+      `${this.baseUrl}/farmer/get/courseenrolled/${farmerId}`
+    );
+  };
+
+  insertIntoCourseEnrolled = (response: CourseEnrolled) => {
+    return this.http.post<CourseEnrolled>(
+      `${this.baseUrl}/farmer/insert/courseenrolled`,
+      response
+    );
+  };
+
+  selectAllPostAdvertisementResponsesByFarmerId = (farmerId: number) => {
+    return this.http.get<PostAdvertisementResponse[]>(
+      `${this.baseUrl}/farmer/get/postadvertisementresponse/${farmerId}`
     );
   };
 }

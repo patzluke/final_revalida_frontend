@@ -6,6 +6,7 @@ import { FarmerComplaintComponent } from './pages/farmer-complaint/farmer-compla
 import { ProfileComponent } from './pages/profile/profile.component';
 import { FarmerListComponent } from './pages/farmer-list/farmer-list.component';
 import { SupplierListComponent } from './pages/supplier-list/supplier-list.component';
+import { CourseListComponent } from './pages/course-list/course-list.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'suppliers',
     component: SupplierListComponent,
+  },
+  {
+    path: 'courses',
+    component: CourseListComponent,
   },
 ];
 
