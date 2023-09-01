@@ -46,6 +46,7 @@ import { CourseEffects } from './states/course-state/course.effects';
 import { TabViewModule } from 'primeng/tabview';
 import { coursesEnrolledReducer } from './states/course-enrolled-state/course-enrolled.reducer';
 import { CourseEnrolledEffects } from './states/course-enrolled-state/course-enrolled.effects';
+import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { CourseEnrolledEffects } from './states/course-enrolled-state/course-enr
     ViewReportComponent,
     ProfileComponent,
     CoursesComponent,
+    OrderSummaryComponent,
   ],
   imports: [
     CommonModule,

@@ -4,7 +4,7 @@
       <div class="container">
         <div class="row">
           <div class="col" data-aos="fade-right" data-aos-duration="333">
-            <p class="h1 header text-light">PRODUCTS</p>
+            <p class="h1 header mt-2 text-light">PRODUCTS</p>
           </div>
         </div>
         <div class="row">
@@ -23,51 +23,63 @@
                 ></fa-icon
                 >&nbsp; Add
               </button>
+              <button class="btn btn-secondary" [routerLink]="['/farmer/order-summary']">Order Summary</button>
             </div>
           </div>
         </div>
         <div class="row">
-          <div
-            class="col-lg-4 mb-3"
-            *ngFor="let supplier of suppliers.slice(startIndex(), endIndex())"
-          >
-            <div class="card mb-3" data-aos="fade-right" style="height: 100%">
-              <img src="{{ supplier.crop_image }}" class="card-img-top" />
-              <div class="card-body">
-                <h2 class="card-title" data-aos="fade-right">
-                  {{ supplier.crop_name }}
-                </h2>
-                <p class="card-text" data-aos="fade-right">
-                  <b>Price</b><br />
-                  {{ supplier.price }} <br />
-                </p>
-                <p class="card-text" data-aos="fade-right">
-                  <b>Quantity</b><br />
-                  {{ supplier.quantity }}
-                </p>
-                <div>
-                  <button
-                    class="btn btn-success w-100 mb-3"
-                    [routerLink]="['/edit-crop']"
-                  >
-                    <fa-icon
-                      [icon]="faPenToSquare"
-                      [animation]="'bounce'"
-                      [size]="'lg'"
-                    ></fa-icon
-                    >&nbsp; Update
-                  </button>
-                  <button class="btn btn-danger w-100 mb-3">
-                    <fa-icon
-                      [icon]="faTrash"
-                      [animation]="'shake'"
-                      [size]="'lg'"
-                    ></fa-icon
-                    >&nbsp; Delete
-                  </button>
-                </div>
-              </div>
-            </div>
+          <div>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th class="text-center">Crop Name</th>
+                  <th class="text-center">Price</th>
+                  <th class="text-center">Quantity</th>
+                  <th class="text-center">Payment Method</th>
+                  <th class="text-center">Account Number</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="
+                    let supplier of suppliers.slice(startIndex(), endIndex())
+                  "
+                >
+                  <td class="text-center">{{ supplier.cropName }}</td>
+                  <td class="text-center">
+                    {{ supplier.price | currency : "PHP" : "symbol" : "1.2-2" }}
+                  </td>
+                  <td class="text-center">{{ supplier.quantity }}</td>
+                  <td class="text-center">{{ supplier.paymentMode }}</td>
+                  <td class="text-center">
+                    {{ supplier.mobileNumBankNumber }}
+                  </td>
+                  <td class="text-center">
+                    <div class="me-2 ms-2 mb-2 mt-2">
+                      <button
+                        class="btn btn-outline-success me-2 ms-2 mb-2 mt-2"
+                      >
+                        <fa-icon
+                          [icon]="faPenToSquare"
+                          [size]="'lg'"
+                          animation="bounce"
+                        ></fa-icon>
+                      </button>
+                      <button
+                        class="btn btn-outline-danger me-2 ms-2 mb-2 mt-2"
+                      >
+                        <fa-icon
+                          [icon]="faTrash"
+                          [size]="'lg'"
+                          animation="shake"
+                        ></fa-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
