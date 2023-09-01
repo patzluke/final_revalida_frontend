@@ -1,36 +1,26 @@
-import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { faAdd, faCancel, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit } from '@angular/core';
+import { faWallet } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-sell-product',
-  templateUrl: './sell-product.component.html',
-  styleUrls: ['./sell-product.component.scss']
+  selector: 'app-order-summary',
+  templateUrl: './order-summary.component.html',
+  styleUrls: ['./order-summary.component.scss']
 })
-export class SellProductComponent {
+export class OrderSummaryComponent implements OnInit {
 
-  currentPage: number = 1;
-  itemsPerPage: number = 3; // Number of items to show per page
+  totalPrice?: number
 
-  addCrop!: FormGroup
-
-  startIndex(): number {
-    return (this.currentPage - 1) * this.itemsPerPage;
+  ngOnInit() {
+    let total = 0;
+    for (const supplier of this.suppliers) {
+      total += supplier.price * supplier.quantity
+    }
+    this.totalPrice = total;
+    return total;
   }
 
-  endIndex(): number {
-    return this.startIndex() + this.itemsPerPage;
-  }
+  faWallet = faWallet
 
-  changePage(newPage: number): void {
-    this.currentPage = newPage;
-  }
-
-
-  faAdd = faAdd
-  faCancel = faCancel
-  faPenToSquare = faPenToSquare
-  faTrash = faTrash
   suppliers: {
     cropName: string,
     price: number,

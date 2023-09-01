@@ -18,7 +18,7 @@
           <div class="col">
             <div class="row">
               <div class="col">
-                <form>
+                <form [formGroup]="addCropForm">
                   <div
                     class="form-floating mb-3"
                     data-aos="fade-right"
@@ -29,6 +29,7 @@
                       class="form-control"
                       id="cropName"
                       placeholder="Crop Name"
+                      formControlName="cropName"
                       required
                     />
                     <label for="cropName">Crop Name*</label>
@@ -43,6 +44,7 @@
                       class="form-control"
                       id="price"
                       placeholder="price"
+                      formControlName="price"
                       required
                     />
                     <label for="price">Price*</label>
@@ -57,30 +59,33 @@
                       class="form-control"
                       id="quantity"
                       placeholder="quantity"
+                      formControlName="quantity"
                       required
                     />
                     <label for="quantity">Quantity*</label>
                   </div>
 
-                  <div class="mb-3">
-                    <label for="gCashQrCode">Select GCash QR Code</label>
-                    <input class="form-control" type="file" id="formFile" />
-                  </div>
-
                   <div class="form-floating mb-3">
-                    <select
-                      class="form-select"
-                      id="floatingSelect"
-                      aria-label="Floating label select example"
-                    >
-                      <option value="null" selected>
+                    <select class="form-select" formControlName="paymentMode">
+                      <option value="null" disabled>
                         Select payment method...
                       </option>
-                      <option value="1">GCash</option>
-                      <option value="2">Bank Transfer</option>
-                      <option value="3">Cash On Delivery</option>
+                      <option value="GCASH">GCash</option>
+                      <option value="BANK">Bank Transfer</option>
+                      <option value="COD">Cash On Delivery</option>
                     </select>
-                    <label for="floatingSelect">Choose payment...</label>
+                    <label for="selectedPaymentMethod">Choose payment...</label>
+                  </div>
+
+                  <div class="mb-3 form-floating">
+                    <input
+                      type="text"
+                      id="mobileNum_bankNumber"
+                      class="form-control"
+                      [placeholder]="inputPlaceholder"
+                      formControlName="mobileNumBankNumber"
+                    />
+                    <label for="mobileNum_bankNumber">{{ inputLabel }}</label>
                   </div>
 
                   <div
