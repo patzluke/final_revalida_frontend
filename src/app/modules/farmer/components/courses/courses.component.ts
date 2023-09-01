@@ -6,6 +6,7 @@ import { Course } from '../../models/course';
 import { CourseEnrolledActions } from '../../states/course-enrolled-state/course-enrolled.actions';
 import Swal from 'sweetalert2';
 import { selectCourseEnrolledByCourseId, selectCoursesEnrolled } from '../../states/course-enrolled-state/course-enrolled.selectors';
+import { CourseEnrolled } from '../../models/courseEnrolled';
 
 @Component({
   selector: 'app-courses',

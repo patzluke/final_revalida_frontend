@@ -10,8 +10,10 @@ import Swal from 'sweetalert2';
 import { selectCropSpecializations } from '../../states/cropspecialization-state/cropspecialization.selectors';
 import { CropSpecializationActions } from '../../states/cropspecialization-state/cropspecialization.actions';
 import { CropSpecialization } from '../../models/crop-specialization';
-import { faL } from '@fortawesome/free-solid-svg-icons';
 import { selectPostAdvertisementResponseByPostId } from '../../states/postadvertisement-responses-state/postadvertisement-responses.selectors';
+import { Observable } from 'rxjs';
+import { CropPaymentActions } from '../../states/crop-payment-state/crop-payment.actions';
+import { selectCropPayments } from '../../states/crop-payment-state/crop-payment.selectors';
 
 @Component({
   selector: 'app-crop-advertisements',
@@ -50,7 +52,12 @@ export class CropAdvertisementsComponent implements OnInit {
   selectPostAdvertisements$ = this.store.select(selectPostAdvertisements());
   selectCropSpecializations$ = this.store.select(selectCropSpecializations());
   selectPostAdvertisementResponseByPostId$ = (post: PostAdvertisement) => {
-    return this.store.select(selectPostAdvertisementResponseByPostId(post.postId as number, localStorage.getItem("userNo") as any));
+    return this.store.select(
+      selectPostAdvertisementResponseByPostId(
+        post.postId as number,
+        localStorage.getItem('userNo') as any
+      )
+    );
   };
 
   constructor(private store: Store, private fb: FormBuilder) {
@@ -70,23 +77,33 @@ export class CropAdvertisementsComponent implements OnInit {
     });
 
     this.finalOfferForm = fb.group({
-      postResponseId: [''],
+      //sell_crop_details table fields
+      sellId: [''],
+      cropName: ['', Validators.required],
       price: ['', Validators.required],
       quantity: ['', Validators.required],
-      dateCreated: [''],
-      dateModified: [''],
-      message: [''],
-      preferredPaymentMode: ['', Validators.required],
-
       measurement: ['', Validators.required],
+      mobilenumBanknumber: ['', Validators.required],
+      paymentMode: ['', Validators.required],
 
-      postId: [0],
-      farmerId: [0],
+      farmerId: [0, Validators.required],
+
+      //crop_orders table fields
+      supplierId: [0, Validators.required],
+      address: ['', Validators.required],
     });
-
   }
 
   ngOnInit(): void {
+    this.store.dispatch({
+      type: CropPaymentActions.GET_CROPPAYMENT,
+      farmerId: localStorage.getItem('userNo'),
+    });
+
+    this.store.select(selectCropPayments()).subscribe((data) => {
+      console.log(data);
+    });
+
     this.store.dispatch({
       type: CropSpecializationActions.GET_CROPSPECIALIZATION,
     });
@@ -97,7 +114,7 @@ export class CropAdvertisementsComponent implements OnInit {
 
     this.store.dispatch({
       type: PostAdvertisementResponsesActions.GET_POSTADVERTISEMENTRESPONSES,
-      farmerId: localStorage.getItem("userNo")
+      farmerId: localStorage.getItem('userNo'),
     });
 
     this.selectPostAdvertisements$.subscribe((data) => {
@@ -115,9 +132,9 @@ export class CropAdvertisementsComponent implements OnInit {
       });
     });
 
-    console.log('post advertisements', this.advertisements);
+    // console.log('post advertisements', this.advertisements);
+    // console.log('crop types', this.cropTypes);
     this.filteredAdvertisements = this.advertisements;
-    console.log('crop types', this.cropTypes);
   }
 
   currentPage: number = 1;
@@ -261,7 +278,31 @@ export class CropAdvertisementsComponent implements OnInit {
   openViewOfferDialog: boolean = false;
   editFinalOffer: boolean = false;
 
-  toggleViewOffer = () => {
+  // sellId: [''],
+  // cropName: ['', Validators.required],
+  // price: ['', Validators.required],
+  // quantity: ['', Validators.required],
+  // measurement: ['', Validators.required],
+  // mobilenumBanknumber: ['', Validators.required],
+  // paymentMode: ['', Validators.required],
+
+  toggleViewOffer = (
+    postAdvertisementResponse: Observable<PostAdvertisementResponse | undefined>
+  ) => {
+    postAdvertisementResponse.forEach((data) => {
+      this.finalOfferForm.patchValue({
+        cropName: data?.postAdvertisement?.cropName,
+        price: data?.price,
+        quantity: data?.quantity.split(' ')[0],
+        measurement: data?.quantity.split(' ')[1],
+        mobilenumBanknumber: '',
+        paymentMode: data?.preferredPaymentMode,
+        farmerId: localStorage.getItem('userNo'),
+        supplierId: data?.postAdvertisement?.supplier?.supplierId,
+        address: data?.postAdvertisement?.supplier?.user.address,
+      });
+    });
+    this.finalOfferForm.controls['cropName'].disable();
     this.openViewOfferDialog = !this.openViewOfferDialog;
   };
 
@@ -271,9 +312,35 @@ export class CropAdvertisementsComponent implements OnInit {
 
   submitFinalOffer = () => {
     if (this.finalOfferForm.valid) {
-      let finalOfferValues = this.addAdvertisementResponseForm.value;
-
-      console.log(finalOfferValues);
+      this.finalOfferForm.controls['cropName'].enable();
+      let finalOfferValues = this.finalOfferForm.value;
+      finalOfferValues.quantity = this.finalOfferForm.value.quantity.concat(
+        ' ',
+        this.finalOfferForm.value.measurement
+      );
+      this.openViewOfferDialog = false;
+      Swal.fire({
+        title: 'Are you sure you want to send your final offer?',
+        icon: 'warning',
+        showDenyButton: true,
+        confirmButtonColor: '#3085d6',
+        denyButtonColor: '#d33',
+        confirmButtonText: 'Send Final offer',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          console.log(finalOfferValues);
+          this.store.dispatch({
+            type: CropPaymentActions.ADD_CROPPAYMENT,
+            cropPayment: finalOfferValues,
+          });
+        } else if (result.isDenied) {
+          this.finalOfferForm.controls['cropName'].disable();
+          this.openViewOfferDialog = true;
+        } else if (result.isDismissed) {
+          this.addAdvertisementResponseForm.reset();
+          this.openViewOfferDialog = false;
+        }
+      });
       //redirect to products page
     } else {
       Object.keys(this.finalOfferForm.controls).forEach((field) => {
