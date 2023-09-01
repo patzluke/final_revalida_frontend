@@ -47,6 +47,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { coursesEnrolledReducer } from './states/course-enrolled-state/course-enrolled.reducer';
 import { CourseEnrolledEffects } from './states/course-enrolled-state/course-enrolled.effects';
 import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
+import { cropPaymentReducer } from './states/crop-payment-state/crop-payment.reducer';
+import { CropPaymentEffects } from './states/crop-payment-state/crop-payment.effects';
 
 @NgModule({
   declarations: [
@@ -101,15 +103,17 @@ import { OrderSummaryComponent } from './components/order-summary/order-summary.
     StoreModule.forFeature('cropSpecializationList', cropSpecializationReducer),
     StoreModule.forFeature('courseList', courseReducer),
     StoreModule.forFeature('coursesEnrolledList', coursesEnrolledReducer),
+    StoreModule.forFeature('cropPaymentList (Farmer Acc)', cropPaymentReducer),
     EffectsModule.forFeature([
       FarmerComplaintEffects,
       PostAdvertisementEffects,
       PostAdvertisementResponsesEffects,
       CropSpecializationEffects,
       CourseEffects,
-      CourseEnrolledEffects
+      CourseEnrolledEffects,
+      CropPaymentEffects,
     ]),
     FontAwesomeModule,
   ],
 })
-export class FarmerModule { }
+export class FarmerModule {}

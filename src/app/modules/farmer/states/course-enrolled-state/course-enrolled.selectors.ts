@@ -5,9 +5,11 @@ export const selectCourseEnrolledState =
   createFeatureSelector<CourseEnrolledState>('coursesEnrolledList');
 
 export const selectCoursesEnrolled = () =>
-  createSelector(
-    selectCourseEnrolledState,
-    (state: CourseEnrolledState) => state.coursesEnrolled
+  createSelector(selectCourseEnrolledState, (state: CourseEnrolledState) =>
+    state.coursesEnrolled.filter(
+      (courseEnrolled) =>
+        new Date(courseEnrolled.endOfEnrollment as string) > new Date()
+    )
   );
 
 export const selectCourseEnrolled = (enrollmentId: number) =>
@@ -17,9 +19,16 @@ export const selectCourseEnrolled = (enrollmentId: number) =>
     })
   );
 
-export const selectCourseEnrolledByCourseId = (farmerId: number, courseId: number) =>
+export const selectCourseEnrolledByCourseId = (
+  farmerId: number,
+  courseId: number
+) =>
   createSelector(selectCourseEnrolledState, (state: CourseEnrolledState) =>
     state.coursesEnrolled.find((courseEnrolled) => {
-      return courseEnrolled.farmer.farmerId == farmerId && courseEnrolled.course.courseId == courseId;
+      return (
+        courseEnrolled.farmer.farmerId == farmerId &&
+        courseEnrolled.course.courseId == courseId &&
+        new Date(courseEnrolled.endOfEnrollment as string) > new Date()
+      );
     })
   );

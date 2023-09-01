@@ -9,6 +9,7 @@ import { Farmer } from '../models/farmer';
 import { CropSpecialization } from '../models/crop-specialization';
 import { Course } from '../models/course';
 import { CourseEnrolled } from '../models/courseEnrolled';
+import { CropPayment } from '../models/crop-payment';
 
 @Injectable({
   providedIn: 'root',
@@ -111,6 +112,19 @@ export class FarmerService {
   selectAllPostAdvertisementResponsesByFarmerId = (farmerId: number) => {
     return this.http.get<PostAdvertisementResponse[]>(
       `${this.baseUrl}/farmer/get/postadvertisementresponse/${farmerId}`
+    );
+  };
+
+  selectAllCropPaymentByFarmer = (farmerId: number) => {
+    return this.http.get<CropPayment[]>(
+      `${this.baseUrl}/farmer/get/croppayment/${farmerId}`
+    );
+  };
+
+  insertIntoSellCropDetailsAndCropOrdersAndPayment = (response: any) => {
+    return this.http.post<CropPayment>(
+      `${this.baseUrl}/farmer/insert/croppayment`,
+      response
     );
   };
 }

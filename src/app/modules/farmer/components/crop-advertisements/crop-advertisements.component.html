@@ -119,7 +119,13 @@
               </h3>
             </div>
 
-            <div *ngIf="(selectPostAdvertisementResponseByPostId$(post) | async)?.isAccepted" class="has-offer-container">
+            <div
+              *ngIf="
+                (selectPostAdvertisementResponseByPostId$(post) | async)
+                  ?.isAccepted
+              "
+              class="has-offer-container"
+            >
               <p>
                 Your offer has been accepted by the supplier. View your offer
                 and place your final offer.
@@ -136,12 +142,14 @@
               (click)="selectAdvertisement(post); toggleDialog()"
             ></button>
             <button
-              *ngIf="(selectPostAdvertisementResponseByPostId$(post) | async)"
+              *ngIf="selectPostAdvertisementResponseByPostId$(post) | async"
               pButton
               type="button"
               class="offer-btn"
               label="VIEW OFFER"
-              (click)="toggleViewOffer()"
+              (click)="
+                toggleViewOffer(selectPostAdvertisementResponseByPostId$(post))
+              "
             ></button>
           </div>
         </div>
@@ -347,6 +355,31 @@
               'summary-field': !editFinalOffer
             }"
           >
+            <label class="form-label">Crop Name:</label>
+            <input
+              *ngIf="editFinalOffer"
+              [ngClass]="{
+                'invalid-field':
+                  finalOfferForm.controls['cropName'].invalid &&
+                  (finalOfferForm.controls['cropName'].dirty ||
+                    finalOfferForm.controls['cropName'].touched)
+              }"
+              pInputText
+              formControlName="cropName"
+              type="text"
+              min="0"
+            />
+            <h3 class="offer-text" *ngIf="!editFinalOffer">
+              {{ finalOfferForm.getRawValue().cropName }}
+            </h3>
+          </div>
+          <div
+            class="form-field"
+            [ngClass]="{
+              'form-field': editFinalOffer,
+              'summary-field': !editFinalOffer
+            }"
+          >
             <label class="form-label">Price:</label>
             <input
               *ngIf="editFinalOffer"
@@ -361,7 +394,9 @@
               type="number"
               min="0"
             />
-            <h3 class="offer-text" *ngIf="!editFinalOffer">₱ 3000.00</h3>
+            <h3 class="offer-text" *ngIf="!editFinalOffer">
+              ₱ {{ finalOfferForm.getRawValue().price }}
+            </h3>
           </div>
           <div
             [ngClass]="{
@@ -383,7 +418,9 @@
               type="text"
               min="0"
             />
-            <h3 class="offer-text" *ngIf="!editFinalOffer">1000</h3>
+            <h3 class="offer-text" *ngIf="!editFinalOffer">
+              {{ finalOfferForm.getRawValue().quantity }}
+            </h3>
           </div>
           <div
             [ngClass]="{
@@ -407,7 +444,9 @@
               optionValue="value"
             >
             </p-dropdown>
-            <h3 class="offer-text" *ngIf="!editFinalOffer">Kg</h3>
+            <h3 class="offer-text" *ngIf="!editFinalOffer">
+              {{ finalOfferForm.getRawValue().measurement }}
+            </h3>
           </div>
 
           <div
@@ -416,23 +455,25 @@
               'summary-field': !editFinalOffer
             }"
           >
-            <label class="form-label">Preferred Payment:</label>
+            <label class="form-label">Payment Mode:</label>
             <p-dropdown
               *ngIf="editFinalOffer"
               [ngClass]="{
                 'spec-field':
-                  finalOfferForm.controls['preferredPaymentMode'].invalid &&
-                  (finalOfferForm.controls['preferredPaymentMode'].dirty ||
-                    finalOfferForm.controls['preferredPaymentMode'].touched)
+                  finalOfferForm.controls['paymentMode'].invalid &&
+                  (finalOfferForm.controls['paymentMode'].dirty ||
+                    finalOfferForm.controls['paymentMode'].touched)
               }"
-              formControlName="preferredPaymentMode"
+              formControlName="paymentMode"
               placeholder="Select payment method"
               [options]="paymentOptions"
               optionLabel="label"
               optionValue="value"
             >
             </p-dropdown>
-            <h3 class="offer-text" *ngIf="!editFinalOffer">Gcash</h3>
+            <h3 class="offer-text" *ngIf="!editFinalOffer">
+              {{ finalOfferForm.getRawValue().paymentMode }}
+            </h3>
           </div>
         </div>
 
@@ -442,21 +483,21 @@
             'summary-field': !editFinalOffer
           }"
         >
-          <label class="form-label">Message:</label>
-          <textarea
+          <label class="form-label">Bank No./Gcash No.:</label>
+          <input
             *ngIf="editFinalOffer"
             [ngClass]="{
-              'spec-field':
-                finalOfferForm.controls['message'].invalid &&
-                (finalOfferForm.controls['message'].dirty ||
-                  finalOfferForm.controls['message'].touched)
+              'invalid-field':
+                finalOfferForm.controls['mobilenumBanknumber'].invalid &&
+                (finalOfferForm.controls['mobilenumBanknumber'].dirty ||
+                  finalOfferForm.controls['mobilenumBanknumber'].touched)
             }"
-            pInputTextarea
-            formControlName="message"
-            rows="2"
-          ></textarea>
+            pInputText
+            type="text"
+            formControlName="mobilenumBanknumber"
+          />
           <h3 class="offer-text" *ngIf="!editFinalOffer">
-            Freshly harvested rice from Banaue Rice Terraces.
+            {{ finalOfferForm.getRawValue().mobilenumBanknumber }}
           </h3>
         </div>
       </form>
@@ -467,7 +508,10 @@
       <button
         pButton
         class="p-button-outlined p-button-secondary cancel-btn"
-        (click)="this.finalOfferForm.reset(); toggleViewOffer()"
+        (click)="
+          this.finalOfferForm.reset();
+          this.openViewOfferDialog = !this.openViewOfferDialog
+        "
       >
         Cancel
       </button>
