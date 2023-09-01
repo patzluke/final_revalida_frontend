@@ -210,7 +210,7 @@
         <li class="page-item">
           <button
             class="page-link"
-            [disabled]="endIndex() >= postAdvertisements.length"
+            [disabled]="endIndex() >= (selectPostAdvertisements$ | async)!.length"
             (click)="changePage(currentPage + 1)"
           >
             Next
