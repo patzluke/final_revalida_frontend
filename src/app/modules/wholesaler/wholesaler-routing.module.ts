@@ -21,7 +21,7 @@ const routes: Routes = [
     component: PostAdvertisementComponent,
   },
   {
-    path: 'post-advertisement-responses-list/:postId',
+    path: 'post-advertisement-list/post-advertisement-responses-list/:postId',
     component: PostAdvertisementResponseListComponent,
   },
   {

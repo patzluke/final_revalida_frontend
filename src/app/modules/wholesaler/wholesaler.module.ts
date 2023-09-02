@@ -63,7 +63,10 @@ import { PostAdvertisementEffectsSupplierSide } from './states/postadvertisement
     MatButtonModule,
     DividerModule,
     MultiSelectModule,
-    StoreModule.forFeature('postAdvertisementList (supplier)', postAdvertisementReducerSupplierSide),
+    StoreModule.forFeature(
+      'postAdvertisementList (supplier)',
+      postAdvertisementReducerSupplierSide
+    ),
     StoreModule.forFeature('cropSpecializationList', cropSpecializationReducer),
     StoreModule.forFeature(
       'postAdvertisementResponsesList',
