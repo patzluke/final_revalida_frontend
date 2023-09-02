@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {
   FormGroup,
   FormArray,
@@ -12,7 +12,6 @@ import {
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileDetails } from 'src/app/modules/wholesaler/models/fileDetails';
 import Swal from 'sweetalert2';
-import { Farmer } from '../../models/farmer';
 import { SupplierService } from '../../services/supplier.service';
 import { Supplier } from '../../models/supplier';
 
@@ -119,6 +118,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
+
     this.supplierService
       .findOneByUserId(localStorage.getItem('userId') as any)
       .subscribe((data) => {
@@ -382,32 +383,40 @@ export class ProfileComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           if (this.selectedImage) {
-            this.supplierService.upload(this.selectedImage).forEach((data) => {
-              this.imagePreviewUrl = `${data.fileUri.concat(data.fileName)}`;
-            }).then(()=> {
-              const validIdData = {
-                userId: localStorage.getItem('userId'),
-                validIdType: this.validIdForm.controls['validIdType'].getRawValue(),
-                validIdNumber:
-                  this.validIdForm.controls['validIdNumber'].getRawValue(),
-                validIdPicture: this.imagePreviewUrl,
-              };
+            this.supplierService
+              .upload(this.selectedImage)
+              .forEach((data) => {
+                this.imagePreviewUrl = `${data.fileUri.concat(data.fileName)}`;
+              })
+              .then(() => {
+                const validIdData = {
+                  userId: localStorage.getItem('userId'),
+                  validIdType:
+                    this.validIdForm.controls['validIdType'].getRawValue(),
+                  validIdNumber:
+                    this.validIdForm.controls['validIdNumber'].getRawValue(),
+                  validIdPicture: this.imagePreviewUrl,
+                };
 
-              this.supplierService.updateAdminInfo(validIdData).subscribe({
-                next: (data) => {
-                  this.user = { ...data };
-                  this.validIdForm.reset();
-                  Swal.fire('Success', 'Valid Id Successfully updated!', 'success');
-                },
-                error: (err) => {
-                  Swal.fire(
-                    'Failed to Update Valid Id!',
-                    `Something went wrong.`,
-                    'error'
-                  );
-                },
+                this.supplierService.updateAdminInfo(validIdData).subscribe({
+                  next: (data) => {
+                    this.user = { ...data };
+                    this.validIdForm.reset();
+                    Swal.fire(
+                      'Success',
+                      'Valid Id Successfully updated!',
+                      'success'
+                    );
+                  },
+                  error: (err) => {
+                    Swal.fire(
+                      'Failed to Update Valid Id!',
+                      `Something went wrong.`,
+                      'error'
+                    );
+                  },
+                });
               });
-            });
           }
 
           const validIdData = {
