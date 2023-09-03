@@ -28,7 +28,7 @@ import { PasswordModule } from 'primeng/password';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { DividerModule } from 'primeng/divider';
-import { ProfileComponent } from './components/profile/profile.component';  
+import { ProfileComponent } from './components/profile/profile.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { postAdvertisementReducerSupplierSide } from './states/postadvertisement-state/postadvertisement.reducer';
 import { PostAdvertisementEffectsSupplierSide } from './states/postadvertisement-state/postadvertisement.effects';
@@ -79,4 +79,4 @@ import { PostAdvertisementEffectsSupplierSide } from './states/postadvertisement
     ]),
   ],
 })
-export class WholesalerModule {}
+export class WholesalerModule { }
