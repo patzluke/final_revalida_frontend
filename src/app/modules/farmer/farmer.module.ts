@@ -46,11 +46,10 @@ import { CourseEffects } from './states/course-state/course.effects';
 import { TabViewModule } from 'primeng/tabview';
 import { coursesEnrolledReducer } from './states/course-enrolled-state/course-enrolled.reducer';
 import { CourseEnrolledEffects } from './states/course-enrolled-state/course-enrolled.effects';
-<<<<<<< HEAD
+
 import { cropPaymentReducer } from './states/crop-payment-state/crop-payment.reducer';
 import { CropPaymentEffects } from './states/crop-payment-state/crop-payment.effects';
-=======
->>>>>>> f50e8f437516b1b0148484aa5d5c9bc6a3129e41
+
 
 @NgModule({
   declarations: [

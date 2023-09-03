@@ -28,14 +28,10 @@ import { PasswordModule } from 'primeng/password';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { DividerModule } from 'primeng/divider';
-import { ProfileComponent } from './components/profile/profile.component';
-<<<<<<< HEAD
+import { ProfileComponent } from './components/profile/profile.component';  
 import { MultiSelectModule } from 'primeng/multiselect';
 import { postAdvertisementReducerSupplierSide } from './states/postadvertisement-state/postadvertisement.reducer';
 import { PostAdvertisementEffectsSupplierSide } from './states/postadvertisement-state/postadvertisement.effects';
-=======
-import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
->>>>>>> f50e8f437516b1b0148484aa5d5c9bc6a3129e41
 
 @NgModule({
   declarations: [
@@ -44,8 +40,7 @@ import { OrderSummaryComponent } from './components/order-summary/order-summary.
     ReportViewPageComponent,
     PostAdvertisementListComponent,
     PostAdvertisementResponseListComponent,
-    ProfileComponent,
-    OrderSummaryComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

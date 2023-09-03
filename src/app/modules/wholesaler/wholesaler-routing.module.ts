@@ -6,7 +6,6 @@ import { PostAdvertisementResponsesComponent } from './components/post-advertise
 import { PostAdvertisementListComponent } from './components/post-advertisement-list/post-advertisement-list.component';
 import { PostAdvertisementResponseListComponent } from './components/post-advertisement-response-list/post-advertisement-response-list.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
 
 const routes: Routes = [
   {
@@ -28,10 +27,6 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
-  },
-  {
-    path: 'order-summary',
-    component: OrderSummaryComponent
   }
 ];
 
