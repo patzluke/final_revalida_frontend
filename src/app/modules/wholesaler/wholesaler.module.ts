@@ -31,6 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { DividerModule } from 'primeng/divider';
 import { ProfileComponent } from './components/profile/profile.component';
+import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     PostAdvertisementListComponent,
     PostAdvertisementResponseListComponent,
     ProfileComponent,
+    OrderSummaryComponent,
   ],
   imports: [
     CommonModule,
