@@ -264,6 +264,19 @@ section {
   font-family: "Circular Std";
 }
 
+.no-final {
+  color: red;
+  margin-top: 1rem;
+  width: 100%;
+  font-size: 1.1rem;
+}
+
+.final-offer-container {
+  width: 100%;
+  text-align: end;
+  margin-top: -1rem;
+}
+
 //---- RESPONSIVE-----
 @media (max-width: 1059px) {
   .responses-container {
