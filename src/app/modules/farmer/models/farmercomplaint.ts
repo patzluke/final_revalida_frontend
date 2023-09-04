@@ -2,6 +2,7 @@ import { Farmer } from './farmer';
 
 export interface FarmerComplaint {
   farmerComplaintId?: number;
+  complaintType?: string;
   adminReplyMessage?: string;
   complaintTitle?: string;
   complaintMessage?: string;
