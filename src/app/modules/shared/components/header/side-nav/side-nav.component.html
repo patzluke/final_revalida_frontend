@@ -100,8 +100,8 @@
             routerLinkActive="router-link-active"
             class="mt-1"
           >
-          <i class="pi pi-slack nav-icon"></i>
-          <span class="white-text">Advertisements</span>
+            <i class="pi pi-slack nav-icon"></i>
+            <span class="white-text">Advertisements</span>
           </a>
           <a
             mat-list-item
@@ -109,7 +109,7 @@
             routerLinkActive="router-link-active"
             class="mt-1"
           >
-          <i class="pi pi-server nav-icon"></i>
+            <i class="pi pi-server nav-icon"></i>
             <span class="white-text">Crops</span>
           </a>
           <a
@@ -118,7 +118,7 @@
             routerLinkActive="router-link-active"
             class="mt-1"
           >
-          <i class="pi pi-bell nav-icon"></i>
+            <i class="pi pi-bell nav-icon"></i>
             <span class="white-text">Your Complaints</span>
           </a>
           <a
@@ -127,7 +127,7 @@
             routerLinkActive="router-link-active"
             class="mt-1"
           >
-          <i class="pi pi-book nav-icon"></i>
+            <i class="pi pi-book nav-icon"></i>
             <span class="white-text">Courses</span>
           </a>
           <a
@@ -135,9 +135,19 @@
             routerLink="/farmer/profile"
             routerLinkActive="router-link-active"
           >
-          <i class="pi pi-user nav-icon"></i>
-          <span class="white-text">Profile</span>
+            <i class="pi pi-user nav-icon"></i>
+            <span class="white-text">Profile</span>
           </a>
+
+          <a
+            mat-list-item
+            routerLink="/farmer/view-report"
+            routerLinkActive="router-link-active"
+          >
+            <i class="pi pi-chart-bar nav-icon"></i>
+            <span class="white-text">Report</span>
+          </a>
+
           <a
             mat-list-item
             class="logout"
@@ -158,7 +168,7 @@
             routerLinkActive="router-link-active"
             class="mt-1"
           >
-          <i class="pi pi-slack nav-icon"></i>
+            <i class="pi pi-slack nav-icon"></i>
             <span class="white-text">Advertisements</span>
           </a>
           <a
@@ -166,7 +176,7 @@
             routerLink="/supplier/profile"
             routerLinkActive="router-link-active"
           >
-          <i class="pi pi-user nav-icon"></i>
+            <i class="pi pi-user nav-icon"></i>
             <span class="white-text">Profile</span>
           </a>
 
@@ -175,7 +185,7 @@
             routerLink="/supplier/order-summary"
             routerLinkActive="router-link-active"
           >
-          <i class="pi pi-user nav-icon"></i>
+            <i class="pi pi-user nav-icon"></i>
             <span class="white-text">Order Summary</span>
           </a>
           <a
@@ -311,8 +321,8 @@
         routerLinkActive="router-link-active"
         class="mt-1"
       >
-      <i class="pi pi-slack nav-icon"></i>
-      <span class="white-text">Advertisements</span>
+        <i class="pi pi-slack nav-icon"></i>
+        <span class="white-text">Advertisements</span>
       </a>
       <a
         mat-list-item
@@ -320,7 +330,7 @@
         routerLinkActive="router-link-active"
         class="mt-1"
       >
-      <i class="pi pi-server nav-icon"></i>
+        <i class="pi pi-server nav-icon"></i>
         <span class="white-text">Crops</span>
       </a>
       <a
@@ -329,7 +339,7 @@
         routerLinkActive="router-link-active"
         class="mt-1"
       >
-      <i class="pi pi-bell nav-icon"></i>
+        <i class="pi pi-bell nav-icon"></i>
         <span class="white-text">Your Complaints</span>
       </a>
       <a
@@ -338,7 +348,7 @@
         routerLinkActive="router-link-active"
         class="mt-1"
       >
-      <i class="pi pi-book nav-icon"></i>
+        <i class="pi pi-book nav-icon"></i>
         <span class="white-text">Courses</span>
       </a>
       <a
@@ -346,15 +356,10 @@
         routerLink="/farmer/profile"
         routerLinkActive="router-link-active"
       >
-      <i class="pi pi-user nav-icon"></i>
-      <span class="white-text">Profile</span>
+        <i class="pi pi-user nav-icon"></i>
+        <span class="white-text">Profile</span>
       </a>
-      <a
-        mat-list-item
-        class="logout"
-        routerLink="/login"
-        (click)="logout()"
-      >
+      <a mat-list-item class="logout" routerLink="/login" (click)="logout()">
         <i class="pi pi-sign-out nav-icon"></i>
         <span class="white-text">Logout</span>
       </a>
@@ -369,7 +374,7 @@
         routerLinkActive="router-link-active"
         class="mt-1"
       >
-      <i class="pi pi-slack nav-icon"></i>
+        <i class="pi pi-slack nav-icon"></i>
         <span class="white-text">Advertisements</span>
       </a>
       <a
@@ -377,15 +382,10 @@
         routerLink="/supplier/profile"
         routerLinkActive="router-link-active"
       >
-      <i class="pi pi-user nav-icon"></i>
+        <i class="pi pi-user nav-icon"></i>
         <span class="white-text">Profile</span>
       </a>
-      <a
-        mat-list-item
-        class="logout"
-        routerLink="/login"
-        (click)="logout()"
-      >
+      <a mat-list-item class="logout" routerLink="/login" (click)="logout()">
         <i class="pi pi-sign-out nav-icon"></i>
         <span class="white-text">Logout</span>
       </a>

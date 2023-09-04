@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { addFarmerComplaintState } from './../../states/farmercomplaint-state/farmercomplaint.actions';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -10,6 +11,7 @@ import { faSave, faCancel, faAdd, faEye } from '@fortawesome/free-solid-svg-icon
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableModule } from 'primeng/table';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-complaint-status',
@@ -53,7 +55,8 @@ export class ComplaintStatusComponent implements OnInit {
   constructor(
     private store: Store<FarmerComplaintState>,
     private _router: Router,
-    private builder: FormBuilder
+    private builder: FormBuilder,
+    private http: HttpClient
   ) {
     this.complaintForm = builder.group({
       complaintTitle: ['', Validators.required],
@@ -62,6 +65,8 @@ export class ComplaintStatusComponent implements OnInit {
       farmerId: ['', Validators.required],
     })
   }
+
+  
 
   ngOnInit() {
     this.store.dispatch({
@@ -73,7 +78,11 @@ export class ComplaintStatusComponent implements OnInit {
       this.farmerComplaints = data;
       this.loading = false
     });
+
+    
   }
+
+  
 
   navigateToAddComplaint() {
     this._router.navigateByUrl('/farmer/complaints/add');
