@@ -118,7 +118,11 @@
             routerLinkActive="router-link-active"
             class="mt-1"
           >
+<<<<<<< HEAD
             <i class="pi pi-bell nav-icon"></i>
+=======
+            <i class="pi pi-exclamation-circle nav-icon"></i>
+>>>>>>> 57156bd07633e011084b31c1a9468906f1c6512c
             <span class="white-text">Your Complaints</span>
           </a>
           <a
@@ -129,6 +133,32 @@
           >
             <i class="pi pi-book nav-icon"></i>
             <span class="white-text">Courses</span>
+          </a>
+          <a
+            mat-list-item
+            routerLink="/farmer/notifications"
+            routerLinkActive="router-link-active"
+            class="mt-1"
+            (click)="updateNotificationStatusesToRead()"
+          >
+            <i class="pi pi-bell nav-icon"></i>
+            <span class="white-text">Notification</span>
+            <span
+              *ngIf="
+                !isSidebarExpanded &&
+                (selectUserNotifications$ | async)!.length > 0
+              "
+              class="badge-notexpanded badge"
+              >{{ (selectUserNotifications$ | async)?.length }}</span
+            >
+            <span
+              *ngIf="
+                isSidebarExpanded &&
+                (selectUserNotifications$ | async)!.length > 0
+              "
+              class="badge-expanded badge"
+              >{{ (selectUserNotifications$ | async)?.length }}</span
+            >
           </a>
           <a
             mat-list-item
@@ -205,7 +235,11 @@
   <!-- tool bar -->
   <mat-toolbar class="tool-bar" *ngIf="!isMinWidth800">
     <div class="menu-container" (click)="toggleSidenav()">
-      <i class="pi pi-bars nav-icon"></i>
+      <i class="pi pi-bars nav-icon"
+        ><span class="tool-bar-badge badge">{{
+          (selectUserNotifications$ | async)?.length
+        }}</span>
+      </i>
     </div>
 
     <div class="toolbar-logo">
@@ -214,7 +248,6 @@
         class="toolbar-image"
         alt="Logo"
       />
-
       <div class="header-text"><h6>AgriBridge</h6></div>
     </div>
   </mat-toolbar>
@@ -339,7 +372,11 @@
         routerLinkActive="router-link-active"
         class="mt-1"
       >
+<<<<<<< HEAD
         <i class="pi pi-bell nav-icon"></i>
+=======
+        <i class="pi pi-exclamation-circle nav-icon"></i>
+>>>>>>> 57156bd07633e011084b31c1a9468906f1c6512c
         <span class="white-text">Your Complaints</span>
       </a>
       <a
@@ -350,6 +387,21 @@
       >
         <i class="pi pi-book nav-icon"></i>
         <span class="white-text">Courses</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/farmer/notifications"
+        routerLinkActive="router-link-active"
+        class="mt-1"
+        (click)="updateNotificationStatusesToRead()"
+      >
+        <i class="pi pi-bell nav-icon"></i>
+        <span class="white-text" (click)="updateNotificationStatusesToRead()"
+          >Notification</span
+        >
+        <span class="tool-bar-content-badge badge">{{
+          (selectUserNotifications$ | async)?.length
+        }}</span>
       </a>
       <a
         mat-list-item

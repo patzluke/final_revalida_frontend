@@ -10,6 +10,7 @@ import { CropSpecialization } from '../models/crop-specialization';
 import { Course } from '../models/course';
 import { CourseEnrolled } from '../models/courseEnrolled';
 import { CropPayment } from '../models/crop-payment';
+import { UserNotifications } from '../../shared/models/user-notifications';
 
 @Injectable({
   providedIn: 'root',
@@ -125,6 +126,12 @@ export class FarmerService {
     return this.http.post<CropPayment>(
       `${this.baseUrl}/farmer/insert/croppayment`,
       response
+    );
+  };
+
+  selectAllNotificationsByUserId = (userId: number) => {
+    return this.http.get<UserNotifications[]>(
+      `${this.baseUrl}/usernotifications/get/${userId}`
     );
   };
 }

@@ -1,186 +1,210 @@
 <app-side-nav>
-  <p-tabView>
-    <p-tabPanel header="Courses">
-      <div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
-        <div class="main" data-aos="fade-right" data-aos-duration="333">
-          <div class="container">
-            <div class="row">
-              <div class="col">
-                <p
-                  class="h1 text-light header"
-                  data-aos="fade-right"
-                  data-aos-duration="333"
-                >
-                  COURSES
-                </p>
-              </div>
-            </div>
-            <div class="row">
-              <div
-                class="col mb-3"
-                *ngFor="
-                  let course of (selectCourses$ | async)?.slice(
-                    startIndex(),
-                    endIndex()
-                  )
-                "
+  <section class="section">
+    <div class="container">
+      <div style="margin-bottom: 3rem">
+        <p class="h1 mb-3 title">Unlock Your Potential with FREE Courses!</p>
+      </div>
+      <p-tabView>
+        <p-tabPanel header="Available Courses">
+          <div
+            data-aos="fade-right"
+            class="item-container"
+            data-aos-duration="333"
+          >
+            <div
+              class="items"
+              *ngFor="
+                let course of (selectCourses$ | async)?.slice(
+                  startIndex(),
+                  endIndex()
+                )
+              "
+            >
+              <h1
+                class="course-name"
                 data-aos="fade-right"
                 data-aos-duration="333"
               >
-                <div class="items" style="height: 100%">
-                  <p class="h4" data-aos="fade-right" data-aos-duration="333">
-                    {{ course.courseName }}
-                  </p>
-                  <p data-aos="fade-right" data-aos-duration="333">
-                    {{ course.description }}
-                  </p>
-                  <p
-                    class="d-flex flex-column"
-                    data-aos="fade-right"
-                    data-aos-duration="333"
+                {{ course.courseName | slice : 0 : 20
+                }}<span *ngIf="course.courseName.length > 20">...</span>
+              </h1>
+              <div>
+                <p
+                  class="d-flex flex-column"
+                  data-aos="fade-right"
+                  data-aos-duration="333"
+                  style="margin-top: 10px"
+                >
+                  <span class="h5"
+                    >Training Duration: {{ course.durationInDays }}
+                    {{ course.durationInDays == 1 ? "Day" : "Days" }}</span
                   >
-                    <span class="h5">Training Duration</span>
-                    <span
-                      >{{ course.durationInDays }}
-                      {{ course.durationInDays == 1 ? "Day" : "Days" }}</span
-                    >
-                  </p>
-                  <div class="d-flex" style="justify-content: end">
-                    <p *ngIf="(selectCourseEnrolledByCourseId$(course) | async)"  style="color: red;"><i>You are currently enrolled in this course</i></p>
+                </p>
+                <p
+                  data-aos="fade-right"
+                  data-aos-duration="333"
+                  style="margin-top: -1rem"
+                >
+                  {{ course.description }}
+                </p>
+              </div>
+
+              <div class="action-container">
+                <p
+                  *ngIf="selectCourseEnrolledByCourseId$(course) | async"
+                  style="color: red"
+                >
+                  <i>You are currently enrolled in this course</i>
+                </p>
+
+                <button
+                  *ngIf="!(selectCourseEnrolledByCourseId$(course) | async)"
+                  class="btn btn-success"
+                  (click)="enrollCourse(course)"
+                >
+                  Enroll
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="noAvailableCourses" class="no-info">
+            <img class="no-info-image" src="assets/images/no-enroll.png" />
+            <div class="no-info-text">
+              <h1>No available courses yet.</h1>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="mb-3 mt-3">
+                <div class="pagination pagination-md justify-content-end">
+                  <li class="page-item">
                     <button
-                    *ngIf="!(selectCourseEnrolledByCourseId$(course) | async)"
-                      class="btn btn-success"
-                      (click)="enrollCourse(course)"
+                      class="page-link"
+                      [disabled]="currentPage === 1"
+                      (click)="changePage(currentPage - 1)"
                     >
-                      Enroll
+                      Previous
                     </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <div class="mb-3 mt-3">
-                  <div class="pagination pagination-md justify-content-end">
-                    <li class="page-item">
-                      <button
-                        class="page-link"
-                        [disabled]="currentPage === 1"
-                        (click)="changePage(currentPage - 1)"
-                      >
-                        Previous
-                      </button>
-                    </li>
-                    <li class="page-item">
-                      <button class="page-link" disabled>
-                        {{ currentPage }}
-                      </button>
-                    </li>
+                  </li>
+                  <li class="page-item">
+                    <button class="page-link" disabled>
+                      {{ currentPage }}
+                    </button>
+                  </li>
 
-                    <li class="page-item">
-                      <button
-                        class="page-link"
-                        [disabled]="
-                          endIndex() >= (selectCourses$ | async)!.length
-                        "
-                        (click)="changePage(currentPage + 1)"
-                      >
-                        Next
-                      </button>
-                    </li>
-                  </div>
+                  <li class="page-item">
+                    <button
+                      class="page-link"
+                      [disabled]="
+                        endIndex() >= (selectCourses$ | async)!.length
+                      "
+                      (click)="changePage(currentPage + 1)"
+                    >
+                      Next
+                    </button>
+                  </li>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </p-tabPanel>
-    <p-tabPanel header="Enrolled Courses">
-      <div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
-        <div class="main" data-aos="fade-right" data-aos-duration="333">
-          <div class="container">
-            <div class="row">
-              <div class="col">
-                <p
-                  class="h1 text-light header"
-                  data-aos="fade-right"
-                  data-aos-duration="333"
-                >
-                  COURSES
-                </p>
-              </div>
-            </div>
-            <div class="row">
-              <div
-                class="col mb-3"
-                *ngFor="
-                  let course of (selectCoursesEnrolled$ | async)?.slice(
-                    startIndex(),
-                    endIndex()
-                  )
-                "
+        </p-tabPanel>
+
+        <p-tabPanel header="Enrolled Courses">
+          <div
+            data-aos="fade-right"
+            class="item-container"
+            data-aos-duration="333"
+          >
+            <div
+              class="items"
+              *ngFor="
+                let course of (selectCoursesEnrolled$ | async)?.slice(
+                  startIndex(),
+                  endIndex()
+                )
+              "
+            >
+              <h1
+                class="course-name"
                 data-aos="fade-right"
                 data-aos-duration="333"
               >
-                <div class="items" style="height: 100%">
-                  <p class="h4" data-aos="fade-right" data-aos-duration="333">
-                    {{ course.course.courseName }}
-                  </p>
-                  <p data-aos="fade-right" data-aos-duration="333">
-                    {{ course.course.description }}
-                  </p>
-                  <p
-                    class="d-flex flex-column"
-                    data-aos="fade-right"
-                    data-aos-duration="333"
+                {{ course.course.courseName | slice : 0 : 20
+                }}<span *ngIf="course.course.courseName.length > 20">...</span>
+              </h1>
+              <div>
+                <p
+                  class="d-flex flex-column"
+                  data-aos="fade-right"
+                  data-aos-duration="333"
+                  style="margin-top: 10px"
+                >
+                  <span class="h5">Training Period:</span>
+                  <span style="margin-top: -10px"
+                    >{{ course.enrollmentDate | date }} -
+                    {{ course.endOfEnrollment | date }}</span
                   >
-                    <span class="h5">Training Period</span>
-                    <span
-                      >{{ course.enrollmentDate | date }} -
-                      {{ course.endOfEnrollment | date }}</span
-                    >
-                  </p>
-                </div>
+                </p>
+
+                <p
+                  data-aos="fade-right"
+                  data-aos-duration="333"
+                  style="margin-top: 1rem"
+                >
+                  {{ course.course.description }}
+                </p>
               </div>
             </div>
-            <div class="row">
-              <div class="col">
-                <div class="mb-3 mt-3">
-                  <div class="pagination pagination-md justify-content-end">
-                    <li class="page-item">
-                      <button
-                        class="page-link"
-                        [disabled]="currentPage === 1"
-                        (click)="changePage(currentPage - 1)"
-                      >
-                        Previous
-                      </button>
-                    </li>
-                    <li class="page-item">
-                      <button class="page-link" disabled>
-                        {{ currentPage }}
-                      </button>
-                    </li>
+          </div>
 
-                    <li class="page-item">
-                      <button
-                        class="page-link"
-                        [disabled]="
-                          endIndex() >= (selectCoursesEnrolled$ | async)!.length
-                        "
-                        (click)="changePage(currentPage + 1)"
-                      >
-                        Next
-                      </button>
-                    </li>
-                  </div>
+          <div *ngIf="noEnrolledCourse" class="no-info">
+            <img class="no-info-image" src="assets/images/no-enroll.png" />
+            <div class="no-info-text">
+              <p>
+                Discover the world of knowledge with our free courses! Enroll
+                today and embark on your learning journey.
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="mb-3 mt-3">
+                <div class="pagination pagination-md justify-content-end">
+                  <li class="page-item">
+                    <button
+                      class="page-link"
+                      [disabled]="currentPage === 1"
+                      (click)="changePage(currentPage - 1)"
+                    >
+                      Previous
+                    </button>
+                  </li>
+                  <li class="page-item">
+                    <button class="page-link" disabled>
+                      {{ currentPage }}
+                    </button>
+                  </li>
+
+                  <li class="page-item">
+                    <button
+                      class="page-link"
+                      [disabled]="
+                        endIndex() >= (selectCoursesEnrolled$ | async)!.length
+                      "
+                      (click)="changePage(currentPage + 1)"
+                    >
+                      Next
+                    </button>
+                  </li>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </p-tabPanel>
-  </p-tabView>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </section>
 </app-side-nav>

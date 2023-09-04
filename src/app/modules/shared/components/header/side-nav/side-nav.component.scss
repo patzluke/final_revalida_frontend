@@ -1,3 +1,54 @@
+//for notification
+.notification {
+  background-color: #555;
+  color: white;
+  text-decoration: none;
+  padding: 15px 26px;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+}
+
+.notification:hover {
+  background: red;
+}
+
+.badge-notexpanded {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 6px 11px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
+.badge-expanded {
+  position: absolute;
+  top: 0px;
+  padding: 5px 10px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
+
+.tool-bar-badge {
+  position: absolute;
+  top: 30px;
+  padding: 5px 10px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
+
+.tool-bar-content-badge {
+  position: absolute;
+  top: 0px;
+  padding: 5px 10px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
+
 .sidebar {
   background-color: #18332f;
   color: #fff;
@@ -307,7 +358,7 @@ span {
   margin-left: -1.5rem;
   padding-left: 2.5rem;
   left: 0;
-  width: 115%;
+  width: 130%;
 }
 
 .sidebar-expanded .router-link-active {
@@ -317,7 +368,7 @@ span {
   margin-left: -1.5rem;
   padding-left: 2.5rem;
   left: 0;
-  width: 100%;
+  width: 115%;
 }
 
 .sidebar-expanded .router-link-active .nav-icon {

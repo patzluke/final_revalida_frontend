@@ -1,0 +1,105 @@
+<app-side-nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 left">
+        <div class="box shadow-sm mb-3 rounded bg-white ads-box text-center">
+          <img
+            src="https://bootdey.com/img/Content/avatar/avatar7.png"
+            class="img-fluid"
+            alt="Responsive image"
+          />
+          <div class="p-3 border-bottom">
+            <h6 class="font-weight-bold text-dark">Notifications</h6>
+            <p class="mb-0 text-muted">
+              You’re all caught up! Check back later for new notifications
+            </p>
+          </div>
+          <div class="p-3">
+            <button
+              type="button"
+              class="btn btn-outline-success btn-sm pl-4 pr-4"
+            >
+              View settings
+            </button>
+          </div>
+        </div>
+        <div
+          class="box mb-3 shadow-sm rounded bg-white profile-box text-center"
+        >
+          <div class="p-3 border-top border-bottom">
+            <h5 class="font-weight-bold text-dark mb-1 mt-0">Envato</h5>
+            <p class="mb-0 text-muted">Melbourne, AU</p>
+          </div>
+          <div class="p-3">
+            <div class="d-flex align-items-top mb-2">
+              <p class="mb-0 text-muted">Posted</p>
+              <p class="font-weight-bold text-dark mb-0 mt-0 ml-auto">
+                1 day ago
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9 right">
+        <div class="box shadow-sm rounded bg-white mb-3">
+          <div class="box-title border-bottom p-3">
+            <h6 class="m-0">Recent</h6>
+          </div>
+          <div class="box-body p-0">
+            <ng-container
+              *ngFor="let item of selectUserNotificationsRecent$ | async"
+            >
+              <div
+                class="p-3 d-flex align-items-center bg-light border-bottom osahan-post-header"
+              >
+                <div class="dropdown-list-image mr-3">
+                  <img
+                    class="rounded-circle"
+                    src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                    alt=""
+                  />
+                </div>
+                <div class="font-weight-bold mr-3">
+                  <div class="text-truncate ms-1">
+                    {{ item.notificationMessage }}
+                  </div>
+                </div>
+                <div class="text-right text-muted pt-1 ms-1">
+                  {{ item.dateCreated | date : "shortTime" }}
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="box shadow-sm rounded bg-white mb-3">
+          <div class="box-title border-bottom p-3">
+            <h6 class="m-0">Earlier</h6>
+          </div>
+          <div class="box-body p-0">
+            <ng-container
+              *ngFor="let item of selectUserNotificationsEarlier$ | async"
+            >
+              <div
+                class="p-3 d-flex align-items-center border-bottom osahan-post-header"
+              >
+                <div
+                  class="dropdown-list-image mr-3 d-flex align-items-center bg-danger justify-content-center rounded-circle text-white"
+                >
+                  DRM
+                </div>
+                <div class="font-weight-bold mr-3">
+                  <div class="text-truncate ms-1">
+                    {{ item.notificationMessage }}
+                  </div>
+                </div>
+                <div class="text-right text-muted pt-1 ms-1">
+                  {{ item.dateCreated | date : 'short':'UTC' }}
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-side-nav>
