@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+import { Observable } from 'rxjs';
+import { addFarmerComplaintState } from './../../states/farmercomplaint-state/farmercomplaint.actions';
+=======
+>>>>>>> 57156bd07633e011084b31c1a9468906f1c6512c
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FarmerComplaintState } from '../../states/farmercomplaint-state/farmercomplaint.reducer';
@@ -18,8 +23,12 @@ import {
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableModule } from 'primeng/table';
+<<<<<<< HEAD
+import { HttpClient } from '@angular/common/http';
+=======
 import { FarmerService } from '../../services/farmer.service';
 import { Farmer } from '../../models/farmer';
+>>>>>>> 57156bd07633e011084b31c1a9468906f1c6512c
 
 @Component({
   selector: 'app-complaint-status',
@@ -68,7 +77,11 @@ export class ComplaintStatusComponent implements OnInit {
     private store: Store<FarmerComplaintState>,
     private _router: Router,
     private builder: FormBuilder,
+<<<<<<< HEAD
+    private http: HttpClient
+=======
     private farmerService: FarmerService
+>>>>>>> 57156bd07633e011084b31c1a9468906f1c6512c
   ) {
     this.complaintForm = builder.group({
       complaintTitle: ['', Validators.required],
@@ -90,6 +103,8 @@ export class ComplaintStatusComponent implements OnInit {
     });
   }
 
+  
+
   ngOnInit() {
     this.store.dispatch({
       type: FarmerComplaintActions.GET_SINGLE_FARMERCOMPLAINTS,
@@ -101,7 +116,11 @@ export class ComplaintStatusComponent implements OnInit {
       this.loading = false;
       console.log(this.farmerComplaints);
     });
+
+    
   }
+
+  
 
   navigateToAddComplaint() {
     this._router.navigateByUrl('/farmer/complaints/add');
