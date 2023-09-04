@@ -32,6 +32,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { postAdvertisementReducerSupplierSide } from './states/postadvertisement-state/postadvertisement.reducer';
 import { PostAdvertisementEffectsSupplierSide } from './states/postadvertisement-state/postadvertisement.effects';
+import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { PostAdvertisementEffectsSupplierSide } from './states/postadvertisement
     ReportViewPageComponent,
     PostAdvertisementListComponent,
     PostAdvertisementResponseListComponent,
-    ProfileComponent
+    ProfileComponent,
+    OrderSummaryComponent
   ],
   imports: [
     CommonModule,
