@@ -22,7 +22,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { HttpClient } from '@angular/common/http';
 import { FarmerService } from '../../services/farmer.service';
-import { Farmer } from '../../models/farmer';
+import { Farmer } from '../../models/farmer'; 
 
 @Component({
   selector: 'app-complaint-status',
