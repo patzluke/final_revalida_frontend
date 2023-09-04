@@ -1,240 +1,254 @@
-<app-side-nav>
-  <p-tabView [style]="{ width: '100%' }">
-    <p-tabPanel header="For Account Verification">
-      <div
-        class="modal fade"
-        id="viewfarmerDetails"
-        tabindex="-1"
-        aria-labelledby="myModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button
-                type="button"
-                class="btn-close"
-                #verifyFarmerClose
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              {{selectedFarmerToVerify?.user?.image}}
-              <section style="background-color: #eee">
-                <div class="container py-5">
-                  <div class="row">
-                    <div class="col-lg-4">
-                      <div class="card mb-4">
-                        <div class="card-body text-center">
-                          <img
-                            [src]="selectedFarmerToVerify?.user?.image ||'assets/images/user-icon.png'"
-                            alt="avatar"
-                            class="rounded-circle img-fluid"
-                            style="width: 150px"
-                          />
-                          <p
-                            *ngIf="selectedFarmerToVerify?.user?.validIdPicture"
-                            class="text-muted mt-4"
-                          >
-                            <a
-                              href="{{
-                                selectedFarmerToVerify?.user?.validIdPicture
-                              }}"
-                              target="_blank"
-                              >view submitted valid ID</a
-                            >
-                          </p>
-                          <p
-                            *ngIf="
-                              !selectedFarmerToVerify?.user?.validIdPicture
-                            "
-                            class="text-muted mt-4"
-                          >
-                            No Submitted ID yet
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-8">
-                      <div class="card mb-4">
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col-sm-4">
-                              <p class="mb-0">First Name</p>
-                            </div>
-                            <div class="col-sm-8">
-                              <p class="text-muted mb-0">
-                                {{ selectedFarmerToVerify?.user?.firstName }}
-                              </p>
-                            </div>
-                          </div>
-                          <hr />
-                          <div class="row">
-                            <div class="col-sm-4">
-                              <p class="mb-0">Middle Name</p>
-                            </div>
-                            <div class="col-sm-8">
-                              <p class="text-muted mb-0">
-                                {{ selectedFarmerToVerify?.user?.middleName }}
-                              </p>
-                            </div>
-                          </div>
-                          <hr />
-                          <div class="row">
-                            <div class="col-sm-4">
-                              <p class="mb-0">Last Name</p>
-                            </div>
-                            <div class="col-sm-8">
-                              <p class="text-muted mb-0">
-                                {{ selectedFarmerToVerify?.user?.lastName }}
-                              </p>
-                            </div>
-                          </div>
-                          <hr />
-                          <div class="row">
-                            <div class="col-sm-3">
-                              <p class="mb-0">Email</p>
-                            </div>
-                            <div class="col-sm-9">
-                              <p class="text-muted mb-0">
-                                {{ selectedFarmerToVerify?.user?.email }}
-                              </p>
-                            </div>
-                          </div>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+/>
 
-                          <hr />
-                          <div class="row">
-                            <div class="col-sm-3">
-                              <p class="mb-0">Mobile</p>
-                            </div>
-                            <div class="col-sm-9">
-                              <p class="text-muted mb-0">
-                                {{ selectedFarmerToVerify?.user?.contactNo }}
-                              </p>
-                            </div>
-                          </div>
-                          <hr />
-                          <div class="row">
-                            <div class="col-sm-3">
-                              <p class="mb-0">Address</p>
-                            </div>
-                            <div class="col-sm-9">
-                              <p class="text-muted mb-0">
-                                {{ selectedFarmerToVerify?.user?.address }}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary me-2"
-                (click)="refuseSubmittedId()"
-              >
-                Refuse Submitted ID
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary"
-                (click)="verifyAccount()"
-              >
-                Verify
-              </button>
-            </div>
-          </div>
-        </div>
+<app-side-nav>
+  <section class="section">
+    <div class="container" data-aos="fade-right" data-aos-duration="333">
+      <div style="margin-bottom: 3rem">
+        <p class="h1 mb-3 title">FARMER LIST</p>
       </div>
 
-      <p-table
-        #dt1
-        [value]="(selectFarmersNotValidated$ | async)!"
-        dataKey="id"
-        [rows]="10"
-        [showCurrentPageReport]="true"
-        [rowsPerPageOptions]="[10, 15, 20]"
-        [loading]="loading"
-        [paginator]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [globalFilterFields]="[
-          'user.lastName',
-          'user.firstName',
-          'user.middleName',
-          'user.email'
-        ]"
-      >
-        <ng-template pTemplate="caption">
-          <div class="flex">
-            <span class="p-input-icon-left ml-auto">
+      <p-tabView>
+        <p-tabPanel header="For Account Verification">
+          <div class="search-container">
+            <span class="p-input-icon-left search-input" style="width: 100%">
+              <i class="pi pi-search"></i>
               <input
-                #pInputTextfarmers
+                style="width: 100%"
+                #pInputText
+                pInputText
                 type="text"
-                (input)="dt1.filterGlobal(pInputTextfarmers.value, 'contains')"
+                (input)="dt1.filterGlobal(pInputText.value, 'contains')"
                 placeholder="Search keyword"
               />
             </span>
           </div>
-        </ng-template>
-        <ng-template pTemplate="header">
-          <tr>
-            <th style="min-width: 15rem">
-              <div class="flex align-items-center">Farmer Name</div>
-            </th>
-            <th style="min-width: 15rem">
-              <div class="flex align-items-center">Email</div>
-            </th>
-            <th style="min-width: 15rem">
-              <div class="flex align-items-center text-center">Status</div>
-            </th>
-            <th style="min-width: 15rem">
-              <div class="flex align-items-center text-center">Action</div>
-            </th>
-          </tr></ng-template
-        >
 
-        <ng-template pTemplate="body" let-farmer>
-          <tr>
-            <td style="width: 25%">
-              <span class="ml-1 vertical-align-middle"
-                >{{ farmer.user.lastName }}
-                {{ farmer.user.firstName }}
-                {{ farmer.user.middleName }}</span
-              >
-            </td>
+          <p-table
+            #dt1
+            [value]="(selectFarmersNotValidated$ | async)!"
+            dataKey="id"
+            [rows]="10"
+            [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10, 15, 20]"
+            [loading]="loading"
+            [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="[
+              'user.lastName',
+              'user.firstName',
+              'user.middleName',
+              'user.email'
+            ]"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="min-width: 15rem">
+                  <div class="th-text">Farmer Name</div>
+                </th>
+                <th style="min-width: 15rem">
+                  <div class="th-text">Email</div>
+                </th>
+                <th style="min-width: 15rem">
+                  <div class="th-text">Status</div>
+                </th>
+                <th style="min-width: 15rem">
+                  <div class="th-text">Action</div>
+                </th>
+              </tr></ng-template
+            >
 
-            <td style="width: 25%">
-              {{ farmer.user.email }}
-            </td>
+            <ng-template pTemplate="body" let-farmer>
+              <tr>
+                <td style="width: 25%">
+                  <span class="ml-1 vertical-align-middle"
+                    >{{ farmer.user.lastName }}
+                    {{ farmer.user.firstName }}
+                    {{ farmer.user.middleName }}</span
+                  >
+                </td>
 
-            <td style="width: 25%" class="text-center">
-              {{ farmer.user.isValidated ? "Verified" : "Not Yet Verified" }}
-            </td>
-            <td class="text-center" style="width: 25%">
-              <p-button
-                (click)="selectFarmerToVerify(farmer)"
-                type="button"
-                pTooltip="View Details"
-                tooltipPosition="top"
-                data-bs-toggle="modal"
-                data-bs-target="#viewfarmerDetails"
-                icon="pi pi-eye"
-                styleClass="p-button-rounded p-button-text"
-              ></p-button>
-            </td>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-          <tr>
-            <td colspan="7">No Farmers found.</td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </p-tabPanel>
-  </p-tabView>
+                <td style="width: 25%">
+                  {{ farmer.user.email }}
+                </td>
+
+                <td style="width: 25%">
+                  {{
+                    farmer.user.isValidated ? "Verified" : "Not Yet Verified"
+                  }}
+                </td>
+                <td style="width: 25%">
+                  <p-button
+                    (click)="selectFarmerToVerify(farmer); toggleVerifyModal()"
+                    type="button"
+                    pTooltip="View Details"
+                    tooltipPosition="bottom"
+                    styleClass="p-button-rounded p-button-text"
+                    ><span class="material-symbols-outlined">
+                      visibility
+                    </span></p-button
+                  >
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="7">
+                  <div class="no-info">
+                    <img
+                      class="no-info-image"
+                      src="assets/images/no-result.png"
+                    />
+                    <div class="no-info-text">
+                      <h1>No results found.</h1>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </section>
 </app-side-nav>
+
+<!-- modal -->
+<p-dialog
+  header="Verify farmer account"
+  [modal]="true"
+  [(visible)]="isVerfiyToggle"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [maximizable]="true"
+>
+  <div class="container">
+    <div>
+      <section class="cus-modal" style="background-color: #eee">
+        <div>
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="card mb-4">
+                <div class="card-body text-center">
+                  <img
+                    [src]="
+                      selectedFarmerToVerify?.user?.image ||
+                      'assets/images/user-icon.png'
+                    "
+                    alt="avatar"
+                    class="rounded-circle img-fluid"
+                    style="width: 150px"
+                  />
+                  <p
+                    *ngIf="selectedFarmerToVerify?.user?.validIdPicture"
+                    class="text-muted mt-4"
+                  >
+                    <a
+                      href="{{ selectedFarmerToVerify?.user?.validIdPicture }}"
+                      target="_blank"
+                      >view submitted valid ID</a
+                    >
+                  </p>
+                  <p
+                    *ngIf="!selectedFarmerToVerify?.user?.validIdPicture"
+                    class="text-muted mt-4"
+                  >
+                    No Submitted ID yet
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-8">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <p class="mb-0">First Name</p>
+                    </div>
+                    <div class="col-sm-8">
+                      <p class="text-muted mb-0">
+                        {{ selectedFarmerToVerify?.user?.firstName }}
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <p class="mb-0">Middle Name</p>
+                    </div>
+                    <div class="col-sm-8">
+                      <p class="text-muted mb-0">
+                        {{ selectedFarmerToVerify?.user?.middleName }}
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <p class="mb-0">Last Name</p>
+                    </div>
+                    <div class="col-sm-8">
+                      <p class="text-muted mb-0">
+                        {{ selectedFarmerToVerify?.user?.lastName }}
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Email</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">
+                        {{ selectedFarmerToVerify?.user?.email }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <hr />
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Mobile</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">
+                        {{ selectedFarmerToVerify?.user?.contactNo }}
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Address</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">
+                        {{ selectedFarmerToVerify?.user?.address }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="action-container">
+        <button
+          pButton
+          class="p-button-outlined p-button-secondary cancel-btn"
+          (click)="refuseSubmittedId()"
+        >
+          Refuse Submitted ID
+        </button>
+        <button pButton class="submit-btn" (click)="verifyAccount()">
+          Verify
+        </button>
+      </div>
+    </div>
+  </div>
+</p-dialog>

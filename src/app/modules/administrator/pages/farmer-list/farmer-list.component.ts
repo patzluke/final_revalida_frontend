@@ -102,7 +102,13 @@ export class FarmerListComponent implements OnInit {
     this.selectedFarmerToVerify = farmer;
   }
 
+  isVerfiyToggle: boolean = false;
+  toggleVerifyModal = () => {
+    this.isVerfiyToggle = !this.isVerfiyToggle;
+  };
+
   verifyAccount() {
+    this.isVerfiyToggle = false;
     Swal.fire({
       title: 'Verify Account?',
       icon: 'warning',
@@ -130,6 +136,7 @@ export class FarmerListComponent implements OnInit {
   }
 
   refuseSubmittedId() {
+    this.isVerfiyToggle = false;
     Swal.fire({
       title: 'Ask Farmer to re-Submit a valid ID?',
       icon: 'warning',

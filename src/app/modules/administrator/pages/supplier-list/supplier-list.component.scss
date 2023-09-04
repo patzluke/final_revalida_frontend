@@ -1,0 +1,153 @@
+.section {
+  background-color: #e8f4ef;
+  padding: 60px;
+  min-height: 100vh;
+}
+
+.title {
+  font-family: "Circular Std";
+  color: #2d5605;
+  font-weight: bold;
+}
+
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 1.5rem 0 1rem 0;
+}
+
+::ng-deep .p-tabview .p-tabview-panels,
+::ng-deep .p-tabview .p-tabview-nav {
+  // white
+  background-color: #e8f4ef;
+}
+
+::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background-color: #e8f4ef;
+}
+
+::ng-deep .p-tabview .p-tabview-panels {
+  padding: 0;
+}
+
+::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  background-color: transparent;
+}
+
+::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  border-color: #2d5605;
+  color: #2d5605;
+}
+
+.th-text {
+  display: flex;
+  align-items: center;
+  color: #2d5605;
+}
+
+.no-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.no-info-image {
+  width: 50%;
+  height: 50%;
+}
+
+.no-info-text {
+  text-align: center;
+  color: #2d5605;
+  margin-bottom: 2rem;
+}
+
+.no-info-text h1 {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  font-family: "Circular Std";
+}
+
+.no-info-text p {
+  font-family: "Circular Std";
+  margin-bottom: -1px;
+  font-size: 1.5rem;
+}
+
+.action-container {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.p-button.submit-btn {
+  color: #ffffff;
+  //background: #18332f;
+  background: #8da17f;
+  border: #8da17f;
+}
+
+.p-button.submit-btn:hover {
+  color: #ffffff;
+  //background: #8da17f;
+  background: #18332f;
+}
+
+::ng-deep .p-dialog-content::-webkit-scrollbar {
+  display: none;
+}
+
+.cus-modal {
+  padding: 1rem;
+}
+
+.p-button.submit-btn {
+  color: #ffffff;
+  //background: #18332f;
+  background: #8da17f;
+  border: #8da17f;
+}
+
+.p-button.submit-btn:hover {
+  color: #ffffff;
+  //background: #8da17f;
+  background: #18332f;
+}
+
+@media (max-width: 600px) {
+  .search-container {
+    display: block;
+    width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .offer-btn {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 787px) {
+  .no-info-text h1 {
+    font-size: 3rem;
+  }
+
+  .no-info-text p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 571px) {
+  .no-info-text h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+}

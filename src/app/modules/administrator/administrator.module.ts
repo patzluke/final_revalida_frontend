@@ -42,6 +42,7 @@ import { CourseListComponent } from './pages/course-list/course-list.component';
 import { courseReducer } from './states/course-state/course.reducer';
 import { CourseEffects } from './states/course-state/course.effects';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { NotificationsComponent } from './pages/notifications/notifications.comp
     MatButtonModule,
     DividerModule,
     TooltipModule,
+    InputTextareaModule,
     StoreModule.forFeature('farmingTipList', farmingTipReducer),
     StoreModule.forFeature('farmerComplaintsList', farmerComplaintReducer),
     StoreModule.forFeature('farmerList', farmerReducer),
@@ -93,4 +95,4 @@ import { NotificationsComponent } from './pages/notifications/notifications.comp
     ]),
   ],
 })
-export class AdministratorModule { }
+export class AdministratorModule {}
