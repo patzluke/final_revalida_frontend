@@ -39,8 +39,8 @@ import { OrderSummaryComponent } from './components/order-summary/order-summary.
     PostAdvertisementListComponent,
     PostAdvertisementResponseListComponent,
     ProfileComponent,
-    NotificationsComponent
-    OrderSummaryComponent
+    NotificationsComponent,
+    OrderSummaryComponent,
   ],
   imports: [
     CommonModule,
@@ -79,4 +79,4 @@ import { OrderSummaryComponent } from './components/order-summary/order-summary.
     ]),
   ],
 })
-export class WholesalerModule { }
+export class WholesalerModule {}
