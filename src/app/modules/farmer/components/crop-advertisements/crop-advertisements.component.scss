@@ -1,6 +1,6 @@
 section {
   background-color: #e8f4ef;
-  height: auto;
+  min-height: 100vh;
   padding: 60px;
 }
 
@@ -21,6 +21,8 @@ section {
 
 .image-container {
   width: 40%;
+  height: 20rem;
+  align-self: center;
 }
 
 .card img {

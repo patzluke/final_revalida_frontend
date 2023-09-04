@@ -5,7 +5,10 @@ import { selectCourses } from '../../states/course-state/course.selectors';
 import { Course } from '../../models/course';
 import { CourseEnrolledActions } from '../../states/course-enrolled-state/course-enrolled.actions';
 import Swal from 'sweetalert2';
-import { selectCourseEnrolledByCourseId, selectCoursesEnrolled } from '../../states/course-enrolled-state/course-enrolled.selectors';
+import {
+  selectCourseEnrolledByCourseId,
+  selectCoursesEnrolled,
+} from '../../states/course-enrolled-state/course-enrolled.selectors';
 import { CourseEnrolled } from '../../models/courseEnrolled';
 
 @Component({
@@ -17,17 +20,24 @@ export class CoursesComponent implements OnInit {
   dateToday = new Date();
   currentPage: number = 1;
   itemsPerPage: number = 4; // Number of items to show per page
+  noEnrolledCourse: boolean = true;
+  noAvailableCourses: boolean = true;
 
   //selectors
   selectCourses$ = this.store.select(selectCourses());
   selectCoursesEnrolled$ = this.store.select(selectCoursesEnrolled());
   selectCourseEnrolledByCourseId$ = (course: Course) => {
-    return this.store.select(selectCourseEnrolledByCourseId(localStorage.getItem("userNo") as any, course.courseId as number));
-  }
+    return this.store.select(
+      selectCourseEnrolledByCourseId(
+        localStorage.getItem('userNo') as any,
+        course.courseId as number
+      )
+    );
+  };
 
   convertStringToDate = (date: string) => {
     return new Date(date);
-  }
+  };
 
   constructor(private store: Store) {}
 
@@ -37,7 +47,19 @@ export class CoursesComponent implements OnInit {
     });
     this.store.dispatch({
       type: CourseEnrolledActions.GET_COURSEENROLLED,
-      farmerId: localStorage.getItem("userNo")
+      farmerId: localStorage.getItem('userNo'),
+    });
+
+    this.selectCoursesEnrolled$.subscribe((coursesEnrolled) => {
+      if (coursesEnrolled.length > 0) {
+        this.noEnrolledCourse = false;
+      }
+    });
+
+    this.selectCourses$.subscribe((coursesEnrolled) => {
+      if (coursesEnrolled.length > 0) {
+        this.noAvailableCourses = false;
+      }
     });
   }
 

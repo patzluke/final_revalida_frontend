@@ -47,13 +47,18 @@ export class FarmerComplaintEffects {
               farmerComplaint: farmerComplaint,
             })
           ),
+
           tap(() => {
             Swal.fire('Success', 'Complaint Submitted', 'success');
           }),
           catchError((error: HttpErrorResponse) => {
             console.log(error, ' hey');
 
-            Swal.fire('Failed to Update!', `Something Went Wrong`, 'error');
+            Swal.fire(
+              'Failed to submit complaint!',
+              `Something Went Wrong`,
+              'error'
+            );
             return of({
               type: FarmerComplaintActions.ADD_FARMERCOMPLAINT_FAILED,
             });
