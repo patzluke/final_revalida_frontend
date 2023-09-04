@@ -49,6 +49,7 @@ import { CourseEnrolledEffects } from './states/course-enrolled-state/course-enr
 
 import { cropPaymentReducer } from './states/crop-payment-state/crop-payment.reducer';
 import { CropPaymentEffects } from './states/crop-payment-state/crop-payment.effects';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { CropPaymentEffects } from './states/crop-payment-state/crop-payment.eff
     CourseEnrolledComponent,
     ViewReportComponent,
     ProfileComponent,
-    CoursesComponent
+    CoursesComponent,
+    NotificationsComponent
   ],
   imports: [
     CommonModule,

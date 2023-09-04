@@ -37,12 +37,11 @@ import { SupplierListComponent } from './pages/supplier-list/supplier-list.compo
 import { supplierReducer } from './states/supplier-state/supplier.reducer';
 import { SupplierEffects } from './states/supplier-state/supplier.effects';
 import { DividerModule } from 'primeng/divider';
-import { userApplicantsReducer } from './states/userapplicant-state/userapplicant.reducer';
-import { UserApplicantEffects } from './states/userapplicant-state/userapplicant.effects';
 import { TooltipModule } from 'primeng/tooltip';
 import { CourseListComponent } from './pages/course-list/course-list.component';
 import { courseReducer } from './states/course-state/course.reducer';
 import { CourseEffects } from './states/course-state/course.effects';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +52,7 @@ import { CourseEffects } from './states/course-state/course.effects';
     FarmerListComponent,
     SupplierListComponent,
     CourseListComponent,
+    NotificationsComponent,
   ],
   imports: [
     CommonModule,
@@ -83,14 +83,12 @@ import { CourseEffects } from './states/course-state/course.effects';
     StoreModule.forFeature('farmerComplaintsList', farmerComplaintReducer),
     StoreModule.forFeature('farmerList', farmerReducer),
     StoreModule.forFeature('supplierList', supplierReducer),
-    StoreModule.forFeature('userApplicantList', userApplicantsReducer),
     StoreModule.forFeature('courseList', courseReducer),
     EffectsModule.forFeature([
       FarmingTipEffects,
       FarmerComplaintEffects,
       FarmerEffects,
       SupplierEffects,
-      UserApplicantEffects,
       CourseEffects,
     ]),
   ],
