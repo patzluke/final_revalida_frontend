@@ -100,8 +100,8 @@
             routerLinkActive="router-link-active"
             class="mt-1"
           >
-          <i class="pi pi-slack nav-icon"></i>
-          <span class="white-text">Advertisements</span>
+            <i class="pi pi-slack nav-icon"></i>
+            <span class="white-text">Advertisements</span>
           </a>
           <a
             mat-list-item
@@ -109,7 +109,7 @@
             routerLinkActive="router-link-active"
             class="mt-1"
           >
-          <i class="pi pi-server nav-icon"></i>
+            <i class="pi pi-server nav-icon"></i>
             <span class="white-text">Crops</span>
           </a>
           <a
@@ -118,7 +118,7 @@
             routerLinkActive="router-link-active"
             class="mt-1"
           >
-          <i class="pi pi-bell nav-icon"></i>
+            <i class="pi pi-exclamation-circle nav-icon"></i>
             <span class="white-text">Your Complaints</span>
           </a>
           <a
@@ -127,16 +127,42 @@
             routerLinkActive="router-link-active"
             class="mt-1"
           >
-          <i class="pi pi-book nav-icon"></i>
+            <i class="pi pi-book nav-icon"></i>
             <span class="white-text">Courses</span>
+          </a>
+          <a
+            mat-list-item
+            routerLink="/farmer/notifications"
+            routerLinkActive="router-link-active"
+            class="mt-1"
+            (click)="updateNotificationStatusesToRead()"
+          >
+            <i class="pi pi-bell nav-icon"></i>
+            <span class="white-text">Notification</span>
+            <span
+              *ngIf="
+                !isSidebarExpanded &&
+                (selectUserNotifications$ | async)!.length > 0
+              "
+              class="badge-notexpanded badge"
+              >{{ (selectUserNotifications$ | async)?.length }}</span
+            >
+            <span
+              *ngIf="
+                isSidebarExpanded &&
+                (selectUserNotifications$ | async)!.length > 0
+              "
+              class="badge-expanded badge"
+              >{{ (selectUserNotifications$ | async)?.length }}</span
+            >
           </a>
           <a
             mat-list-item
             routerLink="/farmer/profile"
             routerLinkActive="router-link-active"
           >
-          <i class="pi pi-user nav-icon"></i>
-          <span class="white-text">Profile</span>
+            <i class="pi pi-user nav-icon"></i>
+            <span class="white-text">Profile</span>
           </a>
           <a
             mat-list-item
@@ -158,7 +184,7 @@
             routerLinkActive="router-link-active"
             class="mt-1"
           >
-          <i class="pi pi-slack nav-icon"></i>
+            <i class="pi pi-slack nav-icon"></i>
             <span class="white-text">Advertisements</span>
           </a>
           <a
@@ -166,7 +192,7 @@
             routerLink="/supplier/profile"
             routerLinkActive="router-link-active"
           >
-          <i class="pi pi-user nav-icon"></i>
+            <i class="pi pi-user nav-icon"></i>
             <span class="white-text">Profile</span>
           </a>
 
@@ -195,7 +221,11 @@
   <!-- tool bar -->
   <mat-toolbar class="tool-bar" *ngIf="!isMinWidth800">
     <div class="menu-container" (click)="toggleSidenav()">
-      <i class="pi pi-bars nav-icon"></i>
+      <i class="pi pi-bars nav-icon"
+        ><span class="tool-bar-badge badge">{{
+          (selectUserNotifications$ | async)?.length
+        }}</span>
+      </i>
     </div>
 
     <div class="toolbar-logo">
@@ -204,7 +234,6 @@
         class="toolbar-image"
         alt="Logo"
       />
-
       <div class="header-text"><h6>AgriBridge</h6></div>
     </div>
   </mat-toolbar>
@@ -311,8 +340,8 @@
         routerLinkActive="router-link-active"
         class="mt-1"
       >
-      <i class="pi pi-slack nav-icon"></i>
-      <span class="white-text">Advertisements</span>
+        <i class="pi pi-slack nav-icon"></i>
+        <span class="white-text">Advertisements</span>
       </a>
       <a
         mat-list-item
@@ -320,7 +349,7 @@
         routerLinkActive="router-link-active"
         class="mt-1"
       >
-      <i class="pi pi-server nav-icon"></i>
+        <i class="pi pi-server nav-icon"></i>
         <span class="white-text">Crops</span>
       </a>
       <a
@@ -329,7 +358,7 @@
         routerLinkActive="router-link-active"
         class="mt-1"
       >
-      <i class="pi pi-bell nav-icon"></i>
+        <i class="pi pi-exclamation-circle nav-icon"></i>
         <span class="white-text">Your Complaints</span>
       </a>
       <a
@@ -338,23 +367,33 @@
         routerLinkActive="router-link-active"
         class="mt-1"
       >
-      <i class="pi pi-book nav-icon"></i>
+        <i class="pi pi-book nav-icon"></i>
         <span class="white-text">Courses</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/farmer/notifications"
+        routerLinkActive="router-link-active"
+        class="mt-1"
+        (click)="updateNotificationStatusesToRead()"
+      >
+        <i class="pi pi-bell nav-icon"></i>
+        <span class="white-text" (click)="updateNotificationStatusesToRead()"
+          >Notification</span
+        >
+        <span class="tool-bar-content-badge badge">{{
+          (selectUserNotifications$ | async)?.length
+        }}</span>
       </a>
       <a
         mat-list-item
         routerLink="/farmer/profile"
         routerLinkActive="router-link-active"
       >
-      <i class="pi pi-user nav-icon"></i>
-      <span class="white-text">Profile</span>
+        <i class="pi pi-user nav-icon"></i>
+        <span class="white-text">Profile</span>
       </a>
-      <a
-        mat-list-item
-        class="logout"
-        routerLink="/login"
-        (click)="logout()"
-      >
+      <a mat-list-item class="logout" routerLink="/login" (click)="logout()">
         <i class="pi pi-sign-out nav-icon"></i>
         <span class="white-text">Logout</span>
       </a>
@@ -369,7 +408,7 @@
         routerLinkActive="router-link-active"
         class="mt-1"
       >
-      <i class="pi pi-slack nav-icon"></i>
+        <i class="pi pi-slack nav-icon"></i>
         <span class="white-text">Advertisements</span>
       </a>
       <a
@@ -377,15 +416,10 @@
         routerLink="/supplier/profile"
         routerLinkActive="router-link-active"
       >
-      <i class="pi pi-user nav-icon"></i>
+        <i class="pi pi-user nav-icon"></i>
         <span class="white-text">Profile</span>
       </a>
-      <a
-        mat-list-item
-        class="logout"
-        routerLink="/login"
-        (click)="logout()"
-      >
+      <a mat-list-item class="logout" routerLink="/login" (click)="logout()">
         <i class="pi pi-sign-out nav-icon"></i>
         <span class="white-text">Logout</span>
       </a>

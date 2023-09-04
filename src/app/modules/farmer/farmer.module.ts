@@ -49,6 +49,8 @@ import { CourseEnrolledEffects } from './states/course-enrolled-state/course-enr
 
 import { cropPaymentReducer } from './states/crop-payment-state/crop-payment.reducer';
 import { CropPaymentEffects } from './states/crop-payment-state/crop-payment.effects';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+
 import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
@@ -65,6 +67,7 @@ import { TooltipModule } from 'primeng/tooltip';
     ViewReportComponent,
     ProfileComponent,
     CoursesComponent,
+    NotificationsComponent
   ],
   imports: [
     CommonModule,

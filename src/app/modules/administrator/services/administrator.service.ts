@@ -4,8 +4,6 @@ import { FarmingTip } from '../models/farmingTip';
 import { FarmerComplaint } from '../models/farmercomplaint';
 import { Farmer } from '../models/farmer';
 import { Supplier } from '../models/supplier';
-import { UserApplicants } from '../models/userapplicants';
-import { User } from '../models/user';
 import { Administrator } from '../models/administrator';
 import { FileDetails } from '../../registration/models/fileDetails';
 import { Observable } from 'rxjs';
@@ -36,13 +34,7 @@ export class AdminService {
       `${this.baseUrl}/admin/update/admin`,
       adminInfo
     );
-  };
-
-  selectAllUserApplicants = () => {
-    return this.http.get<UserApplicants[]>(
-      `${this.baseUrl}/admin/get/userapplicants`
-    );
-  };
+  }
 
   selectAllFarmers = () => {
     return this.http.get<Farmer[]>(`${this.baseUrl}/admin/get/farmers`);

@@ -60,9 +60,25 @@ export class PostAdvertisementResponseListComponent implements OnInit {
   updateResponseIsAcceptedStatus(
     advertisementResponse: PostAdvertisementResponse
   ) {
-    let updatedAdvertisementResponse = { ...advertisementResponse };
+    let supplier = this.selectedPostAdvertisement?.supplier?.user;
+    let updatedAdvertisementResponse = {
+      ...advertisementResponse,
+      notificationMessage: '',
+    };
     updatedAdvertisementResponse.isAccepted =
       updatedAdvertisementResponse.isAccepted ? false : true;
+    if (updatedAdvertisementResponse.isAccepted) {
+      updatedAdvertisementResponse.notificationMessage =
+      `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName}, `.concat(
+        `has accepted your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`
+      );
+    } else {
+      updatedAdvertisementResponse.notificationMessage =
+      `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName}, `.concat(
+        `has withdrawn from your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`
+      );
+    }
+
     this.store.dispatch({
       type: PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES,
       postAdvertisementResponse: updatedAdvertisementResponse,

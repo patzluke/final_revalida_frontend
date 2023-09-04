@@ -13,6 +13,10 @@ import { SideNavComponent } from './components/header/side-nav/side-nav.componen
 import { FooterComponent } from './components/footer/footer.component';
 import { LandingRoutingModule } from '../landing/landing-routing.module';
 import { LoaderComponent } from './components/loader/loader.component';
+import { StoreModule } from '@ngrx/store';
+import { userNotificationsReducer } from './states/user-notifications-state/user-notifications.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { UserNotificationsEffects } from './states/user-notifications-state/user-notifications.effects';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     RouterModule,
     MatExpansionModule,
     LandingRoutingModule,
+    StoreModule.forFeature('userNotificationsList', userNotificationsReducer),
+    EffectsModule.forFeature([UserNotificationsEffects]),
   ],
   exports: [
     HeaderComponent,
