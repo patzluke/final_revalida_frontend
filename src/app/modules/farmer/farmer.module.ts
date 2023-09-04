@@ -51,6 +51,7 @@ import { cropPaymentReducer } from './states/crop-payment-state/crop-payment.red
 import { CropPaymentEffects } from './states/crop-payment-state/crop-payment.effects';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { NotificationsComponent } from './components/notifications/notifications
     DividerModule,
     MultiSelectModule,
     InputTextareaModule,
+    TooltipModule,
     StoreModule.forFeature(
       'SingleFarmerComplaintsList',
       farmerComplaintReducer
