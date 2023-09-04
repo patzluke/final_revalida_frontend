@@ -35,9 +35,7 @@ export class SupplierListComponent implements OnInit {
   //ElementRefs
   @ViewChild('verifySupplierClose') modalElement!: ElementRef;
 
-  constructor(private store: Store) {
-
-  }
+  constructor(private store: Store) {}
 
   ngOnInit() {
     this.store.dispatch({ type: SupplierActions.GET_SUPPLIER });
@@ -54,7 +52,13 @@ export class SupplierListComponent implements OnInit {
     this.selectedSupplierToVerify = supplier;
   }
 
+  isVerfiyToggle: boolean = false;
+  toggleVerifyModal = () => {
+    this.isVerfiyToggle = !this.isVerfiyToggle;
+  };
+
   verifyAccount() {
+    this.isVerfiyToggle = false;
     Swal.fire({
       title: 'Verify Account?',
       icon: 'warning',
@@ -82,6 +86,7 @@ export class SupplierListComponent implements OnInit {
   }
 
   refuseSubmittedId() {
+    this.isVerfiyToggle = false;
     Swal.fire({
       title: 'Ask Supplier to re-Submit a valid ID?',
       icon: 'warning',

@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import Swal from 'sweetalert2';
 import { selectCourses } from '../../states/course-state/course.selectors';
 import { CourseActions } from '../../states/course-state/course.actions';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-course-list',
@@ -19,17 +20,22 @@ export class CourseListComponent implements OnInit {
   courses: Course[] = [];
 
   //Formgroups
-  addEditCourseForm: FormGroup;
+  addCourseForm: FormGroup;
+  editCourseForm: FormGroup;
 
   //selectors
   selectCourses$ = this.store.select(selectCourses());
 
-  constructor(
-    private store: Store,
-    private fb: FormBuilder,
-  ) {
-    this.addEditCourseForm = fb.group({
-      courseId: [0, Validators.required],
+  constructor(private store: Store, private fb: FormBuilder) {
+    this.addCourseForm = fb.group({
+      courseId: [0],
+      courseName: ['', Validators.required],
+      description: ['', Validators.required],
+      durationInDays: ['', Validators.required],
+    });
+
+    this.editCourseForm = fb.group({
+      courseId: [0],
       courseName: ['', Validators.required],
       description: ['', Validators.required],
       durationInDays: ['', Validators.required],
@@ -45,36 +51,69 @@ export class CourseListComponent implements OnInit {
     });
   }
 
+  isAddCouse: boolean = false;
+  toggleAddCourseModal = () => {
+    this.isAddCouse = !this.isAddCouse;
+  };
+
   addCourseSubmit() {
-    let addEditFarmingTipFormValues = this.addEditCourseForm.getRawValue();
-    let addCourse: Course = {
-      courseId: addEditFarmingTipFormValues.courseId,
-      courseName: addEditFarmingTipFormValues.courseName,
-      description: addEditFarmingTipFormValues.description,
-      durationInDays: addEditFarmingTipFormValues.durationInDays,
-    };
-    this.store.dispatch({
-      type: CourseActions.ADD_COURSE,
-      course: addCourse,
-    });
+    if (this.addCourseForm.valid) {
+      this.isAddCouse = false;
+      let addEditFarmingTipFormValues = this.addCourseForm.getRawValue();
+      let addCourse: Course = {
+        courseId: addEditFarmingTipFormValues.courseId,
+        courseName: addEditFarmingTipFormValues.courseName,
+        description: addEditFarmingTipFormValues.description,
+        durationInDays: addEditFarmingTipFormValues.durationInDays,
+      };
+      this.store.dispatch({
+        type: CourseActions.ADD_COURSE,
+        course: addCourse,
+      });
+      this.addCourseForm.reset();
+    } else {
+      Object.keys(this.addCourseForm.controls).forEach((field) => {
+        const control = this.addCourseForm.get(field);
+        if (control?.invalid) {
+          control.markAsTouched();
+          control?.setErrors({ invalid: true });
+        }
+      });
+    }
   }
 
   selectCourse(course: Course) {
-    this.addEditCourseForm.patchValue({ ...course });
+    this.editCourseForm.patchValue({ ...course });
   }
 
+  isEditCouse: boolean = false;
+  toggleEditCourseModal = () => {
+    this.isEditCouse = !this.isEditCouse;
+  };
+
   editCourseSubmit() {
-    let addEditFarmingTipFormValues = this.addEditCourseForm.getRawValue();
-    let updatedCourse: Course = {
-      courseId: addEditFarmingTipFormValues.courseId,
-      courseName: addEditFarmingTipFormValues.courseName,
-      description: addEditFarmingTipFormValues.description,
-      durationInDays: addEditFarmingTipFormValues.durationInDays,
-    };
-    this.store.dispatch({
-      type: CourseActions.UPDATE_COURSE,
-      course: updatedCourse,
-    });
+    if (this.editCourseForm.valid) {
+      this.isEditCouse = false;
+      let addEditFarmingTipFormValues = this.editCourseForm.getRawValue();
+      let updatedCourse: Course = {
+        courseId: addEditFarmingTipFormValues.courseId,
+        courseName: addEditFarmingTipFormValues.courseName,
+        description: addEditFarmingTipFormValues.description,
+        durationInDays: addEditFarmingTipFormValues.durationInDays,
+      };
+      this.store.dispatch({
+        type: CourseActions.UPDATE_COURSE,
+        course: updatedCourse,
+      });
+    } else {
+      Object.keys(this.editCourseForm.controls).forEach((field) => {
+        const control = this.editCourseForm.get(field);
+        if (control?.invalid) {
+          control.markAsTouched();
+          control?.setErrors({ invalid: true });
+        }
+      });
+    }
   }
 
   deleteCourse(course: Course) {
