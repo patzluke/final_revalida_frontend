@@ -40,7 +40,7 @@ import { PostAdvertisementEffectsSupplierSide } from './states/postadvertisement
     ReportViewPageComponent,
     PostAdvertisementListComponent,
     PostAdvertisementResponseListComponent,
-    ProfileComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,
@@ -63,7 +63,10 @@ import { PostAdvertisementEffectsSupplierSide } from './states/postadvertisement
     MatButtonModule,
     DividerModule,
     MultiSelectModule,
-    StoreModule.forFeature('postAdvertisementList (supplier)', postAdvertisementReducerSupplierSide),
+    StoreModule.forFeature(
+      'postAdvertisementList (supplier)',
+      postAdvertisementReducerSupplierSide
+    ),
     StoreModule.forFeature('cropSpecializationList', cropSpecializationReducer),
     StoreModule.forFeature(
       'postAdvertisementResponsesList',
@@ -76,4 +79,4 @@ import { PostAdvertisementEffectsSupplierSide } from './states/postadvertisement
     ]),
   ],
 })
-export class WholesalerModule {}
+export class WholesalerModule { }

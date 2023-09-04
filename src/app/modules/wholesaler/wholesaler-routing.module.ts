@@ -21,13 +21,13 @@ const routes: Routes = [
     component: PostAdvertisementComponent,
   },
   {
-    path: 'post-advertisement-responses-list/:postId',
+    path: 'post-advertisement-list/post-advertisement-responses-list/:postId',
     component: PostAdvertisementResponseListComponent,
   },
   {
     path: 'profile',
     component: ProfileComponent,
-  },
+  }
 ];
 
 @NgModule({
@@ -35,4 +35,4 @@ const routes: Routes = [
   imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class WholesalerRoutingModule {}
+export class WholesalerRoutingModule { }

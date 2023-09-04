@@ -13,7 +13,6 @@ import { CourseEnrolledComponent } from './components/course-enrolled/course-enr
 import { ViewReportComponent } from './components/view-report/view-report.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CoursesComponent } from './components/courses/courses.component';
-import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
 
 const routes: Routes = [
   {
@@ -67,10 +66,6 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
-  },
-  {
-    path: 'order-summary',
-    component: OrderSummaryComponent
   }
 ];
 
@@ -79,4 +74,4 @@ const routes: Routes = [
   imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class FarmerRoutingModule {}
+export class FarmerRoutingModule { }
