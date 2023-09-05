@@ -145,7 +145,8 @@
             <mat-divider class="divider"></mat-divider>
             <div *ngIf="response.isAccepted" [ngClass]="response.isFinalOfferSubmitted ? 'final' : 'no-final'">
               <p *ngIf="!response.isFinalOfferSubmitted">Please wait for Farmer's final offer.</p>
-              <p *ngIf="response.isFinalOfferSubmitted">Farmer has already submitted their final offer. You can now proceed to accept their final offer.</p>
+              <p *ngIf="response.isFinalOfferSubmitted && !response.isFinalOfferAccepted">Farmer has already submitted their final offer. You can now proceed to accept their final offer.</p>
+              <p *ngIf="response.isFinalOfferAccepted">Transaction already completed.</p>
               <div class="final-offer-container">
                 <button
                   [disabled]="!response.isFinalOfferSubmitted"
@@ -153,7 +154,7 @@
                   class="offer-btn final-btn"
                   (click)="navigateToOrderSummary(response)"
                 >
-                  Accept Final Offer
+                  {{response.isFinalOfferAccepted ? 'View Summary': 'Accept Final Offer'}}
                 </button>
               </div>
             </div>
