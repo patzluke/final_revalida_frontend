@@ -32,6 +32,7 @@ import { postAdvertisementReducerSupplierSide } from './states/postadvertisement
 import { PostAdvertisementEffectsSupplierSide } from './states/postadvertisement-state/postadvertisement.effects';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
+import { OrderListComponent } from './components/order-list/order-list.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { OrderSummaryComponent } from './components/order-summary/order-summary.
     ProfileComponent,
     NotificationsComponent,
     OrderSummaryComponent,
+    OrderListComponent,
   ],
   imports: [
     CommonModule,
