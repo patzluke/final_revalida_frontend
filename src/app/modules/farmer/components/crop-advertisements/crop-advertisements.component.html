@@ -67,6 +67,24 @@
                 {{ post.supplier?.user?.lastName }} &nbsp; ({{
                   post.supplier?.user?.contactNo
                 }})
+                <span *ngIf="checkFbSocial(post)" class="social-icon-container">
+                  <a href="{{ selectFbSocial(post) }}" target="_blank">
+                    <img
+                      class="social-icon"
+                      style="height: 10px; width: 15px"
+                      src="assets/images/fb-icon.png"
+                    />
+                  </a>
+                </span>
+                <span *ngIf="checkIGSocial(post)" class="social-icon-container">
+                  <a href="{{ selectIGSocial(post) }}" target="_blank">
+                    <img
+                      class="social-icon"
+                      style="height: 10px; width: 15px"
+                      src="assets/images/ig-icon.png"
+                    />
+                  </a>
+                </span>
               </p>
               <p>
                 <i class="pi pi-calendar" style="margin-right: 1rem"></i
@@ -145,7 +163,9 @@
             </div>
             <div
               *ngIf="
-                !(selectPostAdvertisementResponse$(post) | async)?.isAccepted && (selectPostAdvertisementResponse$(post) | async)"
+                !(selectPostAdvertisementResponse$(post) | async)?.isAccepted &&
+                (selectPostAdvertisementResponse$(post) | async)
+              "
               class="has-offer-container"
             >
               <p>Awaiting for Supplier's Acceptance approval.</p>
@@ -364,7 +384,10 @@
         label="Edit"
         pButton
         (click)="toggleEditFinalOffer()"
-        [disabled]="!postAdvertisementResponse?.isAccepted || postAdvertisementResponse?.isFinalOfferSubmitted"
+        [disabled]="
+          !postAdvertisementResponse?.isAccepted ||
+          postAdvertisementResponse?.isFinalOfferSubmitted
+        "
       ></button>
     </div>
 
@@ -551,7 +574,10 @@
       </button>
       <button
         pButton
-        [disabled]="!postAdvertisementResponse?.isAccepted || postAdvertisementResponse?.isFinalOfferSubmitted"
+        [disabled]="
+          !postAdvertisementResponse?.isAccepted ||
+          postAdvertisementResponse?.isFinalOfferSubmitted
+        "
         class="submit-btn"
         (click)="submitFinalOffer()"
       >
