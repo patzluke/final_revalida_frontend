@@ -20,9 +20,8 @@ export class OrderSummaryComponent implements OnInit {
   ngOnInit(): void {}
 
   submitPayment() {
-    let updatedCropPayment = { ...this.cropPayment, userId: 0, proofOfPaymentImage: '' };
+    let updatedCropPayment = { ...this.cropPayment, userId: 0, proofOfPaymentImage: '', postResponseId : this.cropPayment?.cropOrder.sellCropDetail.postAdvertisementResponse.postResponseId };
     updatedCropPayment.userId = localStorage.getItem('userId') as any;
-    console.log(updatedCropPayment);
 
     this.store.dispatch({
       type: CropPaymentActions.UPDATE_CROPPAYMENT,

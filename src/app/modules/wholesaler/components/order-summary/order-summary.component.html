@@ -47,6 +47,7 @@
               <div class="mb-3">
                 <label class="form-label text-white">Your Address:</label>
                 <textarea
+                  disabled
                   type="text"
                   class="form-control"
                   [placeholder]="cropPayment?.cropOrder?.sellCropDetail?.farmer?.user?.address"
@@ -54,10 +55,11 @@
               </div>
               <div class="mb-3">
                 <label for="formFileSm" class="form-label text-white">Upload Your Proof of Payment:</label>
-                <input class="form-control" type="file" id="formFile">
+                <input [disabled]="this.cropPayment?.cropOrder?.sellCropDetail?.postAdvertisementResponse?.isFinalOfferAccepted" class="form-control" type="file" id="formFile">
               </div>
               <div class="mb-3">
-                <button class="btn btn-primary w-100" (click)="submitPayment()">Submit</button>
+                <button [disabled]="this.cropPayment?.cropOrder?.sellCropDetail?.postAdvertisementResponse?.isFinalOfferAccepted" class="btn btn-primary w-100" (click)="submitPayment()">Submit</button>
+                <label *ngIf="this.cropPayment?.cropOrder?.sellCropDetail?.postAdvertisementResponse?.isFinalOfferAccepted" class="text-success">Transaction is already completed.</label>
               </div>
             </form>
           </div>
