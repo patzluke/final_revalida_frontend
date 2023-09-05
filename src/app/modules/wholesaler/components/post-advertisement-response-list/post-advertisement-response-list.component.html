@@ -116,6 +116,7 @@
 
             <i class="pull-right">
               <button
+                [disabled]="response.isFinalOfferAccepted"
                 pButton
                 [ngClass]="{
                   'offer-btn': response.isAccepted,
