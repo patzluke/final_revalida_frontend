@@ -55,7 +55,7 @@
               </div>
               <div class="mb-3">
                 <label for="formFileSm" class="form-label text-white">Upload Your Proof of Payment:</label>
-                <input class="form-control" type="file" id="formFile">
+                <input [disabled]="this.cropPayment?.cropOrder?.sellCropDetail?.postAdvertisementResponse?.isFinalOfferAccepted" class="form-control" type="file" id="formFile">
               </div>
               <div class="mb-3">
                 <button [disabled]="this.cropPayment?.cropOrder?.sellCropDetail?.postAdvertisementResponse?.isFinalOfferAccepted" class="btn btn-primary w-100" (click)="submitPayment()">Submit</button>
