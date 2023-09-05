@@ -14,6 +14,8 @@ import { ViewReportComponent } from './components/view-report/view-report.compon
 import { ProfileComponent } from './components/profile/profile.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { FarmingTipComponent } from './components/farming-tip/farming-tip.component';
+import { ViewFarmingTipComponent } from './components/farming-tip/pages/view-farming-tip/view-farming-tip.component';
 
 const routes: Routes = [
   {
@@ -71,7 +73,15 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
-  }
+  },
+  {
+    path: 'farming-tips',
+    component: FarmingTipComponent,
+  },
+  {
+    path: 'farming-tips/view',
+    component: ViewFarmingTipComponent,
+  },
 ];
 
 @NgModule({
@@ -79,4 +89,4 @@ const routes: Routes = [
   imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class FarmerRoutingModule { }
+export class FarmerRoutingModule {}

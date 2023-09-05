@@ -1,2 +1,121 @@
 <app-header> </app-header>
-<p>farming-tips works!</p>
+<section>
+  <div class="container" data-aos="fade-right" data-aos-duration="333">
+    <div style="margin-bottom: 3rem">
+      <p class="h1 mb-3 title">FARMING TIPS</p>
+    </div>
+    <div class="filter-container">
+      <div class="search-container">
+        <span class="p-input-icon-left" style="width: 100%">
+          <i class="pi pi-search"></i>
+          <input
+            style="width: 100%"
+            type="text"
+            pInputText
+            placeholder="Search"
+            (keyup)="applyFilter($event)"
+            #input
+          />
+        </span>
+      </div>
+
+      <div class="right-filter">
+        <div class="dropdown-container">
+          <p-dropdown
+            [options]="sortingOptions"
+            [(ngModel)]="selectedSortingOption"
+            placeholder="Sort"
+            (ngModelChange)="sortFarmingTips()"
+            dropdownIcon="pi pi-sort-alt"
+          ></p-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-container">
+      <div
+        class="card cus-card"
+        *ngFor="let tips of filteredFarmingTips.slice(startIndex(), endIndex())"
+      >
+        <div class="tip-image-container">
+          <img
+            class="tip-image"
+            [src]="tips.image || 'assets/images/farm4.jpg'"
+          />
+        </div>
+        <div class="date-container" style="display: flex; flex-direction: row">
+          <mat-divider class="cus-divider"></mat-divider>
+          <h3>{{ tips.dateCreated | date : "MM/dd/yy" }}</h3>
+          <mat-divider class="cus-divider"></mat-divider>
+        </div>
+        <div class="title-container">
+          <h1>
+            {{ tips.title | slice : 0 : 50
+            }}<span *ngIf="tips.title.length > 50">...</span>
+          </h1>
+        </div>
+        <mat-divider
+          class="cus-divider"
+          style="align-self: center; width: 7rem"
+        ></mat-divider>
+        <div class="tip-des">
+          <p>
+            {{ tips.description | slice : 0 : 120
+            }}<span *ngIf="tips.description.length > 120">...</span>
+          </p>
+        </div>
+        <div class="action-container">
+          <button
+            pButton
+            class="seemore-btn"
+            (click)="viewTip(tips.farmingTipId)"
+          >
+            See more
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="isSearchResultEmpty || filteredFarmingTips.length === 0"
+      class="no-info"
+    >
+      <img class="no-info-image" src="assets/images/no-result.png" />
+      <div class="no-info-text">
+        <h1>No results found</h1>
+        <p>We couldn't find what you searched for.</p>
+        <p>Try searching again.</p>
+      </div>
+    </div>
+
+    <div class="pagination pagination-md justify-content-end">
+      <li class="page-item">
+        <button
+          class="page-link"
+          [disabled]="currentPage === 1"
+          (click)="changePage(currentPage - 1)"
+        >
+          Previous
+        </button>
+      </li>
+      <li class="page-item">
+        <button class="page-link" disabled>
+          {{ currentPage }}
+        </button>
+      </li>
+
+      <li class="page-item">
+        <button
+          class="page-link"
+          [disabled]="endIndex() >= farmingTips.length"
+          (click)="changePage(currentPage + 1)"
+        >
+          Next
+        </button>
+      </li>
+    </div>
+  </div>
+</section>
+
+<div class="wave-container2"></div>
+<app-footer></app-footer>

@@ -28,8 +28,8 @@ export class CropAdvertisementsComponent implements OnInit {
   sortingOptions = [
     { label: 'Sort A-Z', value: 'asc' },
     { label: 'Sort Z-A', value: 'desc' },
-    { label: 'Newest to Oldest', value: 'newest' }, // Newest to oldest
-    { label: 'Oldest to Newest', value: 'oldest' }, // Oldest to newest
+    { label: 'Newest to Oldest', value: 'newest' },
+    { label: 'Oldest to Newest', value: 'oldest' },
   ];
 
   measurementOptions = [
@@ -129,10 +129,10 @@ export class CropAdvertisementsComponent implements OnInit {
       });
     });
 
-    this.selectCropSpecializations$.subscribe((data) => {
-      data.map((specialization) => {
-        this.cropTypes.push(specialization);
-      });
+    this.selectCropSpecializations$.subscribe({
+      next: (data) => {
+        this.cropTypes = data;
+      },
     });
 
     // console.log('post advertisements', this.advertisements);
