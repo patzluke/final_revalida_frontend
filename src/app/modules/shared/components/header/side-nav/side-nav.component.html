@@ -156,6 +156,16 @@
               >{{ (selectUserNotifications$ | async)?.length }}</span
             >
           </a>
+
+          <a
+            mat-list-item
+            routerLink="/farmer/farming-tips"
+            routerLinkActive="router-link-active"
+          >
+            <i class="pi pi-sun nav-icon"></i>
+            <span class="white-text">Farming Tips</span>
+          </a>
+
           <a
             mat-list-item
             routerLink="/farmer/profile"
@@ -175,8 +185,8 @@
           </a>
 
           <a
+            style="margin-top: 5rem"
             mat-list-item
-            class="logout"
             routerLink="/login"
             (click)="logout()"
           >
@@ -386,6 +396,16 @@
           (selectUserNotifications$ | async)?.length
         }}</span>
       </a>
+
+      <a
+        mat-list-item
+        routerLink="/farmer/farming-tips"
+        routerLinkActive="router-link-active"
+      >
+        <i class="pi pi-sun nav-icon"></i>
+        <span class="white-text">Farming Tips</span>
+      </a>
+
       <a
         mat-list-item
         routerLink="/farmer/profile"
@@ -394,7 +414,12 @@
         <i class="pi pi-user nav-icon"></i>
         <span class="white-text">Profile</span>
       </a>
-      <a mat-list-item class="logout" routerLink="/login" (click)="logout()">
+      <a
+        mat-list-item
+        style="margin-top: 5rem"
+        routerLink="/login"
+        (click)="logout()"
+      >
         <i class="pi pi-sign-out nav-icon"></i>
         <span class="white-text">Logout</span>
       </a>

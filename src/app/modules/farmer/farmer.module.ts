@@ -52,6 +52,10 @@ import { CropPaymentEffects } from './states/crop-payment-state/crop-payment.eff
 import { NotificationsComponent } from './components/notifications/notifications.component';
 
 import { TooltipModule } from 'primeng/tooltip';
+import { FarmingTipComponent } from './components/farming-tip/farming-tip.component';
+import { ViewFarmingTipComponent } from './components/farming-tip/pages/view-farming-tip/view-farming-tip.component';
+import { farmingTipReducer } from './states/farmingtip-state/farmingtip.reducer';
+import { FarmingTipEffects } from './states/farmingtip-state/farmingtip.effects';
 
 @NgModule({
   declarations: [
@@ -67,7 +71,9 @@ import { TooltipModule } from 'primeng/tooltip';
     ViewReportComponent,
     ProfileComponent,
     CoursesComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    FarmingTipComponent,
+    ViewFarmingTipComponent,
   ],
   imports: [
     CommonModule,
@@ -104,6 +110,7 @@ import { TooltipModule } from 'primeng/tooltip';
       'postAdvertisementResponsesList (Farmer)',
       postAdvertisementResponsesReducer
     ),
+    StoreModule.forFeature('farmingTipList (Farmer Side)', farmingTipReducer),
     StoreModule.forFeature('cropSpecializationList', cropSpecializationReducer),
     StoreModule.forFeature('courseList', courseReducer),
     StoreModule.forFeature('coursesEnrolledList', coursesEnrolledReducer),
@@ -116,6 +123,7 @@ import { TooltipModule } from 'primeng/tooltip';
       CourseEffects,
       CourseEnrolledEffects,
       CropPaymentEffects,
+      FarmingTipEffects,
     ]),
     FontAwesomeModule,
   ],

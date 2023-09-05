@@ -120,6 +120,14 @@
   background: #18332f;
 }
 
+.user-image {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 100%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
 @media (max-width: 600px) {
   .search-container {
     display: block;
