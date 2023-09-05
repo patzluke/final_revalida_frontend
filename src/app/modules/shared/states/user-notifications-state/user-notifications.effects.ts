@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap } from 'rxjs';
+import { catchError, map, mergeMap, of } from 'rxjs';
 import { SharedService } from '../../services/shared.service';
 import {
   UserNotificationsActions,
   setUserNotificationsState,
   updateUserNotificationsState,
 } from './user-notifications.actions';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class UserNotificationsEffects {
@@ -27,7 +28,12 @@ export class UserNotificationsEffects {
                 setUserNotificationsState({
                   userNotifications: userNotifications,
                 })
-              )
+              ),
+              catchError((error: HttpErrorResponse) => {
+                return of({
+                  type: UserNotificationsActions.GET_USERNOTIFICATIONS_FAILED,
+                });
+              })
             )
         )
       );

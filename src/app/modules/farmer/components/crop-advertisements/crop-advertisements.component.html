@@ -123,8 +123,9 @@
 
             <div
               *ngIf="
-                (selectPostAdvertisementResponseByPostId$(post) | async)
-                  ?.isAccepted
+                (selectPostAdvertisementResponse$(post) | async)?.isAccepted &&
+                !(selectPostAdvertisementResponse$(post) | async)
+                  ?.isFinalOfferSubmitted
               "
               class="has-offer-container"
             >
@@ -133,10 +134,26 @@
                 and place your final offer.
               </p>
             </div>
+            <div
+              *ngIf="
+                (selectPostAdvertisementResponse$(post) | async)
+                  ?.isFinalOfferSubmitted
+              "
+              class="has-offer-container"
+            >
+              <p>You've Already Submitted your final offer.</p>
+            </div>
+            <div
+              *ngIf="
+                !(selectPostAdvertisementResponse$(post) | async)?.isAccepted && (selectPostAdvertisementResponse$(post) | async)"
+              class="has-offer-container"
+            >
+              <p>Awaiting for Supplier's Acceptance approval.</p>
+            </div>
           </div>
           <div class="cta-section">
             <button
-              *ngIf="!(selectPostAdvertisementResponseByPostId$(post) | async)"
+              *ngIf="!(selectPostAdvertisementResponse$(post) | async)"
               pButton
               type="button"
               class="offer-btn"
@@ -144,14 +161,12 @@
               (click)="selectAdvertisement(post); toggleDialog()"
             ></button>
             <button
-              *ngIf="selectPostAdvertisementResponseByPostId$(post) | async"
+              *ngIf="selectPostAdvertisementResponse$(post) | async"
               pButton
               type="button"
               class="offer-btn"
               label="VIEW OFFER"
-              (click)="
-                toggleViewOffer(selectPostAdvertisementResponseByPostId$(post))
-              "
+              (click)="toggleViewOffer(selectPostAdvertisementResponse$(post))"
             ></button>
           </div>
         </div>
@@ -336,7 +351,7 @@
     </div>
     <div class="pending-text">
       <p *ngIf="!finalOfferForm.controls['isAccepted'].getRawValue()">
-        Supplier hasn't accepted your offer yet.
+        Supplier has either withrawn or hasn't accepted your offer yet.
       </p>
     </div>
 
@@ -349,6 +364,7 @@
         label="Edit"
         pButton
         (click)="toggleEditFinalOffer()"
+        [disabled]="!postAdvertisementResponse?.isAccepted || postAdvertisementResponse?.isFinalOfferSubmitted"
       ></button>
     </div>
 
@@ -535,7 +551,7 @@
       </button>
       <button
         pButton
-        [disabled]="!finalOfferForm.controls['isAccepted'].getRawValue()"
+        [disabled]="!postAdvertisementResponse?.isAccepted || postAdvertisementResponse?.isFinalOfferSubmitted"
         class="submit-btn"
         (click)="submitFinalOffer()"
       >

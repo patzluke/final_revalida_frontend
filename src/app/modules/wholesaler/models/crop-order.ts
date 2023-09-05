@@ -10,5 +10,5 @@ export interface CropOrder {
   sellCropDetail: SellCropDetails;
   supplier: Supplier;
   cropPayments?: Array<CropPayment>;
-  cancelReason: string
+  cancelReason: string;
 }

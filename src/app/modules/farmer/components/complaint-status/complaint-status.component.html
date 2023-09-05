@@ -77,23 +77,16 @@
 
             <td>
               <span class="ml-1 vertical-align-middle">
-                <ng-template
-                  class="status-text"
-                  *ngIf="farmerComplaints.isRead; else notRead"
-                >
-                  Read
-                </ng-template>
-                <ng-template #notRead>Not yet read</ng-template>
+                <p class="status-text" *ngIf="farmerComplaints.isRead">Read</p>
+                <p class="status-text" *ngIf="!farmerComplaints.isRead">
+                  Not Yet Read
+                </p>
               </span>
             </td>
             <td>
               <span class="ml-1 vertical-align-middle">
-                <ng-template
-                  *ngIf="farmerComplaints.isResolved; else notResolved"
-                >
-                  Resolved
-                </ng-template>
-                <ng-template #notResolved>Not yet resolved</ng-template>
+                <p *ngIf="farmerComplaints.isResolved">Resolved</p>
+                <p *ngIf="!farmerComplaints.isResolved">Not yet resolved</p>
               </span>
             </td>
             <td>
