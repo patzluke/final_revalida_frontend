@@ -133,6 +133,17 @@ section {
   width: 100%;
 }
 
+::ng-deep .spec-field .p-dropdown,
+::ng-deep .spec-field .p-password,
+::ng-deep .spec-field .p-calendar {
+  border: 1px solid red;
+  border-radius: 5px;
+}
+
+::ng-deep .p-dropdown {
+  width: 100%;
+}
+
 @media (max-width: 600px) {
   .search-container {
     display: block;
