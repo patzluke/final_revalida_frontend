@@ -13,7 +13,10 @@ import { CropSpecialization } from '../../models/crop-specialization';
 import { selectPostAdvertisementResponseByPostId } from '../../states/postadvertisement-responses-state/postadvertisement-responses.selectors';
 import { Observable } from 'rxjs';
 import { CropPaymentActions } from '../../states/crop-payment-state/crop-payment.actions';
-import { selectCropPaymentByFarmerIdAndPostResponseId, selectCropPayments } from '../../states/crop-payment-state/crop-payment.selectors';
+import {
+  selectCropPaymentByFarmerIdAndPostResponseId,
+  selectCropPayments,
+} from '../../states/crop-payment-state/crop-payment.selectors';
 
 @Component({
   selector: 'app-crop-advertisements',
@@ -60,7 +63,6 @@ export class CropAdvertisementsComponent implements OnInit {
       )
     );
   };
-  
 
   selectPostAdvertisementResponseByPostId$ = (postId: number) => {
     return this.store.select(
@@ -287,17 +289,24 @@ export class CropAdvertisementsComponent implements OnInit {
   openViewOfferDialog: boolean = false;
   editFinalOffer: boolean = false;
 
-
   postAdvertisementResponse?: PostAdvertisementResponse;
   toggleViewOffer = (
     postAdvertisementResponse: Observable<PostAdvertisementResponse | undefined>
   ) => {
     postAdvertisementResponse.forEach((data) => {
-      this.store.select(selectCropPaymentByFarmerIdAndPostResponseId(data?.farmer?.farmerId as number, data?.postResponseId as number)).forEach(data => {
-        this.finalOfferForm.patchValue({
-          mobilenumBanknumber: data?.cropOrder.sellCropDetail.mobilenumBanknumber,
+      this.store
+        .select(
+          selectCropPaymentByFarmerIdAndPostResponseId(
+            data?.farmer?.farmerId as number,
+            data?.postResponseId as number
+          )
+        )
+        .forEach((data) => {
+          this.finalOfferForm.patchValue({
+            mobilenumBanknumber:
+              data?.cropOrder.sellCropDetail.mobilenumBanknumber,
+          });
         });
-      })
       this.postAdvertisementResponse = data as PostAdvertisementResponse;
       this.finalOfferForm.patchValue({
         cropName: data?.postAdvertisement?.cropName,
@@ -365,4 +374,36 @@ export class CropAdvertisementsComponent implements OnInit {
       });
     }
   };
+
+  checkFbSocial(post: PostAdvertisement) {
+    return post?.supplier?.user?.socials.find((social) =>
+      social.includes('facebook') ? true : false
+    )
+      ? true
+      : false;
+  }
+
+  selectFbSocial(post: PostAdvertisement) {
+    return (
+      (post?.supplier?.user?.socials.find((social) =>
+        social.includes('facebook') ? true : false
+      ) as string) || 'https://www.facebook.com/'
+    );
+  }
+
+  checkIGSocial(post: PostAdvertisement) {
+    return post?.supplier?.user?.socials.find((social) =>
+      social.includes('instagram') ? true : false
+    )
+      ? true
+      : false;
+  }
+
+  selectIGSocial(post: PostAdvertisement) {
+    return (
+      (post?.supplier?.user?.socials.find((social) =>
+        social.includes('instagram') ? true : false
+      ) as string) || 'https://www.instagram.com/'
+    );
+  }
 }
