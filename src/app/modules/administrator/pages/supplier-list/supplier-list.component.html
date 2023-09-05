@@ -11,6 +11,113 @@
       </div>
 
       <p-tabView>
+        <p-tabPanel header="All Supplier Accounts">
+          <div class="search-container">
+            <span class="p-input-icon-left search-input" style="width: 100%">
+              <i class="pi pi-search"></i>
+              <input
+                style="width: 100%"
+                #pInputText
+                pInputText
+                type="text"
+                (input)="dt1.filterGlobal(pInputText.value, 'contains')"
+                placeholder="Search keyword"
+              />
+            </span>
+          </div>
+
+          <p-table
+            #dt1
+            [value]="(selectSuppliersValidated$ | async)!"
+            dataKey="id"
+            [rows]="10"
+            [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10, 15, 20]"
+            [loading]="loading"
+            [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="[
+              'user.lastName',
+              'user.firstName',
+              'user.middleName',
+              'user.email'
+            ]"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="min-width: 7rem">
+                  <div class="th-text">Image</div>
+                </th>
+
+                <th style="min-width: 15rem">
+                  <div class="th-text">Supplier Name</div>
+                </th>
+                <th style="min-width: 15rem">
+                  <div class="th-text">Email</div>
+                </th>
+                <th style="min-width: 15rem">
+                  <div class="th-text">Status</div>
+                </th>
+                <th style="min-width: 10rem">
+                  <div class="th-text">Action</div>
+                </th>
+              </tr></ng-template
+            >
+
+            <ng-template pTemplate="body" let-farmer>
+              <tr>
+                <td style="width: 25%; text-align: center">
+                  <img
+                    class="user-image"
+                    [src]="farmer.user.image || 'assets/images/user-icon.png'"
+                  />
+                </td>
+                <td style="width: 25%">
+                  <span class="ml-1 vertical-align-middle"
+                    >{{ farmer.user.lastName }}
+                    {{ farmer.user.firstName }}
+                    {{ farmer.user.middleName }}</span
+                  >
+                </td>
+
+                <td style="width: 25%">
+                  {{ farmer.user.email }}
+                </td>
+
+                <td style="width: 25%">
+                  {{
+                    farmer.user.isValidated ? "Verified" : "Not Yet Verified"
+                  }}
+                </td>
+                <td style="width: 25%">
+                  <p-button
+                    (click)="selectSupplierToVerify(farmer); toggleViewModal()"
+                    type="button"
+                    pTooltip="View Details"
+                    tooltipPosition="bottom"
+                    styleClass="p-button-rounded p-button-text"
+                    ><span class="material-symbols-outlined"> visibility </span>
+                  </p-button>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="7">
+                  <div class="no-info">
+                    <img
+                      class="no-info-image"
+                      src="assets/images/no-result.png"
+                    />
+                    <div class="no-info-text">
+                      <h1>No results found.</h1>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-tabPanel>
         <p-tabPanel header="For Account Verification">
           <div class="search-container">
             <span class="p-input-icon-left search-input" style="width: 100%">
@@ -115,9 +222,9 @@
   </section>
 </app-side-nav>
 
-<!-- modal -->
+<!--vefiry account modal -->
 <p-dialog
-  header="Verify farmer account"
+  header="Verify supplier account"
   [modal]="true"
   [(visible)]="isVerfiyToggle"
   [style]="{ width: '50vw' }"
@@ -245,6 +352,138 @@
       </button>
       <button pButton class="submit-btn" (click)="verifyAccount()">
         Verify
+      </button>
+    </div>
+  </div>
+</p-dialog>
+
+<!--View account modal -->
+<p-dialog
+  header="View supplier account"
+  [modal]="true"
+  [(visible)]="isViewToggle"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [maximizable]="true"
+>
+  <div class="container">
+    <section style="background-color: #eee">
+      <div class="container py-5">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card mb-4">
+              <div class="card-body text-center">
+                <img
+                  [src]="
+                    selectedSupplierToVerify?.user?.image ||
+                    'assets/images/user-icon.png'
+                  "
+                  alt="avatar"
+                  class="rounded-circle img-fluid"
+                  style="width: 150px"
+                />
+                <p
+                  *ngIf="selectedSupplierToVerify?.user?.validIdPicture"
+                  class="text-muted mt-4"
+                >
+                  <a
+                    href="{{ selectedSupplierToVerify?.user?.validIdPicture }}"
+                    target="_blank"
+                    >view submitted valid ID</a
+                  >
+                </p>
+                <p
+                  *ngIf="!selectedSupplierToVerify?.user?.validIdPicture"
+                  class="text-muted mt-4"
+                >
+                  No Submitted ID yet
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="card mb-4">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p class="mb-0">First Name</p>
+                  </div>
+                  <div class="col-sm-8">
+                    <p class="text-muted mb-0">
+                      {{ selectedSupplierToVerify?.user?.firstName }}
+                    </p>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p class="mb-0">Middle Name</p>
+                  </div>
+                  <div class="col-sm-8">
+                    <p class="text-muted mb-0">
+                      {{ selectedSupplierToVerify?.user?.middleName }}
+                    </p>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p class="mb-0">Last Name</p>
+                  </div>
+                  <div class="col-sm-8">
+                    <p class="text-muted mb-0">
+                      {{ selectedSupplierToVerify?.user?.lastName }}
+                    </p>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Email</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">
+                      {{ selectedSupplierToVerify?.user?.email }}
+                    </p>
+                  </div>
+                </div>
+
+                <hr />
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Mobile</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">
+                      {{ selectedSupplierToVerify?.user?.contactNo }}
+                    </p>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Address</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">
+                      {{ selectedSupplierToVerify?.user?.address }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="action-container">
+      <button
+        pButton
+        class="p-button-outlined p-button-secondary cancel-btn"
+        (click)="toggleViewModal()"
+      >
+        Close
       </button>
     </div>
   </div>

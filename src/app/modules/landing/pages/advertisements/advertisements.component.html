@@ -39,6 +39,7 @@
             [(ngModel)]="selectedCropTypes"
             (ngModelChange)="filterAdvertisementsByType()"
             dropdownIcon="pi pi-filter"
+            [filter]="false"
           ></p-multiSelect>
         </div>
       </div>
@@ -67,7 +68,7 @@
               {{ post.supplier?.user?.lastName }}
             </p>
             <p>
-              <i class="pi pi-calendar" style="margin-right: 1rem"></i
+              <i class="pi pi-calendar" style="margin-right: 0.5rem"></i
               >{{ post.datePosted | date : "MMM dd, yyyy hh:mm a" }}
             </p>
           </div>
@@ -126,13 +127,15 @@
             class="offer-btn"
             label="OFFER"
             [routerLink]="['/login']"
-            (click)="toggleDialog()"
           ></button>
         </div>
       </div>
     </div>
 
-    <div *ngIf="isSearchResultEmpty" class="no-info">
+    <div
+      *ngIf="isSearchResultEmpty || filteredAdvertisements.length === 0"
+      class="no-info"
+    >
       <img class="no-info-image" src="assets/images/no-result.png" />
       <div class="no-info-text">
         <h1>No results found</h1>

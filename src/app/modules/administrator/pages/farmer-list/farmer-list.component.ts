@@ -22,6 +22,7 @@ export class FarmerListComponent implements OnInit {
   loading: boolean = true;
 
   farmers: Farmer[] = [];
+  verifiedFarmers: Farmer[] = [];
 
   selectedReadDate: string | undefined = '';
   selectedFarmerToVerify?: Farmer;
@@ -54,6 +55,14 @@ export class FarmerListComponent implements OnInit {
     this.selectFarmersValidated$.subscribe({
       next: (data) => {
         this.farmers = data;
+        this.loading = false;
+        console.log(data);
+      },
+    });
+
+    this.selectFarmersValidated$.subscribe({
+      next: (data) => {
+        this.verifiedFarmers = data;
         this.loading = false;
         console.log(data);
       },
@@ -101,6 +110,11 @@ export class FarmerListComponent implements OnInit {
   selectFarmerToVerify(farmer: Farmer) {
     this.selectedFarmerToVerify = farmer;
   }
+
+  isViewToggle: boolean = false;
+  toggleViewModal = () => {
+    this.isViewToggle = !this.isViewToggle;
+  };
 
   isVerfiyToggle: boolean = false;
   toggleVerifyModal = () => {

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FarmingTip } from '../../models/farming-tip';
-import { Store } from '@ngrx/store';
-import { selectFarmingTips } from '../../states/farmingtips-state/farmingtips.selectors';
-import { FarmingTipsActions } from '../../states/farmingtips-state/farmingtips.actions';
+import { FarmingTip } from '../../models/farmingTip';
+import { selectFarmingTips } from '../../states/farmingtip-state/farmingtip.selectors';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { FarmingTipActions } from '../../states/farmingtip-state/farmingtip.actions';
 
 @Component({
-  selector: 'app-farming-tips',
-  templateUrl: './farming-tips.component.html',
-  styleUrls: ['./farming-tips.component.scss'],
+  selector: 'app-farming-tip',
+  templateUrl: './farming-tip.component.html',
+  styleUrls: ['./farming-tip.component.scss'],
 })
-export class FarmingTipsComponent implements OnInit {
+export class FarmingTipComponent implements OnInit {
   farmingTips: FarmingTip[] = [];
   filteredFarmingTips: FarmingTip[] = [];
   // selectors
@@ -22,7 +22,7 @@ export class FarmingTipsComponent implements OnInit {
     window.scrollTo(0, 0);
 
     this.store.dispatch({
-      type: FarmingTipsActions.GET_FARMINGTIPS,
+      type: FarmingTipActions.GET_FARMINGTIPS,
     });
 
     this.selectFarmingTips$.subscribe((data) => {
@@ -50,8 +50,8 @@ export class FarmingTipsComponent implements OnInit {
     this.currentPage = newPage;
   }
 
-  viewTip = (tipId: number) => {
-    this.router.navigate([`/farming-tips/view`], {
+  viewTip = (tipId: any) => {
+    this.router.navigate([`/farmer/farming-tips/view`], {
       queryParams: { tip: tipId },
     });
   };
