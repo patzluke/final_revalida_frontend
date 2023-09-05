@@ -52,7 +52,7 @@
 .sidebar {
   background-color: #18332f;
   color: #fff;
-  overflow-y: hidden;
+  overflow-y: scroll;
   overflow-x: hidden;
   height: 100%;
   //position: sticky;
@@ -63,6 +63,7 @@
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
+  display: none;
   /* Adjust the width as per your preference */
 }
 
@@ -353,22 +354,22 @@ span {
 
 .sidebar-collapsed .router-link-active {
   background-color: #8da17f;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-  margin-left: -1.5rem;
-  padding-left: 2.5rem;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-left: -2rem;
+  padding-left: 3rem;
   left: 0;
   width: 130%;
 }
 
 .sidebar-expanded .router-link-active {
   background-color: #8da17f;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-  margin-left: -1.5rem;
-  padding-left: 2.5rem;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-left: -2rem;
+  padding-left: 3rem;
   left: 0;
-  width: 115%;
+  width: 100%;
 }
 
 .sidebar-expanded .router-link-active .nav-icon {

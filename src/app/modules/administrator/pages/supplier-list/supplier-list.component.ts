@@ -52,6 +52,11 @@ export class SupplierListComponent implements OnInit {
     this.selectedSupplierToVerify = supplier;
   }
 
+  isViewToggle: boolean = false;
+  toggleViewModal = () => {
+    this.isViewToggle = !this.isViewToggle;
+  };
+
   isVerfiyToggle: boolean = false;
   toggleVerifyModal = () => {
     this.isVerfiyToggle = !this.isVerfiyToggle;
