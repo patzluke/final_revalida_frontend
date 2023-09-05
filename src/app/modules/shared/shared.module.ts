@@ -17,6 +17,7 @@ import { StoreModule } from '@ngrx/store';
 import { userNotificationsReducer } from './states/user-notifications-state/user-notifications.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { UserNotificationsEffects } from './states/user-notifications-state/user-notifications.effects';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { UserNotificationsEffects } from './states/user-notifications-state/user
     FooterComponent,
     SideNavComponent,
     LoaderComponent,
+    ErrorPageComponent,
   ],
   imports: [
     CommonModule,

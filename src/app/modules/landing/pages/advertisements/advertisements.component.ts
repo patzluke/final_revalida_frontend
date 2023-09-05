@@ -23,6 +23,8 @@ export class AdvertisementsComponent implements OnInit {
   sortingOptions = [
     { label: 'Sort A-Z', value: 'asc' },
     { label: 'Sort Z-A', value: 'desc' },
+    { label: 'Newest to Oldest', value: 'newest' },
+    { label: 'Oldest to Newest', value: 'oldest' },
   ];
 
   measurementOptions = [
@@ -61,10 +63,10 @@ export class AdvertisementsComponent implements OnInit {
       });
     });
 
-    this.selectCropSpecializations$.subscribe((data) => {
-      data.map((specialization) => {
-        this.cropTypes.push(specialization);
-      });
+    this.selectCropSpecializations$.subscribe({
+      next: (data) => {
+        this.cropTypes = data;
+      },
     });
 
     console.log('post advertisements', this.advertisements);
@@ -143,6 +145,18 @@ export class AdvertisementsComponent implements OnInit {
       this.filteredAdvertisements.sort((a, b) =>
         b.cropName.localeCompare(a.cropName)
       );
+    } else if (this.selectedSortingOption === 'newest') {
+      this.filteredAdvertisements.sort((a, b) => {
+        const aDate = a.datePosted ? new Date(a.datePosted).getTime() : 0;
+        const bDate = b.datePosted ? new Date(b.datePosted).getTime() : 0;
+        return bDate - aDate;
+      });
+    } else if (this.selectedSortingOption === 'oldest') {
+      this.filteredAdvertisements.sort((a, b) => {
+        const aDate = a.datePosted ? new Date(a.datePosted).getTime() : 0;
+        const bDate = b.datePosted ? new Date(b.datePosted).getTime() : 0;
+        return aDate - bDate;
+      });
     }
   }
 }

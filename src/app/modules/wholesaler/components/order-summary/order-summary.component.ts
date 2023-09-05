@@ -1,42 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PostAdvertisementResponse } from '../../models/post-advertisement-response';
+import { CropPayment } from '../../models/crop-payment';
+import { Store } from '@ngrx/store';
+import { CropPaymentActions } from '../../states/crop-payment-state/crop-payment.actions';
 
 @Component({
   selector: 'app-order-summary',
   templateUrl: './order-summary.component.html',
-  styleUrls: ['./order-summary.component.scss']
+  styleUrls: ['./order-summary.component.scss'],
 })
-export class OrderSummaryComponent {
-
-  totalPrice?: number;
-
-  getTotalPrice(): number {
-    let totalPrice = 0;
-    for (const order of this.orders) {
-      totalPrice += order.price * order.quantity;
-    }
-    return totalPrice;
+export class OrderSummaryComponent implements OnInit {
+  cropPayment?: CropPayment;
+  farmerName = '';
+  constructor(private store: Store) {
+    this.cropPayment = history.state.cropPayment;
+    this.farmerName = `${this.cropPayment?.cropOrder.sellCropDetail.farmer.user.firstName} ${this.cropPayment?.cropOrder.sellCropDetail.farmer.user.lastName}`;
   }
 
-  orders: {
-    id: number,
-    cropName: string,
-    price: number,
-    quantity: number
-  }[] = [{
-    id: 1,
-    cropName: "Corn",
-    price: 100,
-    quantity: 10
-  }, {
-    id: 2,
-    cropName: "Potato",
-    price: 200,
-    quantity: 20
-  }, {
-    id: 3,
-    cropName: "Oat",
-    price: 300,
-    quantity: 30
+  ngOnInit(): void {}
+
+  submitPayment() {
+    let updatedCropPayment = { ...this.cropPayment, userId: 0, proofOfPaymentImage: '', postResponseId : this.cropPayment?.cropOrder.sellCropDetail.postAdvertisementResponse.postResponseId };
+    updatedCropPayment.userId = localStorage.getItem('userId') as any;
+
+    this.store.dispatch({
+      type: CropPaymentActions.UPDATE_CROPPAYMENT,
+      cropPayment: updatedCropPayment,
+    });
+
+    //must be redirected to the Crop orders list
   }
-    ]
 }

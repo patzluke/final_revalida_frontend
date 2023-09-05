@@ -118,7 +118,6 @@
             routerLinkActive="router-link-active"
             class="mt-1"
           >
-            <i class="pi pi-bell nav-icon"></i>
             <i class="pi pi-exclamation-circle nav-icon"></i>
             <span class="white-text">Your Complaints</span>
           </a>
@@ -157,6 +156,16 @@
               >{{ (selectUserNotifications$ | async)?.length }}</span
             >
           </a>
+
+          <a
+            mat-list-item
+            routerLink="/farmer/farming-tips"
+            routerLinkActive="router-link-active"
+          >
+            <i class="pi pi-sun nav-icon"></i>
+            <span class="white-text">Farming Tips</span>
+          </a>
+
           <a
             mat-list-item
             routerLink="/farmer/profile"
@@ -176,8 +185,8 @@
           </a>
 
           <a
+            style="margin-top: 5rem"
             mat-list-item
-            class="logout"
             routerLink="/login"
             (click)="logout()"
           >
@@ -206,6 +215,7 @@
             <i class="pi pi-user nav-icon"></i>
             <span class="white-text">Profile</span>
           </a>
+<<<<<<< HEAD
 
           <a
             mat-list-item
@@ -224,6 +234,8 @@
             <span class="white-text">Order Summary</span>
           </a>
 
+=======
+>>>>>>> 1c4fa9afaf7653d79f62415ed07f86d9a614a33d
           <a
             mat-list-item
             class="logout"
@@ -378,11 +390,7 @@
         routerLinkActive="router-link-active"
         class="mt-1"
       >
-        <<<<<<< HEAD
-        <i class="pi pi-bell nav-icon"></i>
-        =======
         <i class="pi pi-exclamation-circle nav-icon"></i>
-        >>>>>>> 57156bd07633e011084b31c1a9468906f1c6512c
         <span class="white-text">Your Complaints</span>
       </a>
       <a
@@ -409,6 +417,16 @@
           (selectUserNotifications$ | async)?.length
         }}</span>
       </a>
+
+      <a
+        mat-list-item
+        routerLink="/farmer/farming-tips"
+        routerLinkActive="router-link-active"
+      >
+        <i class="pi pi-sun nav-icon"></i>
+        <span class="white-text">Farming Tips</span>
+      </a>
+
       <a
         mat-list-item
         routerLink="/farmer/profile"
@@ -417,7 +435,12 @@
         <i class="pi pi-user nav-icon"></i>
         <span class="white-text">Profile</span>
       </a>
-      <a mat-list-item class="logout" routerLink="/login" (click)="logout()">
+      <a
+        mat-list-item
+        style="margin-top: 5rem"
+        routerLink="/login"
+        (click)="logout()"
+      >
         <i class="pi pi-sign-out nav-icon"></i>
         <span class="white-text">Logout</span>
       </a>

@@ -77,23 +77,16 @@
 
             <td>
               <span class="ml-1 vertical-align-middle">
-                <ng-template
-                  class="status-text"
-                  *ngIf="farmerComplaints.isRead; else notRead"
-                >
-                  Read
-                </ng-template>
-                <ng-template #notRead>Not yet read</ng-template>
+                <p class="status-text" *ngIf="farmerComplaints.isRead">Read</p>
+                <p class="status-text" *ngIf="!farmerComplaints.isRead">
+                  Not Yet Read
+                </p>
               </span>
             </td>
             <td>
               <span class="ml-1 vertical-align-middle">
-                <ng-template
-                  *ngIf="farmerComplaints.isResolved; else notResolved"
-                >
-                  Resolved
-                </ng-template>
-                <ng-template #notResolved>Not yet resolved</ng-template>
+                <p *ngIf="farmerComplaints.isResolved">Resolved</p>
+                <p *ngIf="!farmerComplaints.isResolved">Not yet resolved</p>
               </span>
             </td>
             <td>
@@ -101,7 +94,7 @@
                 farmerComplaints.dateSubmitted | date : "MMMM d, yyyy HH:mm a"
               }}</span>
             </td>
-            <td class="text-center" style="width: 5%">
+            <td style="width: 5%">
               <p-button
                 type="button"
                 data-bs-target="#editFarmingTip"
@@ -283,9 +276,13 @@
             <label>Evidence/Image</label>
             <div class="evidence-image-container">
               <img
+                *ngIf="selectedFarmerComplaint?.image"
                 class="evidence-image"
                 [src]="selectedFarmerComplaint?.image"
               />
+              <p *ngIf="!selectedFarmerComplaint?.image">
+                No evidence/image provided.
+              </p>
             </div>
           </div>
         </form>

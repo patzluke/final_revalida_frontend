@@ -1,63 +1,73 @@
-<div class="mainBg">
-  <div class="main">
-    <div class="container mt-5 mb-5 shadow">
-      <div class="row">
-        <div class="col p-5">
-          <p class="h2">ORDER SUMMARY</p>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Crop name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let order of orders">
-                <td>{{ order.cropName }}</td>
-                <td>{{ order.price }}</td>
-                <td>{{ order.quantity }}</td>
-              </tr>
-            </tbody>
-          </table>
+<app-side-nav>
+  <div class="mainBg">
+    <div class="main">
+      <div class="container mt-5 mb-5 shadow">
+        <div class="row">
+          <div class="col p-5">
+            <p class="h2">ORDER SUMMARY</p>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Crop name</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ cropPayment?.cropOrder?.sellCropDetail?.cropName }}</td>
+                  <td>{{ cropPayment?.cropOrder?.sellCropDetail?.quantity }}</td>
+                </tr>
+              </tbody>
+            </table>
 
-          <div class="mt-5 d-flex flex-row-reverse">
-            <p>
-              TOTAL:
-              <b> {{ getTotalPrice() | currency : "PHP" }}</b>
-            </p>
+            <div class="mt-5 d-flex flex-row-reverse">
+              <p>
+                TOTAL:
+                <b> {{ cropPayment?.cropOrder?.sellCropDetail?.price | currency : "PHP" }}</b>
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4 bg-dark p-5">
+            <p class="h2 text-light">PAYMENT DETAILS</p>
+            <form>
+              <div class="mb-3">
+                <label class="form-label text-white">Farmer's Name:</label>
+                <input type="text" class="form-control" [placeholder]="farmerName" disabled />
+              </div>
+              <div class="mb-3">
+                <label *ngIf="cropPayment?.cropOrder?.sellCropDetail?.paymentMode == 'Gcash'" class="form-label text-white">Farmer's Gcash Number:</label>
+                <label *ngIf="cropPayment?.cropOrder?.sellCropDetail?.paymentMode == 'UnionBank'" class="form-label text-white">Farmer's UnionBank Number:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [placeholder]="cropPayment?.cropOrder?.sellCropDetail?.mobilenumBanknumber"
+                  disabled
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label text-white">Your Address:</label>
+                <textarea
+                  disabled
+                  type="text"
+                  class="form-control"
+                  [placeholder]="cropPayment?.cropOrder?.sellCropDetail?.farmer?.user?.address"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="formFileSm" class="form-label text-white">Upload Your Proof of Payment:</label>
+                <input [disabled]="this.cropPayment?.cropOrder?.sellCropDetail?.postAdvertisementResponse?.isFinalOfferAccepted" class="form-control" type="file" id="formFile">
+              </div>
+              <div class="mb-3">
+                <button [disabled]="this.cropPayment?.cropOrder?.sellCropDetail?.postAdvertisementResponse?.isFinalOfferAccepted" class="btn btn-primary w-100" (click)="submitPayment()">Submit</button>
+                <label *ngIf="this.cropPayment?.cropOrder?.sellCropDetail?.postAdvertisementResponse?.isFinalOfferAccepted" class="text-success">Transaction is already completed.</label>
+              </div>
+            </form>
           </div>
         </div>
-        <div class="col-md-4 bg-dark p-5">
-          <p class="h2 text-light">PAYMENT DETAILS</p>
-          <form>
-            <div class="mb-3">
-              <input type="text" class="form-control" placeholder="Name" />
-            </div>
-            <div class="mb-3">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Account Number"
-              />
-            </div>
-            <div class="mb-3">
-              <input
-                type="number"
-                class="form-control"
-                placeholder="Price to pay"
-                [value]="getTotalPrice()"
-              />
-            </div>
-            <div class="mb-3">
-              <button class="btn btn-primary w-100">Pay</button>
-            </div>
-          </form>
+        <div class="row">
+          <div class="col"></div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col"></div>
       </div>
     </div>
   </div>
-</div>
+</app-side-nav>

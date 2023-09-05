@@ -116,6 +116,7 @@
 
             <i class="pull-right">
               <button
+                [disabled]="response.isFinalOfferAccepted"
                 pButton
                 [ngClass]="{
                   'offer-btn': response.isAccepted,
@@ -143,11 +144,18 @@
               <p>{{ response.message }}</p>
             </div>
             <mat-divider class="divider"></mat-divider>
-            <div class="no-final">
-              <p>No final offer yet from the farmer.</p>
+            <div *ngIf="response.isAccepted" [ngClass]="response.isFinalOfferSubmitted ? 'final' : 'no-final'">
+              <p *ngIf="!response.isFinalOfferSubmitted">Please wait for Farmer's final offer.</p>
+              <p *ngIf="response.isFinalOfferSubmitted && !response.isFinalOfferAccepted">Farmer has already submitted their final offer. You can now proceed to accept their final offer.</p>
+              <p *ngIf="response.isFinalOfferAccepted">Transaction already completed.</p>
               <div class="final-offer-container">
-                <button pButton class="offer-btn final-btn">
-                  Accept Final Offer
+                <button
+                  [disabled]="!response.isFinalOfferSubmitted"
+                  pButton
+                  class="offer-btn final-btn"
+                  (click)="navigateToOrderSummary(response)"
+                >
+                  {{response.isFinalOfferAccepted ? 'View Summary': 'Accept Final Offer'}}
                 </button>
               </div>
             </div>

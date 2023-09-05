@@ -17,3 +17,17 @@ export const selectCropPayment = (paymentId: number) =>
       return cropPayment.paymentId == paymentId;
     })
   );
+
+export const selectCropPaymentByFarmerIdAndPostResponseId = (
+  farmerId: number,
+  postResponseId: number
+) =>
+  createSelector(selectCropPaymentState, (state: CropPaymentState) =>
+    state.cropPayments.find((cropPayment) => {
+      return (
+        cropPayment.cropOrder.sellCropDetail.farmer.farmerId == farmerId &&
+        cropPayment.cropOrder.sellCropDetail.postAdvertisementResponse
+          .postResponseId == postResponseId
+      );
+    })
+  );

@@ -6,6 +6,7 @@ import { PostAdvertisement } from '../models/post-advertisement';
 import { CropSpecialization } from '../models/crop-specialization';
 import { PostAdvertisementResponse } from '../models/post-advertisement-response';
 import { Supplier } from '../models/supplier';
+import { CropPayment } from '../models/crop-payment';
 
 @Injectable({
   providedIn: 'root',
@@ -80,6 +81,19 @@ export class SupplierService {
     return this.http.put<Supplier>(
       `${this.baseUrl}/supplier/update/supplier`,
       adminInfo
+    );
+  };
+
+  selectAllCropPaymentBySupplier = (supplierId: number) => {
+    return this.http.get<CropPayment[]>(
+      `${this.baseUrl}/supplier/get/croppayment/${supplierId}`
+    );
+  };
+
+  updateCropPaymentStatus = (cropPayment: any) => {
+    return this.http.put<CropPayment>(
+      `${this.baseUrl}/supplier/update/croppayment`,
+      cropPayment
     );
   };
 }

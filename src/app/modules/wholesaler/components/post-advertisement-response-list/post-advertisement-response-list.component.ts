@@ -2,12 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { selectPostAdvertisement } from '../../states/postadvertisement-state/postadvertisement.selectors';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { PostAdvertisement } from '../../models/post-advertisement';
 import { PostAdvertisementActionsSupplierSide } from '../../states/postadvertisement-state/postadvertisement.actions';
 import { PostAdvertisementResponsesActions } from '../../states/postadvertisement-responses-state/postadvertisement-responses.actions';
 import { selectPostAdvertisementResponses } from '../../states/postadvertisement-responses-state/postadvertisement-responses.selectors';
 import { PostAdvertisementResponse } from '../../models/post-advertisement-response';
+import { CropPaymentActions } from '../../states/crop-payment-state/crop-payment.actions';
+import {
+  selectCropPayment,
+  selectCropPayments,
+} from '../../states/crop-payment-state/crop-payment.selectors';
+import { CropPayment } from '../../models/crop-payment';
 
 @Component({
   selector: 'app-post-advertisement-response-list',
@@ -26,7 +32,8 @@ export class PostAdvertisementResponseListComponent implements OnInit {
   constructor(
     private store: Store,
     private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +62,11 @@ export class PostAdvertisementResponseListComponent implements OnInit {
           this.postAdvertisementResponses = data;
         });
     });
+
+    this.store.dispatch({
+      type: CropPaymentActions.GET_CROPPAYMENT,
+      supplierId: localStorage.getItem('userNo'),
+    });
   }
 
   updateResponseIsAcceptedStatus(
@@ -69,19 +81,32 @@ export class PostAdvertisementResponseListComponent implements OnInit {
       updatedAdvertisementResponse.isAccepted ? false : true;
     if (updatedAdvertisementResponse.isAccepted) {
       updatedAdvertisementResponse.notificationMessage =
-      `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName}, `.concat(
-        `has accepted your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`
-      );
+        `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName}, `.concat(
+          `has accepted your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`
+        );
     } else {
       updatedAdvertisementResponse.notificationMessage =
-      `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName}, `.concat(
-        `has withdrawn from your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`
-      );
+        `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName}, `.concat(
+          `has withdrawn from your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`
+        );
     }
 
     this.store.dispatch({
       type: PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES,
       postAdvertisementResponse: updatedAdvertisementResponse,
     });
+  }
+
+  navigateToOrderSummary(postAdvertisementResponse: PostAdvertisementResponse) {
+    let selectedCropPayment = {};
+    let supplierId = localStorage.getItem('userNo') as any;
+    let responseId = postAdvertisementResponse.postResponseId;
+    this.store.select(selectCropPayment(responseId, supplierId)).forEach((data) => {
+        selectedCropPayment = data as CropPayment;
+      });
+    const obj: NavigationExtras = {
+      state: { cropPayment: selectedCropPayment },
+    };
+    this._router.navigate(['/supplier/order-summary'], obj);
   }
 }

@@ -26,6 +26,9 @@ import { DialogModule } from 'primeng/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { FieldsetModule } from 'primeng/fieldset';
 import { PanelModule } from 'primeng/panel';
+import { farmingTipsReducer } from './states/farmingtips-state/farmingtips.reducer';
+import { FarmingTipsEffects } from './states/farmingtips-state/farmingtips.effects';
+import { ViewFarmingTipComponent } from './pages/farming-tips/pages/view-farming-tip/view-farming-tip.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,7 @@ import { PanelModule } from 'primeng/panel';
     OurProcessComponent,
     SustainabilityComponent,
     AdvertisementsComponent,
+    ViewFarmingTipComponent,
   ],
   imports: [
     CommonModule,
@@ -56,9 +60,14 @@ import { PanelModule } from 'primeng/panel';
       postAdvertisementReducer
     ),
     StoreModule.forFeature('cropSpecializationList', cropSpecializationReducer),
+    StoreModule.forFeature(
+      'farmingTipsList (Landing Side)',
+      farmingTipsReducer
+    ),
     EffectsModule.forFeature([
       PostAdvertisementEffects,
       CropSpecializationEffects,
+      FarmingTipsEffects,
     ]),
   ],
 })

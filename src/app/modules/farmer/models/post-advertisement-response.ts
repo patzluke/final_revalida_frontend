@@ -8,6 +8,8 @@ export interface PostAdvertisementResponse {
   dateCreated?: string;
   dateModified?: string;
   isAccepted?: boolean;
+  isFinalOfferSubmitted?: boolean;
+  isFinalOfferAccepted?: boolean;
   message: string;
   preferredPaymentMode: string;
   farmer?: Farmer;

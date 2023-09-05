@@ -1,0 +1,216 @@
+section {
+  background-color: #e8f4ef;
+  height: auto;
+  padding: 8rem 0 4rem 0;
+}
+
+.wave-container2 {
+  height: 10vh;
+  background-color: #e8f4ef;
+  position: relative;
+}
+
+.wave-container2::before {
+  content: "";
+  width: 100%;
+  height: 52px;
+  position: absolute;
+  bottom: -0.3%;
+  left: 0;
+  background-size: auto;
+  background-repeat: repeat no-repeat;
+  background-position: 20vw bottom;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1200 134' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 22L33 19C82 13 133 14 200 29C267 44 333 67 400 70C467 74 533 59 600 40C667 22 733 0 800 0C867 0 933 22 1000 29C1067 37 1133 29 1167 26L1200 22V134H1167C1133 134 1067 134 1000 134C933 134 867 134 800 134C733 134 667 134 600 134C533 134 467 134 400 134C333 134 267 134 200 134C133 134 67 134 33 134H0V22.332Z' fill='%2318332f'/></svg>");
+}
+
+.title {
+  font-family: "Circular Std";
+  color: #2d5605;
+  font-weight: bold;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.cus-card {
+  width: 22.5rem;
+  height: 38rem;
+  transform: scale(0.9, 0.9);
+
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.cus-card:hover {
+  transition: 0.3s ease-in-out;
+  color: black;
+  transform: scale(0.95, 0.95);
+  box-shadow: 1px 1px 15px black;
+}
+
+.tip-image {
+  width: 100%;
+  height: 16rem;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.date-container {
+  display: flex;
+  padding: 1rem 1rem 0 1rem;
+  margin-top: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.date-container h3 {
+  color: #7d7d7d;
+  font-size: 1.5rem;
+  margin-top: -14px;
+  padding: 0 1rem;
+  font-weight: 500;
+}
+
+.title-container {
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.title-container h1 {
+  text-align: center;
+  font-family: "Circular Std";
+  color: #2d5605;
+  font-weight: bold;
+}
+
+::ng-deep .mat-divider.cus-divider {
+  background-color: #8a8a8a;
+  width: 3rem;
+  height: 1px;
+}
+
+.tip-des {
+  padding: 10px 2rem 0 2rem;
+  margin-top: 1rem;
+  color: #7d7d7d;
+}
+
+.tip-des p {
+  font-size: 1rem;
+}
+
+.action-container {
+  position: absolute;
+  bottom: 1rem;
+  align-self: flex-end;
+  padding-right: 1rem;
+}
+
+.p-button.seemore-btn {
+  border: 1px solid #2d5605;
+  background-color: #2d5605;
+  color: #f9f9f9;
+  border-radius: 25px;
+  text-align: center;
+  height: 3rem;
+}
+
+.p-button.seemore-btn:hover {
+  border: 1px solid #2d5605;
+  background-color: transparent;
+  color: #2d5605;
+}
+
+.filter-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-container {
+  width: 30%;
+}
+
+.right-filter {
+  width: 20%;
+}
+
+// .dropdown-container {
+//   width: 100%;
+// }
+
+::ng-deep .p-dropdown {
+  width: 100%;
+}
+
+.no-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.no-info-image {
+  width: 50%;
+  height: 50%;
+}
+
+.no-info-text {
+  text-align: center;
+  color: #2d5605;
+  margin-bottom: 2rem;
+}
+
+.no-info-text h1 {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  font-family: "Circular Std";
+}
+
+.no-info-text p {
+  font-family: "Circular Std";
+  margin-bottom: -1px;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 800px) {
+  .filter-container {
+    display: block;
+  }
+
+  .search-container {
+    width: 100%;
+  }
+
+  .right-filter {
+    margin-top: 1rem;
+    width: 100%;
+  }
+}
+
+@media (max-width: 787px) {
+  .no-info-text h1 {
+    font-size: 3rem;
+  }
+
+  .no-info-text p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 571px) {
+  .no-info-text h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .poster-name {
+    display: block;
+  }
+}

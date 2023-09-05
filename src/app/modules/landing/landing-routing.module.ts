@@ -8,6 +8,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { OurProcessComponent } from './pages/our-process/our-process.component';
 import { SustainabilityComponent } from './pages/sustainability/sustainability.component';
 import { AdvertisementsComponent } from './pages/advertisements/advertisements.component';
+import { ViewFarmingTipComponent } from './pages/farming-tips/pages/view-farming-tip/view-farming-tip.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'farming-tips',
     component: FarmingTipsComponent,
+  },
+  {
+    path: 'farming-tips/view',
+    component: ViewFarmingTipComponent,
   },
   {
     path: 'who-we-are',
