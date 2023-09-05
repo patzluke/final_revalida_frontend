@@ -32,6 +32,8 @@ import { postAdvertisementReducerSupplierSide } from './states/postadvertisement
 import { PostAdvertisementEffectsSupplierSide } from './states/postadvertisement-state/postadvertisement.effects';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
+import { cropPaymentReducer } from './states/crop-payment-state/crop-payment.reducer';
+import { CropPaymentEffects } from './states/crop-payment-state/crop-payment.effects';
 
 @NgModule({
   declarations: [
@@ -72,10 +74,15 @@ import { OrderSummaryComponent } from './components/order-summary/order-summary.
       'postAdvertisementResponsesList',
       postAdvertisementResponsesReducer
     ),
+    StoreModule.forFeature(
+      'cropPaymentList (Supplier Acc)',
+      cropPaymentReducer
+    ),
     EffectsModule.forFeature([
       PostAdvertisementEffectsSupplierSide,
       CropSpecializationEffects,
       PostAdvertisementResponsesEffects,
+      CropPaymentEffects,
     ]),
   ],
 })

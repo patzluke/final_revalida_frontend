@@ -13,7 +13,7 @@ import { CropSpecialization } from '../../models/crop-specialization';
 import { selectPostAdvertisementResponseByPostId } from '../../states/postadvertisement-responses-state/postadvertisement-responses.selectors';
 import { Observable } from 'rxjs';
 import { CropPaymentActions } from '../../states/crop-payment-state/crop-payment.actions';
-import { selectCropPayments } from '../../states/crop-payment-state/crop-payment.selectors';
+import { selectCropPaymentByFarmerIdAndPostResponseId, selectCropPayments } from '../../states/crop-payment-state/crop-payment.selectors';
 
 @Component({
   selector: 'app-crop-advertisements',
@@ -52,10 +52,20 @@ export class CropAdvertisementsComponent implements OnInit {
   //selectors
   selectPostAdvertisements$ = this.store.select(selectPostAdvertisements());
   selectCropSpecializations$ = this.store.select(selectCropSpecializations());
-  selectPostAdvertisementResponseByPostId$ = (post: PostAdvertisement) => {
+  selectPostAdvertisementResponse$ = (post: PostAdvertisement) => {
     return this.store.select(
       selectPostAdvertisementResponseByPostId(
         post.postId as number,
+        localStorage.getItem('userNo') as any
+      )
+    );
+  };
+  
+
+  selectPostAdvertisementResponseByPostId$ = (postId: number) => {
+    return this.store.select(
+      selectPostAdvertisementResponseByPostId(
+        postId,
         localStorage.getItem('userNo') as any
       )
     );
@@ -86,7 +96,7 @@ export class CropAdvertisementsComponent implements OnInit {
       measurement: ['', Validators.required],
       mobilenumBanknumber: ['', Validators.required],
       paymentMode: ['', Validators.required],
-
+      postResponseId: [0, Validators.required],
       farmerId: [0, Validators.required],
 
       //crop_orders table fields
@@ -101,10 +111,6 @@ export class CropAdvertisementsComponent implements OnInit {
     this.store.dispatch({
       type: CropPaymentActions.GET_CROPPAYMENT,
       farmerId: localStorage.getItem('userNo'),
-    });
-
-    this.store.select(selectCropPayments()).subscribe((data) => {
-      console.log(data);
     });
 
     this.store.dispatch({
@@ -281,32 +287,33 @@ export class CropAdvertisementsComponent implements OnInit {
   openViewOfferDialog: boolean = false;
   editFinalOffer: boolean = false;
 
-  // sellId: [''],
-  // cropName: ['', Validators.required],
-  // price: ['', Validators.required],
-  // quantity: ['', Validators.required],
-  // measurement: ['', Validators.required],
-  // mobilenumBanknumber: ['', Validators.required],
-  // paymentMode: ['', Validators.required],
 
+  postAdvertisementResponse?: PostAdvertisementResponse;
   toggleViewOffer = (
     postAdvertisementResponse: Observable<PostAdvertisementResponse | undefined>
   ) => {
     postAdvertisementResponse.forEach((data) => {
+      this.store.select(selectCropPaymentByFarmerIdAndPostResponseId(data?.farmer?.farmerId as number, data?.postResponseId as number)).forEach(data => {
+        this.finalOfferForm.patchValue({
+          mobilenumBanknumber: data?.cropOrder.sellCropDetail.mobilenumBanknumber,
+        });
+      })
+      this.postAdvertisementResponse = data as PostAdvertisementResponse;
       this.finalOfferForm.patchValue({
         cropName: data?.postAdvertisement?.cropName,
         price: data?.price,
         quantity: data?.quantity.split(' ')[0],
         measurement: data?.quantity.split(' ')[1],
-        mobilenumBanknumber: '',
         paymentMode: data?.preferredPaymentMode,
         farmerId: localStorage.getItem('userNo'),
         supplierId: data?.postAdvertisement?.supplier?.supplierId,
         address: data?.postAdvertisement?.supplier?.user.address,
         isAccepted: data?.isAccepted,
+        postResponseId: data?.postResponseId,
       });
-
-      console.log(data);
+      if (!data?.isAccepted || data?.isFinalOfferSubmitted) {
+        this.finalOfferForm.controls['mobilenumBanknumber'].disable();
+      }
     });
     this.finalOfferForm.controls['cropName'].disable();
     this.openViewOfferDialog = !this.openViewOfferDialog;

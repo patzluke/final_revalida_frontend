@@ -40,7 +40,6 @@ export class SideNavComponent {
         map((result: BreakpointState) => result.matches),
         shareReplay()
       );
-
     this.store.dispatch({
       type: UserNotificationsActions.GET_USERNOTIFICATIONS,
       userId: localStorage.getItem('userId'),
