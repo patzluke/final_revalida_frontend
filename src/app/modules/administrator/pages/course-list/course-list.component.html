@@ -1,228 +1,257 @@
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+/>
+
 <app-side-nav>
-  <div class="modal fade" id="addFarmingTip" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addFarmingTipLabel">Add Course</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <form [formGroup]="addEditCourseForm">
-            <div class="row d-flex flex-row flex-wrap mt-2">
-              <div class="col">
-                <label class="form-label">Course Name:</label>
-                <input
-                  class="form-control"
-                  formControlName="courseName"
-                  type="text"
-                />
-              </div>
-              <div class="col">
-                <label class="form-label">Training Duration:</label>
-                <input
-                  class="form-control"
-                  formControlName="durationInDays"
-                  type="number"
-                  min="1"
-                />
-              </div>
-            </div>
-            <div class="row d-flex flex-row flex-wrap mt-2">
-              <div class="col">
-                <label class="form-label">Description:</label>
-                <textarea
-                  class="form-control"
-                  formControlName="description"
-                  rows="3"
-                ></textarea>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Close
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-dismiss="modal"
-            (click)="addCourseSubmit()"
-          >
-            Add
-          </button>
-        </div>
+  <section>
+    <div class="container" data-aos="fade-right" data-aos-duration="333">
+      <div style="margin-bottom: 3rem">
+        <p class="h1 mb-3 title">COURSES</p>
       </div>
-    </div>
-  </div>
 
-  <!-- Modal Edit Course -->
-  <div
-    class="modal fade"
-    id="editFarmingTip"
-    tabindex="-1"
-    aria-labelledby="myModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editFarmingTipModalLabel">
-            Edit Course
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <form [formGroup]="addEditCourseForm">
-            <div class="row d-flex flex-row flex-wrap mt-2">
-              <div class="col">
-                <label class="form-label">Course Name:</label>
-                <input
-                  class="form-control"
-                  formControlName="courseName"
-                  type="text"
-                />
-              </div>
-              <div class="col">
-                <label class="form-label">Training Duration:</label>
-                <input
-                  class="form-control"
-                  formControlName="durationInDays"
-                  type="number"
-                  min="1"
-                />
-              </div>
-            </div>
-            <div class="row d-flex flex-row flex-wrap mt-2">
-              <div class="col">
-                <label class="form-label">Description:</label>
-                <textarea
-                  class="form-control"
-                  formControlName="description"
-                  rows="3"
-                ></textarea>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div
-          class="modal-footer"
-        >
-            <button
-              type="button"
-              class="btn btn-secondary me-2"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-dismiss="modal"
-              (click)="editCourseSubmit ()"
-            >
-              Save changes
-            </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <p-table
-    #dt1
-    [value]="(selectCourses$ | async)!"
-    dataKey="id"
-    [rows]="10"
-    [showCurrentPageReport]="true"
-    [rowsPerPageOptions]="[10, 15, 20]"
-    [loading]="loading"
-    [paginator]="true"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [globalFilterFields]="['tipMessage']"
-  >
-    <ng-template pTemplate="caption">
-      <div class="flex">
-        <span class="p-input-icon-left ml-auto">
+      <div class="search-container">
+        <span class="p-input-icon-left search-input">
+          <i class="pi pi-search"></i>
           <input
             #pInputText
+            pInputText
             type="text"
             (input)="dt1.filterGlobal(pInputText.value, 'contains')"
             placeholder="Search keyword"
           />
         </span>
-        <button
-          class="btn btn-primary ms-1"
-          data-bs-toggle="modal"
-          data-bs-target="#addFarmingTip"
-          (click)="addEditCourseForm.reset()"
-        >
+
+        <button pButton class="offer-btn" (click)="toggleAddCourseModal()">
           Add Course
         </button>
       </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-      <tr>
-        <th style="min-width: 15rem">
-          <div class="flex align-items-center">Course</div>
-        </th>
-        <th style="min-width: 15rem">
-          <div class="flex align-items-center">Description</div>
-        </th>
-        <th style="min-width: 15rem">
-          <div class="flex align-items-center text-center">Training Duration</div>
-        </th>
-        <th style="min-width: 15rem">
-          <div class="flex align-items-center text-center">Action</div>
-        </th>
-      </tr></ng-template
-    >
 
-    <ng-template pTemplate="body" let-course>
-      <tr>
-        <td style="width: 20%">
-          <span class="ml-1">{{ course.courseName }}</span>
-        </td>
-        <td style="width: 40%">
-          <span class="ml-1">{{ course.description }}</span>
-        </td>
-        <td class="text-center" style="width: 5%">
-          <span class="ml-1 text-center">{{ course.durationInDays }} {{course.durationInDays == 1 ? 'Day' : 'Days'}}</span>
-        </td>
-        <td class="text-center" style="width: 20%">
-          <p-button
-            (click)="selectCourse(course)"
-            type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#editFarmingTip"
-            icon="pi pi-pencil"
-            styleClass="p-button-rounded p-button-text"
-          ></p-button>
-          <p-button
-            (click)="deleteCourse(course)"
-            icon="pi pi-times"
-            styleClass="p-button-rounded p-button-danger p-button-text"
-          ></p-button>
-        </td>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="emptymessage">
-      <tr>
-        <td colspan="7" class="text-center">No Tips Found.</td>
-      </tr>
-    </ng-template>
-  </p-table>
+      <p-table
+        #dt1
+        [value]="(selectCourses$ | async)!"
+        dataKey="id"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10, 15, 20]"
+        [loading]="loading"
+        [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [globalFilterFields]="['tipMessage']"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="min-width: 15rem">
+              <div class="th-text">Course</div>
+            </th>
+            <th style="min-width: 15rem">
+              <div class="th-text">Description</div>
+            </th>
+            <th style="min-width: 15rem">
+              <div class="th-text">Training Duration</div>
+            </th>
+            <th style="min-width: 15rem">
+              <div class="th-text">Action</div>
+            </th>
+          </tr></ng-template
+        >
+
+        <ng-template pTemplate="body" let-course>
+          <tr>
+            <td style="width: 20%">
+              <span class="ml-1">{{ course.courseName }}</span>
+            </td>
+            <td style="width: 40%">
+              <span class="ml-1">{{ course.description }}</span>
+            </td>
+            <td style="width: 5%">
+              <span class="ml-1 text-center"
+                >{{ course.durationInDays }}
+                {{ course.durationInDays == 1 ? "Day" : "Days" }}</span
+              >
+            </td>
+            <td style="width: 20%">
+              <p-button
+                (click)="selectCourse(course); toggleEditCourseModal()"
+                type="button"
+                styleClass="p-button-rounded p-button-text"
+                pTooltip="Edit course"
+                tooltipPosition="bottom"
+                ><span class="material-symbols-outlined"> edit </span></p-button
+              >
+              <p-button
+                (click)="deleteCourse(course)"
+                styleClass="p-button-rounded p-button-danger p-button-text"
+                pTooltip="Delete course"
+                tooltipPosition="bottom"
+                ><span class="material-symbols-outlined">
+                  delete
+                </span></p-button
+              >
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="7" class="text-center">
+              <div class="no-info">
+                <img class="no-info-image" src="assets/images/no-result.png" />
+                <div class="no-info-text">
+                  <h1>No results found.</h1>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </section>
 </app-side-nav>
+
+<!-- add modal -->
+<p-dialog
+  header="Add course"
+  [modal]="true"
+  [(visible)]="isAddCouse"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [maximizable]="true"
+>
+  <div class="container">
+    <form [formGroup]="addCourseForm">
+      <div class="form-field">
+        <label class="form-label">Course Name:</label>
+        <input
+          [ngClass]="{
+            'invalid-field':
+              addCourseForm.controls['courseName'].invalid &&
+              (addCourseForm.controls['courseName'].dirty ||
+                addCourseForm.controls['courseName'].touched)
+          }"
+          pInputText
+          formControlName="courseName"
+          type="text"
+        />
+      </div>
+      <div class="form-field">
+        <label class="form-label">Training Duration:</label>
+        <input
+          [ngClass]="{
+            'invalid-field':
+              addCourseForm.controls['durationInDays'].invalid &&
+              (addCourseForm.controls['durationInDays'].dirty ||
+                addCourseForm.controls['durationInDays'].touched)
+          }"
+          pInputText
+          formControlName="durationInDays"
+          type="number"
+          min="1"
+        />
+      </div>
+
+      <div class="form-field">
+        <label>Description:</label>
+        <textarea
+          [ngClass]="{
+            'invalid-field':
+              addCourseForm.controls['description'].invalid &&
+              (addCourseForm.controls['description'].dirty ||
+                addCourseForm.controls['description'].touched)
+          }"
+          pInputTextarea
+          formControlName="description"
+          rows="3"
+        ></textarea>
+      </div>
+    </form>
+    <div class="action-container">
+      <button
+        pButton
+        class="p-button-outlined p-button-secondary cancel-btn"
+        (click)="addCourseForm.reset(); toggleAddCourseModal()"
+      >
+        Close
+      </button>
+      <button pButton class="submit-btn" (click)="addCourseSubmit()">
+        Add
+      </button>
+    </div>
+  </div>
+</p-dialog>
+
+<!-- edit modal -->
+<p-dialog
+  header="Edit course"
+  [modal]="true"
+  [(visible)]="isEditCouse"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [maximizable]="true"
+>
+  <div class="container">
+    <form [formGroup]="editCourseForm">
+      <div class="form-field">
+        <label class="form-label">Course Name:</label>
+        <input
+          [ngClass]="{
+            'invalid-field':
+              editCourseForm.controls['courseName'].invalid &&
+              (editCourseForm.controls['courseName'].dirty ||
+                editCourseForm.controls['courseName'].touched)
+          }"
+          pInputText
+          formControlName="courseName"
+          type="text"
+        />
+      </div>
+      <div class="form-field">
+        <label class="form-label">Training Duration:</label>
+        <input
+          [ngClass]="{
+            'invalid-field':
+              editCourseForm.controls['durationInDays'].invalid &&
+              (editCourseForm.controls['durationInDays'].dirty ||
+                editCourseForm.controls['durationInDays'].touched)
+          }"
+          pInputText
+          formControlName="durationInDays"
+          type="number"
+          min="1"
+        />
+      </div>
+
+      <div class="form-field">
+        <label>Description:</label>
+        <textarea
+          [ngClass]="{
+            'invalid-field':
+              editCourseForm.controls['description'].invalid &&
+              (editCourseForm.controls['description'].dirty ||
+                editCourseForm.controls['description'].touched)
+          }"
+          pInputTextarea
+          formControlName="description"
+          rows="3"
+        ></textarea>
+      </div>
+    </form>
+    <div class="action-container">
+      <button
+        pButton
+        class="p-button-outlined p-button-secondary cancel-btn"
+        (click)="editCourseForm.reset(); toggleEditCourseModal()"
+      >
+        Close
+      </button>
+      <button pButton class="submit-btn" (click)="editCourseSubmit()">
+        Add
+      </button>
+    </div>
+  </div>
+</p-dialog>

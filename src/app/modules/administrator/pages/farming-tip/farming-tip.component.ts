@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { AdminService } from '../../services/administrator.service';
 import { FileDetails } from 'src/app/modules/registration/models/fileDetails';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-farming-tip',
@@ -22,17 +23,32 @@ export class FarmingTipComponent implements OnInit {
   farmingTips: FarmingTip[] = [];
 
   //Formgroups
-  addEditFarmingTipForm: FormGroup;
+  addFarmingTipForm: FormGroup;
+  editFarmingTipForm: FormGroup;
 
   //selectors
   selectselectFarmingTips$ = this.store.select(selectFarmingTips());
 
-  constructor(private store: Store<FarmingTipState>, private fb: FormBuilder, private adminService: AdminService) {
-    this.addEditFarmingTipForm = fb.group({
-      farmingTipId: [0, Validators.required],
+  constructor(
+    private store: Store<FarmingTipState>,
+    private fb: FormBuilder,
+    private adminService: AdminService
+  ) {
+    this.addFarmingTipForm = fb.group({
+      farmingTipId: [0],
       title: ['', Validators.required],
       description: ['', Validators.required],
-      image: ['', Validators.required],
+      image: [''],
+      link: ['', Validators.required],
+      dateCreated: [''],
+      dateModified: [''],
+    });
+
+    this.editFarmingTipForm = fb.group({
+      farmingTipId: [0],
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      image: [''],
       link: ['', Validators.required],
       dateCreated: [''],
       dateModified: [''],
@@ -66,53 +82,90 @@ export class FarmingTipComponent implements OnInit {
     reader.readAsDataURL(selectedFile);
   };
 
-  addFarmingTipSubmit() {
-    let addEditFarmingTipFormValues = this.addEditFarmingTipForm.getRawValue();
-    console.log(addEditFarmingTipFormValues);
+  isAddTip: boolean = false;
+  toggleAddFarmingTip = () => {
+    this.isAddTip = !this.isAddTip;
+    this.imagePreviewUrl = '';
+  };
 
-    let addFarmingTip: FarmingTip = {
-      farmingTipId: addEditFarmingTipFormValues.farmingTipId,
-      title: addEditFarmingTipFormValues.title,
-      description: addEditFarmingTipFormValues.description,
-      image: '',
-      link: addEditFarmingTipFormValues.link,
-    };
-    this.adminService.upload(this.selectedImage).forEach(data => {
-      addFarmingTip.image = `${data.fileUri.concat(data.fileName)}`;
-    }).then(() => {
-      this.store.dispatch({
-        type: FarmingTipActions.ADD_FARMINGTIP,
-        farmingTip: addFarmingTip,
+  addFarmingTipSubmit() {
+    if (this.addFarmingTipForm.valid) {
+      this.isAddTip = false;
+      let addEditFarmingTipFormValues = this.addFarmingTipForm.getRawValue();
+      console.log(addEditFarmingTipFormValues);
+
+      let addFarmingTip: FarmingTip = {
+        farmingTipId: addEditFarmingTipFormValues.farmingTipId,
+        title: addEditFarmingTipFormValues.title,
+        description: addEditFarmingTipFormValues.description,
+        image: '',
+        link: addEditFarmingTipFormValues.link,
+      };
+      this.adminService
+        .upload(this.selectedImage)
+        .forEach((data) => {
+          addFarmingTip.image = `${data.fileUri.concat(data.fileName)}`;
+        })
+        .then(() => {
+          this.store.dispatch({
+            type: FarmingTipActions.ADD_FARMINGTIP,
+            farmingTip: addFarmingTip,
+          });
+          Swal.fire('Success', 'Farming Tip Added!', 'success');
+        })
+        .catch(() => {
+          Swal.fire(
+            'Failed to Change Picture!',
+            `Something went wrong.`,
+            'error'
+          );
+        });
+    } else {
+      Object.keys(this.addFarmingTipForm.controls).forEach((field) => {
+        const control = this.addFarmingTipForm.get(field);
+        if (control?.invalid) {
+          control.markAsTouched();
+          control?.setErrors({ invalid: true });
+        }
       });
-      Swal.fire('Success', 'Farming Tip Added!', 'success');
-    }).catch(() => {
-      Swal.fire(
-        'Failed to Change Picture!',
-        `Something went wrong.`,
-        'error'
-      );
-    })
+    }
   }
 
   selectFarmingTip(farmingTip: FarmingTip) {
     this.imagePreviewUrl = farmingTip.image;
-    this.addEditFarmingTipForm.patchValue({ ...farmingTip });
+    this.editFarmingTipForm.patchValue({ ...farmingTip });
   }
 
-  editFarmingTipSubmit() {
-    let addEditFarmingTipFormValues = this.addEditFarmingTipForm.getRawValue();
-    let updatedFarmingTip: FarmingTip = {
-      farmingTipId: addEditFarmingTipFormValues.farmingTipId,
-      title: addEditFarmingTipFormValues.title,
-      description: addEditFarmingTipFormValues.description,
-      image: addEditFarmingTipFormValues.image,
-      link: addEditFarmingTipFormValues.link,
-    };
+  isEditTip: boolean = false;
+  toggleEditFarmingTip = () => {
+    this.isEditTip = !this.isEditTip;
+  };
 
-    this.store.dispatch({
-      type: FarmingTipActions.UPDATE_FARMINGTIP,
-      farmingTip: updatedFarmingTip,
-    });
+  editFarmingTipSubmit() {
+    if (this.editFarmingTipForm.valid) {
+      this.isEditTip = false;
+      let addEditFarmingTipFormValues = this.editFarmingTipForm.getRawValue();
+      let updatedFarmingTip: FarmingTip = {
+        farmingTipId: addEditFarmingTipFormValues.farmingTipId,
+        title: addEditFarmingTipFormValues.title,
+        description: addEditFarmingTipFormValues.description,
+        image: addEditFarmingTipFormValues.image,
+        link: addEditFarmingTipFormValues.link,
+      };
+
+      this.store.dispatch({
+        type: FarmingTipActions.UPDATE_FARMINGTIP,
+        farmingTip: updatedFarmingTip,
+      });
+    } else {
+      Object.keys(this.editFarmingTipForm.controls).forEach((field) => {
+        const control = this.editFarmingTipForm.get(field);
+        if (control?.invalid) {
+          control.markAsTouched();
+          control?.setErrors({ invalid: true });
+        }
+      });
+    }
   }
 
   deleteFarmingTip(farmingTip: FarmingTip) {

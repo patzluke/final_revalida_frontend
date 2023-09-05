@@ -81,23 +81,42 @@ export class FarmerComplaintComponent implements OnInit {
     this.addEditFarmerComplaintForm.get('complaintMessage')?.disable();
     this.selectFarmerComplaints$.subscribe({
       next: (data) => {
-        this.selectedReadDate = data.find(complaint => complaint.farmerComplaintId == farmerComplaint.farmerComplaintId)?.readDate
+        this.selectedReadDate = data.find(
+          (complaint) =>
+            complaint.farmerComplaintId == farmerComplaint.farmerComplaintId
+        )?.readDate;
       },
     });
   }
 
-  editFarmerComplaintSubmit() {
-    let addEditFarmerComplaintFormValues =
-      this.addEditFarmerComplaintForm.getRawValue();
-    let updatedFarmerComplaint: FarmerComplaint = {
-      farmerComplaintId: addEditFarmerComplaintFormValues.farmerComplaintId,
-      adminReplyMessage: addEditFarmerComplaintFormValues.adminReplyMessage,
-      isRead: addEditFarmerComplaintFormValues.isRead,
-    };
+  isViewComplaint: boolean = false;
+  toggleViewModal = () => {
+    this.isViewComplaint = !this.isViewComplaint;
+  };
 
-    this.store.dispatch({
-      type: FarmerComplaintActions.UPDATE_FARMERCOMPLAINT,
-      farmerComplaint: updatedFarmerComplaint,
-    });
+  editFarmerComplaintSubmit() {
+    if (this.addEditFarmerComplaintForm.valid) {
+      this.isViewComplaint = false;
+      let addEditFarmerComplaintFormValues =
+        this.addEditFarmerComplaintForm.getRawValue();
+      let updatedFarmerComplaint: FarmerComplaint = {
+        farmerComplaintId: addEditFarmerComplaintFormValues.farmerComplaintId,
+        adminReplyMessage: addEditFarmerComplaintFormValues.adminReplyMessage,
+        isRead: addEditFarmerComplaintFormValues.isRead,
+      };
+
+      this.store.dispatch({
+        type: FarmerComplaintActions.UPDATE_FARMERCOMPLAINT,
+        farmerComplaint: updatedFarmerComplaint,
+      });
+    } else {
+      Object.keys(this.addEditFarmerComplaintForm.controls).forEach((field) => {
+        const control = this.addEditFarmerComplaintForm.get(field);
+        if (control?.invalid) {
+          control.markAsTouched();
+          control?.setErrors({ invalid: true });
+        }
+      });
+    }
   }
 }
