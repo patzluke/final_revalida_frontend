@@ -35,6 +35,8 @@ import { OrderListComponent } from './components/order-list/order-list.component
 import { cropPaymentReducer } from './states/crop-payment-state/crop-payment.reducer';
 import { CropPaymentEffects } from './states/crop-payment-state/crop-payment.effects';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { sellCropDetailsReducer } from './states/sell-crop-details-state/sell-crop-details.reducer';
+import { SellCropDetailsEffects } from './states/sell-crop-details-state/sell-crop-details.effects';
 
 @NgModule({
   declarations: [
@@ -80,11 +82,16 @@ import { NotificationsComponent } from './components/notifications/notifications
       'cropPaymentList (Supplier Acc)',
       cropPaymentReducer
     ),
+    StoreModule.forFeature(
+      'sellCropDetails (Supplier Acc)',
+      sellCropDetailsReducer
+    ),
     EffectsModule.forFeature([
       PostAdvertisementEffectsSupplierSide,
       CropSpecializationEffects,
       PostAdvertisementResponsesEffects,
       CropPaymentEffects,
+      SellCropDetailsEffects,
     ]),
   ],
 })

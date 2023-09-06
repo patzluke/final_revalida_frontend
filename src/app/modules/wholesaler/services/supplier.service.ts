@@ -7,6 +7,7 @@ import { CropSpecialization } from '../models/crop-specialization';
 import { PostAdvertisementResponse } from '../models/post-advertisement-response';
 import { Supplier } from '../models/supplier';
 import { CropPayment } from '../models/crop-payment';
+import { SellCropDetails } from '../models/sell-crop-details';
 
 @Injectable({
   providedIn: 'root',
@@ -87,6 +88,12 @@ export class SupplierService {
   selectAllCropPaymentBySupplier = (supplierId: number) => {
     return this.http.get<CropPayment[]>(
       `${this.baseUrl}/supplier/get/croppayment/${supplierId}`
+    );
+  };
+
+  selectAllSellCropDetails = () => {
+    return this.http.get<SellCropDetails[]>(
+      `${this.baseUrl}/supplier/get/sellcropdetails`
     );
   };
 
