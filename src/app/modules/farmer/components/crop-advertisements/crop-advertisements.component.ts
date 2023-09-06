@@ -17,6 +17,8 @@ import {
   selectCropPaymentByFarmerIdAndPostResponseId,
   selectCropPayments,
 } from '../../states/crop-payment-state/crop-payment.selectors';
+import { Farmer } from '../../models/farmer';
+import { FarmerService } from '../../services/farmer.service';
 
 @Component({
   selector: 'app-crop-advertisements',
@@ -27,6 +29,8 @@ export class CropAdvertisementsComponent implements OnInit {
   advertisements: PostAdvertisement[] = [];
   cropTypes: CropSpecialization[] = [];
   selectedCropTypes: CropSpecialization[] = [];
+
+  user: Farmer = { user: undefined };
 
   sortingOptions = [
     { label: 'Sort A-Z', value: 'asc' },
@@ -73,7 +77,11 @@ export class CropAdvertisementsComponent implements OnInit {
     );
   };
 
-  constructor(private store: Store, private fb: FormBuilder) {
+  constructor(
+    private store: Store,
+    private fb: FormBuilder,
+    private farmerService: FarmerService
+  ) {
     this.addAdvertisementResponseForm = fb.group({
       postResponseId: [''],
       price: ['', Validators.required],
@@ -110,6 +118,13 @@ export class CropAdvertisementsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.farmerService
+      .findOneByUserId(localStorage.getItem('userId') as any)
+      .subscribe((data) => {
+        this.user = data;
+        console.log('profile data', this.user);
+      });
+
     this.store.dispatch({
       type: CropPaymentActions.GET_CROPPAYMENT,
       farmerId: localStorage.getItem('userNo'),

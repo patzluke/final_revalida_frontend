@@ -10,6 +10,8 @@ import {
   selectCoursesEnrolled,
 } from '../../states/course-enrolled-state/course-enrolled.selectors';
 import { CourseEnrolled } from '../../models/courseEnrolled';
+import { Farmer } from '../../models/farmer';
+import { FarmerService } from '../../services/farmer.service';
 
 @Component({
   selector: 'app-courses',
@@ -22,6 +24,9 @@ export class CoursesComponent implements OnInit {
   itemsPerPage: number = 4; // Number of items to show per page
   noEnrolledCourse: boolean = true;
   noAvailableCourses: boolean = true;
+
+  user: Farmer = { user: undefined };
+  isNotValidated: boolean = false;
 
   //selectors
   selectCourses$ = this.store.select(selectCourses());
@@ -39,9 +44,16 @@ export class CoursesComponent implements OnInit {
     return new Date(date);
   };
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private farmerService: FarmerService) {}
 
   ngOnInit(): void {
+    this.farmerService
+      .findOneByUserId(localStorage.getItem('userId') as any)
+      .subscribe((data) => {
+        this.user = data;
+        console.log('profile data', this.user);
+      });
+
     this.store.dispatch({
       type: CourseActions.GET_COURSES,
     });
@@ -79,23 +91,27 @@ export class CoursesComponent implements OnInit {
   }
 
   enrollCourse(course: Course) {
-    Swal.fire({
-      title: 'Are you sure you want to enroll in this course?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Save changes',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        let selectedCourse = { ...course };
-        selectedCourse.farmerId = localStorage.getItem('userNo') as any;
+    if (this.user.user?.isValidated) {
+      Swal.fire({
+        title: 'Are you sure you want to enroll in this course?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Save changes',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let selectedCourse = { ...course };
+          selectedCourse.farmerId = localStorage.getItem('userNo') as any;
 
-        this.store.dispatch({
-          type: CourseEnrolledActions.ADD_COURSEENROLLED,
-          courseEnrolled: selectedCourse,
-        });
-      }
-    });
+          this.store.dispatch({
+            type: CourseEnrolledActions.ADD_COURSEENROLLED,
+            courseEnrolled: selectedCourse,
+          });
+        }
+      });
+    } else {
+      this.isNotValidated = true;
+    }
   }
 }

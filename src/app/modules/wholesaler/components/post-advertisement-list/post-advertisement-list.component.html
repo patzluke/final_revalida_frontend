@@ -109,9 +109,25 @@
                 <i class="pi pi-user" style="margin-right: 10px"></i>
                 {{ post.supplier?.user?.firstName }}
                 {{ post.supplier?.user?.middleName }}
-                {{ post.supplier?.user?.lastName }} &nbsp; ({{
-                  post.supplier?.user?.contactNo
-                }})
+                {{ post.supplier?.user?.lastName }}
+                <span class="social-icon-container" style="margin-left: 1rem">
+                  <i
+                    class="pi pi-phone"
+                    tooltipPosition="bottom"
+                    pTooltip="{{ post.supplier?.user?.contactNo }}"
+                  ></i
+                ></span>
+
+                <span *ngIf="checkFbSocial(post)" class="social-icon-container">
+                  <a href="{{ selectFbSocial(post) }}" target="_blank">
+                    <i class="pi pi-facebook"></i>
+                  </a>
+                </span>
+                <span *ngIf="checkIGSocial(post)" class="social-icon-container">
+                  <a href="{{ selectIGSocial(post) }}" target="_blank">
+                    <i class="pi pi-instagram"></i>
+                  </a>
+                </span>
               </p>
               <p>
                 <i class="pi pi-calendar" style="margin-right: 0.5rem"></i
@@ -237,7 +253,7 @@
   [maximizable]="true"
 >
   <div class="container">
-    <form [formGroup]="addPostAdvertisementForm">
+    <form [formGroup]="addPostAdvertisementForm" *ngIf="user.user?.isValidated">
       <div class="form-field">
         <label for="crop_specialization_id">Crop type</label>
         <p-dropdown
@@ -384,6 +400,21 @@
         </button>
       </div>
     </form>
+    <div *ngIf="!user.user?.isValidated">
+      <div class="verify-container">
+        <img class="verify-image" src="assets/images/verify-acc.png" />
+        <h1>Your account is not yet verified.</h1>
+        <p>Verify your account on your profile page to proceed.</p>
+        <button
+          style="margin-top: 1rem"
+          pButton
+          class="offer-btn"
+          [routerLink]="['/supplier/profile']"
+        >
+          Profile
+        </button>
+      </div>
+    </div>
   </div>
 </p-dialog>
 

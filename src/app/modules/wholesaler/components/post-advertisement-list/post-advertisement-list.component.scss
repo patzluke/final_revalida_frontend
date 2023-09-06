@@ -326,6 +326,57 @@ label {
   display: none;
 }
 
+.verify-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+}
+
+.verify-image {
+  width: 50%;
+  height: 50%;
+}
+
+.verify-container h1 {
+  font-size: 2rem;
+  color: #2d5605;
+  font-family: "Circular Std";
+}
+
+.verify-container p {
+  margin-top: -10px;
+  font-size: 1.1rem;
+}
+
+.social-icon-container {
+  //padding: 0.5rem;
+  //background-color: #f3f6f6;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-top: 1rem;
+}
+
+.social-icon-container a {
+  text-decoration: none;
+  color: #505050;
+}
+
+.social-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.social-icon-container:hover {
+  //background-color: #037fff;
+}
+
+.social-icon:hover {
+  filter: brightness(0) invert(1);
+}
+
 @media (max-width: 800px) {
   .filter-container {
     display: block;
@@ -345,6 +396,16 @@ label {
   }
   ::ng-deep .p-card {
     width: 100%;
+  }
+
+  .verify-container h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .verify-container p {
+    text-align: center;
+    font-size: 1rem;
   }
 }
 
