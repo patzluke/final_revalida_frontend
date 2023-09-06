@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { PostAdvertisementActionsSupplierSide } from '../../states/postadvertisement-state/postadvertisement.actions';
@@ -16,6 +16,8 @@ import { CropSpecialization } from '../../models/crop-specialization';
 import { FileDetails } from '../../models/fileDetails';
 import { Router } from '@angular/router';
 import { PostAdvertisementState } from '../../states/postadvertisement-state/postadvertisement.reducer';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-post-advertisement-list',
@@ -134,6 +136,7 @@ export class PostAdvertisementListComponent implements OnInit {
       },
     });
     this.filteredAdvertisements = this.postAdvertisements;
+
   }
 
   deleteAdvertisement(advertisement: PostAdvertisement) {
@@ -370,4 +373,36 @@ export class PostAdvertisementListComponent implements OnInit {
       });
     }
   };
+
+  checkFbSocial(post: PostAdvertisement) {
+    return post?.supplier?.user?.socials.find((social) =>
+      social.includes('facebook') ? true : false
+    )
+      ? true
+      : false;
+  }
+
+  selectFbSocial(post: PostAdvertisement) {
+    return (
+      (post?.supplier?.user?.socials.find((social) =>
+        social.includes('facebook') ? true : false
+      ) as string) || 'https://www.facebook.com/'
+    );
+  }
+
+  checkIGSocial(post: PostAdvertisement) {
+    return post?.supplier?.user?.socials.find((social) =>
+      social.includes('instagram') ? true : false
+    )
+      ? true
+      : false;
+  }
+
+  selectIGSocial(post: PostAdvertisement) {
+    return (
+      (post?.supplier?.user?.socials.find((social) =>
+        social.includes('instagram') ? true : false
+      ) as string) || 'https://www.instagram.com/'
+    );
+  }
 }

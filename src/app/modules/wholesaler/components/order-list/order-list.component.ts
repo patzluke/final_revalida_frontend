@@ -1,4 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { CropPaymentActions } from '../../states/crop-payment-state/crop-payment.actions';
+import { selectCropPayments } from '../../states/crop-payment-state/crop-payment.selectors';
 
 @Component({
   selector: 'app-order-list',
@@ -7,66 +12,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderListComponent implements OnInit {
 
+  //selectors
+  selectCropPayments$ = this.store.select(selectCropPayments());
+
   ngOnInit() {
-    // You can perform any initializations here if needed.
+    this.store.dispatch({
+      type: CropPaymentActions.GET_CROPPAYMENT,
+      supplierId: localStorage.getItem('userNo'),
+    });
+    this.selectCropPayments$.subscribe(
+      data => {
+        this.details = data;
+        console.log(this.details)
+      })
   }
 
-  viewInfo(id: number) {
-    localStorage.setItem('orderId', String(id))
-    const order = this.orders.find(order => order.orderId === id);
+  constructor(private http: HttpClient, private store: Store) {
 
-    if (order) {
-      this.orderId = order.orderId;
-      this.cropName = order.cropName;
-      this.quantity = order.quantity;
-      this.cropImage = order.cropImage;
-      this.status = order.status;
-      this.deliveryDate = order.deliveryDate;
-      console.log(this.orderId);
-      console.log(this.cropName);
-      console.log(this.quantity);
-      console.log(this.cropImage);
-      console.log(this.status);
-      console.log(this.deliveryDate);
-    }
   }
 
-  orderId?: number;
-  cropName?: string;
-  quantity?: number;
-  cropImage?: string;
-  status?: boolean;
-  deliveryDate?: string | Date;
+  private SAMPLE_BASE_URL = 'http://localhost:8080/api/supplier';
 
-  orders: {
-    orderId: number,
-    cropName: string,
-    quantity: number,
-    cropImage: string,
-    status: boolean,
-    deliveryDate: string | Date
-  }[] = [
-      {
-        orderId: 1,
-        cropImage: '../../../../../assets/images/oats.png',
-        quantity: 15,
-        cropName: 'Oats',
-        status: true,
-        deliveryDate: '2023-05-09'
-      }, {
-        orderId: 2,
-        cropImage: '../../../../../assets/images/potato.png',
-        quantity: 16,
-        cropName: 'Potato',
-        status: true,
-        deliveryDate: '2023-05-09'
-      }, {
-        orderId: 3,
-        cropImage: '../../../../../assets/images/corn.png',
-        quantity: 17,
-        cropName: 'Corn',
-        status: true,
-        deliveryDate: '2023-05-09'
+  details?: any[]
+
+  // id: number = 2
+
+  getSellCropDetailByUserId(): Observable<any[]> {
+    const newUrl = `${this.SAMPLE_BASE_URL}/select/crop-detail`;
+    return this.http.get<any[]>(newUrl);
+  }
+
+  execute() {
+    this.getSellCropDetailByUserId().subscribe(
+      (data: any[]) => {
+        this.details = data;
+        console.log(this.details);
+      },
+      (error) => {
+        console.log(error);
       }
-    ];
+    );
+  }
 }
