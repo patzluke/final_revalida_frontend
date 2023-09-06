@@ -2,7 +2,7 @@
 
 section {
   background-color: #e8f4ef;
-  height: 100% !important;
+  height: 100%;
   padding: 8rem 0;
   font-family: "Montserrat", sans-serif;
 }
@@ -27,7 +27,7 @@ section {
 ::ng-deep .p-card {
   border-radius: 10px;
   position: relative;
-  background-color: #ffffff !important;
+  background-color: #ffffff;
 }
 
 .image-container {
