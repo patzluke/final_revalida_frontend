@@ -13,6 +13,7 @@ import { CropSpecialization } from '../../models/crop-specialization';
 import { selectPostAdvertisementResponseByPostId } from '../../states/postadvertisement-responses-state/postadvertisement-responses.selectors';
 import { Observable } from 'rxjs';
 import { CropPaymentActions } from '../../states/crop-payment-state/crop-payment.actions';
+import { selectCropPaymentByFarmerIdAndPostResponseId } from '../../states/crop-payment-state/crop-payment.selectors';
 import {
   selectCropPaymentByFarmerIdAndPostResponseId,
   selectCropPayments,
@@ -84,6 +85,7 @@ export class CropAdvertisementsComponent implements OnInit {
   ) {
     this.addAdvertisementResponseForm = fb.group({
       postResponseId: [''],
+      cropName: [''],
       price: ['', Validators.required],
       quantity: ['', Validators.required],
       dateCreated: [''],
@@ -93,6 +95,7 @@ export class CropAdvertisementsComponent implements OnInit {
 
       measurement: ['', Validators.required],
 
+      userId: [0],
       postId: [0],
       farmerId: [0],
     });
@@ -194,14 +197,20 @@ export class CropAdvertisementsComponent implements OnInit {
   };
 
   selectAdvertisement(post: PostAdvertisement) {
+    this.addAdvertisementResponseForm
+      .get('cropName')
+      ?.patchValue(post.cropName);
     this.addAdvertisementResponseForm.get('postId')?.patchValue(post.postId);
+    this.addAdvertisementResponseForm
+      .get('userId')
+      ?.patchValue(post.supplier?.user.userId);
   }
 
   addOfferSubmit() {
     if (this.addAdvertisementResponseForm.valid) {
       let addAdvertisementResponseFormValues =
         this.addAdvertisementResponseForm.value;
-      let newAdvertisementResponse: PostAdvertisementResponse = {
+      let newAdvertisementResponse = {
         price: addAdvertisementResponseFormValues.price,
         quantity: `${addAdvertisementResponseFormValues.quantity} ${addAdvertisementResponseFormValues.measurement}`,
         message: addAdvertisementResponseFormValues.message,
@@ -209,6 +218,8 @@ export class CropAdvertisementsComponent implements OnInit {
           addAdvertisementResponseFormValues.preferredPaymentMode,
         farmerId: localStorage.getItem('userNo') as any,
         postId: addAdvertisementResponseFormValues.postId,
+        userId: addAdvertisementResponseFormValues.userId,
+        cropName: addAdvertisementResponseFormValues.cropName,
       };
 
       this.openDialog = false;
@@ -355,6 +366,8 @@ export class CropAdvertisementsComponent implements OnInit {
         ' ',
         this.finalOfferForm.value.measurement
       );
+      console.log(finalOfferValues, ' tingin');
+
       this.openViewOfferDialog = false;
       Swal.fire({
         title: 'Are you sure you want to send your final offer?',
@@ -365,7 +378,6 @@ export class CropAdvertisementsComponent implements OnInit {
         confirmButtonText: 'Send Final offer',
       }).then((result) => {
         if (result.isConfirmed) {
-          console.log(finalOfferValues);
           this.store.dispatch({
             type: CropPaymentActions.ADD_CROPPAYMENT,
             cropPayment: finalOfferValues,

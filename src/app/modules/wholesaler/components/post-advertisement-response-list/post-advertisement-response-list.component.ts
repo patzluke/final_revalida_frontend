@@ -76,15 +76,18 @@ export class PostAdvertisementResponseListComponent implements OnInit {
     let updatedAdvertisementResponse = {
       ...advertisementResponse,
       notificationMessage: '',
+      notificationTitle: ''
     };
     updatedAdvertisementResponse.isAccepted =
       updatedAdvertisementResponse.isAccepted ? false : true;
     if (updatedAdvertisementResponse.isAccepted) {
+      updatedAdvertisementResponse.notificationTitle = `Offer is Accepted`
       updatedAdvertisementResponse.notificationMessage =
         `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName}, `.concat(
           `has accepted your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`
         );
     } else {
+      updatedAdvertisementResponse.notificationTitle = `Offer is Withdrawn`
       updatedAdvertisementResponse.notificationMessage =
         `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName}, `.concat(
           `has withdrawn from your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`

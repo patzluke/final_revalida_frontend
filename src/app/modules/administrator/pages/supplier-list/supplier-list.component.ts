@@ -104,12 +104,12 @@ export class SupplierListComponent implements OnInit {
         let updatedUser = { ...this.selectedSupplierToVerify?.user };
         updatedUser.isValidated = false;
         updatedUser.validIdPicture = '';
+        updatedUser.validIdNumber = '';
+        updatedUser.validIdType = '';
         let updatedSupplierToVerify: Supplier = {
           ...this.selectedSupplierToVerify,
           user: updatedUser,
         };
-        console.log(updatedSupplierToVerify);
-
         this.store.dispatch({
           type: SupplierActions.UPDATE_SUPPLIER_STATUS,
           supplier: updatedSupplierToVerify,

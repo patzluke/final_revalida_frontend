@@ -68,11 +68,14 @@
                   <div class="dropdown-list-image mr-3">
                     <img
                       class="rounded-circle"
-                      [src]="item.user.image || 'assets/images/user-icon.png'"
+                      [src]="'assets/images/user-icon.png'"
                       alt=""
                     />
                   </div>
                   <div class="font-weight-bold mr-3 notif-content">
+                    <div class="ms-1">
+                      <b>{{item.notificationTitle}}</b>
+                    </div>
                     <div class="ms-1">
                       {{ item.notificationMessage }}
                     </div>
@@ -101,6 +104,9 @@
                     DRM
                   </div>
                   <div class="font-weight-bold mr-3">
+                    <div class="ms-1">
+                      <b>{{item.notificationTitle}}</b>
+                    </div>
                     <div class="text-truncate ms-1">
                       {{ item.notificationMessage }}
                     </div>

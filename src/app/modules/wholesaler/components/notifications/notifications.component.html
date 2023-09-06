@@ -1,1 +1,125 @@
-<p>notifications works!</p>
+<app-side-nav>
+  <section>
+    <div class="container">
+      <div style="margin-bottom: 3rem">
+        <p class="h1 mb-3 title">NOTIFICATIONS</p>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-3 left">
+          <div class="box shadow-sm mb-3 rounded bg-white ads-box text-center">
+            <img
+              [src]="user.user?.image || 'assets/images/user-icon.png'"
+              class="img-fluid"
+              alt="Responsive image"
+            />
+            <div class="p-3 border-bottom">
+              <p class="mb-0 text-muted">
+                You’re all caught up! Check back later for new notifications
+              </p>
+            </div>
+            <div class="p-3">
+              <button
+                pButton
+                type="button"
+                class="view-profile-btn"
+                [routerLink]="['/farmer/profile']"
+              >
+                View profile
+              </button>
+            </div>
+          </div>
+          <div
+            class="box mb-3 shadow-sm rounded bg-white profile-box text-center"
+          >
+            <div class="p-3 border-top border-bottom">
+              <div class="logo-container">
+                <img
+                  src="assets/images/agribridge-logo.png"
+                  class="header-logo"
+                  alt="Logo"
+                />
+                <h1>AgriBridge</h1>
+              </div>
+            </div>
+            <div class="p-3">
+              <div class="align-items-top mb-2">
+                <p class="mb-0 text-muted">Posted:</p>
+                <p class="font-weight-bold text-dark mb-0 mt-0 ml-auto">
+                  {{ selectedNotif?.dateCreated | date : "MMM  dd, yyy " }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-9 right">
+          <div class="box shadow-sm rounded bg-white mb-3">
+            <div class="box-title border-bottom p-3">
+              <h3 class="m-0">Recent</h3>
+            </div>
+            <div class="box-body p-0" style="width: 100%">
+              <ng-container
+                *ngFor="let item of selectUserNotificationsRecent$ | async"
+              >
+                <div
+                  class="p-3 d-flex align-items-center bg-light border-bottom osahan-post-header notif-container"
+                  (click)="selectNotification(item)"
+                >
+                  <div class="dropdown-list-image mr-3">
+                    <img
+                      class="rounded-circle"
+                      [src]="'assets/images/user-icon.png'"
+                      alt=""
+                    />
+                  </div>
+                  <div class="font-weight-bold mr-3 notif-content">
+                    <div class="ms-1">
+                      <b>{{item.notificationTitle}}</b>
+                    </div>
+                    <div class="ms-1">
+                      {{ item.notificationMessage }}
+                    </div>
+                    <div class="text-right text-muted pt-1 ms-1">
+                      {{ item.dateCreated | date : "shortTime" }}
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div class="box shadow-sm rounded bg-white mb-3">
+            <div class="box-title border-bottom p-3">
+              <h3 class="m-0">Earlier</h3>
+            </div>
+            <div class="box-body p-0">
+              <ng-container
+                *ngFor="let item of selectUserNotificationsEarlier$ | async"
+              >
+                <div
+                  class="p-3 d-flex align-items-center border-bottom osahan-post-header"
+                >
+                  <div
+                    class="dropdown-list-image mr-3 d-flex align-items-center bg-danger justify-content-center rounded-circle text-white"
+                  >
+                    DRM
+                  </div>
+                  <div class="font-weight-bold mr-3">
+                    <div class="ms-1">
+                      <b>{{item.notificationTitle}}</b>
+                    </div>
+                    <div class="text-truncate ms-1">
+                      {{ item.notificationMessage }}
+                    </div>
+                  </div>
+                  <div class="text-right text-muted pt-1 ms-1">
+                    {{ item.dateCreated | date : "short" : "UTC" }}
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</app-side-nav>
