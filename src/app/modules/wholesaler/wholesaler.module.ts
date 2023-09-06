@@ -32,6 +32,7 @@ import { postAdvertisementReducerSupplierSide } from './states/postadvertisement
 import { PostAdvertisementEffectsSupplierSide } from './states/postadvertisement-state/postadvertisement.effects';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
+import { OrderListComponent } from './components/order-list/order-list.component';
 import { cropPaymentReducer } from './states/crop-payment-state/crop-payment.reducer';
 import { CropPaymentEffects } from './states/crop-payment-state/crop-payment.effects';
 
@@ -43,6 +44,7 @@ import { CropPaymentEffects } from './states/crop-payment-state/crop-payment.eff
     ProfileComponent,
     NotificationsComponent,
     OrderSummaryComponent,
+    OrderListComponent,
   ],
   imports: [
     CommonModule,

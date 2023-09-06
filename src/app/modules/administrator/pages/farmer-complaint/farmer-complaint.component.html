@@ -80,7 +80,7 @@
             </td>
             <td style="width: 20%">
               {{ farmerComplaint.isRead ? "Read" : "Unread" }}
-              ({{ farmerComplaint.isResovled ? "Resolved" : "Unresolved" }})
+              ({{ farmerComplaint.isResolved ? "Resolved" : "Unresolved" }})
             </td>
             <td style="width: 5%">
               <p-button
@@ -144,6 +144,25 @@
           formControlName="complaintMessage"
           rows="3"
         ></textarea>
+      </div>
+
+      <div class="form-field">
+        <label>Status: </label>
+        <div>
+          <p-dropdown
+            [ngClass]="{
+              'spec-field':
+                addEditFarmerComplaintForm.controls['isResolved'].invalid &&
+                (addEditFarmerComplaintForm.controls['isResolved'].dirty ||
+                  addEditFarmerComplaintForm.controls['isResolved'].touched)
+            }"
+            formControlName="isResolved"
+            placeholder="Select status"
+            [options]="complaintStatus"
+            optionLabel="status"
+            optionValue="value"
+          ></p-dropdown>
+        </div>
       </div>
 
       <div class="form-field">

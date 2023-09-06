@@ -25,6 +25,11 @@ export class FarmerComplaintComponent implements OnInit {
   //selectors
   selectFarmerComplaints$ = this.store.select(selectFarmerComplaints());
 
+  complaintStatus = [
+    { status: 'Resolved', value: true },
+    { status: 'Not yet Resolved', value: false },
+  ];
+
   constructor(private store: Store<FarmingTipState>, private fb: FormBuilder) {
     this.addEditFarmerComplaintForm = fb.group({
       farmerComplaintId: [0, Validators.required],
@@ -103,6 +108,7 @@ export class FarmerComplaintComponent implements OnInit {
         farmerComplaintId: addEditFarmerComplaintFormValues.farmerComplaintId,
         adminReplyMessage: addEditFarmerComplaintFormValues.adminReplyMessage,
         isRead: addEditFarmerComplaintFormValues.isRead,
+        isResolved: addEditFarmerComplaintFormValues.isResolved,
       };
 
       this.store.dispatch({

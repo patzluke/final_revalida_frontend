@@ -94,7 +94,7 @@
                 farmerComplaints.dateSubmitted | date : "MMMM d, yyyy HH:mm a"
               }}</span>
             </td>
-            <td class="text-center" style="width: 5%">
+            <td style="width: 5%">
               <p-button
                 type="button"
                 data-bs-target="#editFarmingTip"
@@ -276,9 +276,13 @@
             <label>Evidence/Image</label>
             <div class="evidence-image-container">
               <img
+                *ngIf="selectedFarmerComplaint?.image"
                 class="evidence-image"
                 [src]="selectedFarmerComplaint?.image"
               />
+              <p *ngIf="!selectedFarmerComplaint?.image">
+                No evidence/image provided.
+              </p>
             </div>
           </div>
         </form>

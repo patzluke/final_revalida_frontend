@@ -1,0 +1,113 @@
+<app-side-nav>
+  <div class="mainBg">
+    <div class="main">
+      <div class="container mt-3 mb-3">
+        <div class="row">
+          <div class="col">
+            <p class="h3">My Orders</p>
+          </div>
+        </div>
+      </div>
+      <div class="container shadow p-5">
+        <div class="row">
+          <div class="col-lg-10">
+            <p>Order #7324783292476</p>
+            <p>Placed on Sep 5, 1999 1:45 PM</p>
+          </div>
+          <div class="col mb-3 d-flex flex-row-reverse">
+            <a class="button">MANAGE</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <table class="table table-striped table-hover">
+              <tbody *ngFor="let order of orders">
+                <tr
+                  data-bs-target="#exampleModalToggle"
+                  data-bs-toggle="modal"
+                  style="cursor: pointer"
+                  (click)="viewInfo(order.orderId)"
+                >
+                  <td>
+                    <img
+                      [src]="order.cropImage"
+                      alt="{{ order.cropName }}"
+                      width="100"
+                    />
+                  </td>
+                  <td>{{ order.cropName }}</td>
+                  <td>Qty: {{ order.quantity }}</td>
+                  <td>
+                    {{ order.status ? "Delivered" : "Not yet delivered" }}
+                  </td>
+                  <td>{{ order.deliveryDate | date }}</td>
+
+                  <!-- modal to view the order -->
+                  <div
+                    class="modal fade"
+                    id="exampleModalToggle"
+                    aria-hidden="true"
+                    aria-labelledby="exampleModalToggleLabel"
+                    tabindex="-1"
+                  >
+                    <div
+                      class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable"
+                    >
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1
+                            class="modal-title fs-5"
+                            id="exampleModalToggleLabel"
+                          >
+                            PRODUCT INFORMATION
+                          </h1>
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="container">
+                            <div class="row">
+                              <div class="col-lg-9">
+                                <img [src]="order.cropImage" width="100%" />
+                              </div>
+                              <div class="col-lg-3">
+                                <p class="h1">{{ order.cropName }}</p>
+                                <p>Qty: {{ order.quantity }}</p>
+                                <p>
+                                  Status:
+                                  {{
+                                    order.status
+                                      ? "Delivered"
+                                      : "Not yet delivered"
+                                  }}
+                                </p>
+                                <p>Delivery date: {{ order.deliveryDate }}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            class="btn btn-primary"
+                            data-bs-target="#exampleModalToggle2"
+                            data-bs-toggle="modal"
+                          >
+                            Open second modal
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-side-nav>
