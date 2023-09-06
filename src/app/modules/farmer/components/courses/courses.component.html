@@ -208,3 +208,30 @@
     </div>
   </section>
 </app-side-nav>
+
+<!-- modal -->
+<p-dialog
+  header="Verify account"
+  [modal]="true"
+  [(visible)]="isNotValidated"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [maximizable]="true"
+>
+  <div *ngIf="!user.user?.isValidated">
+    <div class="verify-container">
+      <img class="verify-image" src="assets/images/verify-acc.png" />
+      <h1>Your account is not yet verified.</h1>
+      <p>Verify your account on your profile page to proceed.</p>
+      <button
+        style="margin-top: 1rem"
+        pButton
+        class="offer-btn"
+        [routerLink]="['/supplier/profile']"
+      >
+        Profile
+      </button>
+    </div>
+  </div>
+</p-dialog>
