@@ -574,10 +574,7 @@
       </button>
       <button
         pButton
-        [disabled]="
-          !postAdvertisementResponse?.isAccepted ||
-          postAdvertisementResponse?.isFinalOfferSubmitted
-        "
+        
         class="submit-btn"
         (click)="submitFinalOffer()"
       >

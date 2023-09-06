@@ -14,8 +14,12 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>{{ cropPayment?.cropOrder?.sellCropDetail?.cropName }}</td>
-                  <td>{{ cropPayment?.cropOrder?.sellCropDetail?.quantity }}</td>
+                  <td>
+                    {{ cropPayment?.cropOrder?.sellCropDetail?.cropName }}
+                  </td>
+                  <td>
+                    {{ cropPayment?.cropOrder?.sellCropDetail?.quantity }}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -23,7 +27,12 @@
             <div class="mt-5 d-flex flex-row-reverse">
               <p>
                 TOTAL:
-                <b> {{ cropPayment?.cropOrder?.sellCropDetail?.price | currency : "PHP" }}</b>
+                <b>
+                  {{
+                    cropPayment?.cropOrder?.sellCropDetail?.price
+                      | currency : "PHP"
+                  }}</b
+                >
               </p>
             </div>
           </div>
@@ -32,15 +41,36 @@
             <form>
               <div class="mb-3">
                 <label class="form-label text-white">Farmer's Name:</label>
-                <input type="text" class="form-control" [placeholder]="farmerName" disabled />
-              </div>
-              <div class="mb-3">
-                <label *ngIf="cropPayment?.cropOrder?.sellCropDetail?.paymentMode == 'Gcash'" class="form-label text-white">Farmer's Gcash Number:</label>
-                <label *ngIf="cropPayment?.cropOrder?.sellCropDetail?.paymentMode == 'UnionBank'" class="form-label text-white">Farmer's UnionBank Number:</label>
                 <input
                   type="text"
                   class="form-control"
-                  [placeholder]="cropPayment?.cropOrder?.sellCropDetail?.mobilenumBanknumber"
+                  [placeholder]="farmerName"
+                  disabled
+                />
+              </div>
+              <div class="mb-3">
+                <label
+                  *ngIf="
+                    cropPayment?.cropOrder?.sellCropDetail?.paymentMode ==
+                    'Gcash'
+                  "
+                  class="form-label text-white"
+                  >Farmer's Gcash Number:</label
+                >
+                <label
+                  *ngIf="
+                    cropPayment?.cropOrder?.sellCropDetail?.paymentMode ==
+                    'UnionBank'
+                  "
+                  class="form-label text-white"
+                  >Farmer's UnionBank Number:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  [placeholder]="
+                    cropPayment?.cropOrder?.sellCropDetail?.mobilenumBanknumber
+                  "
                   disabled
                 />
               </div>
@@ -50,16 +80,58 @@
                   disabled
                   type="text"
                   class="form-control"
-                  [placeholder]="cropPayment?.cropOrder?.sellCropDetail?.farmer?.user?.address"
+                  [placeholder]="
+                    cropPayment?.cropOrder?.sellCropDetail?.farmer?.user
+                      ?.address
+                  "
                 ></textarea>
               </div>
               <div class="mb-3">
-                <label for="formFileSm" class="form-label text-white">Upload Your Proof of Payment:</label>
-                <input [disabled]="this.cropPayment?.cropOrder?.sellCropDetail?.postAdvertisementResponse?.isFinalOfferAccepted" class="form-control" type="file" id="formFile">
+                <label class="form-label text-white"
+                  >Please type in your payment reference number:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Transaction Number"
+                  [formControl]="transactionNumber"
+                />
               </div>
               <div class="mb-3">
-                <button [disabled]="this.cropPayment?.cropOrder?.sellCropDetail?.postAdvertisementResponse?.isFinalOfferAccepted" class="btn btn-primary w-100" (click)="submitPayment()">Submit</button>
-                <label *ngIf="this.cropPayment?.cropOrder?.sellCropDetail?.postAdvertisementResponse?.isFinalOfferAccepted" class="text-success">Transaction is already completed.</label>
+                <label for="formFileSm" class="form-label text-white"
+                  >Upload Your Proof of Payment:</label
+                >
+                <input
+                  [disabled]="
+                    this.cropPayment?.cropOrder?.sellCropDetail
+                      ?.postAdvertisementResponse?.isFinalOfferAccepted
+                  "
+                  class="form-control"
+                  type="file"
+                  id="formFile"
+                  #selectFile
+                  (change)="onImageSelected($event)"
+                />
+              </div>
+              <div class="mb-3">
+                <button
+                  [disabled]="
+                    this.cropPayment?.cropOrder?.sellCropDetail
+                      ?.postAdvertisementResponse?.isFinalOfferAccepted
+                  "
+                  class="btn btn-primary w-100"
+                  (click)="submitPayment()"
+                >
+                  Submit
+                </button>
+                <label
+                  *ngIf="
+                    this.cropPayment?.cropOrder?.sellCropDetail
+                      ?.postAdvertisementResponse?.isFinalOfferAccepted
+                  "
+                  class="text-success"
+                  >Transaction is already completed.</label
+                >
               </div>
             </form>
           </div>

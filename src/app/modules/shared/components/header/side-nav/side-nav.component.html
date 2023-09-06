@@ -209,14 +209,6 @@
           </a>
           <a
             mat-list-item
-            routerLink="/supplier/profile"
-            routerLinkActive="router-link-active"
-          >
-            <i class="pi pi-user nav-icon"></i>
-            <span class="white-text">Profile</span>
-          </a>
-          <a
-            mat-list-item
             routerLink="/supplier/orders"
             routerLinkActive="router-link-active"
           >
@@ -225,11 +217,37 @@
           </a>
           <a
             mat-list-item
-            routerLink="/supplier/order-summary"
+            routerLink="/supplier/notifications"
+            routerLinkActive="router-link-active"
+            class="mt-1"
+            (click)="updateNotificationStatusesToRead()"
+          >
+            <i class="pi pi-bell nav-icon"></i>
+            <span class="white-text">Notification</span>
+            <span
+              *ngIf="
+                !isSidebarExpanded &&
+                (selectUserNotifications$ | async)!.length > 0
+              "
+              class="badge-notexpanded badge"
+              >{{ (selectUserNotifications$ | async)?.length }}</span
+            >
+            <span
+              *ngIf="
+                isSidebarExpanded &&
+                (selectUserNotifications$ | async)!.length > 0
+              "
+              class="badge-expanded badge"
+              >{{ (selectUserNotifications$ | async)?.length }}</span
+            >
+          </a>
+          <a
+            mat-list-item
+            routerLink="/supplier/profile"
             routerLinkActive="router-link-active"
           >
             <i class="pi pi-user nav-icon"></i>
-            <span class="white-text">Order Summary</span>
+            <span class="white-text">Profile</span>
           </a>
           <a
             mat-list-item
@@ -412,7 +430,6 @@
           (selectUserNotifications$ | async)?.length
         }}</span>
       </a>
-
       <a
         mat-list-item
         routerLink="/farmer/farming-tips"
@@ -452,6 +469,29 @@
       >
         <i class="pi pi-slack nav-icon"></i>
         <span class="white-text">Advertisements</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/supplier/orders"
+        routerLinkActive="router-link-active"
+      >
+        <i class="pi pi-user nav-icon"></i>
+        <span class="white-text">Orders</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/supplier/notifications"
+        routerLinkActive="router-link-active"
+        class="mt-1"
+        (click)="updateNotificationStatusesToRead()"
+      >
+        <i class="pi pi-bell nav-icon"></i>
+        <span class="white-text" (click)="updateNotificationStatusesToRead()"
+          >Notification</span
+        >
+        <span class="tool-bar-content-badge badge">{{
+          (selectUserNotifications$ | async)?.length
+        }}</span>
       </a>
       <a
         mat-list-item

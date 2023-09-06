@@ -20,4 +20,6 @@ export interface User {
   username?: string;
   isValidated?: boolean;
   validIdPicture?: string
+  validIdNumber?: string;
+  validIdType?: string;
 }
