@@ -16,6 +16,8 @@ import { CropSpecialization } from '../../models/crop-specialization';
 import { FileDetails } from '../../models/fileDetails';
 import { Router } from '@angular/router';
 import { PostAdvertisementState } from '../../states/postadvertisement-state/postadvertisement.reducer';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-post-advertisement-list',
@@ -134,6 +136,7 @@ export class PostAdvertisementListComponent implements OnInit {
       },
     });
     this.filteredAdvertisements = this.postAdvertisements;
+
   }
 
   deleteAdvertisement(advertisement: PostAdvertisement) {

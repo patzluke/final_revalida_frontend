@@ -5,6 +5,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
   Component,
@@ -12,6 +13,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -59,9 +61,11 @@ import {
 export class HomeComponent implements OnInit, AfterViewInit {
   items: HTMLElement[] = [];
 
-  constructor() {}
+  constructor(private http: HttpClient) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   ngAfterViewInit(): void {
     this.observeItems();
@@ -87,4 +91,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
       observer.observe(item);
     });
   }
+
+
 }
