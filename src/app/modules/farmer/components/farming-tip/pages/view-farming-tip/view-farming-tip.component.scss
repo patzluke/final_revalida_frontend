@@ -87,6 +87,20 @@ section {
   color: #595959;
 }
 
+.link-container {
+  height: 480px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.link {
+  width: 70%;
+  height: 100%;
+}
+
 @media (max-width: 780px) {
   .banner-container h1 {
     font-size: 50px;

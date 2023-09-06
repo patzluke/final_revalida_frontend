@@ -64,25 +64,23 @@
                 <i class="pi pi-user" style="margin-right: 10px"></i>
                 {{ post.supplier?.user?.firstName }}
                 {{ post.supplier?.user?.middleName }}
-                {{ post.supplier?.user?.lastName }} &nbsp; ({{
-                  post.supplier?.user?.contactNo
-                }})
+                {{ post.supplier?.user?.lastName }}
+                <span class="social-icon-container" style="margin-left: 1rem">
+                  <i
+                    class="pi pi-phone"
+                    tooltipPosition="bottom"
+                    pTooltip="{{ post.supplier?.user?.contactNo }}"
+                  ></i
+                ></span>
+
                 <span *ngIf="checkFbSocial(post)" class="social-icon-container">
                   <a href="{{ selectFbSocial(post) }}" target="_blank">
-                    <img
-                      class="social-icon"
-                      style="height: 10px; width: 15px"
-                      src="assets/images/fb-icon.png"
-                    />
+                    <i class="pi pi-facebook"></i>
                   </a>
                 </span>
                 <span *ngIf="checkIGSocial(post)" class="social-icon-container">
                   <a href="{{ selectIGSocial(post) }}" target="_blank">
-                    <img
-                      class="social-icon"
-                      style="height: 10px; width: 15px"
-                      src="assets/images/ig-icon.png"
-                    />
+                    <i class="pi pi-instagram"></i>
                   </a>
                 </span>
               </p>
@@ -243,7 +241,10 @@
 >
   <div class="container">
     <div>
-      <form [formGroup]="addAdvertisementResponseForm">
+      <form
+        [formGroup]="addAdvertisementResponseForm"
+        *ngIf="user.user?.isValidated"
+      >
         <div>
           <div class="form-field">
             <label class="form-label">Price:</label>
@@ -332,19 +333,36 @@
             rows="2"
           ></textarea>
         </div>
+
+        <div class="action-container">
+          <button
+            pButton
+            class="p-button-outlined p-button-secondary"
+            (click)="this.addAdvertisementResponseForm.reset(); toggleDialog()"
+          >
+            Cancel
+          </button>
+          <button pButton class="submit-btn" (click)="addOfferSubmit()">
+            Send Offer
+          </button>
+        </div>
       </form>
-    </div>
-    <div class="action-container">
-      <button
-        pButton
-        class="p-button-outlined p-button-secondary"
-        (click)="this.addAdvertisementResponseForm.reset(); toggleDialog()"
-      >
-        Cancel
-      </button>
-      <button pButton class="submit-btn" (click)="addOfferSubmit()">
-        Send Offer
-      </button>
+
+      <div *ngIf="!user.user?.isValidated">
+        <div class="verify-container">
+          <img class="verify-image" src="assets/images/verify-acc.png" />
+          <h1>Your account is not yet verified.</h1>
+          <p>Verify your account on your profile page to proceed.</p>
+          <button
+            style="margin-top: 1rem"
+            pButton
+            class="offer-btn"
+            [routerLink]="['/supplier/profile']"
+          >
+            Profile
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </p-dialog>

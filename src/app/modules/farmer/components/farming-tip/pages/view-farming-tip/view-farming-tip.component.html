@@ -10,20 +10,22 @@
       <h1>{{ selectedFarmingTip?.title }}</h1>
     </div>
 
+    <div class="link-container">
+      <iframe
+        class="link"
+        [src]="
+          sanitizer.bypassSecurityTrustResourceUrl(selectedFarmingTip?.link!)
+        "
+      >
+      </iframe>
+    </div>
+
     <div class="tip-des" style="margin-bottom: 2rem">
       <p>
         <i class="pi pi-calendar" style="margin-right: 0.5rem"></i>
         {{ selectedFarmingTip?.dateCreated | date : "MMM dd, yyy hh:mm aa" }}
       </p>
     </div>
-    <!-- <iframe
-  height="480"
-  width="500"
-  [src]="
-    sanitizer.bypassSecurityTrustResourceUrl(selectedFarmingTip?.link!)
-  "
->
-</iframe> -->
 
     <div class="tip-des">
       <p>
