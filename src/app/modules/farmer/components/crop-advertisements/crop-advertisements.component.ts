@@ -13,10 +13,8 @@ import { CropSpecialization } from '../../models/crop-specialization';
 import { selectPostAdvertisementResponseByPostId } from '../../states/postadvertisement-responses-state/postadvertisement-responses.selectors';
 import { Observable } from 'rxjs';
 import { CropPaymentActions } from '../../states/crop-payment-state/crop-payment.actions';
-import { selectCropPaymentByFarmerIdAndPostResponseId } from '../../states/crop-payment-state/crop-payment.selectors';
 import {
   selectCropPaymentByFarmerIdAndPostResponseId,
-  selectCropPayments,
 } from '../../states/crop-payment-state/crop-payment.selectors';
 import { Farmer } from '../../models/farmer';
 import { FarmerService } from '../../services/farmer.service';

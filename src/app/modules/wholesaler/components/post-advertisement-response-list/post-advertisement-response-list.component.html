@@ -130,7 +130,7 @@
           </div>
           <mat-divider class="divider" style="margin-top: -10px"></mat-divider>
           <div class="offer-container">
-            <h2>Offer</h2>
+            <h2>Initial offer</h2>
             <div class="offer-pqt-container">
               <h3 class="label">Quantity:</h3>
               <h3 class="value">{{ response.quantity }}</h3>
@@ -144,6 +144,35 @@
               <p>{{ response.message }}</p>
             </div>
             <mat-divider class="divider"></mat-divider>
+            <div *ngIf="response.isAccepted && response.isFinalOfferSubmitted">
+              <h2>Final offer</h2>
+              <div class="offer-pqt-container">
+                <h3 class="label">Quantity:</h3>
+                <h3 class="value">
+                  {{
+                    (
+                      selectSellCropDetailsByFarmerIdAndResponseId$(
+                        response.farmer.farmerId!,
+                        response.postResponseId
+                      ) | async
+                    )?.quantity
+                  }}
+                </h3>
+              </div>
+              <div class="offer-pqt-container">
+                <h3 class="label">Price:</h3>
+                <h3 class="value">
+                  ₱{{
+                    (
+                      selectSellCropDetailsByFarmerIdAndResponseId$(
+                        response.farmer.farmerId!,
+                        response.postResponseId
+                      ) | async
+                    )?.price | number : "1.2"
+                  }}
+                </h3>
+              </div>
+            </div>
             <div
               *ngIf="response.isAccepted"
               [ngClass]="response.isFinalOfferSubmitted ? 'final' : 'no-final'"
