@@ -83,7 +83,7 @@
                     >
                       Mistake? Crop not received
                     </button>
-                    <p *ngIf="detail.cropOrder.orderStatus == 'Completed' && !checkIfIsCropReceivedMoreThan24Hours(detail)">No Action needed</p>
+                    <p *ngIf="detail.cropOrder.orderStatus == 'To deliver' || (detail.cropOrder.orderStatus == 'Completed' || !checkIfIsCropReceivedMoreThan24Hours(detail))">No Action needed</p>
                   </td>
                 </tr>
               </tbody>
