@@ -18,4 +18,5 @@ export interface PostAdvertisementResponse {
   //for inserting and updating
   farmerId?: number;
   postId?: number;
+  userId?: number;
 }

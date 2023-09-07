@@ -327,6 +327,28 @@
                   </div>
                   <hr />
                   <div class="row">
+                    <div class="col-sm-4">
+                      <p class="mb-0">ID Number</p>
+                    </div>
+                    <div class="col-sm-8">
+                      <p class="text-muted mb-0">
+                        {{ selectedFarmerToVerify?.user?.validIdNumber || 'No Submission Yet' }}
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <p class="mb-0">ID Type</p>
+                    </div>
+                    <div class="col-sm-8">
+                      <p class="text-muted mb-0">
+                        {{ selectedFarmerToVerify?.user?.validIdType || 'No Submission Yet' }}
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
                     <div class="col-sm-3">
                       <p class="mb-0">Email</p>
                     </div>
@@ -368,6 +390,7 @@
 
       <div class="action-container">
         <button
+        [disabled]="selectedFarmerToVerify?.user?.validIdPicture == undefined"
           pButton
           class="p-button-outlined p-button-secondary cancel-btn"
           (click)="refuseSubmittedId()"
@@ -460,6 +483,28 @@
                     <div class="col-sm-8">
                       <p class="text-muted mb-0">
                         {{ selectedFarmerToVerify?.user?.lastName }}
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <p class="mb-0">ID Number</p>
+                    </div>
+                    <div class="col-sm-8">
+                      <p class="text-muted mb-0">
+                        {{ selectedFarmerToVerify?.user?.validIdNumber }}
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <p class="mb-0">ID Type</p>
+                    </div>
+                    <div class="col-sm-8">
+                      <p class="text-muted mb-0">
+                        {{ selectedFarmerToVerify?.user?.validIdType }}
                       </p>
                     </div>
                   </div>

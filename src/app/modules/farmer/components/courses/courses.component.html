@@ -20,11 +20,7 @@
                 )
               "
             >
-              <h1
-                class="course-name"
-                data-aos="fade-right"
-                data-aos-duration="333"
-              >
+              <h1 class="course-name">
                 {{ course.courseName | slice : 0 : 20
                 }}<span *ngIf="course.courseName.length > 20">...</span>
               </h1>

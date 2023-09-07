@@ -6,11 +6,13 @@ import { supplierUserGuard } from './guards/supplier-user.guard';
 import { Error400Component } from './modules/error-pages/component/error400/error400.component';
 import { Error404Component } from './modules/error-pages/component/error404/error404.component';
 import { ErrorPageComponent } from './modules/shared/components/error-page/error-page.component';
+import { preventAccess } from './guards/preventAccess.guard';
 
 const routes: Routes = [
   // landing
   {
     path: '',
+    canActivate: [preventAccess],
     loadChildren: () =>
       import('./modules/landing/landing.module').then((m) => m.LandingModule),
   },

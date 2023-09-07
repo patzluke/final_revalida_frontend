@@ -6,6 +6,7 @@ import { PostAdvertisementResponseListComponent } from './components/post-advert
 import { ProfileComponent } from './components/profile/profile.component';
 import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'orders',
     component: OrderListComponent
+  },
+  {
+    path: 'notifications',
+    component: NotificationsComponent
   }
 ];
 
