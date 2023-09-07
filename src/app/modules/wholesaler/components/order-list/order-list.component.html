@@ -14,22 +14,30 @@
             <a class="button">MANAGE</a>
           </div>
         </div>
-        <div class="row" *ngFor="let detail of details">
+        <div class="row">
           <div class="col">
             <table class="table table-striped table-hover">
               <thead>
                 <tr>
-                  <th>Order Reference ID</th>
+                  <th>Order ID</th>
                   <th>Crop Name</th>
                   <th>Order Status</th>
                   <th>Quantity</th>
-                  <th>Farmer's Name</th>
-                  <th>Payment Date</th>
+                  <th *ngIf="currentUserType == 'Supplier'">Farmer's Name</th>
+                  <th *ngIf="currentUserType == 'Farmer'">Supplier's Name</th>
                   <th>Payment Mode</th>
+                  <th>Payment Reference No.</th>
+                  <th class="text-center">Proof Of Payment</th>
+                  <th>Payment Date</th>
+                  <th>Receive Date</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr style="cursor: pointer">
+                <tr
+                  style="cursor: pointer"
+                  *ngFor="let detail of selectCropPayments$ | async"
+                >
                   <td>{{ detail.cropOrder.orderIdRef }}</td>
                   <td>{{ detail.cropOrder.sellCropDetail.cropName }}</td>
                   <td>{{ detail.cropOrder.orderStatus }}</td>
@@ -39,8 +47,44 @@
                     {{ detail.cropOrder.sellCropDetail.farmer.user.middleName }}
                     {{ detail.cropOrder.sellCropDetail.farmer.user.lastName }}
                   </td>
-                  <td>{{ detail.payDate | date : "MMMM dd YYYY HH:mm a" }}</td>
                   <td>{{ detail.cropOrder.sellCropDetail.paymentMode }}</td>
+                  <td>{{ detail.transcationReferenceNumber }}</td>
+                  <td class="text-center">
+                    <a [href]="detail.proofOfPaymentImage"
+                      ><i class="pi pi-image"></i>
+                    </a>
+                  </td>
+                  <td>{{ detail.payDate | date : "MMMM dd YYYY HH:mm a" }}</td>
+                  <td>
+                    {{
+                      (detail.cropOrder.orderReceivedDate
+                        | date : "MMMM dd YYYY HH:mm a") || "Not yet received"
+                    }}
+                  </td>
+                  <td
+                    [tooltipDisabled]="
+                      detail.cropOrder.orderStatus == 'To deliver' ||
+                      detail.cropOrder.orderStatus == 'Completed'
+                    "
+                    pTooltip="Please wait for farmer to verify your payment"
+                    tooltipPosition="top"
+                  >
+                    <button
+                      class="btn btn-success"
+                      *ngIf="detail.cropOrder.orderStatus == 'To deliver'"
+                      (click)="changeStatus(detail)"
+                    >
+                      Crop Received?
+                    </button>
+                    <button
+                      *ngIf="detail.cropOrder.orderStatus == 'Completed' && checkIfIsCropReceivedMoreThan24Hours(detail)"
+                      class="btn btn-danger"
+                      (click)="changeStatus(detail)"
+                    >
+                      Mistake? Crop not received
+                    </button>
+                    <p *ngIf="detail.cropOrder.orderStatus == 'Completed' && !checkIfIsCropReceivedMoreThan24Hours(detail)">No Action needed</p>
+                  </td>
                 </tr>
               </tbody>
             </table>
