@@ -1,13 +1,25 @@
+section {
+  background-color: #e8f4ef;
+  min-height: 100vh;
+  padding: 60px;
+}
+
+.title {
+  font-family: "Circular Std";
+  color: #2d5605;
+  font-weight: bold;
+}
+
 .mainBg {
-    justify-content: center;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    width: 100%;
-    padding: 0px 200px 0px 200px;
+  justify-content: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100%;
+  padding: 0px 200px 0px 200px;
 }
 
 .main {
-    border-radius: 10px;
+  border-radius: 10px;
 }

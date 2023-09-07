@@ -14,6 +14,10 @@ import {
   selectCropPayments,
 } from '../../states/crop-payment-state/crop-payment.selectors';
 import { CropPayment } from '../../models/crop-payment';
+import { selectSellCropDetailsByFarmerIdAndResponseId } from '../../states/sell-crop-details-state/sell-crop-details.selectors';
+import { SellCropDetailsActions } from '../../states/sell-crop-details-state/sell-crop-details.actions';
+import { SupplierService } from '../../services/supplier.service';
+import { SellCropDetails } from '../../models/sell-crop-details';
 
 @Component({
   selector: 'app-post-advertisement-response-list',
@@ -24,10 +28,15 @@ export class PostAdvertisementResponseListComponent implements OnInit {
   selectedPostId!: number;
   selectedPostAdvertisement?: PostAdvertisement;
   postAdvertisementResponses: PostAdvertisementResponse[] = [];
+  sellCropDetails: SellCropDetails[] = [];
   //selectors
   selectPostAdvertisementResponses$ = this.store.select(
     selectPostAdvertisementResponses()
   );
+
+  selectSellCropDetailsByFarmerIdAndResponseId$ = (farmerId: number, postResponseId: number) => {
+    return this.store.select(selectSellCropDetailsByFarmerIdAndResponseId(farmerId, postResponseId))
+  }
 
   constructor(
     private store: Store,
@@ -67,6 +76,10 @@ export class PostAdvertisementResponseListComponent implements OnInit {
       type: CropPaymentActions.GET_CROPPAYMENT,
       supplierId: localStorage.getItem('userNo'),
     });
+
+    this.store.dispatch({
+      type: SellCropDetailsActions.GET_SELLCROPDETAILS,
+    });
   }
 
   updateResponseIsAcceptedStatus(
@@ -76,15 +89,18 @@ export class PostAdvertisementResponseListComponent implements OnInit {
     let updatedAdvertisementResponse = {
       ...advertisementResponse,
       notificationMessage: '',
+      notificationTitle: '',
     };
     updatedAdvertisementResponse.isAccepted =
       updatedAdvertisementResponse.isAccepted ? false : true;
     if (updatedAdvertisementResponse.isAccepted) {
+      updatedAdvertisementResponse.notificationTitle = `Offer is Accepted`;
       updatedAdvertisementResponse.notificationMessage =
         `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName}, `.concat(
           `has accepted your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`
         );
     } else {
+      updatedAdvertisementResponse.notificationTitle = `Offer is Withdrawn`;
       updatedAdvertisementResponse.notificationMessage =
         `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName}, `.concat(
           `has withdrawn from your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`
@@ -101,7 +117,9 @@ export class PostAdvertisementResponseListComponent implements OnInit {
     let selectedCropPayment = {};
     let supplierId = localStorage.getItem('userNo') as any;
     let responseId = postAdvertisementResponse.postResponseId;
-    this.store.select(selectCropPayment(responseId, supplierId)).forEach((data) => {
+    this.store
+      .select(selectCropPayment(responseId, supplierId))
+      .forEach((data) => {
         selectedCropPayment = data as CropPayment;
       });
     const obj: NavigationExtras = {
