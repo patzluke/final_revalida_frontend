@@ -94,7 +94,7 @@
                   type="text"
                   class="form-control"
                   placeholder="Transaction Number"
-                  [formControl]="transactionNumber"
+                  [formControl]="transcationReferenceNumber"
                 />
               </div>
               <div class="mb-3">
@@ -126,7 +126,7 @@
                 </button>
                 <label
                   *ngIf="
-                    this.cropPayment?.cropOrder?.sellCropDetail
+                    cropPayment?.cropOrder?.sellCropDetail
                       ?.postAdvertisementResponse?.isFinalOfferAccepted
                   "
                   class="text-success"

@@ -34,9 +34,14 @@ export class PostAdvertisementResponseListComponent implements OnInit {
     selectPostAdvertisementResponses()
   );
 
-  selectSellCropDetailsByFarmerIdAndResponseId$ = (farmerId: number, postResponseId: number) => {
-    return this.store.select(selectSellCropDetailsByFarmerIdAndResponseId(farmerId, postResponseId))
-  }
+  selectSellCropDetailsByFarmerIdAndResponseId$ = (
+    farmerId: number,
+    postResponseId: number
+  ) => {
+    return this.store.select(
+      selectSellCropDetailsByFarmerIdAndResponseId(farmerId, postResponseId)
+    );
+  };
 
   constructor(
     private store: Store,
@@ -90,6 +95,7 @@ export class PostAdvertisementResponseListComponent implements OnInit {
       ...advertisementResponse,
       notificationMessage: '',
       notificationTitle: '',
+      userId: advertisementResponse.farmer.user.userId,
     };
     updatedAdvertisementResponse.isAccepted =
       updatedAdvertisementResponse.isAccepted ? false : true;
@@ -106,6 +112,7 @@ export class PostAdvertisementResponseListComponent implements OnInit {
           `has withdrawn from your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`
         );
     }
+    console.log(updatedAdvertisementResponse);
 
     this.store.dispatch({
       type: PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES,

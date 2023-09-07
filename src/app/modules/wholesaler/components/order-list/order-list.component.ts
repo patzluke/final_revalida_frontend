@@ -4,13 +4,16 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CropPaymentActions } from '../../states/crop-payment-state/crop-payment.actions';
 import { selectCropPayments } from '../../states/crop-payment-state/crop-payment.selectors';
+import Swal from 'sweetalert2';
+import { CropPayment } from '../../models/crop-payment';
 
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
-  styleUrls: ['./order-list.component.scss']
+  styleUrls: ['./order-list.component.scss'],
 })
 export class OrderListComponent implements OnInit {
+  currentUserType = localStorage.getItem('userType');
 
   //selectors
   selectCropPayments$ = this.store.select(selectCropPayments());
@@ -20,37 +23,47 @@ export class OrderListComponent implements OnInit {
       type: CropPaymentActions.GET_CROPPAYMENT,
       supplierId: localStorage.getItem('userNo'),
     });
-    this.selectCropPayments$.subscribe(
-      data => {
-        this.details = data;
-        console.log(this.details)
-      })
   }
 
-  constructor(private http: HttpClient, private store: Store) {
+  constructor(private store: Store) {}
 
-  }
-
-  private SAMPLE_BASE_URL = 'http://localhost:8080/api/supplier';
-
-  details?: any[]
-
-  // id: number = 2
-
-  getSellCropDetailByUserId(): Observable<any[]> {
-    const newUrl = `${this.SAMPLE_BASE_URL}/select/crop-detail`;
-    return this.http.get<any[]>(newUrl);
-  }
-
-  execute() {
-    this.getSellCropDetailByUserId().subscribe(
-      (data: any[]) => {
-        this.details = data;
-        console.log(this.details);
-      },
-      (error) => {
-        console.log(error);
+  changeStatus(cropPayment: CropPayment) {
+    let updatedCropPayment = {
+      orderIdRef: cropPayment.cropOrder.orderIdRef,
+      paymentId: cropPayment.paymentId,
+      orderStatus:
+        cropPayment.cropOrder.orderStatus == 'To deliver'
+          ? 'Completed'
+          : 'To deliver',
+    };
+    Swal.fire({
+      title:
+        cropPayment.cropOrder.orderStatus == 'To deliver'
+          ? 'Are you sure you have received Farmer\'s crops? this will change the order status to "Completed".'
+          : 'Are you sure you haven\'t received the Farmer\'s yet? this will change your crop shipment status to "To deliver" again. Take note you can only change this again within 24 hours of received date.',
+      icon: 'warning',
+      showDenyButton: true,
+      confirmButtonColor: '#3085d6',
+      denyButtonColor: '#d33',
+      denyButtonText: 'cancel',
+      confirmButtonText: 'Save changes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.store.dispatch({
+          type: CropPaymentActions.UPDATE_CROPPAYMENT_ORDER_STATUS,
+          cropPayment: updatedCropPayment,
+        });
       }
-    );
+    });
   }
+
+  checkIfIsCropReceivedMoreThan24Hours = (cropPayment: CropPayment) => {
+    let datePlus24Hrs = new Date(cropPayment.cropOrder.orderReceivedDate);
+    datePlus24Hrs.setHours(datePlus24Hrs.getHours() + 24);
+    let dateToday = new Date();
+    if (datePlus24Hrs <= dateToday) {
+      return false;
+    }
+    return true;
+  };
 }

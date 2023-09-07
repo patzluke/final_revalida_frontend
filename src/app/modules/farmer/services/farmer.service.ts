@@ -160,6 +160,13 @@ export class FarmerService {
     );
   };
 
+  updateCropOrderStatus = (cropPayment: any) => {
+    return this.http.put<CropPayment>(
+      `${this.baseUrl}/farmer/update/croporders`,
+      cropPayment
+    );
+  };
+
   // Sales Report
   getTotalSales(farmerId: number): Observable<any> {
     const newUrl = `${this.baseUrl}/farmer/get/farmer-total-sales-by-id/${farmerId}`;

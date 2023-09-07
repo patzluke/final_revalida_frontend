@@ -8,6 +8,10 @@ export enum CropPaymentActions {
   UPDATE_CROPPAYMENT = "[CropPayment] Update CropPayment (Supplier Side)",
   UPDATE_CROPPAYMENT_SUCCESS = "[CropPayment] Update CropPayment (Supplier Side) Success",
   UPDATE_CROPPAYMENT_FAILED = "[CropPayment] Update CropPayment (Supplier Side) Failed",
+
+  UPDATE_CROPPAYMENT_ORDER_STATUS = "[CropPayment] Update CropPayment order status (Supplier Side)",
+  UPDATE_CROPPAYMENT_ORDER_STATUS_SUCCESS = "[CropPayment] Update CropPayment order status (Supplier Side) Success",
+  UPDATE_CROPPAYMENT_ORDER_STATUS_FAILED = "[CropPayment] Update CropPayment order status (Supplier Side) Failed",
 }
 
 export const setCropPaymentState = createAction(
