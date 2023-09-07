@@ -58,6 +58,9 @@
                 <th style="min-width: 15rem">
                   <div class="th-text">Status</div>
                 </th>
+                <th style="min-width: 15rem">
+                  <div class="th-text">Active Status</div>
+                </th>
                 <th style="min-width: 10rem">
                   <div class="th-text">Action</div>
                 </th>
@@ -88,6 +91,23 @@
                   {{
                     farmer.user.isValidated ? "Verified" : "Not Yet Verified"
                   }}
+                </td>
+                <td style="width: 25%">
+                  <div class="form-check form-switch">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      role="switch"
+                      id="flexSwitchCheckChecked"
+                      checked
+                      (click)="toggleActiveSwitch()"
+                    />
+                    <label
+                      class="form-check-label"
+                      for="flexSwitchCheckChecked"
+                      >{{ activeStatusLabel }}</label
+                    >
+                  </div>
                 </td>
                 <td style="width: 25%">
                   <p-button
@@ -185,6 +205,9 @@
                   {{
                     farmer.user.isValidated ? "Verified" : "Not Yet Verified"
                   }}
+                </td>
+                <td style="width: 25%">
+                  {{ farmer.user.activeStatus ? "Active" : "Deactive" }}
                 </td>
                 <td style="width: 25%">
                   <p-button

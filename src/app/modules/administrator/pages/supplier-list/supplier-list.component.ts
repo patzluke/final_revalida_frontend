@@ -120,4 +120,16 @@ export class SupplierListComponent implements OnInit {
       }
     });
   }
+
+  active?: boolean;
+
+  activeStatusLabel: string = 'Active'
+
+  toggleActiveSwitch(){
+    if (this.activeStatusLabel === 'Active') {
+      this.activeStatusLabel = 'Deactive';
+    } else if (this.activeStatusLabel === 'Deactive') {
+      this.activeStatusLabel = 'Active';
+    }
+  }
 }
