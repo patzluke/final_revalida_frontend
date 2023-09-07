@@ -24,13 +24,15 @@ export class CropPaymentEffects {
       return this.actions$.pipe(
         ofType(CropPaymentActions.GET_CROPPAYMENT),
         mergeMap((data: { supplierId: number }) =>
-          this.supplierService.selectAllCropPaymentBySupplier(data.supplierId).pipe(
-            map((cropPayments) =>
-              setCropPaymentState({
-                cropPayments: cropPayments,
-              })
+          this.supplierService
+            .selectAllCropPaymentBySupplier(data.supplierId)
+            .pipe(
+              map((cropPayments) =>
+                setCropPaymentState({
+                  cropPayments: cropPayments,
+                })
+              )
             )
-          )
         )
       );
     },
@@ -41,24 +43,50 @@ export class CropPaymentEffects {
     return this.actions$.pipe(
       ofType(CropPaymentActions.UPDATE_CROPPAYMENT),
       mergeMap((data: { cropPayment: any }) =>
-        this.supplierService
-          .updateCropPaymentStatus(data.cropPayment)
-          .pipe(
-            map((cropPayment: CropPayment) =>
-              updateCropPaymentState({
-                cropPayment: cropPayment,
-              })
-            ),
-            tap(() => {
-              Swal.fire('Success', 'Payment Submitted!', 'success');
-            }),
-            catchError((error: HttpErrorResponse) => {
-              Swal.fire('Failed to Submit!', `Something Went Wrong`, 'error');
-              return of({
-                type: CropPaymentActions.UPDATE_CROPPAYMENT_FAILED,
-              });
+        this.supplierService.updateCropPaymentStatus(data.cropPayment).pipe(
+          map((cropPayment: CropPayment) =>
+            updateCropPaymentState({
+              cropPayment: cropPayment,
             })
-          )
+          ),
+          tap(() => {
+            Swal.fire('Success', 'Payment Submitted!', 'success');
+          }),
+          catchError((error: HttpErrorResponse) => {
+            Swal.fire('Failed to Submit!', `Something Went Wrong`, 'error');
+            return of({
+              type: CropPaymentActions.UPDATE_CROPPAYMENT_FAILED,
+            });
+          })
+        )
+      )
+    );
+  });
+
+  updateCropPaymentOrderStatus$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CropPaymentActions.UPDATE_CROPPAYMENT_ORDER_STATUS),
+      mergeMap((data: { cropPayment: any }) =>
+        this.supplierService.updateCropOrderStatus(data.cropPayment).pipe(
+          map((cropPayment: CropPayment) =>
+            updateCropPaymentState({
+              cropPayment: cropPayment,
+            })
+          ),
+          tap(() => {
+            Swal.fire('Success', 'Status is now updated!', 'success');
+          }),
+          catchError((error: HttpErrorResponse) => {
+            Swal.fire(
+              'Failed to update status!',
+              `Something Went Wrong`,
+              'error'
+            );
+            return of({
+              type: CropPaymentActions.UPDATE_CROPPAYMENT_FAILED,
+            });
+          })
+        )
       )
     );
   });

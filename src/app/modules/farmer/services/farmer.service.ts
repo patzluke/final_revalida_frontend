@@ -159,4 +159,11 @@ export class FarmerService {
       `${this.baseUrl}/admin/delete/farmingtips/${farmingTipId}`
     );
   };
+
+  updateCropOrderStatus = (cropPayment: any) => {
+    return this.http.put<CropPayment>(
+      `${this.baseUrl}/farmer/update/croporders`,
+      cropPayment
+    );
+  };
 }

@@ -144,7 +144,7 @@
               <p>{{ response.message }}</p>
             </div>
             <mat-divider class="divider"></mat-divider>
-            <div *ngIf="response.isAccepted && response.isFinalOfferSubmitted">
+            <div *ngIf="response.isAccepted && response.isFinalOfferSubmitted && !response.isFinalOfferAccepted">
               <h2>Final offer</h2>
               <div class="offer-pqt-container">
                 <h3 class="label">Quantity:</h3>
