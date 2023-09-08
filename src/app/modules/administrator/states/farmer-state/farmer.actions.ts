@@ -12,6 +12,10 @@ export enum FarmerActions {
   UPDATE_FARMER_STATUS = '[farmer] Update farmer status',
   UPDATE_FARMER_STATUS_SUCCESS = '[farmer] Update farmer status Success',
   UPDATE_FARMER_STATUS_FAILED = '[farmer] Update farmer status Failed',
+
+  UPDATE_FARMER_ACTIVE_STATUS = '[farmer] Update farmer active status',
+  UPDATE_FARMER_ACTIVE_STATUS_SUCCESS = '[farmer] Update farmer active status Success',
+  UPDATE_FARMER_ACTIVE_STATUS_FAILED = '[farmer] Update farmer active status Failed',
 }
 
 export const setFarmerState = createAction(

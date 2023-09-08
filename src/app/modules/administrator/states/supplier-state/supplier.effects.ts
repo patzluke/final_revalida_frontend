@@ -10,7 +10,6 @@ import {
   updateSupplierState,
 } from './supplier.actions';
 import { Supplier } from '../../models/supplier';
-import { FarmerActions } from '../farmer-state/farmer.actions';
 
 @Injectable()
 export class SupplierEffects {
@@ -47,6 +46,27 @@ export class SupplierEffects {
             Swal.fire('Failed to Update!', `Something Went Wrong`, 'error');
             return of({
               type: SupplierActions.UPDATE_SUPPLIER_STATUS_FAILED,
+            });
+          })
+        )
+      )
+    );
+  });
+
+  updateSupplierActiveStatus$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SupplierActions.UPDATE_SUPPLIER_ACTIVE_STATUS),
+      switchMap((data: { user: Supplier }) =>
+        this.adminService.changeUserActiveStatus(data.user).pipe(
+          map((supplier: Supplier) => {
+            return updateSupplierState({
+              supplier: supplier,
+            });
+          }),
+          catchError((error: HttpErrorResponse) => {
+            Swal.fire('Failed to change active status!', `Something Went Wrong`, 'error');
+            return of({
+              type: SupplierActions.UPDATE_SUPPLIER_ACTIVE_STATUS_FAILED,
             });
           })
         )

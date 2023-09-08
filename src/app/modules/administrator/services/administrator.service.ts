@@ -88,6 +88,13 @@ export class AdminService {
     );
   };
 
+  changeUserActiveStatus = (user: Farmer | Supplier) => {
+    return this.http.put<Supplier | Farmer>(
+      `${this.baseUrl}/admin/update/user`,
+      user
+    );
+  };
+
   upload = (file: File): Observable<FileDetails> => {
     const formData: FormData = new FormData();
     formData.append('file', file);

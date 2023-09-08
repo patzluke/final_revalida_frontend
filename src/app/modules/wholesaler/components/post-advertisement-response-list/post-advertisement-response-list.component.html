@@ -116,7 +116,13 @@
 
             <i class="pull-right">
               <button
-                [disabled]="response.isFinalOfferAccepted"
+                [disabled]="
+                  response.isFinalOfferAccepted ||
+                  (
+                    selectCropPayment$(response.postResponseId, supplierId)
+                    | async
+                  )?.cropOrder?.orderStatus == 'Cancelled'
+                "
                 pButton
                 [ngClass]="{
                   'offer-btn': response.isAccepted,
@@ -206,7 +212,11 @@
               <p
                 *ngIf="
                   response.isFinalOfferSubmitted &&
-                  !response.isFinalOfferAccepted
+                  !response.isFinalOfferAccepted &&
+                  (
+                    selectCropPayment$(response.postResponseId, supplierId)
+                    | async
+                  )?.cropOrder?.orderStatus != 'Cancelled'
                 "
               >
                 Farmer has already submitted their final offer. You can now
@@ -215,9 +225,26 @@
               <p *ngIf="response.isFinalOfferAccepted">
                 Transaction already completed.
               </p>
+              <p
+                style="color: red"
+                *ngIf="
+                  (
+                    selectCropPayment$(response.postResponseId, supplierId)
+                    | async
+                  )?.cropOrder?.orderStatus == 'Cancelled'
+                "
+              >
+                Offer is already cancelled by the farmer
+              </p>
               <div class="final-offer-container">
                 <button
-                  [disabled]="!response.isFinalOfferSubmitted"
+                  [disabled]="
+                    !response.isFinalOfferSubmitted ||
+                    (
+                      selectCropPayment$(response.postResponseId, supplierId)
+                      | async
+                    )?.cropOrder?.orderStatus == 'Cancelled'
+                  "
                   pButton
                   class="offer-btn final-btn"
                   (click)="navigateToOrderSummary(response)"

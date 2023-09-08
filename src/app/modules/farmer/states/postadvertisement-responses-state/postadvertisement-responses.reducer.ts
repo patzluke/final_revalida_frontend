@@ -21,7 +21,7 @@ export const postAdvertisementResponsesReducer = createReducer(
     (state, { postAdvertisementResponses }) => {
       return {
         ...state,
-        postAdvertisementResponses: postAdvertisementResponses,
+        postAdvertisementResponses: [...postAdvertisementResponses],
       };
     }
   ),

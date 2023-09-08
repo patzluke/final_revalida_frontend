@@ -12,6 +12,10 @@ export enum SupplierActions {
   UPDATE_SUPPLIER_STATUS = '[supplier] Update supplier status',
   UPDATE_SUPPLIER_STATUS_SUCCESS = '[supplier] Update supplier status Success',
   UPDATE_SUPPLIER_STATUS_FAILED = '[supplier] Update supplier status Failed',
+
+  UPDATE_SUPPLIER_ACTIVE_STATUS = '[supplier] Update supplier active status',
+  UPDATE_SUPPLIER_ACTIVE_STATUS_SUCCESS = '[supplier] Update supplier active status Success',
+  UPDATE_SUPPLIER_ACTIVE_STATUS_FAILED = '[supplier] Update supplier active status Failed',
 }
 
 export const setSupplierState = createAction(
