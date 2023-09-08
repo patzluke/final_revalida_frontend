@@ -29,7 +29,7 @@ export class OrderSummaryComponent implements OnInit {
     this.farmerName = `${this.cropPayment?.cropOrder.sellCropDetail.farmer.user.firstName} ${this.cropPayment?.cropOrder.sellCropDetail.farmer.user.lastName}`;
   }
 
-  ngOnInit(): void {}
+  ngOnInit() {}
 
   onImageSelected = (event: any) => {
     const selectedFile = event.target.files[0];
