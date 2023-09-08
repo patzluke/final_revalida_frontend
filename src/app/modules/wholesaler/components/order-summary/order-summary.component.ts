@@ -16,7 +16,7 @@ import { FormControl } from '@angular/forms';
 export class OrderSummaryComponent implements OnInit {
   cropPayment?: CropPayment;
   farmerName = '';
-  transactionNumber = new FormControl('');
+  transcationReferenceNumber = new FormControl('');
   selectedImage!: File;
   imagePreviewUrl!: string | ArrayBuffer;
 
@@ -29,7 +29,17 @@ export class OrderSummaryComponent implements OnInit {
     this.farmerName = `${this.cropPayment?.cropOrder.sellCropDetail.farmer.user.firstName} ${this.cropPayment?.cropOrder.sellCropDetail.farmer.user.lastName}`;
   }
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    this.transcationReferenceNumber.patchValue(
+      this.cropPayment?.transcationReferenceNumber as string
+    );
+    if (
+      this.cropPayment?.cropOrder?.sellCropDetail?.postAdvertisementResponse
+        ?.isFinalOfferAccepted
+    ) {
+      this.transcationReferenceNumber.disable();
+    }
+  }
 
   onImageSelected = (event: any) => {
     const selectedFile = event.target.files[0];
@@ -43,29 +53,35 @@ export class OrderSummaryComponent implements OnInit {
   };
 
   submitPayment() {
+    let farmerUser = this.cropPayment?.cropOrder.supplier.user;
+    let farmerFullName = `${farmerUser?.firstName} ${farmerUser?.middleName} ${farmerUser?.lastName}`;
+    console.log(farmerFullName);
+
     let updatedCropPayment = {
       ...this.cropPayment,
       userId: localStorage.getItem('userId') as any,
+      farmerUserId:
+        this.cropPayment?.cropOrder.sellCropDetail.farmer.user.userId,
       proofOfPaymentImage: '',
-      transactionNumber: this.transactionNumber.getRawValue(),
+      transcationReferenceNumber: this.transcationReferenceNumber.getRawValue(),
       postResponseId:
         this.cropPayment?.cropOrder.sellCropDetail.postAdvertisementResponse
           .postResponseId,
+      notificationTitle: 'Payment Status',
+      notificationMessage: `${farmerFullName} has submitted their proof of payment for ${this.cropPayment?.cropOrder.sellCropDetail.cropName}`,
     };
     this.supplierService.upload(this.selectedImage).subscribe({
       next: (value) => {
         updatedCropPayment.proofOfPaymentImage = `${value.fileUri.concat(
           value.fileName
         )}`;
-        console.log(updatedCropPayment);
-
         this.store.dispatch({
           type: CropPaymentActions.UPDATE_CROPPAYMENT,
           cropPayment: updatedCropPayment,
         });
       },
       error: (err) => {
-        Swal.fire('Failed to Submit!', `Something went wrong.`, 'error');
+        Swal.fire('Failed to Submit!', `Please upload your Proof of payment!`, 'error');
       },
     });
 

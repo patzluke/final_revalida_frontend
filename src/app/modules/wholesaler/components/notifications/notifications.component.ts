@@ -43,6 +43,10 @@ export class NotificationsComponent implements OnInit {
       userId: localStorage.getItem('userId'),
     });
 
+    this.selectUserNotificationsRecent$.subscribe((data) => {
+      console.log(data);
+    });
+
     this.supplierService
       .findOneByUserId(localStorage.getItem('userId') as any)
       .subscribe((data) => {

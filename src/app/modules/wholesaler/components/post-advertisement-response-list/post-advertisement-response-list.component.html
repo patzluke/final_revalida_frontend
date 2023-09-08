@@ -139,12 +139,22 @@
               <h3 class="label">Price:</h3>
               <h3 class="value">₱{{ response.price | number : "1.2" }}</h3>
             </div>
+            <div class="offer-pqt-container">
+              <h3 class="label">Preferred Payment mode:</h3>
+              <h3 class="value">{{ response.preferredPaymentMode }}</h3>
+            </div>
 
             <div class="res-message">
               <p>{{ response.message }}</p>
             </div>
             <mat-divider class="divider"></mat-divider>
-            <div *ngIf="response.isAccepted && response.isFinalOfferSubmitted">
+            <div
+              *ngIf="
+                response.isAccepted &&
+                response.isFinalOfferSubmitted &&
+                !response.isFinalOfferAccepted
+              "
+            >
               <h2>Final offer</h2>
               <div class="offer-pqt-container">
                 <h3 class="label">Quantity:</h3>
@@ -169,6 +179,19 @@
                         response.postResponseId
                       ) | async
                     )?.price | number : "1.2"
+                  }}
+                </h3>
+              </div>
+              <div class="offer-pqt-container">
+                <h3 class="label">Payment mode:</h3>
+                <h3 class="value">
+                  {{
+                    (
+                      selectSellCropDetailsByFarmerIdAndResponseId$(
+                        response.farmer.farmerId!,
+                        response.postResponseId
+                      ) | async
+                    )?.paymentMode
                   }}
                 </h3>
               </div>

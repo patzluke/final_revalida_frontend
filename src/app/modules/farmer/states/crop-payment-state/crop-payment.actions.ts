@@ -8,6 +8,10 @@ export enum CropPaymentActions {
   ADD_CROPPAYMENT = '[CropPayment] Add CropPayment',
   ADD_CROPPAYMENT_SUCCESS = '[CropPayment] Add CropPayment Success',
   ADD_CROPPAYMENT_FAILED = '[CropPayment] Add CropPayment Failed',
+
+  UPDATE_CROPPAYMENT = "[CropPayment] Update CropPayment (Farmer Side)",
+  UPDATE_CROPPAYMENT_SUCCESS = "[CropPayment] Update CropPayment (Farmer Side) Success",
+  UPDATE_CROPPAYMENT_FAILED = "[CropPayment] Update CropPayment (Farmer Side) Failed",
 }
 
 export const setCropPaymentState = createAction(
@@ -17,5 +21,10 @@ export const setCropPaymentState = createAction(
 //--------------------------------------------------------------------
 export const addCropPaymentState = createAction(
   CropPaymentActions.ADD_CROPPAYMENT_SUCCESS,
+  props<{ cropPayment: CropPayment }>()
+);
+//--------------------------------------------------------------------
+export const updateCropPaymentState = createAction(
+  CropPaymentActions.UPDATE_CROPPAYMENT_SUCCESS,
   props<{ cropPayment: CropPayment }>()
 );
