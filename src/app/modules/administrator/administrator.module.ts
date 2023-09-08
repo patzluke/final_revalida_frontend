@@ -43,6 +43,8 @@ import { courseReducer } from './states/course-state/course.reducer';
 import { CourseEffects } from './states/course-state/course.effects';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { supplierComplaintReducer } from './states/suppliercomplaint-state/suppliercomplaint.reducers';
+import { SupplierComplaintsEffect } from './states/suppliercomplaint-state/suppliercomplaint.effects';
 
 @NgModule({
   declarations: [
@@ -86,12 +88,17 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     StoreModule.forFeature('farmerList', farmerReducer),
     StoreModule.forFeature('supplierList', supplierReducer),
     StoreModule.forFeature('courseList', courseReducer),
+    StoreModule.forFeature(
+      'suppplierComplaintsList (Admin Acc)',
+      supplierComplaintReducer
+    ),
     EffectsModule.forFeature([
       FarmingTipEffects,
       FarmerComplaintEffects,
       FarmerEffects,
       SupplierEffects,
       CourseEffects,
+      SupplierComplaintsEffect,
     ]),
   ],
 })
