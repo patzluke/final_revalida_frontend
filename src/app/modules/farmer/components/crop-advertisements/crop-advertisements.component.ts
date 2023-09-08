@@ -368,7 +368,7 @@ export class CropAdvertisementsComponent implements OnInit {
 
       this.openViewOfferDialog = false;
       Swal.fire({
-        title: 'Are you sure you want to send your final offer?',
+        title: 'Are you sure you want to send your final offer? You won\'t be able to change this after submitting.',
         icon: 'warning',
         showDenyButton: true,
         confirmButtonColor: '#3085d6',

@@ -8,6 +8,7 @@ export interface PostAdvertisement {
   cropName: string;
   description: string;
   quantity: string;
+  measurement?: string;
   price: number;
   datePosted?: string;
   dateModified?: string;

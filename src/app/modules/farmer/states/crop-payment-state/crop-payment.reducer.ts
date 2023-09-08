@@ -3,6 +3,7 @@ import { CropPayment } from '../../models/crop-payment';
 import {
   addCropPaymentState,
   setCropPaymentState,
+  updateCropPaymentState,
 } from './crop-payment.actions';
 
 export interface CropPaymentState {
@@ -23,5 +24,15 @@ export const cropPaymentReducer = createReducer(
       ...state,
       cropPayments: [cropPayment, ...state.cropPayments],
     };
-  })
+  }),
+  on(updateCropPaymentState, (state, { cropPayment }) => {
+    return {
+      ...state,
+      cropPayments: state.cropPayments.map((oldCropPayment) => {
+       return oldCropPayment.paymentId == cropPayment.paymentId
+          ? cropPayment
+          : oldCropPayment
+    }),
+    };
+  }),
 );

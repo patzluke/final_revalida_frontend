@@ -1,14 +1,17 @@
-import { CropPayment } from "./crop-payment";
-import { SellCropDetails } from "./sell-crop-details";
-import { Supplier } from "./supplier";
+import { CropPayment } from './crop-payment';
+import { SellCropDetails } from './sell-crop-details';
+import { Supplier } from './supplier';
 
 export interface CropOrder {
   orderIdRef?: number;
   address: string;
-  isReceivedBySupplier: boolean;
   orderStatus: string;
+  isProofOfPaymentSubmitted: boolean;
+  isCropReceivedBySupplier: boolean;
+  isPaymentReceivedByFarmer: boolean;
   sellCropDetail: SellCropDetails;
+  paymentReceivedDate: string;
   supplier: Supplier;
-  cropPayments?: Array<CropPayment>;
+  orderReceivedDate: string;
   cancelReason: string;
 }

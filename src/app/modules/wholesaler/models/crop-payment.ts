@@ -6,4 +6,6 @@ export interface CropPayment {
   payDate: string;
   paymentMode: string;
   cropOrder: CropOrder;
+  proofOfPaymentImage: string;
+  transcationReferenceNumber: string;
 }

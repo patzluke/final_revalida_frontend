@@ -103,4 +103,11 @@ export class SupplierService {
       cropPayment
     );
   };
+
+  updateCropOrderStatus = (cropPayment: any) => {
+    return this.http.put<CropPayment>(
+      `${this.baseUrl}/supplier/update/croporders`,
+      cropPayment
+    );
+  };
 }
