@@ -17,6 +17,7 @@ export class OrderSummaryComponent implements OnInit {
   cropPayment?: CropPayment;
   farmerName = '';
   transcationReferenceNumber = new FormControl('');
+  address = new FormControl('')
   selectedImage!: File;
   imagePreviewUrl!: string | ArrayBuffer;
 
@@ -33,6 +34,7 @@ export class OrderSummaryComponent implements OnInit {
     this.transcationReferenceNumber.patchValue(
       this.cropPayment?.transcationReferenceNumber as string
     );
+    this.address.patchValue(this.cropPayment?.cropOrder.address as string)
     if (
       this.cropPayment?.cropOrder?.sellCropDetail?.postAdvertisementResponse
         ?.isFinalOfferAccepted
@@ -64,6 +66,7 @@ export class OrderSummaryComponent implements OnInit {
         this.cropPayment?.cropOrder.sellCropDetail.farmer.user.userId,
       proofOfPaymentImage: '',
       transcationReferenceNumber: this.transcationReferenceNumber.getRawValue(),
+      address: this.address.getRawValue(),
       postResponseId:
         this.cropPayment?.cropOrder.sellCropDetail.postAdvertisementResponse
           .postResponseId,
