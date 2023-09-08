@@ -10,116 +10,262 @@
         <p class="h1 mb-3 title">COMPLAINTS</p>
       </div>
 
-      <div class="search-container">
-        <span class="p-input-icon-left search-input" style="width: 100%">
-          <i class="pi pi-search"></i>
-          <input
-            style="width: 100%"
-            #pInputText
-            pInputText
-            type="text"
-            (input)="dt1.filterGlobal(pInputText.value, 'contains')"
-            placeholder="Search keyword"
-          />
-        </span>
-      </div>
+      <p-tabView>
+        <p-tabPanel header="Farmer Complaints">
+          <div class="filter-container" style="margin-top: 1rem">
+            <div class="search-container">
+              <span class="p-input-icon-left search-input" style="width: 100%">
+                <i class="pi pi-search"></i>
+                <input
+                  style="width: 100%"
+                  #pInputText
+                  pInputText
+                  type="text"
+                  (input)="dt1.filterGlobal(pInputText.value, 'contains')"
+                  placeholder="Search keyword"
+                />
+              </span>
+            </div>
 
-      <p-table
-        #dt1
-        [value]="farmerComplaints"
-        dataKey="id"
-        [rows]="10"
-        [showCurrentPageReport]="true"
-        [rowsPerPageOptions]="[10, 15, 20]"
-        [loading]="loading"
-        [paginator]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [globalFilterFields]="[
-          'farmer.user.lastName',
-          'farmer.user.firstName',
-          'farmer.user.middleName'
-        ]"
-      >
-        <ng-template pTemplate="header">
-          <tr>
-            <th style="min-width: 10rem">
-              <div class="th-text">Title</div>
-            </th>
-            <th style="min-width: 10rem">
-              <div class="th-text">Farmer Name</div>
-            </th>
-            <th style="min-width: 10rem">
-              <div class="th-text">Date Submitted</div>
-            </th>
-            <th style="min-width: 10rem">
-              <div class="th-text">Status</div>
-            </th>
-            <th style="min-width: 7rem">
-              <div class="th-text">Action</div>
-            </th>
-          </tr></ng-template
-        >
-
-        <ng-template pTemplate="body" let-farmerComplaint>
-          <tr>
-            <td style="width: 20%">
-              {{ farmerComplaint.complaintTitle }}
-            </td>
-            <td style="width: 20%">
-              <span class="ml-1 vertical-align-middle"
-                >{{ farmerComplaint.farmer.user.lastName }}
-                {{ farmerComplaint.farmer.user.firstName }}
-                {{ farmerComplaint.farmer.user.middleName }}</span
-              >
-            </td>
-
-            <td style="width: 20%">
-              <span class="ml-1 vertical-align-middle">{{
-                farmerComplaint.dateSubmitted | date : "MM/dd/yyyy h:mm aa"
-              }}</span>
-            </td>
-            <td style="width: 20%">
-              {{ farmerComplaint.isRead ? "Read" : "Unread" }}
-              ({{ farmerComplaint.isResolved ? "Resolved" : "Unresolved" }})
-            </td>
-            <td style="width: 5%">
-              <p-button
-                (click)="
-                  selectFarmerComplaint(farmerComplaint); toggleViewModal()
-                "
-                type="button"
-                pTooltip="View Details"
-                tooltipPosition="bottom"
-                styleClass="p-button-rounded p-button-text"
-                ><span class="material-symbols-outlined">
-                  visibility
-                </span></p-button
-              >
-            </td>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-          <tr>
-            <td colspan="7">
-              <div class="no-info">
-                <img class="no-info-image" src="assets/images/no-result.png" />
-                <div class="no-info-text">
-                  <h1>No results found.</h1>
-                </div>
+            <div class="right-filter">
+              <div class="dropdown-container">
+                <p-dropdown
+                  [options]="sortingOptions"
+                  [(ngModel)]="selectedSortingOption"
+                  placeholder="Sort"
+                  (ngModelChange)="sortFarmerComplaints()"
+                  dropdownIcon="pi pi-sort-alt"
+                ></p-dropdown>
               </div>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
+            </div>
+          </div>
+
+          <p-table
+            #dt1
+            [value]="filteredFarmerComplaints"
+            dataKey="id"
+            [rows]="10"
+            [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10, 15, 20]"
+            [loading]="loading"
+            [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="[
+              'farmer.user.lastName',
+              'farmer.user.firstName',
+              'farmer.user.middleName'
+            ]"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="min-width: 10rem">
+                  <div class="th-text">Title</div>
+                </th>
+                <th style="min-width: 10rem">
+                  <div class="th-text">Farmer Name</div>
+                </th>
+                <th style="min-width: 10rem">
+                  <div class="th-text">Date Submitted</div>
+                </th>
+                <th style="min-width: 10rem">
+                  <div class="th-text">Status</div>
+                </th>
+                <th style="min-width: 7rem">
+                  <div class="th-text">Action</div>
+                </th>
+              </tr></ng-template
+            >
+
+            <ng-template pTemplate="body" let-farmerComplaint>
+              <tr>
+                <td style="width: 20%">
+                  {{ farmerComplaint.complaintTitle }}
+                </td>
+                <td style="width: 20%">
+                  <span class="ml-1 vertical-align-middle"
+                    >{{ farmerComplaint.farmer.user.lastName }}
+                    {{ farmerComplaint.farmer.user.firstName }}
+                    {{ farmerComplaint.farmer.user.middleName }}</span
+                  >
+                </td>
+
+                <td style="width: 20%">
+                  <span class="ml-1 vertical-align-middle">{{
+                    farmerComplaint.dateSubmitted | date : "MM/dd/yyyy h:mm aa"
+                  }}</span>
+                </td>
+                <td style="width: 20%">
+                  {{ farmerComplaint.isRead ? "Read" : "Unread" }}
+                  ({{ farmerComplaint.isResolved ? "Resolved" : "Unresolved" }})
+                </td>
+                <td style="width: 5%">
+                  <p-button
+                    (click)="
+                      selectFarmerComplaint(farmerComplaint);
+                      toggleViewFarmerModal()
+                    "
+                    type="button"
+                    pTooltip="View Details"
+                    tooltipPosition="bottom"
+                    styleClass="p-button-rounded p-button-text"
+                    ><span class="material-symbols-outlined">
+                      visibility
+                    </span></p-button
+                  >
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="7">
+                  <div class="no-info">
+                    <img
+                      class="no-info-image"
+                      src="assets/images/no-result.png"
+                    />
+                    <div class="no-info-text">
+                      <h1>No results found.</h1>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-tabPanel>
+        <p-tabPanel header="Supplier Complaints">
+          <div class="filter-container" style="margin-top: 1rem">
+            <div class="search-container">
+              <span class="p-input-icon-left search-input" style="width: 100%">
+                <i class="pi pi-search"></i>
+                <input
+                  style="width: 100%"
+                  #pInputText2
+                  pInputText
+                  type="text"
+                  (input)="dt2.filterGlobal(pInputText2.value, 'contains')"
+                  placeholder="Search keyword"
+                />
+              </span>
+            </div>
+
+            <div class="right-filter">
+              <div class="dropdown-container">
+                <p-dropdown
+                  [options]="sortingOptions"
+                  [(ngModel)]="selectedSortingOption"
+                  placeholder="Sort"
+                  (ngModelChange)="sortSupplierComplaints()"
+                  dropdownIcon="pi pi-sort-alt"
+                ></p-dropdown>
+              </div>
+            </div>
+          </div>
+
+          <p-table
+            #dt2
+            [value]="filteredSupplierComplaints"
+            dataKey="id"
+            [rows]="10"
+            [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10, 15, 20]"
+            [loading]="loading"
+            [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="[
+              'supplier.user.lastName',
+              'supplier.user.firstName',
+              'supplier.user.middleName'
+            ]"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="min-width: 10rem">
+                  <div class="th-text">Title</div>
+                </th>
+                <th style="min-width: 10rem">
+                  <div class="th-text">Supplier Name</div>
+                </th>
+                <th style="min-width: 10rem">
+                  <div class="th-text">Date Submitted</div>
+                </th>
+                <th style="min-width: 10rem">
+                  <div class="th-text">Status</div>
+                </th>
+                <th style="min-width: 7rem">
+                  <div class="th-text">Action</div>
+                </th>
+              </tr></ng-template
+            >
+
+            <ng-template pTemplate="body" let-supplierComplaint>
+              <tr>
+                <td style="width: 20%">
+                  {{ supplierComplaint.complaintTitle }}
+                </td>
+                <td style="width: 20%">
+                  <span class="ml-1 vertical-align-middle"
+                    >{{ supplierComplaint.supplier.user.lastName }}
+                    {{ supplierComplaint.supplier.user.firstName }}
+                    {{ supplierComplaint.supplier.user.middleName }}</span
+                  >
+                </td>
+
+                <td style="width: 20%">
+                  <span class="ml-1 vertical-align-middle">{{
+                    supplierComplaint.dateSubmitted
+                      | date : "MM/dd/yyyy h:mm aa"
+                  }}</span>
+                </td>
+                <td style="width: 20%">
+                  {{ supplierComplaint.isRead ? "Read" : "Unread" }}
+                  ({{
+                    supplierComplaint.isResolved ? "Resolved" : "Unresolved"
+                  }})
+                </td>
+                <td style="width: 5%">
+                  <p-button
+                    (click)="
+                      selectSupplierComplaint(supplierComplaint);
+                      toggleViewSupplierModal()
+                    "
+                    type="button"
+                    pTooltip="View Details"
+                    tooltipPosition="bottom"
+                    styleClass="p-button-rounded p-button-text"
+                    ><span class="material-symbols-outlined">
+                      visibility
+                    </span></p-button
+                  >
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="7">
+                  <div class="no-info">
+                    <img
+                      class="no-info-image"
+                      src="assets/images/no-result.png"
+                    />
+                    <div class="no-info-text">
+                      <h1>No results found.</h1>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-tabPanel>
+      </p-tabView>
     </div>
   </section>
 </app-side-nav>
 
-<!-- Modal Edit Course -->
+<!-- Farmer Modal -->
 <p-dialog
   header=" Reply to complaint"
   [modal]="true"
-  [(visible)]="isViewComplaint"
+  [(visible)]="isViewFarmerComplaint"
   [style]="{ width: '50vw' }"
   [draggable]="false"
   [resizable]="false"
@@ -196,7 +342,7 @@
       <button
         pButton
         class="p-button-outlined p-button-secondary cancel-btn"
-        (click)="toggleViewModal()"
+        (click)="toggleViewFarmerModal()"
       >
         Close
       </button>
@@ -207,82 +353,96 @@
   </div>
 </p-dialog>
 
-<div
-  class="modal fade"
-  id="editFarmerComplaint"
-  tabindex="-1"
-  aria-labelledby="myModalLabel"
-  aria-hidden="true"
+<!-- Supplier Modal -->
+<p-dialog
+  header=" Reply to complaint"
+  [modal]="true"
+  [(visible)]="isViewSupplierComplaint"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [maximizable]="true"
 >
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editFarmerComplaintLabel">
-          Reply to Complaint
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="addEditFarmerComplaintForm">
-          <div class="row d-flex flex-row flex-wrap mt-2">
-            <div class="col">
-              <label class="form-label">Complaint:</label>
-              <textarea
-                class="form-control"
-                formControlName="complaintMessage"
-                rows="3"
-              ></textarea>
-            </div>
-          </div>
-          <div class="row d-flex flex-row flex-wrap mt-2">
-            <div class="col">
-              <label class="form-label">Reply:</label>
-              <textarea
-                class="form-control"
-                formControlName="adminReplyMessage"
-                rows="2"
-              ></textarea>
-            </div>
-          </div>
-          <div class="row d-flex flex-row flex-wrap mt-2">
-            <label class="form-label">Complaint Photo:</label>
-            <img
-              [src]="imagePreviewUrl || 'assets/images/upload.png'"
-              style="height: 20rem"
-            />
-          </div>
-        </form>
-      </div>
-      <div
-        class="modal-footer d-flex flex-row"
-        style="justify-content: space-between"
-      >
+  <div class="container">
+    <form [formGroup]="editSupplierComplaintForm">
+      <div>
         <p>
-          <i>Date Read: {{ selectedReadDate | date : "MM/dd/yyyy h:mm aa" }}</i>
+          <i
+            >Date Read:
+            {{ selectedReadDate | date : "MMM dd, yyyy h:mm aa" }}</i
+          >
         </p>
+      </div>
+      <mat-divider class="divider"></mat-divider>
+      <div class="form-field">
+        <label>Complaint:</label>
+        <textarea
+          pInputTextarea
+          class="form-control"
+          formControlName="complaintMessage"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <div class="form-field">
+        <label>Status: </label>
         <div>
-          <button
-            type="button"
-            class="btn btn-secondary me-2"
-            data-bs-dismiss="modal"
-          >
-            Close
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-dismiss="modal"
-            (click)="editFarmerComplaintSubmit()"
-          >
-            Save changes
-          </button>
+          <p-dropdown
+            [ngClass]="{
+              'spec-field':
+                editSupplierComplaintForm.controls['isResolved'].invalid &&
+                (editSupplierComplaintForm.controls['isResolved'].dirty ||
+                  editSupplierComplaintForm.controls['isResolved'].touched)
+            }"
+            formControlName="isResolved"
+            placeholder="Select status"
+            [options]="complaintStatus"
+            optionLabel="status"
+            optionValue="value"
+          ></p-dropdown>
         </div>
       </div>
+
+      <div class="form-field">
+        <label class="form-label">Reply:</label>
+        <textarea
+          [ngClass]="{
+            'invalid-field':
+              editSupplierComplaintForm.controls['adminReplyMessage'].invalid &&
+              (editSupplierComplaintForm.controls['adminReplyMessage'].dirty ||
+                editSupplierComplaintForm.controls['adminReplyMessage'].touched)
+          }"
+          pInputTextarea
+          formControlName="adminReplyMessage"
+          rows="2"
+        ></textarea>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">Evidence/Image:</label>
+        <div class="image-container">
+          <img
+            class="preview-image"
+            [src]="imagePreviewUrl || 'assets/images/upload.png'"
+          />
+        </div>
+      </div>
+    </form>
+    <div class="action-container">
+      <button
+        pButton
+        class="p-button-outlined p-button-secondary cancel-btn"
+        (click)="toggleViewSupplierModal()"
+      >
+        Close
+      </button>
+      <button
+        pButton
+        class="submit-btn"
+        (click)="editSupplierComplaintSubmit()"
+      >
+        Save changes
+      </button>
     </div>
   </div>
-</div>
+</p-dialog>

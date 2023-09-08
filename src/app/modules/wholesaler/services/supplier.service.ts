@@ -8,6 +8,7 @@ import { PostAdvertisementResponse } from '../models/post-advertisement-response
 import { Supplier } from '../models/supplier';
 import { CropPayment } from '../models/crop-payment';
 import { SellCropDetails } from '../models/sell-crop-details';
+import { SupplierComplaint } from '../models/suppliercomplaint';
 
 @Injectable({
   providedIn: 'root',
@@ -108,6 +109,33 @@ export class SupplierService {
     return this.http.put<CropPayment>(
       `${this.baseUrl}/supplier/update/croporders`,
       cropPayment
+    );
+  };
+
+  // Supplier complaints
+  selectSupplierComplaints = (supplierId: number) => {
+    return this.http.get<SupplierComplaint[]>(
+      `${this.baseUrl}/supplier/get/suppliercomplaints/${supplierId}`
+    );
+  };
+
+  insertIntoSupplierComplaint = (supplierComplaint: SupplierComplaint) => {
+    return this.http.post<SupplierComplaint>(
+      `${this.baseUrl}/supplier/insert/suppliercomplaints`,
+      supplierComplaint
+    );
+  };
+
+  updateIntoSupplierComplaint = (supplierComplaint: SupplierComplaint) => {
+    return this.http.put<SupplierComplaint>(
+      `${this.baseUrl}/supplier/update/suppliercomplaints`,
+      supplierComplaint
+    );
+  };
+
+  softDeleteSupplierComplaint = (supplierComplaintId: number) => {
+    return this.http.delete<SupplierComplaint>(
+      `${this.baseUrl}/supplier/delete/suppliercomplaints/${supplierComplaintId}`
     );
   };
 }
