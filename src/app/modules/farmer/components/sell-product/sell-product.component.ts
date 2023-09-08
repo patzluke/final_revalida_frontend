@@ -28,6 +28,8 @@ export class SellProductComponent implements OnInit {
 
     this.selectCropPayments$.subscribe((data) => {
       this.cropPayments = data;
+      console.log(this.cropPayments);
+      this.filterCropPaymentByStatus();
     });
   }
 
@@ -40,17 +42,37 @@ export class SellProductComponent implements OnInit {
           ? 'proof of payment submitted'
           : 'To deliver',
     };
+    let isCheckboxChecked = false;
     Swal.fire({
       title:
-        'Are you sure you have received the suppliers payment? this will change your crop shipment status to "To deliver".',
+        'Are you sure you have received the suppliers payment? This will change your crop shipment status to "To deliver".',
       icon: 'warning',
       showDenyButton: true,
       confirmButtonColor: '#3085d6',
       denyButtonColor: '#d33',
-      denyButtonText: 'cancel',
-      confirmButtonText: 'Save changes',
+      denyButtonText: 'Cancel',
+      confirmButtonText: 'Save Changes',
+      html: '<label><input type="checkbox" id="confirmCheckbox" style="transform: scale(1.2); vertical-align: 1px; margin-right: 1rem"> I am sure and I have confirmed that I received the payment from the supplier.</label>',
+      didOpen: () => {
+        const confirmButton = Swal.getConfirmButton();
+        if (confirmButton) {
+          confirmButton.disabled = true;
+        }
+
+        const checkbox = document.getElementById(
+          'confirmCheckbox'
+        ) as HTMLInputElement;
+        checkbox.addEventListener('change', () => {
+          isCheckboxChecked = checkbox.checked;
+
+          const confirmButton = Swal.getConfirmButton();
+          if (confirmButton) {
+            confirmButton.disabled = !isCheckboxChecked;
+          }
+        });
+      },
     }).then((result) => {
-      if (result.isConfirmed) {
+      if (result.isConfirmed && isCheckboxChecked) {
         this.store.dispatch({
           type: CropPaymentActions.UPDATE_CROPPAYMENT,
           cropPayment: updatedCropPayment,
@@ -63,24 +85,104 @@ export class SellProductComponent implements OnInit {
     let updatedCropPayment = {
       orderIdRef: cropPayment.cropOrder.orderIdRef,
       paymentId: cropPayment.paymentId,
-      orderStatus: 'Cancelled'
+      orderStatus: 'Cancelled',
+      cancelReason: '', // Initialize cancellation reason
     };
+
     Swal.fire({
-      title:
-        'Are you sure you want to cancel this pending order?',
+      title: 'Are you sure you want to cancel this pending order?',
       icon: 'warning',
       showDenyButton: true,
       confirmButtonColor: '#3085d6',
       denyButtonColor: '#d33',
-      denyButtonText: 'cancel',
-      confirmButtonText: 'Save changes',
+      denyButtonText: 'Cancel',
+      confirmButtonText: 'Save Changes',
+      html:
+        '<div><p>Enter cancellation reason: </p></div>' +
+        '<textarea  type="textarea" id="cancellationReasonInput" required  style="width: 100%"></textarea>',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.store.dispatch({
-          type: CropPaymentActions.UPDATE_CROPPAYMENT,
-          cropPayment: updatedCropPayment,
-        });
+        const inputField = document.getElementById(
+          'cancellationReasonInput'
+        ) as HTMLInputElement;
+
+        //console.log('cancel data', updatedCropPayment);
+        updatedCropPayment.cancelReason = inputField.value;
+
+        if (updatedCropPayment.cancelReason) {
+          this.store.dispatch({
+            type: CropPaymentActions.UPDATE_CROPPAYMENT,
+            cropPayment: updatedCropPayment,
+          });
+        } else {
+          Swal.fire('Please enter a cancellation reason.', '', 'warning');
+        }
       }
     });
   }
+
+  isViewOrder: boolean = false;
+  toggleViewOrder = () => {
+    this.isViewOrder = !this.isViewOrder;
+  };
+
+  selectedCropPayment?: CropPayment;
+  selectCropPayment(cropPayment: CropPayment) {
+    this.selectedCropPayment = cropPayment;
+  }
+
+  checkFbSocial(cropPayment: any) {
+    return cropPayment?.cropOrder?.supplier?.user?.socials.find((social: any) =>
+      social.includes('facebook') ? true : false
+    )
+      ? true
+      : false;
+  }
+
+  selectFbSocial(cropPayment: any) {
+    return (
+      (cropPayment?.cropOrder?.supplier?.user?.socials.find((social: any) =>
+        social.includes('facebook') ? true : false
+      ) as string) || 'https://www.facebook.com/'
+    );
+  }
+
+  checkIGSocial(cropPayment: any) {
+    return cropPayment?.cropOrder?.supplier?.user?.socials.find((social: any) =>
+      social.includes('instagram') ? true : false
+    )
+      ? true
+      : false;
+  }
+
+  selectIGSocial(cropPayment: any) {
+    return (
+      (cropPayment?.cropOrder?.supplier?.user?.socials.find((social: any) =>
+        social.includes('instagram') ? true : false
+      ) as string) || 'https://www.instagram.com/'
+    );
+  }
+
+  paymentSubmittedOrders: CropPayment[] = [];
+  toDeliverOrders: CropPayment[] = [];
+  completedOrders: CropPayment[] = [];
+  cancelledOrders: CropPayment[] = [];
+
+  filterCropPaymentByStatus = () => {
+    this.paymentSubmittedOrders = this.cropPayments.filter(
+      (order) => order.cropOrder.orderStatus === 'proof of payment submitted'
+    );
+
+    this.toDeliverOrders = this.cropPayments.filter(
+      (order) => order.cropOrder.orderStatus === 'To deliver'
+    );
+
+    this.completedOrders = this.cropPayments.filter(
+      (order) => order.cropOrder.orderStatus === 'Completed'
+    );
+
+    this.cancelledOrders = this.cropPayments.filter(
+      (order) => order.cropOrder.orderStatus === 'Cancelled'
+    );
+  };
 }
