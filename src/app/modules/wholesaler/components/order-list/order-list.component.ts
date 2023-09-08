@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { CropPaymentActions } from '../../states/crop-payment-state/crop-payment.actions';
 import { selectCropPayments } from '../../states/crop-payment-state/crop-payment.selectors';
 import Swal from 'sweetalert2';
@@ -55,13 +53,4 @@ export class OrderListComponent implements OnInit {
     });
   }
 
-  checkIfIsCropReceivedMoreThan24Hours = (cropPayment: CropPayment) => {
-    let datePlus24Hrs = new Date(cropPayment.cropOrder.orderReceivedDate);
-    datePlus24Hrs.setHours(datePlus24Hrs.getHours() + 24);
-    let dateToday = new Date();
-    if (datePlus24Hrs <= dateToday) {
-      return false;
-    }
-    return true;
-  };
 }

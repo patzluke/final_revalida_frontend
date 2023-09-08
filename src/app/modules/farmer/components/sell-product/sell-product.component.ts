@@ -1,15 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import {
-  faAdd,
-  faCancel,
-  faPenToSquare,
-  faTrash,
-} from '@fortawesome/free-solid-svg-icons';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { CropPaymentActions } from '../../states/crop-payment-state/crop-payment.actions';
 import { selectCropPayments } from '../../states/crop-payment-state/crop-payment.selectors';
-import { CropOrder } from '../../models/crop-order';
 import Swal from 'sweetalert2';
 import { CropPayment } from '../../models/crop-payment';
 
@@ -66,13 +59,28 @@ export class SellProductComponent implements OnInit {
     });
   }
 
-  checkIfIsCropReceivedMoreThan30mins = (cropPayment: CropPayment) => {
-    let datePlus24Hrs = new Date(cropPayment.cropOrder.orderReceivedDate);
-    datePlus24Hrs.setHours(datePlus24Hrs.getHours() + 24);
-    let dateToday = new Date();
-    if (datePlus24Hrs <= dateToday) {
-      return false;
-    }
-    return true;
-  };
+  cancelOrder(cropPayment: CropPayment) {
+    let updatedCropPayment = {
+      orderIdRef: cropPayment.cropOrder.orderIdRef,
+      paymentId: cropPayment.paymentId,
+      orderStatus: 'Cancelled'
+    };
+    Swal.fire({
+      title:
+        'Are you sure you want to cancel this pending order?',
+      icon: 'warning',
+      showDenyButton: true,
+      confirmButtonColor: '#3085d6',
+      denyButtonColor: '#d33',
+      denyButtonText: 'cancel',
+      confirmButtonText: 'Save changes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.store.dispatch({
+          type: CropPaymentActions.UPDATE_CROPPAYMENT,
+          cropPayment: updatedCropPayment,
+        });
+      }
+    });
+  }
 }

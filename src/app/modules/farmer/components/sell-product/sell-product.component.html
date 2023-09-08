@@ -29,7 +29,7 @@
                   <th>Payment Reference No.</th>
                   <th class="text-center">Proof Of Payment</th>
                   <th>Payment Date</th>
-                  <th>Payment Receive Date</th>
+                  <th>Supplier Receive Date</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -48,33 +48,48 @@
                     {{ detail.cropOrder.supplier.user.lastName }}
                   </td>
                   <td>{{ detail.cropOrder.sellCropDetail.paymentMode }}</td>
-                  <td>{{ detail.transcationReferenceNumber }}</td>
+                  <td>
+                    {{ detail.transcationReferenceNumber || "No payment yet" }}
+                  </td>
                   <td class="text-center">
-                    <a [href]="detail?.proofOfPaymentImage"
+                    <a
+                      *ngIf="detail?.proofOfPaymentImage"
+                      [href]="detail?.proofOfPaymentImage"
                       ><i class="pi pi-image"></i>
                     </a>
+                    <p *ngIf="!detail?.proofOfPaymentImage">No payment yet</p>
                   </td>
-                  <td>{{ detail.payDate | date : "MMMM dd YYYY HH:mm a" }}</td>
                   <td>
                     {{
-                      (detail.cropOrder.paymentReceivedDate
+                      (detail.payDate | date : "MMMM dd YYYY HH:mm a") ||
+                        "No payment yet"
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      (detail.cropOrder.orderReceivedDate
                         | date : "MMMM dd YYYY HH:mm a") || "Not yet received"
                     }}
                   </td>
 
                   <td class="d-flex flex-row">
                     <div
-                      [tooltipDisabled]="
-                        detail.cropOrder.orderStatus == 'To deliver' ||
-                        detail.cropOrder.orderStatus == 'Completed' 
+                      [pTooltip]="
+                        detail.cropOrder.isPaymentReceivedByFarmer &&
+                        detail.cropOrder.isProofOfPaymentSubmitted
+                          ? 'Order status will be completed if supplier has received the crops'
+                          : !detail.cropOrder.isPaymentReceivedByFarmer &&
+                            !detail.cropOrder.isProofOfPaymentSubmitted
+                          ? 'Please wait for supplier\'s proof of payment submission'
+                          : ''
                       "
-                      pTooltip="Please wait for supplier's proof of payment submission"
                       tooltipPosition="top"
                     >
                       <button
                         [disabled]="
                           detail.cropOrder.isPaymentReceivedByFarmer ||
-                          !detail.cropOrder.isProofOfPaymentSubmitted
+                          !detail.cropOrder.isProofOfPaymentSubmitted ||
+                          detail.cropOrder.orderStatus == 'Cancelled'
                         "
                         class="btn btn-success"
                         (click)="changeStatus(detail)"
@@ -82,12 +97,24 @@
                         Payment Received?
                       </button>
                     </div>
-                    <button
-                      class="btn btn-danger ms-2"
-                      (click)="changeStatus(detail)"
+                    <div
+                      [tooltipDisabled]="
+                        !detail.cropOrder.isPaymentReceivedByFarmer
+                      "
+                      pTooltip="Payment Received. Can't cancel anymore"
+                      tooltipPosition="top"
                     >
-                      Cancel
-                    </button>
+                      <button
+                        [disabled]="
+                          detail.cropOrder.isPaymentReceivedByFarmer ||
+                          detail.cropOrder.orderStatus == 'Cancelled'
+                        "
+                        class="btn btn-danger ms-2"
+                        (click)="cancelOrder(detail)"
+                      >
+                        Cancel
+                      </button>
+                    </div>
                   </td>
                 </tr>
               </tbody>
