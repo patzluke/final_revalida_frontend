@@ -4,25 +4,73 @@
       <div class="container mt-5 mb-5 shadow">
         <div class="row">
           <div class="col p-5">
-            <p class="h2">ORDER SUMMARY</p>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Crop name</th>
-                  <th>Quantity</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    {{ cropPayment?.cropOrder?.sellCropDetail?.cropName }}
-                  </td>
-                  <td>
-                    {{ cropPayment?.cropOrder?.sellCropDetail?.quantity }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <p class="h2">OVERALL ORDER SUMMARY</p>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <p><b>Farmer's Name:</b></p>
+                  <p>
+                    {{
+                      cropPayment?.cropOrder?.sellCropDetail?.farmer?.user
+                        ?.firstName
+                    }}
+                    {{
+                      cropPayment?.cropOrder?.sellCropDetail?.farmer?.user
+                        ?.middleName
+                    }}
+                    {{
+                      cropPayment?.cropOrder?.sellCropDetail?.farmer?.user
+                        ?.lastName
+                    }}
+                  </p>
+                </div>
+                <div class="col">
+                  <p><b>GCash Number:</b></p>
+                  <p>
+                    {{
+                      cropPayment?.cropOrder?.sellCropDetail
+                        ?.mobilenumBanknumber
+                    }}
+                  </p>
+                </div>
+                <div class="col">
+                  <p><b>Transaction Number:</b></p>
+                  <p>{{ transactionNumber.value }}</p>
+                </div>
+                <div class="col">
+                  <p><b>Address:</b></p>
+                  <p>
+                    {{
+                      cropPayment?.cropOrder?.sellCropDetail?.farmer?.user
+                        ?.address
+                    }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Crop name</th>
+                        <th>Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          {{ cropPayment?.cropOrder?.sellCropDetail?.cropName }}
+                        </td>
+                        <td>
+                          {{ cropPayment?.cropOrder?.sellCropDetail?.quantity }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
 
             <div class="mt-5 d-flex flex-row-reverse">
               <p>
@@ -35,8 +83,16 @@
                 >
               </p>
             </div>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <p class="h4">Payment proof</p>
+                  <img [src]="imagePreviewUrl" width="100%" />
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col-md-4 bg-dark p-5">
+          <div class="col-md-4 bg-dark p-5 column">
             <p class="h2 text-light">PAYMENT DETAILS</p>
             <form>
               <div class="mb-3">
