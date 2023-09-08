@@ -29,7 +29,7 @@
                   <th>Payment Reference No.</th>
                   <th class="text-center">Proof Of Payment</th>
                   <th>Payment Date</th>
-                  <th>Receive Date</th>
+                  <th>Farmer Payment Receive Date</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -57,21 +57,27 @@
                   <td>{{ detail.payDate | date : "MMMM dd YYYY HH:mm a" }}</td>
                   <td>
                     {{
-                      (detail.cropOrder.orderReceivedDate
+                      (detail.cropOrder.paymentReceivedDate
                         | date : "MMMM dd YYYY HH:mm a") || "Not yet received"
                     }}
                   </td>
                   <td
-                    [tooltipDisabled]="
-                      detail.cropOrder.orderStatus == 'To deliver' ||
-                      detail.cropOrder.orderStatus == 'Completed'
+                    [pTooltip]="
+                      detail.cropOrder.isPaymentReceivedByFarmer &&
+                      detail.cropOrder.isCropReceivedBySupplier
+                        ? 'Transaction completed'
+                        : !detail.cropOrder.isPaymentReceivedByFarmer
+                        ? 'Please wait for farmer to verify your payment'
+                        : ''
                     "
-                    pTooltip="Please wait for farmer to verify your payment"
                     tooltipPosition="top"
                   >
                     <button
                       class="btn btn-success"
-                      [disabled]="detail.cropOrder.isCropReceivedBySupplier || !detail.cropOrder.isPaymentReceivedByFarmer"
+                      [disabled]="
+                        detail.cropOrder.isCropReceivedBySupplier ||
+                        !detail.cropOrder.isPaymentReceivedByFarmer
+                      "
                       (click)="changeStatus(detail)"
                     >
                       Crop Received?
