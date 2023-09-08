@@ -41,8 +41,28 @@ export class FarmerEffects {
             });
           }),
           catchError((error: HttpErrorResponse) => {
-            console.log(error, ' hey');
             Swal.fire('Failed to Update!', `Something Went Wrong`, 'error');
+            return of({
+              type: FarmerActions.UPDATE_FARMER_STATUS_FAILED,
+            });
+          })
+        )
+      )
+    );
+  });
+
+  updateFarmerActiveStatus$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FarmerActions.UPDATE_FARMER_ACTIVE_STATUS),
+      switchMap((data: { user: Farmer }) =>
+        this.adminService.changeUserActiveStatus(data.user).pipe(
+          map((farmer: Farmer) => {
+            return updateFarmerState({
+              farmer: farmer,
+            });
+          }),
+          catchError((error: HttpErrorResponse) => {
+            Swal.fire('Failed to change active status!', `Something Went Wrong`, 'error');
             return of({
               type: FarmerActions.UPDATE_FARMER_STATUS_FAILED,
             });
