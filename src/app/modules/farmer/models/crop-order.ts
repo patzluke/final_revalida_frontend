@@ -5,6 +5,9 @@ export interface CropOrder {
   orderIdRef?: number;
   address: string;
   orderStatus: string;
+  isProofOfPaymentSubmitted: boolean;
+  isCropReceivedBySupplier: boolean;
+  isPaymentReceivedByFarmer: boolean;
   orderReceivedDate: string;
   paymentReceivedDate: string;
   sellCropDetail: SellCropDetails;

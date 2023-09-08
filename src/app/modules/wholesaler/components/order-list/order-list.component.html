@@ -71,19 +71,11 @@
                   >
                     <button
                       class="btn btn-success"
-                      *ngIf="detail.cropOrder.orderStatus == 'To deliver'"
+                      [disabled]="detail.cropOrder.isCropReceivedBySupplier || !detail.cropOrder.isPaymentReceivedByFarmer"
                       (click)="changeStatus(detail)"
                     >
                       Crop Received?
                     </button>
-                    <button
-                      *ngIf="detail.cropOrder.orderStatus == 'Completed' && checkIfIsCropReceivedMoreThan24Hours(detail)"
-                      class="btn btn-danger"
-                      (click)="changeStatus(detail)"
-                    >
-                      Mistake? Crop not received
-                    </button>
-                    <p *ngIf="detail.cropOrder.orderStatus == 'To deliver' || (detail.cropOrder.orderStatus == 'Completed' || !checkIfIsCropReceivedMoreThan24Hours(detail))">No Action needed</p>
                   </td>
                 </tr>
               </tbody>
