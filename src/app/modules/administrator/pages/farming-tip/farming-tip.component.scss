@@ -160,6 +160,10 @@ section {
 }
 
 @media (max-width: 787px) {
+  section {
+    padding: 2rem 0;
+  }
+
   .no-info-text h1 {
     font-size: 3rem;
   }

@@ -1,42 +1,30 @@
-import { Observable } from 'rxjs';
-import { addSingleFarmerComplaintState } from './../../states/farmercomplaint-state/farmercomplaint.actions';
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { FarmerComplaintState } from '../../states/farmercomplaint-state/farmercomplaint.reducer';
-import { FarmerComplaintActions } from '../../states/farmercomplaint-state/farmercomplaint.actions';
-import {
-  selectFarmerComplaint,
-  selectFarmerComplaints,
-} from '../../states/farmercomplaint-state/farmercomplaint.selectors';
-import { FarmerComplaint } from '../../models/farmercomplaint';
-import { Router } from '@angular/router';
-import {
-  faSave,
-  faCancel,
-  faAdd,
-  faEye,
-  faL,
-} from '@fortawesome/free-solid-svg-icons';
-import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TableModule } from 'primeng/table';
+import { SupplierComplaint } from '../../models/suppliercomplaint';
 import { HttpClient } from '@angular/common/http';
-import { FarmerService } from '../../services/farmer.service';
-import { Farmer } from '../../models/farmer';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { SupplierService } from '../../services/supplier.service';
+import { SupplierComplaintState } from '../../states/suppliercomplaint-state/suppliercomplaint.reducer';
+import {
+  selectSupplierComplaint,
+  selectSupplierComplaints,
+} from '../../states/suppliercomplaint-state/suppliercomplaint.selectors';
+import { SupplierComplaintActions } from '../../states/suppliercomplaint-state/suppliercomplaint.actions';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-complaint-status',
-  templateUrl: './complaint-status.component.html',
-  styleUrls: ['./complaint-status.component.scss'],
+  selector: 'app-supplier-complaint',
+  templateUrl: './supplier-complaint.component.html',
+  styleUrls: ['./supplier-complaint.component.scss'],
 })
-export class ComplaintStatusComponent implements OnInit {
+export class SupplierComplaintComponent implements OnInit {
   currentPage: number = 1;
-  itemsPerPage: number = 8; // Number of items to show per page
-
+  itemsPerPage: number = 8;
   complaintForm!: FormGroup;
   viewComplaintForm!: FormGroup;
 
-  farmerComplaints: FarmerComplaint[] = [];
+  supplierComplaints: SupplierComplaint[] = [];
 
   loading: boolean = true;
 
@@ -52,9 +40,6 @@ export class ComplaintStatusComponent implements OnInit {
     this.currentPage = newPage;
   }
 
-  faCancel = faCancel;
-  faAdd = faAdd;
-  faEye = faEye;
   imageUrl!: string | ArrayBuffer;
   selectedImage!: File;
 
@@ -65,21 +50,21 @@ export class ComplaintStatusComponent implements OnInit {
   ];
 
   //selectors
-  selectFarmerComplaints$ = this.store.select(selectFarmerComplaints());
+  selectSupplierComplaints$ = this.store.select(selectSupplierComplaints());
 
   constructor(
-    private store: Store<FarmerComplaintState>,
+    private store: Store<SupplierComplaintState>,
     private _router: Router,
     private builder: FormBuilder,
     private http: HttpClient,
-    private farmerService: FarmerService
+    private supplierService: SupplierService
   ) {
     this.complaintForm = builder.group({
       complaintTitle: ['', Validators.required],
       complaintType: ['', Validators.required],
       complaintMessage: ['', Validators.required],
       image: [],
-      farmerId: [''],
+      supplierId: [''],
     });
 
     this.viewComplaintForm = builder.group({
@@ -89,30 +74,22 @@ export class ComplaintStatusComponent implements OnInit {
       isResolved: [{ value: '', disabled: true }],
 
       image: [],
-      farmerId: [''],
+      supplierId: [''],
       adminReplyMessage: [{ value: '', disabled: true }],
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.store.dispatch({
-      type: FarmerComplaintActions.GET_SINGLE_FARMERCOMPLAINTS,
-      farmerId: localStorage.getItem('userNo'),
+      type: SupplierComplaintActions.GET_SINGLE_SUPPLIERCOMPLAINTS,
+      supplierId: localStorage.getItem('userNo'),
     });
 
-    this.selectFarmerComplaints$.subscribe((data) => {
-      this.farmerComplaints = data;
+    this.selectSupplierComplaints$.subscribe((data) => {
+      this.supplierComplaints = data;
       this.loading = false;
-      console.log(this.farmerComplaints);
+      console.log(this.supplierComplaints);
     });
-  }
-
-  navigateToAddComplaint() {
-    this._router.navigateByUrl('/farmer/complaints/add');
-  }
-
-  navigateToEditComplaint(farmerComplaintId: any) {
-    this._router.navigateByUrl(`/farmer/complaints/edit/${farmerComplaintId}`);
   }
 
   onImageSelect(event: any): void {
@@ -133,7 +110,7 @@ export class ComplaintStatusComponent implements OnInit {
     this.imageUrl = '';
   };
 
-  addFarmerComplaint() {
+  addSupplierComplaint() {
     if (this.complaintForm.valid) {
       this.isAdd = false;
 
@@ -146,7 +123,7 @@ export class ComplaintStatusComponent implements OnInit {
         confirmButtonText: 'Submit compliant',
       }).then((result) => {
         if (result.isConfirmed) {
-          this.farmerService.upload(this.selectedImage).subscribe({
+          this.supplierService.upload(this.selectedImage).subscribe({
             next: (data) => {
               this.imageUrl = `${data.fileUri.concat(data.fileName)}`;
             },
@@ -160,12 +137,12 @@ export class ComplaintStatusComponent implements OnInit {
             complaintMessage:
               this.complaintForm.controls['complaintMessage'].getRawValue(),
             complaintImage: this.imageUrl,
-            farmerId: localStorage.getItem('userNo') as any,
+            supplierId: localStorage.getItem('userNo') as any,
           };
 
           this.store.dispatch({
-            type: FarmerComplaintActions.ADD_FARMERCOMPLAINT,
-            farmerComplaint: newComplaintFormValues,
+            type: SupplierComplaintActions.ADD_SUPPLIERCOMPLAINT,
+            supplierComplaint: newComplaintFormValues,
           });
 
           this.complaintForm.reset();
@@ -189,7 +166,7 @@ export class ComplaintStatusComponent implements OnInit {
     }
   }
 
-  cancelComplaint(farmerComplaintId: any) {
+  cancelComplaint(supplierComplaintId: any) {
     Swal.fire({
       title: 'Are you sure you want to cancel your complaint?',
       icon: 'warning',
@@ -200,28 +177,30 @@ export class ComplaintStatusComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.store.dispatch({
-          type: FarmerComplaintActions.UPDATE_FARMERCOMPLAINT_STATUS,
-          farmerComplaintId: farmerComplaintId,
+          type: SupplierComplaintActions.UPDATE_SUPPLIERCOMPLAINT_STATUS,
+          supplierComplaintId: supplierComplaintId,
         });
         Swal.fire('Saved!', 'Successfully deleted', 'success');
       }
     });
   }
 
-  selectedFarmerComplaint?: FarmerComplaint;
+  selectedSupplierComplaint?: SupplierComplaint;
 
   selectComplaint(complaintId: any) {
-    this.store.select(selectFarmerComplaint(complaintId)).subscribe((data) => {
-      this.selectedFarmerComplaint = data as FarmerComplaint;
-      this.viewComplaintForm.patchValue({
-        ...data,
-        complaintTitle: data?.complaintTitle,
-        complaintType: data?.complaintType,
-        complaintMessage: data?.complaintMessage,
-        farmerId: data?.farmerId,
-        adminReplyMessage: data?.adminReplyMessage,
+    this.store
+      .select(selectSupplierComplaint(complaintId))
+      .subscribe((data) => {
+        this.selectedSupplierComplaint = data as SupplierComplaint;
+        this.viewComplaintForm.patchValue({
+          ...data,
+          complaintTitle: data?.complaintTitle,
+          complaintType: data?.complaintType,
+          complaintMessage: data?.complaintMessage,
+          supplierId: data?.supplierId,
+          adminReplyMessage: data?.adminReplyMessage,
+        });
       });
-    });
   }
 
   isViewComplaint: boolean = false;
