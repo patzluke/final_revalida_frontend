@@ -10,6 +10,7 @@ export interface PostAdvertisementResponse {
   isAccepted?: boolean;
   isFinalOfferSubmitted?: boolean;
   isFinalOfferAccepted?: boolean;
+  isTransactionCompleted?: boolean;
   message: string;
   preferredPaymentMode: string;
   farmer?: Farmer;

@@ -21,11 +21,17 @@ export const selectPostAdvertisementResponse = (postResponseId: number) =>
       })
   );
 
-  export const selectPostAdvertisementResponseByPostId = (postId: number, farmerId: number) =>
+export const selectPostAdvertisementResponseByPostId = (
+  postId: number,
+  farmerId: number
+) =>
   createSelector(
     selectPostAdvertisementResponsesState,
     (state: PostAdvertisementResponsesState) =>
       state.postAdvertisementResponses.find((postAdvertisementResponse) => {
-        return postAdvertisementResponse.postAdvertisement?.postId == postId && postAdvertisementResponse.farmer?.farmerId == farmerId;
+        return (
+          postAdvertisementResponse.postAdvertisement?.postId == postId &&
+          postAdvertisementResponse.farmer?.farmerId == farmerId
+        );
       })
   );

@@ -75,15 +75,13 @@ export class OrderSummaryComponent implements OnInit {
         updatedCropPayment.proofOfPaymentImage = `${value.fileUri.concat(
           value.fileName
         )}`;
-        console.log(updatedCropPayment);
-
         this.store.dispatch({
           type: CropPaymentActions.UPDATE_CROPPAYMENT,
           cropPayment: updatedCropPayment,
         });
       },
       error: (err) => {
-        Swal.fire('Failed to Submit!', `Something went wrong.`, 'error');
+        Swal.fire('Failed to Submit!', `Please upload your Proof of payment!`, 'error');
       },
     });
 

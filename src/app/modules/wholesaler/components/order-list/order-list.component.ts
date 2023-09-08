@@ -38,9 +38,7 @@ export class OrderListComponent implements OnInit {
     };
     Swal.fire({
       title:
-        cropPayment.cropOrder.orderStatus == 'To deliver'
-          ? 'Are you sure you have received Farmer\'s crops? this will change the order status to "Completed".'
-          : 'Are you sure you haven\'t received the Farmer\'s yet? this will change your crop shipment status to "To deliver" again. Take note you can only change this again within 24 hours of received date.',
+        'Are you sure you have received Farmer\'s crops? this will change the order status to "Completed".',
       icon: 'warning',
       showDenyButton: true,
       confirmButtonColor: '#3085d6',

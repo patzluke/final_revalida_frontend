@@ -24,13 +24,8 @@ export class SellProductComponent implements OnInit {
   cropPayments: CropPayment[] = [];
   //selectors
   selectCropPayments$ = this.store.select(selectCropPayments());
-  editStudentGradeForm: FormGroup;
 
-  constructor(private store: Store, private fb: FormBuilder) {
-    this.editStudentGradeForm = fb.group({
-      inputArray: this.fb.array([]),
-    });
-  }
+  constructor(private store: Store, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.store.dispatch({
@@ -40,35 +35,7 @@ export class SellProductComponent implements OnInit {
 
     this.selectCropPayments$.subscribe((data) => {
       this.cropPayments = data;
-      if (this.inputArray.getRawValue().length == 0) {
-        data.forEach((student) => {
-          let gradeForm = this.inputArray as FormArray;
-          let studentGrade = this.fb.group({
-            cropOrder: this.fb.group({
-              orderIdRef: student.cropOrder.orderIdRef,
-              address: student.cropOrder.address,
-              orderStatus: student.cropOrder.orderStatus,
-              sellCropDetail: student.cropOrder.sellCropDetail,
-              supplier: student.cropOrder.supplier,
-              cancelReason: student.cropOrder.cancelReason,
-            }),
-            paidBy: [student.paidBy],
-            payDate: [student.payDate],
-            paymentId: [student.paymentId],
-            paymentMode: [student.paymentMode],
-            proofOfPaymentImage: [student.proofOfPaymentImage],
-            transcationReferenceNumber: [student.transcationReferenceNumber],
-          });
-          console.log(studentGrade.getRawValue());
-
-          gradeForm.push(studentGrade);
-        });
-      }
     });
-  }
-
-  get inputArray(): FormArray {
-    return this.editStudentGradeForm.get('inputArray') as FormArray;
   }
 
   changeStatus(cropPayment: CropPayment) {
@@ -82,9 +49,7 @@ export class SellProductComponent implements OnInit {
     };
     Swal.fire({
       title:
-        cropPayment.cropOrder.orderStatus == 'proof of payment submitted'
-          ? 'Are you sure you have received the suppliers payment? this will change your crop shipment status to "To deliver".'
-          : 'Are you sure you haven\'t received the suppliers payment yet? this will change your crop shipment status to "proof of payment submitted" again. Take note you can only change this again within 30 minutes of payment received date.',
+        'Are you sure you have received the suppliers payment? this will change your crop shipment status to "To deliver".',
       icon: 'warning',
       showDenyButton: true,
       confirmButtonColor: '#3085d6',

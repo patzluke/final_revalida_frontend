@@ -57,32 +57,37 @@
                   <td>{{ detail.payDate | date : "MMMM dd YYYY HH:mm a" }}</td>
                   <td>
                     {{
-                      detail.cropOrder.paymentReceivedDate
-                        | date : "MMMM dd YYYY HH:mm a"
+                      (detail.cropOrder.paymentReceivedDate
+                        | date : "MMMM dd YYYY HH:mm a") || "Not yet received"
                     }}
                   </td>
 
-                  <td>
-                    <button
-                      *ngIf="
-                        detail.cropOrder.orderStatus ==
-                        'proof of payment submitted'
+                  <td class="d-flex flex-row">
+                    <div
+                      [tooltipDisabled]="
+                        detail.cropOrder.orderStatus == 'To deliver' ||
+                        detail.cropOrder.orderStatus == 'Completed' 
                       "
-                      class="btn btn-success"
-                      (click)="changeStatus(detail)"
+                      pTooltip="Please wait for supplier's proof of payment submission"
+                      tooltipPosition="top"
                     >
-                      Payment Received?
-                    </button>
+                      <button
+                        [disabled]="
+                          detail.cropOrder.isPaymentReceivedByFarmer ||
+                          !detail.cropOrder.isProofOfPaymentSubmitted
+                        "
+                        class="btn btn-success"
+                        (click)="changeStatus(detail)"
+                      >
+                        Payment Received?
+                      </button>
+                    </div>
                     <button
-                      *ngIf="detail.cropOrder.orderStatus == 'To deliver'"
-                      class="btn btn-danger"
+                      class="btn btn-danger ms-2"
                       (click)="changeStatus(detail)"
                     >
-                      Mistake? payment not received
+                      Cancel
                     </button>
-                    <p *ngIf="detail.cropOrder.orderStatus == 'Completed'">
-                      No Action needed
-                    </p>
                   </td>
                 </tr>
               </tbody>
