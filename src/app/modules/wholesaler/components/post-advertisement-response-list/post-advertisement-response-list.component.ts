@@ -25,7 +25,7 @@ import { SellCropDetails } from '../../models/sell-crop-details';
   styleUrls: ['./post-advertisement-response-list.component.scss'],
 })
 export class PostAdvertisementResponseListComponent implements OnInit {
-  supplierId = localStorage.getItem("userNo") as any;
+  supplierId = localStorage.getItem('userNo') as any;
   selectedPostId!: number;
   selectedPostAdvertisement?: PostAdvertisement;
   postAdvertisementResponses: PostAdvertisementResponse[] = [];
@@ -136,5 +136,38 @@ export class PostAdvertisementResponseListComponent implements OnInit {
       state: { cropPayment: selectedCropPayment },
     };
     this._router.navigate(['/supplier/order-summary'], obj);
+  }
+
+  // Farmers socials accounts
+  checkFbSocial(cropPayment: any) {
+    return cropPayment?.farmer?.user?.socials.find((social: any) =>
+      social.includes('facebook') ? true : false
+    )
+      ? true
+      : false;
+  }
+
+  selectFbSocial(cropPayment: any) {
+    return (
+      (cropPayment?.farmer?.user?.socials.find((social: any) =>
+        social.includes('facebook') ? true : false
+      ) as string) || 'https://www.facebook.com/'
+    );
+  }
+
+  checkIGSocial(cropPayment: any) {
+    return cropPayment?.farmer?.user?.socials.find((social: any) =>
+      social.includes('instagram') ? true : false
+    )
+      ? true
+      : false;
+  }
+
+  selectIGSocial(cropPayment: any) {
+    return (
+      (cropPayment?.farmer?.user?.socials.find((social: any) =>
+        social.includes('instagram') ? true : false
+      ) as string) || 'https://www.instagram.com/'
+    );
   }
 }

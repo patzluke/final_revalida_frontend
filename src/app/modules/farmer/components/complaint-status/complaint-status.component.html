@@ -109,16 +109,16 @@
                   visibility
                 </span></p-button
               >
-              <p-button
+              <button
+                pButton
                 [disabled]="farmerComplaints.isRead"
-                styleClass="p-button-rounded p-button-danger p-button-text"
+                class="p-button-rounded p-button-danger p-button-text"
                 (click)="cancelComplaint(farmerComplaints.farmerComplaintId)"
                 pTooltip="Cancel complaint"
                 tooltipPosition="bottom"
-                ><span class="material-symbols-outlined">
-                  delete
-                </span></p-button
               >
+                <span class="material-symbols-outlined"> delete </span>
+              </button>
             </td>
           </tr>
         </ng-template>

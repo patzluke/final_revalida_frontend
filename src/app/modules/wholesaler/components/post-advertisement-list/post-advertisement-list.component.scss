@@ -1,7 +1,7 @@
 section {
   background-color: #e8f4ef;
   height: auto;
-  padding: 60px;
+  padding: 40px;
 }
 
 .container {
@@ -61,6 +61,7 @@ section {
   color: #4b4b4b;
   display: flex;
   justify-content: space-between;
+  //margin-bottom: -2px;
 }
 
 .price-qty-container {
@@ -200,9 +201,11 @@ h3 {
   font-size: 1.5rem;
 }
 
-::ng-deep .mat-divider.divider {
-  background-color: #2d5605;
-  width: 100%;
+:host {
+  ::ng-deep .mat-divider.divider {
+    background-color: #2d5605;
+    width: 100%;
+  }
 }
 
 .see-more {
@@ -299,11 +302,13 @@ label {
   border: 1px solid red;
 }
 
-::ng-deep .spec-field .p-dropdown,
-::ng-deep .spec-field .p-password,
-::ng-deep .spec-field .p-calendar {
-  border: 1px solid red;
-  border-radius: 5px;
+:host {
+  ::ng-deep .spec-field .p-dropdown,
+  ::ng-deep .spec-field .p-password,
+  ::ng-deep .spec-field .p-calendar {
+    border: 1px solid red;
+    border-radius: 5px;
+  }
 }
 
 .crop-image-container {
@@ -388,6 +393,14 @@ label {
 }
 
 @media (max-width: 800px) {
+  section {
+    padding: 2rem;
+  }
+
+  .cus-card {
+    width: 100%;
+  }
+
   .filter-container {
     display: block;
   }
@@ -402,9 +415,6 @@ label {
   }
 
   .cta-container {
-    width: 100%;
-  }
-  ::ng-deep .p-card {
     width: 100%;
   }
 
