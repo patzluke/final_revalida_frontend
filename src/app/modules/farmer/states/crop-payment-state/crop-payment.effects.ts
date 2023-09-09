@@ -29,7 +29,13 @@ export class CropPaymentEffects {
               setCropPaymentState({
                 cropPayments: cropPayments,
               })
-            )
+            ),
+            catchError((error: HttpErrorResponse) => {
+              return of({
+                type: CropPaymentActions.SET_CROPPAYMENT,
+                cropPayments: [],
+              });
+            })
           )
         )
       );

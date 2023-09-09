@@ -2,7 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { CropPaymentActions } from '../../states/crop-payment-state/crop-payment.actions';
-import { selectCropPayments } from '../../states/crop-payment-state/crop-payment.selectors';
+import {
+  selectCropPayments,
+  selectCropPaymentsCancelled,
+  selectCropPaymentsCompleted,
+  selectCropPaymentsNotYetPaid,
+  selectCropPaymentsProofOfPaymentSubmitted,
+  selectCropPaymentsToDeliver,
+} from '../../states/crop-payment-state/crop-payment.selectors';
 import Swal from 'sweetalert2';
 import { CropPayment } from '../../models/crop-payment';
 
@@ -14,9 +21,23 @@ import { CropPayment } from '../../models/crop-payment';
 export class SellProductComponent implements OnInit {
   currentUserType = localStorage.getItem('userType');
   selectedValue = new FormControl('');
-  cropPayments: CropPayment[] = [];
   //selectors
   selectCropPayments$ = this.store.select(selectCropPayments());
+  selectCropPaymentsNotYetPaid$ = this.store.select(
+    selectCropPaymentsNotYetPaid()
+  );
+  selectCropPaymentsProofOfPaymentSubmitted$ = this.store.select(
+    selectCropPaymentsProofOfPaymentSubmitted()
+  );
+  selectCropPaymentsToDeliver$ = this.store.select(
+    selectCropPaymentsToDeliver()
+  );
+  selectCropPaymentsCompleted$ = this.store.select(
+    selectCropPaymentsCompleted()
+  );
+  selectCropPaymentsCancelled$ = this.store.select(
+    selectCropPaymentsCancelled()
+  );
 
   constructor(private store: Store, private fb: FormBuilder) {}
 
@@ -25,22 +46,15 @@ export class SellProductComponent implements OnInit {
       type: CropPaymentActions.GET_CROPPAYMENT,
       farmerId: localStorage.getItem('userNo'),
     });
-
-    this.selectCropPayments$.subscribe((data) => {
-      this.cropPayments = data;
-      console.log(this.cropPayments);
-      this.filterCropPaymentByStatus();
-    });
   }
 
   changeStatus(cropPayment: CropPayment) {
     let updatedCropPayment = {
       orderIdRef: cropPayment.cropOrder.orderIdRef,
       paymentId: cropPayment.paymentId,
-      orderStatus:
-        cropPayment.cropOrder.orderStatus == 'To deliver'
-          ? 'proof of payment submitted'
-          : 'To deliver',
+      orderStatus: 'To deliver',
+      supplierId: cropPayment.cropOrder.supplier.supplierId,
+      farmerId: localStorage.getItem('userNo'),
     };
     let isCheckboxChecked = false;
     Swal.fire({
@@ -87,6 +101,8 @@ export class SellProductComponent implements OnInit {
       paymentId: cropPayment.paymentId,
       orderStatus: 'Cancelled',
       cancelReason: '', // Initialize cancellation reason
+      supplierId: cropPayment.cropOrder.supplier.supplierId,
+      farmerId: localStorage.getItem('userNo'),
     };
 
     Swal.fire({
@@ -162,27 +178,4 @@ export class SellProductComponent implements OnInit {
       ) as string) || 'https://www.instagram.com/'
     );
   }
-
-  paymentSubmittedOrders: CropPayment[] = [];
-  toDeliverOrders: CropPayment[] = [];
-  completedOrders: CropPayment[] = [];
-  cancelledOrders: CropPayment[] = [];
-
-  filterCropPaymentByStatus = () => {
-    this.paymentSubmittedOrders = this.cropPayments.filter(
-      (order) => order.cropOrder.orderStatus === 'proof of payment submitted'
-    );
-
-    this.toDeliverOrders = this.cropPayments.filter(
-      (order) => order.cropOrder.orderStatus === 'To deliver'
-    );
-
-    this.completedOrders = this.cropPayments.filter(
-      (order) => order.cropOrder.orderStatus === 'Completed'
-    );
-
-    this.cancelledOrders = this.cropPayments.filter(
-      (order) => order.cropOrder.orderStatus === 'Cancelled'
-    );
-  };
 }

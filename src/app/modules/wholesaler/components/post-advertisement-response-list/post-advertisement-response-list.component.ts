@@ -25,7 +25,7 @@ import { SellCropDetails } from '../../models/sell-crop-details';
   styleUrls: ['./post-advertisement-response-list.component.scss'],
 })
 export class PostAdvertisementResponseListComponent implements OnInit {
-  supplierId = localStorage.getItem("userNo") as any;
+  supplierId = localStorage.getItem('userNo') as any;
   selectedPostId!: number;
   selectedPostAdvertisement?: PostAdvertisement;
   postAdvertisementResponses: PostAdvertisementResponse[] = [];
@@ -107,7 +107,7 @@ export class PostAdvertisementResponseListComponent implements OnInit {
     if (updatedAdvertisementResponse.isAccepted) {
       updatedAdvertisementResponse.notificationTitle = `Offer is Accepted`;
       updatedAdvertisementResponse.notificationMessage =
-        `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName}, `.concat(
+        `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName} `.concat(
           `has accepted your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`
         );
     } else {
