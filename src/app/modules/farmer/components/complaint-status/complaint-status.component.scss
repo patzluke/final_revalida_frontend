@@ -163,25 +163,27 @@ h3 {
     0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-::ng-deep .p-disabled,
-::ng-deep .p-component:disabled {
-  color: #2d5605;
-  opacity: 100%;
-}
+:host {
+  ::ng-deep .p-disabled,
+  ::ng-deep .p-component:disabled {
+    color: #2d5605;
+    opacity: 100%;
+  }
 
-::ng-deep .p-tabview .p-tabview-panels,
-::ng-deep .p-tabview .p-tabview-nav {
-  // white
-  background-color: #ffffff;
-}
+  ::ng-deep .p-tabview .p-tabview-panels,
+  ::ng-deep .p-tabview .p-tabview-nav {
+    // white
+    background-color: #ffffff;
+  }
 
-::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  background-color: #ffffff;
-}
+  ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background-color: #ffffff;
+  }
 
-::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  border-color: #2d5605;
-  color: #2d5605;
+  ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    border-color: #2d5605;
+    color: #2d5605;
+  }
 }
 
 .status-text {

@@ -174,52 +174,54 @@ h3 {
   padding: 10px;
 }
 
-.p-button.change-status-btn {
-  border: 1px solid #2d5605;
-  background-color: #2d5605;
-  color: #f9f9f9;
-  border-radius: 25px;
-  text-align: center;
-  height: 3rem;
-}
+:host {
+  ::ng-deep .p-tabview .p-tabview-panels,
+  ::ng-deep .p-tabview .p-tabview-nav {
+    // white
+    background-color: #e8f4ef;
+  }
 
-.p-button.change-status-btn:hover {
-  background-color: #26410b;
-  color: #f9f9f9;
-}
+  ::ng-deep .p-tabview .p-tabview-panels {
+    padding: 0;
+  }
 
-.p-button.cancel-order-btn {
-  margin-top: 10px;
-  border: 1px solid #2d5605;
-  background-color: transparent;
-  color: #2d5605;
-  border-radius: 25px;
-  text-align: center;
-  height: 3rem;
-  //width: 8rem;
-}
+  ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background-color: #e8f4ef;
+  }
 
-::ng-deep .p-tabview .p-tabview-panels,
-::ng-deep .p-tabview .p-tabview-nav {
-  // white
-  background-color: #e8f4ef;
-}
+  ::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    background-color: transparent;
+  }
 
-::ng-deep .p-tabview .p-tabview-panels {
-  padding: 0;
-}
+  ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    border-color: #2d5605;
+    color: #2d5605;
+  }
 
-::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  background-color: #e8f4ef;
-}
+  ::ng-deep .p-button.change-status-btn {
+    border: 1px solid #2d5605;
+    background-color: #2d5605;
+    color: #f9f9f9;
+    border-radius: 25px;
+    text-align: center;
+    height: 3rem;
+  }
 
-::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-  background-color: transparent;
-}
+  .p-button.change-status-btn:hover {
+    background-color: #26410b;
+    color: #f9f9f9;
+  }
 
-::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  border-color: #2d5605;
-  color: #2d5605;
+  .p-button.cancel-order-btn {
+    margin-top: 10px;
+    border: 1px solid #2d5605;
+    background-color: transparent;
+    color: #2d5605;
+    border-radius: 25px;
+    text-align: center;
+    height: 3rem;
+    //width: 8rem;
+  }
 }
 
 .no-info {

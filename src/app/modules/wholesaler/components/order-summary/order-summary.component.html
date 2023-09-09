@@ -1,201 +1,300 @@
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+/>
+
 <app-side-nav>
-  <div class="mainBg">
-    <div class="main">
-      <div class="container mt-5 mb-5 shadow">
-        <div class="row">
-          <div class="col p-5">
-            <p class="h2">OVERALL ORDER SUMMARY</p>
-            <div class="container">
-              <div class="row">
-                <div class="col">
-                  <p><b>Farmer's Name:</b></p>
-                  <p>
-                    {{
-                      cropPayment?.cropOrder?.sellCropDetail?.farmer?.user
-                        ?.firstName
-                    }}
-                    {{
-                      cropPayment?.cropOrder?.sellCropDetail?.farmer?.user
-                        ?.middleName
-                    }}
-                    {{
-                      cropPayment?.cropOrder?.sellCropDetail?.farmer?.user
-                        ?.lastName
-                    }}
-                  </p>
-                </div>
-                <div class="col">
-                  <p><b>GCash Number:</b></p>
-                  <p>
-                    {{
-                      cropPayment?.cropOrder?.sellCropDetail
-                        ?.mobilenumBanknumber
-                    }}
-                  </p>
-                </div>
-                <div class="col">
-                  <p><b>Transaction Number:</b></p>
-                  <p>{{ transcationReferenceNumber.value }}</p>
-                </div>
-                <div class="col">
-                  <p><b>Address:</b></p>
-                  <p>
-                    {{
-                      cropPayment?.cropOrder?.sellCropDetail?.farmer?.user
-                        ?.address
-                    }}
-                  </p>
-                </div>
-              </div>
+  <section>
+    <div class="container order-summary-container">
+      <div class="row">
+        <div style="display: flex; cursor: pointer" (click)="goBack()">
+          <span class="material-symbols-outlined"> arrow_back </span>
+          <h1 class="label-divider">Go Back</h1>
+        </div>
 
-              <div class="row">
-                <div class="col">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Crop name</th>
-                        <th>Quantity</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
+        <div class="col p-5 left-container">
+          <div class="row">
+            <div style="display: flex">
+              <span class="material-symbols-outlined"> shopping_bag </span>
+              <h1 class="label-divider">Order Details</h1>
+            </div>
+            <div class="col">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Crop Name</th>
+                    <th>Quantity</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="crop-name-container">
+                        <img
+                          class="crop-image"
+                          [src]="
+                            cropPayment?.cropOrder?.sellCropDetail
+                              ?.postAdvertisementResponse?.postAdvertisement
+                              ?.cropImage
+                          "
+                        />
+
+                        <p class="ml-1 vertical-align-middle crop-name">
                           {{ cropPayment?.cropOrder?.sellCropDetail?.cropName }}
-                        </td>
-                        <td>
-                          {{ cropPayment?.cropOrder?.sellCropDetail?.quantity }}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+                        </p>
+                      </div>
+                    </td>
+                    <td>
+                      <p class="crop-name">
+                        {{ cropPayment?.cropOrder?.sellCropDetail?.quantity }}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
+          </div>
 
-            <div class="mt-5 d-flex flex-row-reverse">
-              <p>
-                TOTAL:
-                <b>
-                  {{
-                    cropPayment?.cropOrder?.sellCropDetail?.price
-                      | currency : "PHP"
-                  }}</b
-                >
-              </p>
-            </div>
-            <div class="container">
-              <div class="row">
-                <div class="col">
-                  <p class="h4">Payment proof</p>
-                  <img [src]="imagePreviewUrl" width="100%" />
-                </div>
+          <div class="mt-2 d-flex flex-row-reverse">
+            <p>
+              TOTAL:
+              <b>
+                {{
+                  cropPayment?.cropOrder?.sellCropDetail?.price
+                    | currency : "PHP"
+                }}</b
+              >
+            </p>
+          </div>
+
+          <mat-divider class="divider"></mat-divider>
+          <div style="display: flex">
+            <span class="material-symbols-outlined"> local_shipping </span>
+            <h1 class="label-divider">Delivery Address</h1>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="summary-field">
+                <label class="form-label">Supplier's Name:</label>
+                <h3 class="offer-text">
+                  {{ cropPayment?.cropOrder?.supplier?.user?.firstName }}
+                  {{ cropPayment?.cropOrder?.supplier?.user?.middleName }}
+                  {{ cropPayment?.cropOrder?.supplier?.user?.lastName }}
+                </h3>
               </div>
             </div>
           </div>
-          <div class="col-md-4 bg-dark p-5 column">
-            <p class="h2 text-light">PAYMENT DETAILS</p>
-            <form>
-              <div class="mb-3">
-                <label class="form-label text-white">Farmer's Name:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  [placeholder]="farmerName"
-                  disabled
-                />
+
+          <div class="row">
+            <div class="col">
+              <div class="summary-field">
+                <label class="form-label">Contact Number:</label>
+                <h3 class="offer-text">
+                  {{ cropPayment?.cropOrder?.supplier?.user?.contactNo }}
+                </h3>
               </div>
-              <div class="mb-3">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="summary-field">
+                <label class="form-label">Address:</label>
+                <h3 class="offer-text">{{ address.value }}</h3>
+              </div>
+            </div>
+          </div>
+
+          <mat-divider class="divider"></mat-divider>
+          <div style="display: flex">
+            <span class="material-symbols-outlined"> payments </span>
+            <h1 class="label-divider">Payment Details</h1>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="summary-field">
+                <label class="form-label">Farmer's Name:</label>
+                <h3 class="offer-text">{{ farmerName }}</h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="summary-field">
                 <label
+                  class="form-label"
                   *ngIf="
-                    cropPayment?.cropOrder?.sellCropDetail?.paymentMode ==
+                    cropPayment?.cropOrder?.sellCropDetail?.paymentMode ===
                     'Gcash'
                   "
-                  class="form-label text-white"
                   >Farmer's Gcash Number:</label
                 >
                 <label
+                  class="form-label"
                   *ngIf="
-                    cropPayment?.cropOrder?.sellCropDetail?.paymentMode ==
+                    cropPayment?.cropOrder?.sellCropDetail?.paymentMode ===
                     'UnionBank'
                   "
-                  class="form-label text-white"
                   >Farmer's UnionBank Number:</label
                 >
-                <input
-                  type="text"
-                  class="form-control"
-                  [placeholder]="
+                <h3 class="offer-text">
+                  {{
                     cropPayment?.cropOrder?.sellCropDetail?.mobilenumBanknumber
-                  "
-                  disabled
-                />
+                  }}
+                </h3>
               </div>
-              <div class="mb-3">
-                <label class="form-label text-white">Your Address:</label>
-                <textarea
-                  disabled
-                  type="text"
-                  class="form-control"
-                  [placeholder]="
-                    cropPayment?.cropOrder?.sellCropDetail?.farmer?.user
-                      ?.address
-                  "
-                ></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="summary-field">
+                <label class="form-label">Payment Reference Number:</label>
+                <h3 class="offer-text">
+                  {{ transcationReferenceNumber.value }}
+                </h3>
               </div>
-              <div class="mb-3">
-                <label class="form-label text-white"
-                  >Please type in your payment reference number:</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Transaction Number"
-                  [formControl]="transcationReferenceNumber"
-                />
+            </div>
+          </div>
+
+          <div class="row" style="padding-top: 1rem">
+            <div class="col">
+              <div class="summary-field">
+                <label class="form-label">Proof of Payment:</label>
+                <h3 class="offer-text"></h3>
               </div>
-              <div class="mb-3">
-                <label for="formFileSm" class="form-label text-white"
-                  >Upload Your Proof of Payment:</label
-                >
-                <input
-                  [disabled]="
-                    this.cropPayment?.cropOrder?.sellCropDetail
-                      ?.postAdvertisementResponse?.isFinalOfferAccepted
-                  "
-                  class="form-control"
-                  type="file"
-                  id="formFile"
-                  #selectFile
-                  (change)="onImageSelected($event)"
-                />
-              </div>
-              <div class="mb-3">
-                <button
-                  [disabled]="
-                    this.cropPayment?.cropOrder?.sellCropDetail
-                      ?.postAdvertisementResponse?.isFinalOfferAccepted
-                  "
-                  class="btn btn-primary w-100"
-                  (click)="submitPayment()"
-                >
-                  Submit
-                </button>
-                <label
-                  *ngIf="
-                    cropPayment?.cropOrder?.sellCropDetail
-                      ?.postAdvertisementResponse?.isFinalOfferAccepted
-                  "
-                  class="text-success"
-                  >Transaction is already completed.</label
-                >
-              </div>
-            </form>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <img
+                [ngClass]="{
+                  'proof-image': imagePreviewUrl,
+                  'proof-imagee': cropPayment?.proofOfPaymentImage
+                }"
+                [src]="imagePreviewUrl || cropPayment?.proofOfPaymentImage"
+                width="100%"
+              />
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col"></div>
+        <div class="col-md-4 p-5 column right-container">
+          <p class="h3">PAYMENT DETAILS</p>
+          <form>
+            <div class="mb-3">
+              <label class="form-label text-white">Farmer's Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                [placeholder]="farmerName"
+                disabled
+              />
+            </div>
+            <div class="mb-3">
+              <label
+                *ngIf="
+                  cropPayment?.cropOrder?.sellCropDetail?.paymentMode == 'Gcash'
+                "
+                class="form-label text-white"
+                >Farmer's Gcash Number:</label
+              >
+              <label
+                *ngIf="
+                  cropPayment?.cropOrder?.sellCropDetail?.paymentMode ==
+                  'UnionBank'
+                "
+                class="form-label text-white"
+                >Farmer's UnionBank Number:</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                [placeholder]="
+                  cropPayment?.cropOrder?.sellCropDetail?.mobilenumBanknumber
+                "
+                disabled
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label text-white">Delivery Address:</label>
+
+              <div class="checkbox-container">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="isDefaultAddress"
+                  (ngModelChange)="updateAddress()"
+                  [ngModelOptions]="{ standalone: true }"
+                  class="custom-checkbox"
+                />
+                <label class="text-white">Select Default Address</label>
+              </div>
+
+              <textarea
+                type="text"
+                class="form-control"
+                [formControl]="address"
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label text-white"
+                >Payment Reference Number:</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Transaction Number"
+                [formControl]="transcationReferenceNumber"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="formFileSm" class="form-label text-white"
+                >Upload Your Proof of Payment:</label
+              >
+              <input
+                [disabled]="
+                  this.cropPayment?.cropOrder?.sellCropDetail
+                    ?.postAdvertisementResponse?.isFinalOfferAccepted
+                "
+                class="form-control"
+                type="file"
+                id="formFile"
+                #selectFile
+                (change)="onImageSelected($event)"
+              />
+            </div>
+            <div class="mb-3">
+              <button
+                [disabled]="
+                  this.cropPayment?.cropOrder?.sellCropDetail
+                    ?.postAdvertisementResponse?.isFinalOfferAccepted
+                "
+                class="btn btn-primary w-100"
+                (click)="submitPayment()"
+              >
+                Submit
+              </button>
+              <label
+                *ngIf="
+                  cropPayment?.cropOrder?.sellCropDetail
+                    ?.postAdvertisementResponse?.isFinalOfferAccepted
+                "
+                class="text-success"
+                >Transaction is already completed.</label
+              >
+            </div>
+          </form>
         </div>
       </div>
+      <div class="row">
+        <div class="col"></div>
+      </div>
     </div>
-  </div>
+  </section>
 </app-side-nav>
+
+<div class="mainBg">
+  <div class="main"></div>
+</div>

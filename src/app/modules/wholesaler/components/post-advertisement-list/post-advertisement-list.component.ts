@@ -134,7 +134,6 @@ export class PostAdvertisementListComponent implements OnInit {
       },
     });
     this.filteredAdvertisements = this.postAdvertisements;
-
   }
 
   deleteAdvertisement(advertisement: PostAdvertisement) {
@@ -296,13 +295,13 @@ export class PostAdvertisementListComponent implements OnInit {
                 title: 'Advertisement created!',
                 icon: 'success',
               });
-
-              this.filteredAdvertisements = this.postAdvertisements;
             },
             error: (e) => {
               console.log(e);
             },
           });
+          this.addPostAdvertisementForm.reset();
+          this.imagePreviewUrl = '';
         }
       });
     } else {

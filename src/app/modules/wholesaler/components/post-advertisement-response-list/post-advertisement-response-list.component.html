@@ -105,7 +105,24 @@
                     response.farmer.user.firstName
                   )
                 }}
-                ({{ response.farmer.user.contactNo }})
+                ({{ response.farmer.user.contactNo }}) &nbsp;&nbsp;
+                <span
+                  *ngIf="checkFbSocial(response)"
+                  class="social-icon-container"
+                >
+                  <a href="{{ selectFbSocial(response) }}" target="_blank">
+                    <i class="pi pi-facebook"></i>
+                  </a>
+                </span>
+                &nbsp;
+                <span
+                  *ngIf="checkIGSocial(response)"
+                  class="social-icon-container"
+                >
+                  <a href="{{ selectIGSocial(response) }}" target="_blank">
+                    <i class="pi pi-instagram"></i>
+                  </a>
+                </span>
               </h3>
 
               <p>
@@ -136,7 +153,7 @@
           </div>
           <mat-divider class="divider" style="margin-top: -10px"></mat-divider>
           <div class="offer-container">
-            <h2>Initial offer</h2>
+            <h2 style="margin-top: -5px">Initial offer</h2>
             <div class="offer-pqt-container">
               <h3 class="label">Quantity:</h3>
               <h3 class="value">{{ response.quantity }}</h3>
@@ -161,7 +178,7 @@
                 !response.isFinalOfferAccepted
               "
             >
-              <h2>Final offer</h2>
+              <h2 style="margin-top: 10px">Final offer</h2>
               <div class="offer-pqt-container">
                 <h3 class="label">Quantity:</h3>
                 <h3 class="value">
@@ -202,11 +219,22 @@
                 </h3>
               </div>
             </div>
+
             <div
               *ngIf="response.isAccepted"
               [ngClass]="response.isFinalOfferSubmitted ? 'final' : 'no-final'"
             >
-              <p *ngIf="!response.isFinalOfferSubmitted">
+              <mat-divider
+                *ngIf="
+                  response.isAccepted &&
+                  response.isFinalOfferSubmitted &&
+                  !response.isFinalOfferAccepted
+                "
+                class="divider"
+                style="margin-top: 1rem"
+              ></mat-divider>
+
+              <p style="margin-top: 1rem">
                 Please wait for Farmer's final offer.
               </p>
               <p

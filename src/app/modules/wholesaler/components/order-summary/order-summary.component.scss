@@ -1,3 +1,114 @@
+section {
+  background-color: #e8f4ef;
+  min-height: 100vh;
+  padding: 40px;
+}
+
+.left-container {
+  background-color: #ffff;
+  min-height: 100vh;
+}
+
+.right-container {
+  background-color: #18332f;
+  color: #8da17f;
+  //height: 100%;
+}
+
+:host {
+  ::ng-deep .mat-divider.divider {
+    background-color: #2d5605;
+    width: 100%;
+    margin: 1rem 0;
+  }
+}
+
+.material-symbols-outlined {
+  margin-top: 5px;
+  margin-right: 13px;
+}
+
+.label-divider {
+  font-family: "Circular Std";
+  color: #2d5605;
+  font-weight: bold;
+}
+
+.summary-field {
+  display: flex;
+  //justify-content: space-between;
+  margin-bottom: -10px;
+}
+
+label {
+  color: rgb(126, 125, 125);
+  font-size: 1rem;
+}
+
+.summary-field .form-label {
+  width: 50%;
+  font-size: 1rem;
+}
+
+.summary-field .offer-text {
+  width: 50%;
+}
+
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  vertical-align: -5px;
+}
+
+.checkbox-container {
+  margin-bottom: 1rem;
+}
+
+.proof-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.proof-imagee,
+.proof-image {
+  width: 15rem;
+  height: 15rem;
+}
+
 .column {
-    margin: auto;
+  margin: 0;
+}
+
+.crop-image {
+  width: 4rem;
+  height: 4rem;
+}
+
+.crop-name-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.crop-name {
+  //font-weight: bold;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+@media (max-width: 787px) {
+  .summary-field {
+    display: block;
+    //justify-content: space-between;
+  }
+
+  .summary-field .form-label {
+    width: 100%;
+  }
+
+  .summary-field .offer-text {
+    width: 100%;
+  }
 }
