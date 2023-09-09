@@ -107,7 +107,7 @@ export class PostAdvertisementResponseListComponent implements OnInit {
     if (updatedAdvertisementResponse.isAccepted) {
       updatedAdvertisementResponse.notificationTitle = `Offer is Accepted`;
       updatedAdvertisementResponse.notificationMessage =
-        `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName}, `.concat(
+        `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName} `.concat(
           `has accepted your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`
         );
     } else {

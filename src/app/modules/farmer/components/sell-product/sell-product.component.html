@@ -1,27 +1,3 @@
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-/>
-
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-/>
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-/>
-
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-/>
-
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-/>
-
 <app-side-nav>
   <section>
     <div class="container">
@@ -35,7 +11,7 @@
           <div style="margin-top: 1rem">
             <p-table
               #dt1
-              [value]="cropPayments"
+              [value]="(selectCropPayments$ | async)!"
               dataKey="id"
               [rows]="10"
               [showCurrentPageReport]="true"
@@ -80,7 +56,11 @@
               <ng-template pTemplate="body" let-detail>
                 <tr>
                   <td>
-                    <div class="crop-name-container">
+                    <div
+                      class="crop-name-container"
+                      pTooltip="View Order Details"
+                      tooltipPosition="top"
+                    >
                       <img
                         class="crop-image"
                         [src]="
@@ -93,8 +73,6 @@
                         <p
                           class="ml-1 vertical-align-middle crop-name"
                           (click)="selectCropPayment(detail); toggleViewOrder()"
-                          pTooltip="View Order Details"
-                          tooltipPosition="top"
                         >
                           {{ detail.cropOrder.orderIdRef }}
                         </p>
@@ -171,7 +149,7 @@
                     <p>({{ detail.cropOrder.supplier.user.contactNo }})</p>
                   </td>
                   <td>
-                    <div
+                    <span
                       [pTooltip]="
                         detail.cropOrder.isPaymentReceivedByFarmer &&
                         detail.cropOrder.isProofOfPaymentSubmitted
@@ -195,8 +173,8 @@
                       >
                         Payment Received?
                       </button>
-                    </div>
-                    <div
+                    </span>
+                    <span
                       [tooltipDisabled]="
                         !detail.cropOrder.isPaymentReceivedByFarmer
                       "
@@ -215,7 +193,7 @@
                       >
                         Cancel
                       </button>
-                    </div>
+                    </span>
                   </td>
                 </tr>
               </ng-template>
@@ -239,11 +217,11 @@
         </p-tabPanel>
 
         <!-- PAYMENT SUBMITTED ORDERS -->
-        <p-tabPanel header="Payment Submitted">
+        <p-tabPanel header="Pending Payments">
           <div style="margin-top: 1rem">
             <p-table
               #dt1
-              [value]="paymentSubmittedOrders"
+              [value]="(selectCropPaymentsNotYetPaid$ | async)!"
               dataKey="id"
               [rows]="10"
               [showCurrentPageReport]="true"
@@ -379,7 +357,7 @@
                     <p>({{ detail.cropOrder.supplier.user.contactNo }})</p>
                   </td>
                   <td>
-                    <div
+                    <<span
                       [pTooltip]="
                         detail.cropOrder.isPaymentReceivedByFarmer &&
                         detail.cropOrder.isProofOfPaymentSubmitted
@@ -403,8 +381,8 @@
                       >
                         Payment Received?
                       </button>
-                    </div>
-                    <div
+                    </span>
+                    <span
                       [tooltipDisabled]="
                         !detail.cropOrder.isPaymentReceivedByFarmer
                       "
@@ -423,7 +401,215 @@
                       >
                         Cancel
                       </button>
+                    </span>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td colspan="7">
+                    <div class="no-info">
+                      <img
+                        class="no-info-image"
+                        src="assets/images/no-result.png"
+                      />
+                      <div class="no-info-text">
+                        <h1>No orders yet with this status.</h1>
+                      </div>
                     </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </p-tabPanel>
+
+        <!-- PAYMENT SUBMITTED -->
+        <p-tabPanel header="Payment Submitted">
+          <div style="margin-top: 1rem">
+            <p-table
+              #dt1
+              [value]="(selectCropPaymentsProofOfPaymentSubmitted$ | async)!"
+              dataKey="id"
+              [rows]="10"
+              [showCurrentPageReport]="true"
+              [rowsPerPageOptions]="[10, 15, 20]"
+              [paginator]="true"
+              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+              [globalFilterFields]="['orderIdRef']"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th style="min-width: 8rem">
+                    <div class="th-text">Order</div>
+                  </th>
+
+                  <th style="min-width: 8rem">
+                    <div class="th-text">Order Status</div>
+                  </th>
+                  <th style="min-width: 5rem">
+                    <div class="th-text">Quantity</div>
+                  </th>
+                  <th style="min-width: 5rem">
+                    <div class="th-text">Price</div>
+                  </th>
+                  <th style="min-width: 10rem">
+                    <div class="th-text">Payment Date</div>
+                  </th>
+                  <th style="min-width: 10rem">
+                    <div class="th-text" *ngIf="currentUserType == 'Supplier'">
+                      Farmer's Name
+                    </div>
+
+                    <div class="th-text" *ngIf="currentUserType == 'Farmer'">
+                      Supplier's Name
+                    </div>
+                  </th>
+                  <th style="min-width: 8rem">
+                    <div class="th-text">Action</div>
+                  </th>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-detail>
+                <tr>
+                  <td>
+                    <div class="crop-name-container">
+                      <img
+                        class="crop-image"
+                        [src]="
+                          detail.cropOrder.sellCropDetail
+                            .postAdvertisementResponse.postAdvertisement
+                            .cropImage || 'assets/images/user-icon.png'
+                        "
+                      />
+                      <div>
+                        <p
+                          class="ml-1 vertical-align-middle crop-name"
+                          (click)="selectCropPayment(detail); toggleViewOrder()"
+                          pTooltip="View Order Details"
+                          tooltipPosition="top"
+                        >
+                          {{ detail.cropOrder.orderIdRef }}
+                        </p>
+                        <p class="ml-1 vertical-align-middle">
+                          {{ detail.cropOrder.sellCropDetail.cropName }}
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      [ngClass]="{
+                        'to-deliver':
+                          detail.cropOrder.orderStatus === 'To deliver',
+                        'payment-submitted':
+                          detail.cropOrder.orderStatus ===
+                          'proof of payment submitted',
+                        completed: detail.cropOrder.orderStatus === 'Completed',
+                        canceled: detail.cropOrder.orderStatus === 'Cancelled'
+                      }"
+                    >
+                      <span
+                        class="ml-1 vertical-align-middle"
+                        *ngIf="
+                          detail.cropOrder.orderStatus ===
+                            'proof of payment submitted';
+                          else otherStatus
+                        "
+                      >
+                        Payment Submitted
+                      </span>
+                      <ng-template #otherStatus>
+                        {{ detail.cropOrder.orderStatus }}
+                      </ng-template>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="ml-1 vertical-align-middle">
+                      {{
+                        detail.cropOrder.sellCropDetail
+                          .postAdvertisementResponse.quantity
+                      }}</span
+                    >
+                  </td>
+                  <td>
+                    <span class="ml-1 vertical-align-middle">
+                      {{
+                        detail.cropOrder.sellCropDetail.price | currency : "PHP"
+                      }}
+                    </span>
+                  </td>
+                  <td>
+                    <div>
+                      <p
+                        class="ml-1 vertical-align-middle"
+                        style="font-weight: bold; margin-bottom: 4px"
+                      >
+                        {{ detail.payDate | date : "MMM dd, yyyy" }}
+                      </p>
+                      <p class="ml-1 vertical-align-middle">
+                        {{ detail.payDate | date : "hh:mm aa" }}
+                      </p>
+                    </div>
+                  </td>
+                  <td>
+                    <p
+                      class="ml-1 vertical-align-middle"
+                      style="font-weight: bold; margin-bottom: 4px"
+                    >
+                      {{ detail.cropOrder.supplier.user.lastName }},
+                      {{ detail.cropOrder.supplier.user.firstName }}
+                      {{ detail.cropOrder.supplier.user.middleName }}
+                    </p>
+                    <p>({{ detail.cropOrder.supplier.user.contactNo }})</p>
+                  </td>
+                  <td>
+                    <span
+                      [pTooltip]="
+                        detail.cropOrder.isPaymentReceivedByFarmer &&
+                        detail.cropOrder.isProofOfPaymentSubmitted
+                          ? 'Order status will be completed if supplier has received the crops'
+                          : !detail.cropOrder.isPaymentReceivedByFarmer &&
+                            !detail.cropOrder.isProofOfPaymentSubmitted
+                          ? 'Please wait for supplier\'s proof of payment submission'
+                          : ''
+                      "
+                      tooltipPosition="top"
+                    >
+                      <button
+                        pButton
+                        [disabled]="
+                          detail.cropOrder.isPaymentReceivedByFarmer ||
+                          !detail.cropOrder.isProofOfPaymentSubmitted ||
+                          detail.cropOrder.orderStatus == 'Cancelled'
+                        "
+                        class="change-status-btn"
+                        (click)="changeStatus(detail)"
+                      >
+                        Payment Received?
+                      </button>
+                    </span>
+                    <span
+                      [tooltipDisabled]="
+                        !detail.cropOrder.isPaymentReceivedByFarmer
+                      "
+                      pTooltip="Payment Received. Can't cancel anymore"
+                      tooltipPosition="top"
+                      style="text-align: center"
+                    >
+                      <button
+                        pButton
+                        [disabled]="
+                          detail.cropOrder.isPaymentReceivedByFarmer ||
+                          detail.cropOrder.orderStatus == 'Cancelled'
+                        "
+                        class="cancel-order-btn"
+                        (click)="cancelOrder(detail)"
+                      >
+                        Cancel
+                      </button>
+                    </span>
                   </td>
                 </tr>
               </ng-template>
@@ -451,7 +637,7 @@
           <div style="margin-top: 1rem">
             <p-table
               #dt1
-              [value]="toDeliverOrders"
+              [value]="(selectCropPaymentsToDeliver$ | async)!"
               dataKey="id"
               [rows]="10"
               [showCurrentPageReport]="true"
@@ -587,7 +773,7 @@
                     <p>({{ detail.cropOrder.supplier.user.contactNo }})</p>
                   </td>
                   <td>
-                    <div
+                    <span
                       [pTooltip]="
                         detail.cropOrder.isPaymentReceivedByFarmer &&
                         detail.cropOrder.isProofOfPaymentSubmitted
@@ -611,8 +797,8 @@
                       >
                         Payment Received?
                       </button>
-                    </div>
-                    <div
+                    </span>
+                    <span
                       [tooltipDisabled]="
                         !detail.cropOrder.isPaymentReceivedByFarmer
                       "
@@ -631,7 +817,7 @@
                       >
                         Cancel
                       </button>
-                    </div>
+                    </span>
                   </td>
                 </tr>
               </ng-template>
@@ -659,7 +845,7 @@
           <div style="margin-top: 1rem">
             <p-table
               #dt1
-              [value]="completedOrders"
+              [value]="(selectCropPaymentsCompleted$ | async)!"
               dataKey="id"
               [rows]="10"
               [showCurrentPageReport]="true"
@@ -795,7 +981,7 @@
                     <p>({{ detail.cropOrder.supplier.user.contactNo }})</p>
                   </td>
                   <td>
-                    <div
+                    <span
                       [pTooltip]="
                         detail.cropOrder.isPaymentReceivedByFarmer &&
                         detail.cropOrder.isProofOfPaymentSubmitted
@@ -819,8 +1005,8 @@
                       >
                         Payment Received?
                       </button>
-                    </div>
-                    <div
+                    </span>
+                    <span
                       [tooltipDisabled]="
                         !detail.cropOrder.isPaymentReceivedByFarmer
                       "
@@ -839,7 +1025,7 @@
                       >
                         Cancel
                       </button>
-                    </div>
+                    </span>
                   </td>
                 </tr>
               </ng-template>
@@ -867,7 +1053,7 @@
           <div style="margin-top: 1rem">
             <p-table
               #dt1
-              [value]="cancelledOrders"
+              [value]="(selectCropPaymentsCancelled$ | async)!"
               dataKey="id"
               [rows]="10"
               [showCurrentPageReport]="true"
@@ -1003,7 +1189,7 @@
                     <p>({{ detail.cropOrder.supplier.user.contactNo }})</p>
                   </td>
                   <td>
-                    <div
+                    <span
                       [pTooltip]="
                         detail.cropOrder.isPaymentReceivedByFarmer &&
                         detail.cropOrder.isProofOfPaymentSubmitted
@@ -1027,8 +1213,8 @@
                       >
                         Payment Received?
                       </button>
-                    </div>
-                    <div
+                    </span>
+                    <span
                       [tooltipDisabled]="
                         !detail.cropOrder.isPaymentReceivedByFarmer
                       "
@@ -1047,7 +1233,7 @@
                       >
                         Cancel
                       </button>
-                    </div>
+                    </span>
                   </td>
                 </tr>
               </ng-template>
@@ -1234,6 +1420,16 @@
       <h3 class="offer-text">
         {{
           (selectedCropPayment?.cropOrder?.paymentReceivedDate
+            | date : "MMMM dd YYYY HH:mm a") || "Not yet received"
+        }}
+      </h3>
+    </div>
+
+    <div class="summary-field">
+      <label class="form-label">Supplier Receive Date:</label>
+      <h3 class="offer-text">
+        {{
+          (selectedCropPayment?.cropOrder?.orderReceivedDate
             | date : "MMMM dd YYYY HH:mm a") || "Not yet received"
         }}
       </h3>

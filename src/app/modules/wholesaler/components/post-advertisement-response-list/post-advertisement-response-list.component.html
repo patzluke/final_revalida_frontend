@@ -234,8 +234,8 @@
                 style="margin-top: 1rem"
               ></mat-divider>
 
-              <p style="margin-top: 1rem">
-                Please wait for Farmer's final offer.
+              <p *ngIf="!response.isFinalOfferSubmitted">
+                Please wait for Farmer's official offer.
               </p>
               <p
                 *ngIf="
@@ -247,8 +247,8 @@
                   )?.cropOrder?.orderStatus != 'Cancelled'
                 "
               >
-                Farmer has already submitted their final offer. You can now
-                proceed to accept their final offer.
+                Farmer has already submitted their official offer. You can now
+                proceed to accept their official offer.
               </p>
               <p *ngIf="response.isFinalOfferAccepted">
                 Transaction already completed.
@@ -280,7 +280,7 @@
                   {{
                     response.isFinalOfferAccepted
                       ? "View Summary"
-                      : "Accept Final Offer"
+                      : "Accept official Offer"
                   }}
                 </button>
               </div>

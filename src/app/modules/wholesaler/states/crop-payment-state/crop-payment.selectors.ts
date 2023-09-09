@@ -8,7 +8,38 @@ export const selectCropPaymentState = createFeatureSelector<CropPaymentState>(
 export const selectCropPayments = () =>
   createSelector(selectCropPaymentState, (state: CropPaymentState) =>
     state.cropPayments.filter(
-      (payment) => payment.payDate != null && payment.paidBy != null
+      (payment) =>
+        payment.cropOrder.orderStatus !== 'Not Yet Paid' &&
+        payment.proofOfPaymentImage !== null &&
+        payment.transcationReferenceNumber !== null
+    )
+  );
+
+export const selectCropPaymentsProofOfPaymentSubmitted = () =>
+  createSelector(selectCropPaymentState, (state: CropPaymentState) =>
+    state.cropPayments.filter(
+      (order) => order.cropOrder.orderStatus === 'proof of payment submitted'
+    )
+  );
+
+export const selectCropPaymentsToDeliver = () =>
+  createSelector(selectCropPaymentState, (state: CropPaymentState) =>
+    state.cropPayments.filter(
+      (order) => order.cropOrder.orderStatus === 'To deliver'
+    )
+  );
+
+export const selectCropPaymentsCompleted = () =>
+  createSelector(selectCropPaymentState, (state: CropPaymentState) =>
+    state.cropPayments.filter(
+      (order) => order.cropOrder.orderStatus === 'Completed'
+    )
+  );
+
+export const selectCropPaymentsCancelled = () =>
+  createSelector(selectCropPaymentState, (state: CropPaymentState) =>
+    state.cropPayments.filter(
+      (order) => order.cropOrder.orderStatus === 'Cancelled'
     )
   );
 
@@ -20,18 +51,5 @@ export const selectCropPayment = (postResponseId: number, supplierId: number) =>
           .postResponseId == postResponseId &&
         cropPayment.cropOrder.supplier.supplierId == supplierId
       );
-    })
-  );
-
-export const verifyIfIsCropReceivedMoreThan24Hours = () =>
-  createSelector(selectCropPaymentState, (state: CropPaymentState) =>
-    state.cropPayments.filter((cropPayment) => {
-      let datePlus24Hrs = new Date(cropPayment.cropOrder.orderReceivedDate);
-      datePlus24Hrs.setHours(datePlus24Hrs.getHours() + 24);
-      let dateToday = new Date();
-      if (datePlus24Hrs <= dateToday) {
-        return false;
-      }
-      return true;
     })
   );
