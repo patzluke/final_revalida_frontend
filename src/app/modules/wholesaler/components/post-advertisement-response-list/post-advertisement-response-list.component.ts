@@ -137,4 +137,37 @@ export class PostAdvertisementResponseListComponent implements OnInit {
     };
     this._router.navigate(['/supplier/order-summary'], obj);
   }
+
+  // Farmers socials accounts
+  checkFbSocial(cropPayment: any) {
+    return cropPayment?.farmer?.user?.socials.find((social: any) =>
+      social.includes('facebook') ? true : false
+    )
+      ? true
+      : false;
+  }
+
+  selectFbSocial(cropPayment: any) {
+    return (
+      (cropPayment?.farmer?.user?.socials.find((social: any) =>
+        social.includes('facebook') ? true : false
+      ) as string) || 'https://www.facebook.com/'
+    );
+  }
+
+  checkIGSocial(cropPayment: any) {
+    return cropPayment?.farmer?.user?.socials.find((social: any) =>
+      social.includes('instagram') ? true : false
+    )
+      ? true
+      : false;
+  }
+
+  selectIGSocial(cropPayment: any) {
+    return (
+      (cropPayment?.farmer?.user?.socials.find((social: any) =>
+        social.includes('instagram') ? true : false
+      ) as string) || 'https://www.instagram.com/'
+    );
+  }
 }

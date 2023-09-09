@@ -308,6 +308,8 @@ export class PostAdvertisementListComponent implements OnInit {
               console.log(e);
             },
           });
+          this.addPostAdvertisementForm.reset();
+          this.imagePreviewUrl = '';
         }
       });
     } else {
