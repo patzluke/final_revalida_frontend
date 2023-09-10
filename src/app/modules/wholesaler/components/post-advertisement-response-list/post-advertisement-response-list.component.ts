@@ -25,7 +25,6 @@ import { SellCropDetails } from '../../models/sell-crop-details';
   styleUrls: ['./post-advertisement-response-list.component.scss'],
 })
 export class PostAdvertisementResponseListComponent implements OnInit {
-  supplierId = localStorage.getItem('userNo') as any;
   selectedPostId!: number;
   selectedPostAdvertisement?: PostAdvertisement;
   postAdvertisementResponses: PostAdvertisementResponse[] = [];
@@ -44,16 +43,12 @@ export class PostAdvertisementResponseListComponent implements OnInit {
     );
   };
 
-  selectCropPayment$ = (responseId: number, supplierId: number) => {
-    return this.store.select(selectCropPayment(responseId, supplierId));
-  };
-
   constructor(
     private store: Store,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private _router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((data) => {
@@ -107,7 +102,7 @@ export class PostAdvertisementResponseListComponent implements OnInit {
     if (updatedAdvertisementResponse.isAccepted) {
       updatedAdvertisementResponse.notificationTitle = `Offer is Accepted`;
       updatedAdvertisementResponse.notificationMessage =
-        `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName} `.concat(
+        `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName}, `.concat(
           `has accepted your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`
         );
     } else {
@@ -117,6 +112,8 @@ export class PostAdvertisementResponseListComponent implements OnInit {
           `has withdrawn from your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`
         );
     }
+    console.log(updatedAdvertisementResponse);
+
     this.store.dispatch({
       type: PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES,
       postAdvertisementResponse: updatedAdvertisementResponse,
@@ -138,7 +135,6 @@ export class PostAdvertisementResponseListComponent implements OnInit {
     this._router.navigate(['/supplier/order-summary'], obj);
   }
 
-<<<<<<< HEAD
   currentPage: number = 1;
   itemsPerPage: number = 3; // Number of items to show per page
 
@@ -152,7 +148,8 @@ export class PostAdvertisementResponseListComponent implements OnInit {
 
   changePage(newPage: number): void {
     this.currentPage = newPage;
-=======
+  }
+
   // Farmers socials accounts
   checkFbSocial(cropPayment: any) {
     return cropPayment?.farmer?.user?.socials.find((social: any) =>
@@ -184,6 +181,5 @@ export class PostAdvertisementResponseListComponent implements OnInit {
         social.includes('instagram') ? true : false
       ) as string) || 'https://www.instagram.com/'
     );
->>>>>>> ef9646f0406c354e95f0a4ecf0b04bff09ec79d4
   }
 }
