@@ -134,4 +134,19 @@ export class PostAdvertisementResponseListComponent implements OnInit {
     };
     this._router.navigate(['/supplier/order-summary'], obj);
   }
+
+  currentPage: number = 1;
+  itemsPerPage: number = 3; // Number of items to show per page
+
+  startIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  endIndex(): number {
+    return this.startIndex() + this.itemsPerPage;
+  }
+
+  changePage(newPage: number): void {
+    this.currentPage = newPage;
+  }
 }
