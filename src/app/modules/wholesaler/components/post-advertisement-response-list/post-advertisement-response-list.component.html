@@ -85,12 +85,7 @@
       <h1 class="res-label">Responses</h1>
       <div
         class="responses-container"
-        *ngFor="
-          let response of postAdvertisementResponses.slice(
-            startIndex(),
-            endIndex()
-          )
-        "
+        *ngFor="let response of postAdvertisementResponses"
       >
         <div class="user-image-container">
           <img
@@ -299,34 +294,6 @@
         <div class="no-info-text">
           <h1>No offers yet from the farmers.</h1>
         </div>
-      </div>
-      <div class="pagination pagination-md justify-content-end">
-        <li class="page-item">
-          <button
-            class="page-link"
-            [disabled]="currentPage === 1"
-            (click)="changePage(currentPage - 1)"
-          >
-            Previous
-          </button>
-        </li>
-        <li class="page-item">
-          <button class="page-link" disabled>
-            {{ currentPage }}
-          </button>
-        </li>
-
-        <li class="page-item">
-          <button
-            class="page-link"
-            [disabled]="
-              endIndex() >= (selectPostAdvertisementResponses$ | async)!.length
-            "
-            (click)="changePage(currentPage + 1)"
-          >
-            Next
-          </button>
-        </li>
       </div>
     </div>
   </section>
