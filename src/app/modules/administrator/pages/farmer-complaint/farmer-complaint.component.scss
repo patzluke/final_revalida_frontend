@@ -144,14 +144,69 @@ section {
   width: 100%;
 }
 
+::ng-deep .p-datatable {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+::ng-deep view .p-tabview-panels,
+::ng-deep .p-tabview .p-tabview-nav {
+  // white
+  background-color: #e8f4ef;
+}
+
+::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background-color: #e8f4ef;
+}
+
+::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  background-color: transparent;
+}
+
+::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  border-color: #2d5605;
+  color: #2d5605;
+}
+
+::ng-deep .p-tabview .p-tabview-panels {
+  padding: 0;
+}
+
+.filter-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-container {
+  width: 30%;
+}
+
+.right-filter {
+  width: 20%;
+}
+
+// .dropdown-container {
+//   width: 100%;
+// }
+
+::ng-deep .p-dropdown {
+  width: 100%;
+}
+
 @media (max-width: 600px) {
-  .search-container {
+  .filter-container {
     display: block;
+  }
+
+  .search-container {
     width: 100%;
   }
 
-  .search-input {
+  .right-filter {
+    margin-top: 1rem;
     width: 100%;
+    margin-bottom: 1rem;
   }
 
   .offer-btn {
@@ -160,6 +215,10 @@ section {
 }
 
 @media (max-width: 787px) {
+  section {
+    padding: 2rem 0;
+  }
+
   .no-info-text h1 {
     font-size: 3rem;
   }

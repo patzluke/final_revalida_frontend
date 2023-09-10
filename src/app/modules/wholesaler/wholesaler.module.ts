@@ -37,6 +37,11 @@ import { CropPaymentEffects } from './states/crop-payment-state/crop-payment.eff
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { sellCropDetailsReducer } from './states/sell-crop-details-state/sell-crop-details.reducer';
 import { SellCropDetailsEffects } from './states/sell-crop-details-state/sell-crop-details.effects';
+import { SupplierComplaintComponent } from './components/supplier-complaint/supplier-complaint.component';
+import { supplierComplaintReducer } from './states/suppliercomplaint-state/suppliercomplaint.reducer';
+import { SupplierComplaintsEffect } from './states/suppliercomplaint-state/suppliercomplaint.effects';
+import { TabViewModule } from 'primeng/tabview';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [
@@ -47,6 +52,7 @@ import { SellCropDetailsEffects } from './states/sell-crop-details-state/sell-cr
     OrderSummaryComponent,
     OrderListComponent,
     NotificationsComponent,
+    SupplierComplaintComponent,
   ],
   imports: [
     CommonModule,
@@ -69,6 +75,8 @@ import { SellCropDetailsEffects } from './states/sell-crop-details-state/sell-cr
     MatButtonModule,
     DividerModule,
     MultiSelectModule,
+    TabViewModule,
+    CheckboxModule,
     StoreModule.forFeature(
       'postAdvertisementList (supplier)',
       postAdvertisementReducerSupplierSide
@@ -86,12 +94,17 @@ import { SellCropDetailsEffects } from './states/sell-crop-details-state/sell-cr
       'sellCropDetails (Supplier Acc)',
       sellCropDetailsReducer
     ),
+    StoreModule.forFeature(
+      'SingleSuppplierComplaintsList (Supplier Acc)',
+      supplierComplaintReducer
+    ),
     EffectsModule.forFeature([
       PostAdvertisementEffectsSupplierSide,
       CropSpecializationEffects,
       PostAdvertisementResponsesEffects,
       CropPaymentEffects,
       SellCropDetailsEffects,
+      SupplierComplaintsEffect,
     ]),
   ],
 })

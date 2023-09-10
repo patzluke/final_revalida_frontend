@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap, switchMap, catchError, of, tap } from 'rxjs';
+import { map, mergeMap, switchMap, catchError, of, tap, pipe } from 'rxjs';
 import {
   PostAdvertisementResponsesActions,
   addAdvertisementResponsesState,
   setPostAdvertisementResponsesState,
+  updatePostAdvertisementResponsesState,
 } from './postadvertisement-responses.actions';
 import Swal from 'sweetalert2';
 import { PostAdvertisementResponse } from '../../models/post-advertisement-response';
@@ -29,7 +30,7 @@ export class PostAdvertisementResponsesEffects {
             .selectAllPostAdvertisementResponsesByFarmerId(data.farmerId)
             .pipe(
               map((postAdvertisementResponses) =>
-              setPostAdvertisementResponsesState({
+                setPostAdvertisementResponsesState({
                   postAdvertisementResponses: postAdvertisementResponses,
                 })
               )
@@ -66,6 +67,19 @@ export class PostAdvertisementResponsesEffects {
               })
             )
       )
+    );
+  });
+
+  updateAdvertisementResponseStatus$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(
+        PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES
+      ),
+      map((data: { postAdvertisementResponse: any }) => {
+        return updatePostAdvertisementResponsesState({
+          postAdvertisementResponse: data.postAdvertisementResponse,
+        });
+      })
     );
   });
 }

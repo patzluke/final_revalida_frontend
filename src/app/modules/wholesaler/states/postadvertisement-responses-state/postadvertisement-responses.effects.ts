@@ -32,7 +32,13 @@ export class PostAdvertisementResponsesEffects {
                 setPostAdvertisementResponsesState({
                   postAdvertisementResponses: postAdvertisementResponses,
                 })
-              )
+              ),
+              catchError((error: HttpErrorResponse) => {
+                return of({
+                  type: PostAdvertisementResponsesActions.SET_POSTADVERTISEMENTRESPONSES,
+                  postAdvertisementResponses: []
+                });
+              })
             )
         )
       );
@@ -45,24 +51,25 @@ export class PostAdvertisementResponsesEffects {
       ofType(
         PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES
       ),
-      switchMap((data: { postAdvertisementResponse: PostAdvertisementResponse }) =>
-        this.supplierService
-          .updatePostAdvertisementResponsesIsAcceptedStatus(
-            data.postAdvertisementResponse
-          )
-          .pipe(
-            map((postAdvertisementResponse: PostAdvertisementResponse) =>
-            updatePostAdvertisementResponsesState({
-              postAdvertisementResponse: postAdvertisementResponse,
+      switchMap(
+        (data: { postAdvertisementResponse: PostAdvertisementResponse }) =>
+          this.supplierService
+            .updatePostAdvertisementResponsesIsAcceptedStatus(
+              data.postAdvertisementResponse
+            )
+            .pipe(
+              map((postAdvertisementResponse: PostAdvertisementResponse) =>
+                updatePostAdvertisementResponsesState({
+                  postAdvertisementResponse: postAdvertisementResponse,
+                })
+              ),
+              catchError((error: HttpErrorResponse) => {
+                Swal.fire('Failed to Update!', `Something Went Wrong`, 'error');
+                return of({
+                  type: PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES_FAILED,
+                });
               })
-            ),
-            catchError((error: HttpErrorResponse) => {
-              Swal.fire('Failed to Update!', `Something Went Wrong`, 'error');
-              return of({
-                type: PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES_FAILED,
-              });
-            })
-          )
+            )
       )
     );
   });

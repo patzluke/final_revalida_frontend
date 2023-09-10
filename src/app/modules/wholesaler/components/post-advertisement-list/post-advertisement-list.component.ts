@@ -16,8 +16,6 @@ import { CropSpecialization } from '../../models/crop-specialization';
 import { FileDetails } from '../../models/fileDetails';
 import { Router } from '@angular/router';
 import { PostAdvertisementState } from '../../states/postadvertisement-state/postadvertisement.reducer';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-post-advertisement-list',
@@ -29,7 +27,6 @@ export class PostAdvertisementListComponent implements OnInit {
 
   loading: boolean = true;
 
-  postAdvertisements: PostAdvertisement[] = [];
   selectedReadDate: string | undefined = '';
   cropTypes: CropSpecialization[] = [];
   selectedCropTypes: CropSpecialization[] = [];
@@ -123,10 +120,10 @@ export class PostAdvertisementListComponent implements OnInit {
 
     this.selectPostAdvertisements$.subscribe((data) => {
       data.map((ads) => {
-        if (this.postAdvertisements.find((item) => item.postId == ads.postId)) {
+        if (this.filteredAdvertisements.find((item) => item.postId == ads.postId)) {
           return;
         }
-        this.postAdvertisements.push({ ...ads, showFullDescription: false });
+        this.filteredAdvertisements.push({ ...ads, showFullDescription: false });
       });
     });
 
@@ -135,7 +132,6 @@ export class PostAdvertisementListComponent implements OnInit {
         this.cropTypes = data;
       },
     });
-    this.filteredAdvertisements = this.postAdvertisements;
 
   }
 
@@ -154,6 +150,15 @@ export class PostAdvertisementListComponent implements OnInit {
           type: PostAdvertisementActionsSupplierSide.DELETE_POSTADVERTISEMENT,
           postId: advertisement.postId,
         });
+        this.selectPostAdvertisements$.subscribe((data) => {
+          this.filteredAdvertisements = []
+          data.map((ads) => {
+            if (this.filteredAdvertisements.find((item) => item.postId == ads.postId)) {
+              return;
+            }
+            this.filteredAdvertisements.push({ ...ads, showFullDescription: false });
+          });
+        })
       }
     });
   }
@@ -161,7 +166,7 @@ export class PostAdvertisementListComponent implements OnInit {
   filteredAdvertisements: PostAdvertisement[] = [];
   // Toggle description visibility
   toggleDescription(post: PostAdvertisement): void {
-    this.postAdvertisements = this.postAdvertisements.map((ads) => {
+    this.filteredAdvertisements = this.filteredAdvertisements.map((ads) => {
       if (ads.postId == post.postId) {
         ads.showFullDescription = !ads.showFullDescription;
       }
@@ -191,7 +196,7 @@ export class PostAdvertisementListComponent implements OnInit {
       .trim()
       .toLowerCase();
 
-    this.filteredAdvertisements = this.postAdvertisements.filter((ad) =>
+    this.filteredAdvertisements = this.filteredAdvertisements.filter((ad) =>
       ad.cropName.toLowerCase().includes(filterValue)
     );
 
@@ -232,9 +237,9 @@ export class PostAdvertisementListComponent implements OnInit {
 
   filterAdvertisementsByType(): void {
     if (this.selectedCropTypes.length === 0) {
-      this.filteredAdvertisements = this.postAdvertisements;
+      this.filteredAdvertisements = this.filteredAdvertisements;
     } else {
-      this.filteredAdvertisements = this.postAdvertisements.filter((ad) => {
+      this.filteredAdvertisements = this.filteredAdvertisements.filter((ad) => {
         const adCropSpecializationId =
           ad.cropSpecialization?.cropSpecializationId;
         return this.selectedCropTypes.some(
@@ -298,13 +303,13 @@ export class PostAdvertisementListComponent implements OnInit {
                 title: 'Advertisement created!',
                 icon: 'success',
               });
-
-              this.filteredAdvertisements = this.postAdvertisements;
             },
             error: (e) => {
               console.log(e);
             },
           });
+          this.addPostAdvertisementForm.reset();
+          this.imagePreviewUrl = '';
         }
       });
     } else {
@@ -352,6 +357,15 @@ export class PostAdvertisementListComponent implements OnInit {
               type: PostAdvertisementActionsSupplierSide.UPDATE_POSTADVERTISEMENT,
               postAdvertisement: advertisement,
             });
+            this.selectPostAdvertisements$.subscribe((data) => {
+              this.filteredAdvertisements = []
+              data.map((ads) => {
+                if (this.filteredAdvertisements.find((item) => item.postId == ads.postId)) {
+                  return;
+                }
+                this.filteredAdvertisements.push({ ...ads, showFullDescription: false });
+              });
+            })
           },
           error: (e) => {
             console.log(e);
@@ -362,6 +376,16 @@ export class PostAdvertisementListComponent implements OnInit {
           type: PostAdvertisementActionsSupplierSide.UPDATE_POSTADVERTISEMENT,
           postAdvertisement: advertisement,
         });
+
+        this.selectPostAdvertisements$.subscribe((data) => {
+          this.filteredAdvertisements = []
+          data.map((ads) => {
+            if (this.filteredAdvertisements.find((item) => item.postId == ads.postId)) {
+              return;
+            }
+            this.filteredAdvertisements.push({ ...ads, showFullDescription: false });
+          });
+        })
       }
     } else {
       Object.keys(this.editPostAdvertisementForm.controls).forEach((field) => {
