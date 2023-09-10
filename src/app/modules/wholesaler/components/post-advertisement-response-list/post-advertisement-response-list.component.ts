@@ -53,7 +53,7 @@ export class PostAdvertisementResponseListComponent implements OnInit {
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private _router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((data) => {
@@ -169,5 +169,20 @@ export class PostAdvertisementResponseListComponent implements OnInit {
         social.includes('instagram') ? true : false
       ) as string) || 'https://www.instagram.com/'
     );
+  }
+
+  currentPage: number = 1;
+  itemsPerPage: number = 3; // Number of items to show per page
+
+  startIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  endIndex(): number {
+    return this.startIndex() + this.itemsPerPage;
+  }
+
+  changePage(newPage: number): void {
+    this.currentPage = newPage;
   }
 }
