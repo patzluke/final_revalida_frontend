@@ -8,10 +8,9 @@
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
 />
 
-<!-- <app-loader></app-loader> -->
 <app-side-nav>
   <section class="complaints-section">
-    <div class="container" data-aos="fade-right" data-aos-duration="333">
+    <div class="container">
       <div style="margin-bottom: 3rem">
         <p class="h1 mb-3 title">COMPLAINTS</p>
       </div>
@@ -35,7 +34,7 @@
 
       <p-table
         #dt1
-        [value]="farmerComplaints"
+        [value]="supplierComplaints"
         dataKey="id"
         [rows]="10"
         [showCurrentPageReport]="true"
@@ -67,31 +66,37 @@
           </tr></ng-template
         >
 
-        <ng-template pTemplate="body" let-farmerComplaints>
+        <ng-template pTemplate="body" let-supplierComplaints>
           <tr>
             <td>
               <span class="ml-1 vertical-align-middle">
-                {{ farmerComplaints.complaintTitle }}</span
+                {{ supplierComplaints.complaintTitle }}</span
               >
             </td>
 
             <td>
               <span class="ml-1 vertical-align-middle">
-                <p class="status-text" *ngIf="farmerComplaints.isRead">Read</p>
-                <p class="status-text" *ngIf="!farmerComplaints.isRead">
+                <p class="status-text" *ngIf="supplierComplaints.isRead">
+                  Read
+                </p>
+                <p class="status-text" *ngIf="!supplierComplaints.isRead">
                   Not Yet Read
                 </p>
               </span>
             </td>
             <td>
               <span class="ml-1 vertical-align-middle">
-                <p *ngIf="farmerComplaints.isResolved">Resolved</p>
-                <p *ngIf="!farmerComplaints.isResolved">Not yet resolved</p>
+                <p class="status-text" *ngIf="supplierComplaints.isResolved">
+                  Resolved
+                </p>
+                <p class="status-text" *ngIf="!supplierComplaints.isResolved">
+                  Not yet resolved
+                </p>
               </span>
             </td>
             <td>
               <span class="ml-1 vertical-align-middle">{{
-                farmerComplaints.dateSubmitted | date : "MMMM d, yyyy HH:mm a"
+                supplierComplaints.dateSubmitted | date : "MMMM d, yyyy HH:mm a"
               }}</span>
             </td>
             <td style="width: 5%">
@@ -100,7 +105,7 @@
                 data-bs-target="#editFarmingTip"
                 styleClass="p-button-rounded p-button-text"
                 (click)="
-                  selectComplaint(farmerComplaints.farmerComplaintId);
+                  selectComplaint(supplierComplaints.supplierComplaintId);
                   toggleViewComplaint()
                 "
                 pTooltip="View complaint"
@@ -111,9 +116,11 @@
               >
               <button
                 pButton
-                [disabled]="farmerComplaints.isRead"
+                [disabled]="supplierComplaints.isRead"
                 class="p-button-rounded p-button-danger p-button-text"
-                (click)="cancelComplaint(farmerComplaints.farmerComplaintId)"
+                (click)="
+                  cancelComplaint(supplierComplaints.supplierComplaintId)
+                "
                 pTooltip="Cancel complaint"
                 tooltipPosition="bottom"
               >
@@ -224,7 +231,7 @@
     >
       Cancel
     </button>
-    <button pButton class="submit-btn" (click)="addFarmerComplaint()">
+    <button pButton class="submit-btn" (click)="addSupplierComplaint()">
       Add
     </button>
   </div>
@@ -276,11 +283,11 @@
             <label>Evidence/Image</label>
             <div class="evidence-image-container">
               <img
-                *ngIf="selectedFarmerComplaint?.image"
+                *ngIf="selectedSupplierComplaint?.image"
                 class="evidence-image"
-                [src]="selectedFarmerComplaint?.image"
+                [src]="selectedSupplierComplaint?.image"
               />
-              <p *ngIf="!selectedFarmerComplaint?.image">
+              <p *ngIf="!selectedSupplierComplaint?.image">
                 No evidence/image provided.
               </p>
             </div>
@@ -290,7 +297,7 @@
       <p-tabPanel header="Admin response">
         <div class="form-field">
           <label>Complaint status</label>
-          <h3 *ngIf="!selectedFarmerComplaint?.isResolved; else resolved">
+          <h3 *ngIf="!selectedSupplierComplaint?.isResolved; else resolved">
             Not yet resolved
           </h3>
           <ng-template #resolved><h3>resolved</h3></ng-template>
@@ -300,7 +307,7 @@
           <label>Admin response</label>
           <h3
             *ngIf="
-              !selectedFarmerComplaint?.adminReplyMessage;
+              !selectedSupplierComplaint?.adminReplyMessage;
               else adminMessage
             "
           >
@@ -308,7 +315,7 @@
           </h3>
           <ng-template #adminMessage
             ><h3>
-              {{ selectedFarmerComplaint?.adminReplyMessage }}
+              {{ selectedSupplierComplaint?.adminReplyMessage }}
             </h3></ng-template
           >
         </div>

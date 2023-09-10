@@ -8,6 +8,7 @@ import { Administrator } from '../models/administrator';
 import { FileDetails } from '../../registration/models/fileDetails';
 import { Observable } from 'rxjs';
 import { Course } from '../models/course';
+import { SupplierComplaint } from '../models/supplierComplaint';
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +35,7 @@ export class AdminService {
       `${this.baseUrl}/admin/update/admin`,
       adminInfo
     );
-  }
+  };
 
   selectAllFarmers = () => {
     return this.http.get<Farmer[]>(`${this.baseUrl}/admin/get/farmers`);
@@ -88,6 +89,13 @@ export class AdminService {
     );
   };
 
+  changeUserActiveStatus = (user: Farmer | Supplier) => {
+    return this.http.put<Supplier | Farmer>(
+      `${this.baseUrl}/admin/update/user`,
+      user
+    );
+  };
+
   upload = (file: File): Observable<FileDetails> => {
     const formData: FormData = new FormData();
     formData.append('file', file);
@@ -109,15 +117,26 @@ export class AdminService {
   };
 
   updateIntoCourses = (course: Course) => {
-    return this.http.put<Course>(
-      `${this.baseUrl}/admin/update/course`,
-      course
-    );
+    return this.http.put<Course>(`${this.baseUrl}/admin/update/course`, course);
   };
 
   deleteCourse = (courseId: number) => {
     return this.http.delete<Course>(
       `${this.baseUrl}/admin/delete/course/${courseId}`
+    );
+  };
+
+  // Supplier complaint
+  selectAllSupplierComplaints = () => {
+    return this.http.get<SupplierComplaint[]>(
+      `${this.baseUrl}/admin/get/suppliercomplaints`
+    );
+  };
+
+  updateIntoSupplierComplaint = (supplierComplaint: SupplierComplaint) => {
+    return this.http.put<SupplierComplaint>(
+      `${this.baseUrl}/admin/update/suppliercomplaints`,
+      supplierComplaint
     );
   };
 }

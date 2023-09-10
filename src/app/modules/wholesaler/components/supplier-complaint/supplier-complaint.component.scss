@@ -164,12 +164,6 @@ h3 {
 }
 
 :host {
-  ::ng-deep .p-disabled,
-  ::ng-deep .p-component:disabled {
-    color: #2d5605;
-    opacity: 100%;
-  }
-
   ::ng-deep .p-tabview .p-tabview-panels,
   ::ng-deep .p-tabview .p-tabview-nav {
     // white
@@ -183,6 +177,12 @@ h3 {
   ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
     border-color: #2d5605;
     color: #2d5605;
+  }
+
+  ::ng-deep .p-disabled,
+  ::ng-deep .p-component:disabled {
+    color: #2d5605;
+    opacity: 100%;
   }
 }
 

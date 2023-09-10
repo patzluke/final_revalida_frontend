@@ -7,6 +7,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { SupplierComplaintComponent } from './components/supplier-complaint/supplier-complaint.component';
 
 const routes: Routes = [
   {
@@ -23,16 +24,20 @@ const routes: Routes = [
   },
   {
     path: 'order-summary',
-    component: OrderSummaryComponent
+    component: OrderSummaryComponent,
   },
   {
     path: 'orders',
-    component: OrderListComponent
+    component: OrderListComponent,
   },
   {
     path: 'notifications',
-    component: NotificationsComponent
-  }
+    component: NotificationsComponent,
+  },
+  {
+    path: 'complaint-status',
+    component: SupplierComplaintComponent,
+  },
 ];
 
 @NgModule({
@@ -40,4 +45,4 @@ const routes: Routes = [
   imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class WholesalerRoutingModule { }
+export class WholesalerRoutingModule {}

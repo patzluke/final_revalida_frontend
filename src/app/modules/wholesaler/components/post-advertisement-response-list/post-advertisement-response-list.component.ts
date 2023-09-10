@@ -25,6 +25,7 @@ import { SellCropDetails } from '../../models/sell-crop-details';
   styleUrls: ['./post-advertisement-response-list.component.scss'],
 })
 export class PostAdvertisementResponseListComponent implements OnInit {
+  supplierId = localStorage.getItem('userNo') as any;
   selectedPostId!: number;
   selectedPostAdvertisement?: PostAdvertisement;
   postAdvertisementResponses: PostAdvertisementResponse[] = [];
@@ -41,6 +42,10 @@ export class PostAdvertisementResponseListComponent implements OnInit {
     return this.store.select(
       selectSellCropDetailsByFarmerIdAndResponseId(farmerId, postResponseId)
     );
+  };
+
+  selectCropPayment$ = (responseId: number, supplierId: number) => {
+    return this.store.select(selectCropPayment(responseId, supplierId));
   };
 
   constructor(
@@ -102,7 +107,7 @@ export class PostAdvertisementResponseListComponent implements OnInit {
     if (updatedAdvertisementResponse.isAccepted) {
       updatedAdvertisementResponse.notificationTitle = `Offer is Accepted`;
       updatedAdvertisementResponse.notificationMessage =
-        `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName}, `.concat(
+        `${supplier?.firstName} ${supplier?.middleName} ${supplier?.lastName} `.concat(
           `has accepted your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`
         );
     } else {
@@ -112,8 +117,6 @@ export class PostAdvertisementResponseListComponent implements OnInit {
           `has withdrawn from your offer in the ${this.selectedPostAdvertisement?.cropName} advertisement.`
         );
     }
-    console.log(updatedAdvertisementResponse);
-
     this.store.dispatch({
       type: PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES,
       postAdvertisementResponse: updatedAdvertisementResponse,
@@ -133,5 +136,38 @@ export class PostAdvertisementResponseListComponent implements OnInit {
       state: { cropPayment: selectedCropPayment },
     };
     this._router.navigate(['/supplier/order-summary'], obj);
+  }
+
+  // Farmers socials accounts
+  checkFbSocial(cropPayment: any) {
+    return cropPayment?.farmer?.user?.socials.find((social: any) =>
+      social.includes('facebook') ? true : false
+    )
+      ? true
+      : false;
+  }
+
+  selectFbSocial(cropPayment: any) {
+    return (
+      (cropPayment?.farmer?.user?.socials.find((social: any) =>
+        social.includes('facebook') ? true : false
+      ) as string) || 'https://www.facebook.com/'
+    );
+  }
+
+  checkIGSocial(cropPayment: any) {
+    return cropPayment?.farmer?.user?.socials.find((social: any) =>
+      social.includes('instagram') ? true : false
+    )
+      ? true
+      : false;
+  }
+
+  selectIGSocial(cropPayment: any) {
+    return (
+      (cropPayment?.farmer?.user?.socials.find((social: any) =>
+        social.includes('instagram') ? true : false
+      ) as string) || 'https://www.instagram.com/'
+    );
   }
 }

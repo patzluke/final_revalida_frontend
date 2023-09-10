@@ -10,11 +10,15 @@ import Swal from 'sweetalert2';
 import { selectCropSpecializations } from '../../states/cropspecialization-state/cropspecialization.selectors';
 import { CropSpecializationActions } from '../../states/cropspecialization-state/cropspecialization.actions';
 import { CropSpecialization } from '../../models/crop-specialization';
-import { selectPostAdvertisementResponseByPostId } from '../../states/postadvertisement-responses-state/postadvertisement-responses.selectors';
+import {
+  selectPostAdvertisementResponseByPostId,
+  selectPostAdvertisementResponses,
+} from '../../states/postadvertisement-responses-state/postadvertisement-responses.selectors';
 import { Observable } from 'rxjs';
 import { CropPaymentActions } from '../../states/crop-payment-state/crop-payment.actions';
 import {
   selectCropPaymentByFarmerIdAndPostResponseId,
+  selectCropPayments,
 } from '../../states/crop-payment-state/crop-payment.selectors';
 import { Farmer } from '../../models/farmer';
 import { FarmerService } from '../../services/farmer.service';
@@ -368,17 +372,25 @@ export class CropAdvertisementsComponent implements OnInit {
 
       this.openViewOfferDialog = false;
       Swal.fire({
-        title: 'Are you sure you want to send your final offer? You won\'t be able to change this after submitting.',
+        title:
+          "Are you sure you want to send your Official offer? You won't be able to change this after submitting.",
         icon: 'warning',
         showDenyButton: true,
         confirmButtonColor: '#3085d6',
         denyButtonColor: '#d33',
-        confirmButtonText: 'Send Final offer',
+        confirmButtonText: 'Send Official offer',
       }).then((result) => {
         if (result.isConfirmed) {
           this.store.dispatch({
             type: CropPaymentActions.ADD_CROPPAYMENT,
             cropPayment: finalOfferValues,
+          });
+
+          let updatedPostAdvertisementResponse = {... this.postAdvertisementResponse}
+          updatedPostAdvertisementResponse.isFinalOfferSubmitted = true;
+          this.store.dispatch({
+            type: PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES,
+            postAdvertisementResponse: updatedPostAdvertisementResponse,
           });
         } else if (result.isDenied) {
           this.finalOfferForm.controls['cropName'].disable();

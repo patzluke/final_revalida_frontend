@@ -17,6 +17,7 @@ export class OrderSummaryComponent implements OnInit {
   cropPayment?: CropPayment;
   farmerName = '';
   transcationReferenceNumber = new FormControl('');
+  address = new FormControl('');
   selectedImage!: File;
   imagePreviewUrl!: string | ArrayBuffer;
 
@@ -33,12 +34,16 @@ export class OrderSummaryComponent implements OnInit {
     this.transcationReferenceNumber.patchValue(
       this.cropPayment?.transcationReferenceNumber as string
     );
+    this.isDefaultAddress = true;
+
+    this.address.patchValue(this.cropPayment?.cropOrder.address as string);
     if (
       this.cropPayment?.cropOrder?.sellCropDetail?.postAdvertisementResponse
         ?.isFinalOfferAccepted
     ) {
       this.transcationReferenceNumber.disable();
     }
+    //console.log(this.cropPayment);
   }
 
   onImageSelected = (event: any) => {
@@ -64,6 +69,7 @@ export class OrderSummaryComponent implements OnInit {
         this.cropPayment?.cropOrder.sellCropDetail.farmer.user.userId,
       proofOfPaymentImage: '',
       transcationReferenceNumber: this.transcationReferenceNumber.getRawValue(),
+      address: this.address.getRawValue(),
       postResponseId:
         this.cropPayment?.cropOrder.sellCropDetail.postAdvertisementResponse
           .postResponseId,
@@ -81,10 +87,27 @@ export class OrderSummaryComponent implements OnInit {
         });
       },
       error: (err) => {
-        Swal.fire('Failed to Submit!', `Please upload your Proof of payment!`, 'error');
+        Swal.fire(
+          'Failed to Submit!',
+          `Please upload your Proof of payment!`,
+          'error'
+        );
       },
     });
 
     //must be redirected to the Crop orders list
   }
+
+  isDefaultAddress: boolean = false;
+  updateAddress() {
+    if (this.isDefaultAddress) {
+      this.address.patchValue(this.cropPayment?.cropOrder.address as string);
+    } else {
+      this.address.reset();
+    }
+  }
+
+  goBack = () => {
+    window.history.back();
+  };
 }

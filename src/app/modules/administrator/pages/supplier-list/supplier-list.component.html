@@ -67,29 +67,29 @@
               </tr></ng-template
             >
 
-            <ng-template pTemplate="body" let-farmer>
+            <ng-template pTemplate="body" let-supplier>
               <tr>
                 <td style="width: 25%; text-align: center">
                   <img
                     class="user-image"
-                    [src]="farmer.user.image || 'assets/images/user-icon.png'"
+                    [src]="supplier.user.image || 'assets/images/user-icon.png'"
                   />
                 </td>
                 <td style="width: 25%">
                   <span class="ml-1 vertical-align-middle"
-                    >{{ farmer.user.lastName }}
-                    {{ farmer.user.firstName }}
-                    {{ farmer.user.middleName }}</span
+                    >{{ supplier.user.lastName }}
+                    {{ supplier.user.firstName }}
+                    {{ supplier.user.middleName }}</span
                   >
                 </td>
 
                 <td style="width: 25%">
-                  {{ farmer.user.email }}
+                  {{ supplier.user.email }}
                 </td>
 
                 <td style="width: 25%">
                   {{
-                    farmer.user.isValidated ? "Verified" : "Not Yet Verified"
+                    supplier.user.isValidated ? "Verified" : "Not Yet Verified"
                   }}
                 </td>
                 <td style="width: 25%">
@@ -99,8 +99,8 @@
                       type="checkbox"
                       role="switch"
                       id="flexSwitchCheckChecked"
-                      checked
-                      (click)="toggleActiveSwitch()"
+                      [checked]="supplier.user.activeStatus"
+                      (click)="toggleActiveSwitch(supplier)"
                     />
                     <label
                       class="form-check-label"
@@ -111,7 +111,7 @@
                 </td>
                 <td style="width: 25%">
                   <p-button
-                    (click)="selectSupplierToVerify(farmer); toggleViewModal()"
+                    (click)="selectSupplierToVerify(supplier); toggleViewModal()"
                     type="button"
                     pTooltip="View Details"
                     tooltipPosition="bottom"

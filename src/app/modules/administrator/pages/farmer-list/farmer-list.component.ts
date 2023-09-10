@@ -10,6 +10,7 @@ import {
   selectFarmersValidated,
 } from '../../states/farmer-state/farmer.selectors';
 import Swal from 'sweetalert2';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-farmer-list',
@@ -181,13 +182,12 @@ export class FarmerListComponent implements OnInit {
   }
   active?: boolean;
 
-  activeStatusLabel: string = 'Active'
+  activeStatusLabel: string = 'Active';
 
-  toggleActiveSwitch() {
-    if (this.activeStatusLabel === 'Active') {
-      this.activeStatusLabel = 'Deactive';
-    } else if (this.activeStatusLabel === 'Deactive') {
-      this.activeStatusLabel = 'Active';
-    }
+  toggleActiveSwitch(farmer: Farmer) {
+    this.store.dispatch({
+      type: FarmerActions.UPDATE_FARMER_ACTIVE_STATUS,
+      user: farmer,
+    });
   }
 }

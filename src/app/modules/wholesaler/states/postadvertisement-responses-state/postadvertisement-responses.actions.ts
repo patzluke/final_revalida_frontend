@@ -4,6 +4,7 @@ import { PostAdvertisementResponse } from '../../models/post-advertisement-respo
 export enum PostAdvertisementResponsesActions {
   SET_POSTADVERTISEMENTRESPONSES = '[PostAdvertisementResponse] Set List of PostAdvertisementResponse',
   GET_POSTADVERTISEMENTRESPONSES = '[PostAdvertisementResponse] Get List of PostAdvertisementResponse Success',
+  GET_POSTADVERTISEMENTRESPONSES_FAILED = '[PostAdvertisementResponse] Get List of PostAdvertisementResponse Failed',
 
   UPDATE_POSTADVERTISEMENTRESPONSES = '[PostAdvertisementResponses] Update PostAdvertisement responses',
   UPDATE_POSTADVERTISEMENTRESPONSES_SUCCESS = '[PostAdvertisementResponses] Update PostAdvertisement responses Success',

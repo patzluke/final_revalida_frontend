@@ -105,7 +105,24 @@
                     response.farmer.user.firstName
                   )
                 }}
-                ({{ response.farmer.user.contactNo }})
+                ({{ response.farmer.user.contactNo }}) &nbsp;&nbsp;
+                <span
+                  *ngIf="checkFbSocial(response)"
+                  class="social-icon-container"
+                >
+                  <a href="{{ selectFbSocial(response) }}" target="_blank">
+                    <i class="pi pi-facebook"></i>
+                  </a>
+                </span>
+                &nbsp;
+                <span
+                  *ngIf="checkIGSocial(response)"
+                  class="social-icon-container"
+                >
+                  <a href="{{ selectIGSocial(response) }}" target="_blank">
+                    <i class="pi pi-instagram"></i>
+                  </a>
+                </span>
               </h3>
 
               <p>
@@ -116,7 +133,13 @@
 
             <i class="pull-right">
               <button
-                [disabled]="response.isFinalOfferAccepted"
+                [disabled]="
+                  response.isFinalOfferAccepted ||
+                  (
+                    selectCropPayment$(response.postResponseId, supplierId)
+                    | async
+                  )?.cropOrder?.orderStatus == 'Cancelled'
+                "
                 pButton
                 [ngClass]="{
                   'offer-btn': response.isAccepted,
@@ -130,7 +153,7 @@
           </div>
           <mat-divider class="divider" style="margin-top: -10px"></mat-divider>
           <div class="offer-container">
-            <h2>Initial offer</h2>
+            <h2 style="margin-top: -5px">Initial offer</h2>
             <div class="offer-pqt-container">
               <h3 class="label">Quantity:</h3>
               <h3 class="value">{{ response.quantity }}</h3>
@@ -155,7 +178,7 @@
                 !response.isFinalOfferAccepted
               "
             >
-              <h2>Final offer</h2>
+              <h2 style="margin-top: 10px">Official offer</h2>
               <div class="offer-pqt-container">
                 <h3 class="label">Quantity:</h3>
                 <h3 class="value">
@@ -196,28 +219,60 @@
                 </h3>
               </div>
             </div>
+
             <div
               *ngIf="response.isAccepted"
               [ngClass]="response.isFinalOfferSubmitted ? 'final' : 'no-final'"
             >
+              <mat-divider
+                *ngIf="
+                  response.isAccepted &&
+                  response.isFinalOfferSubmitted &&
+                  !response.isFinalOfferAccepted
+                "
+                class="divider"
+                style="margin-top: 1rem"
+              ></mat-divider>
+
               <p *ngIf="!response.isFinalOfferSubmitted">
-                Please wait for Farmer's final offer.
+                Please wait for Farmer's official offer.
               </p>
               <p
                 *ngIf="
                   response.isFinalOfferSubmitted &&
-                  !response.isFinalOfferAccepted
+                  !response.isFinalOfferAccepted &&
+                  (
+                    selectCropPayment$(response.postResponseId, supplierId)
+                    | async
+                  )?.cropOrder?.orderStatus != 'Cancelled'
                 "
               >
-                Farmer has already submitted their final offer. You can now
-                proceed to accept their final offer.
+                Farmer has already submitted their official offer. You can now
+                proceed to accept their official offer.
               </p>
               <p *ngIf="response.isFinalOfferAccepted">
                 Transaction already completed.
               </p>
+              <p
+                style="color: red"
+                *ngIf="
+                  (
+                    selectCropPayment$(response.postResponseId, supplierId)
+                    | async
+                  )?.cropOrder?.orderStatus == 'Cancelled'
+                "
+              >
+                Offer is already cancelled by the farmer
+              </p>
               <div class="final-offer-container">
                 <button
-                  [disabled]="!response.isFinalOfferSubmitted"
+                  [disabled]="
+                    !response.isFinalOfferSubmitted ||
+                    (
+                      selectCropPayment$(response.postResponseId, supplierId)
+                      | async
+                    )?.cropOrder?.orderStatus == 'Cancelled'
+                  "
                   pButton
                   class="offer-btn final-btn"
                   (click)="navigateToOrderSummary(response)"
@@ -225,7 +280,7 @@
                   {{
                     response.isFinalOfferAccepted
                       ? "View Summary"
-                      : "Accept Final Offer"
+                      : "Accept official Offer"
                   }}
                 </button>
               </div>

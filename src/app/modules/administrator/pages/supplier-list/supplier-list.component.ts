@@ -125,11 +125,10 @@ export class SupplierListComponent implements OnInit {
 
   activeStatusLabel: string = 'Active'
 
-  toggleActiveSwitch(){
-    if (this.activeStatusLabel === 'Active') {
-      this.activeStatusLabel = 'Deactive';
-    } else if (this.activeStatusLabel === 'Deactive') {
-      this.activeStatusLabel = 'Active';
-    }
+  toggleActiveSwitch(supplier: Supplier) {
+    this.store.dispatch({
+      type: SupplierActions.UPDATE_SUPPLIER_ACTIVE_STATUS,
+      user: supplier,
+    });
   }
 }
