@@ -238,6 +238,7 @@
   [draggable]="false"
   [resizable]="false"
   [maximizable]="true"
+  [closable]="false"
 >
   <div class="container">
     <div>
@@ -261,6 +262,16 @@
               min="0"
             />
           </div>
+          <div
+            *ngIf="
+              addAdvertisementResponseForm.controls['price'].invalid &&
+              (addAdvertisementResponseForm.controls['price'].dirty ||
+                addAdvertisementResponseForm.controls['price'].touched)
+            "
+            class="text-danger"
+          >
+            This Field is required.
+          </div>
           <div class="form-field">
             <label class="form-label">Quantity:</label>
             <input
@@ -272,9 +283,20 @@
               }"
               pInputText
               formControlName="quantity"
-              type="text"
+              type="number"
               min="0"
             />
+          </div>
+
+          <div
+            *ngIf="
+              addAdvertisementResponseForm.controls['quantity'].invalid &&
+              (addAdvertisementResponseForm.controls['quantity'].dirty ||
+                addAdvertisementResponseForm.controls['quantity'].touched)
+            "
+            class="text-danger"
+          >
+            This Field is required.
           </div>
           <div class="form-field">
             <label class="form-label">Measurement:</label>
@@ -294,6 +316,16 @@
               optionValue="value"
             >
             </p-dropdown>
+            <div
+              *ngIf="
+                addAdvertisementResponseForm.controls['measurement'].invalid &&
+                (addAdvertisementResponseForm.controls['measurement'].dirty ||
+                  addAdvertisementResponseForm.controls['measurement'].touched)
+              "
+              class="text-danger"
+            >
+              This Field is required.
+            </div>
           </div>
 
           <div class="form-field">
@@ -316,6 +348,19 @@
               optionValue="value"
             >
             </p-dropdown>
+            <div
+              *ngIf="
+                addAdvertisementResponseForm.controls['preferredPaymentMode']
+                  .invalid &&
+                (addAdvertisementResponseForm.controls['preferredPaymentMode']
+                  .dirty ||
+                  addAdvertisementResponseForm.controls['preferredPaymentMode']
+                    .touched)
+              "
+              class="text-danger"
+            >
+              This Field is required.
+            </div>
           </div>
         </div>
 
@@ -383,9 +428,9 @@
       <p>
         <i>
           Note: You can edit your initial offer and send it as your official
-          offer, or simply send your initial offer as your official. Also make sure
-          that your Bank No./Gcash No. is correct because we will not be liable
-          for the wrong transactions that both parties made.</i
+          offer, or simply send your initial offer as your official. Also make
+          sure that your Bank No./Gcash No. is correct because we will not be
+          liable for the wrong transactions that both parties made.</i
         >
       </p>
     </div>
@@ -463,6 +508,16 @@
             <h3 class="offer-text" *ngIf="!editFinalOffer">
               ₱ {{ finalOfferForm.getRawValue().price }}
             </h3>
+            <div
+              class="text-danger"
+              *ngIf="
+                finalOfferForm.controls['price'].invalid &&
+                (finalOfferForm.controls['price'].dirty ||
+                  finalOfferForm.controls['price'].touched)
+              "
+            >
+              This Field is required.
+            </div>
           </div>
           <div
             [ngClass]="{
@@ -481,12 +536,22 @@
               }"
               pInputText
               formControlName="quantity"
-              type="text"
+              type="number"
               min="0"
             />
             <h3 class="offer-text" *ngIf="!editFinalOffer">
               {{ finalOfferForm.getRawValue().quantity }}
             </h3>
+            <div
+              class="text-danger"
+              *ngIf="
+                finalOfferForm.controls['quantity'].invalid &&
+                (finalOfferForm.controls['quantity'].dirty ||
+                  finalOfferForm.controls['quantity'].touched)
+              "
+            >
+              This Field is required.
+            </div>
           </div>
           <div
             [ngClass]="{
@@ -550,21 +615,9 @@
           }"
         >
           <label class="form-label">Bank No./Gcash No.:</label>
-          <input
-            *ngIf="editFinalOffer"
-            [ngClass]="{
-              'invalid-field':
-                finalOfferForm.controls['mobilenumBanknumber'].invalid &&
-                (finalOfferForm.controls['mobilenumBanknumber'].dirty ||
-                  finalOfferForm.controls['mobilenumBanknumber'].touched)
-            }"
-            pInputText
-            type="text"
-            formControlName="mobilenumBanknumber"
-          />
-          <h3 class="offer-text" *ngIf="!editFinalOffer">
-            <!-- {{ finalOfferForm.getRawValue().mobilenumBanknumber }} -->
+          <div style="display: flex; flex-direction: column">
             <input
+              *ngIf="editFinalOffer"
               [ngClass]="{
                 'invalid-field':
                   finalOfferForm.controls['mobilenumBanknumber'].invalid &&
@@ -575,7 +628,31 @@
               type="text"
               formControlName="mobilenumBanknumber"
             />
-          </h3>
+            <h3 class="offer-text" *ngIf="!editFinalOffer" class="w-100">
+              <!-- {{ finalOfferForm.getRawValue().mobilenumBanknumber }} -->
+              <input
+                [ngClass]="{
+                  'invalid-field':
+                    finalOfferForm.controls['mobilenumBanknumber'].invalid &&
+                    (finalOfferForm.controls['mobilenumBanknumber'].dirty ||
+                      finalOfferForm.controls['mobilenumBanknumber'].touched)
+                }"
+                pInputText
+                type="text"
+                formControlName="mobilenumBanknumber"
+              />
+            </h3>
+            <div
+              class="text-danger"
+              *ngIf="
+                finalOfferForm.controls['mobilenumBanknumber'].invalid &&
+                (finalOfferForm.controls['mobilenumBanknumber'].dirty ||
+                  finalOfferForm.controls['mobilenumBanknumber'].touched)
+              "
+            >
+              This Field is required.
+            </div>
+          </div>
         </div>
       </form>
       <mat-divider class="divider" style="margin-top: 1rem"></mat-divider>
