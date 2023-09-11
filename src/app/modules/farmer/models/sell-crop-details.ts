@@ -9,6 +9,7 @@ export interface SellCropDetails {
   price: number;
   quantity: number;
   mobilenumBanknumber: string;
+  accountName: string;
   paymentMode: string;
   cropOrders: Object;
 

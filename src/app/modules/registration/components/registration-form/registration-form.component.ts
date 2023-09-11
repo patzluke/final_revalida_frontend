@@ -60,16 +60,6 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   instagramLink: string = 'Instagram: ';
   socialLinksAdded: boolean = false;
 
-  changeImage: boolean = false;
-  isMaxSize: boolean = false;
-
-  selectedImage!: File;
-  imagePreviewUrl!: string | ArrayBuffer;
-
-  //image upload
-  fileDetails!: FileDetails;
-  fileUris: Array<string> = [];
-
   validIds = [
     { type: "Driver's License" },
     { type: 'SSS Card' },
@@ -339,7 +329,19 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   }
 
   moveToReviewTab(): void {
-    if (this.validIdForm.valid) {
+    if (
+      this.imagePreviewUrlRecentPicture == undefined ||
+      this.imagePreviewUrlValidIdPicture == undefined
+    ) {
+      Swal.fire('Failed', 'Please upload your 2x2 picture and your valid id!', 'error');
+      return;
+    }
+
+    if (
+      this.validIdForm.valid &&
+      this.imagePreviewUrlRecentPicture != undefined &&
+      this.imagePreviewUrlValidIdPicture != undefined
+    ) {
       this.activeIndex = 3;
     } else {
       Object.keys(this.validIdForm.controls).forEach((field) => {
@@ -377,14 +379,44 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     return null;
   }
 
-  onImageSelected = (event: any) => {
+  //-------------------------------------------------
+  changeValidIdPictureImage: boolean = false;
+  isValidIdPictureMaxSize: boolean = false;
+
+  selectedValidIdPictureImage!: File;
+  imagePreviewUrlValidIdPicture!: string | ArrayBuffer;
+
+  //image upload
+
+  onValidIdPictureSelected = (event: any) => {
     const selectedFile = event.target.files[0];
-    this.selectedImage = selectedFile;
+    this.selectedValidIdPictureImage = selectedFile;
 
     const reader = new FileReader();
     reader.onload = (e: any) => {
-      this.imagePreviewUrl = e.target.result;
-      this.changeImage = true;
+      this.imagePreviewUrlValidIdPicture = e.target.result;
+      this.changeValidIdPictureImage = true;
+    };
+    reader.readAsDataURL(selectedFile);
+  };
+
+  //-------------------------------------------------
+  changeRecentPictureImage: boolean = false;
+  isRecentPictureMaxSize: boolean = false;
+
+  selectedRecentPictureImage!: File;
+  imagePreviewUrlRecentPicture!: string | ArrayBuffer;
+
+  //image upload
+
+  onRecentPictureSelected = (event: any) => {
+    const selectedFile = event.target.files[0];
+    this.selectedRecentPictureImage = selectedFile;
+
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.imagePreviewUrlRecentPicture = e.target.result;
+      this.changeRecentPictureImage = true;
     };
     reader.readAsDataURL(selectedFile);
   };
@@ -408,6 +440,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       validIdType: this.validIdForm.controls['validIdType'].getRawValue(),
       validIdNumber: this.validIdForm.controls['validIdNumber'].getRawValue(),
       validIdPicture: '',
+      image: '',
     };
     Swal.fire({
       title: 'Are you sure you want to register?',
@@ -418,59 +451,80 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       confirmButtonText: 'Save changes',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.registerService.upload(this.selectedImage).subscribe({
-          next: (value) => {
-            signupData.validIdPicture = `${value.fileUri.concat(
-              value.fileName
-            )}`;
-            this.registerService.registerUser(signupData).subscribe({
-              next: (data) => {
-                Swal.fire(
-                  'Success',
-                  "You've Successfully registered. You may now sign in! Please Wait for a text message for your account Verification!",
-                  'success'
-                );
-                this._router.navigateByUrl('/login');
-              },
-              error: (err: HttpErrorResponse) => {
-                if (err.error.message == 'username already exists') {
-                  Swal.fire(
-                    'Failed to Register!',
-                    `Username already exists!`,
-                    'error'
-                  );
-                } else if (err.error.message == 'email already exists') {
-                  Swal.fire(
-                    'Failed to Register!',
-                    `Email already exists!`,
-                    'error'
-                  );
-                } else if (
-                  err.error.message == 'mobile number already exists'
-                ) {
-                  Swal.fire(
-                    'Failed to Register!',
-                    `Mobile number already exists!`,
-                    'error'
-                  );
-                } else {
-                  Swal.fire(
-                    'Failed to Register!',
-                    `Something went wrong.`,
-                    'error'
-                  );
-                }
-              },
-            });
-          },
-          error: (e) => {
-            Swal.fire('Failed to Register!', `Something went wrong.`, 'error');
-          },
-        });
+        this.registerService
+          .upload(this.selectedValidIdPictureImage)
+          .subscribe({
+            next: (value) => {
+              this.registerService
+                .upload(this.selectedRecentPictureImage)
+                .subscribe({
+                  next: (value2) => {
+                    signupData.validIdPicture = `${value.fileUri.concat(
+                      value.fileName
+                    )}`;
+                    signupData.image = `${value2.fileUri.concat(
+                      value2.fileName
+                    )}`;
+                    this.registerService.registerUser(signupData).subscribe({
+                      next: (data) => {
+                        Swal.fire(
+                          'Success',
+                          "You've Successfully registered. You may now sign in! Please Wait while we check your details for your account Verification!",
+                          'success'
+                        );
+                        this._router.navigateByUrl('/login');
+                      },
+                      error: (err: HttpErrorResponse) => {
+                        if (err.error.message == 'username already exists') {
+                          Swal.fire(
+                            'Failed to Register!',
+                            `Username already exists!`,
+                            'error'
+                          );
+                        } else if (
+                          err.error.message == 'email already exists'
+                        ) {
+                          Swal.fire(
+                            'Failed to Register!',
+                            `Email already exists!`,
+                            'error'
+                          );
+                        } else if (
+                          err.error.message == 'mobile number already exists'
+                        ) {
+                          Swal.fire(
+                            'Failed to Register!',
+                            `Mobile number already exists!`,
+                            'error'
+                          );
+                        } else {
+                          Swal.fire(
+                            'Failed to Register!',
+                            `Something went wrong.`,
+                            'error'
+                          );
+                        }
+                      },
+                    });
+                  },
+                  error: (err) => {
+                    Swal.fire(
+                      'Failed to Register!',
+                      `Something went wrong.`,
+                      'error'
+                    );
+                  },
+                });
+            },
+            error: (e) => {
+              Swal.fire(
+                'Failed to Register!',
+                `Something went wrong.`,
+                'error'
+              );
+            },
+          });
       }
     });
-    // alert if succesfull
-    // password validator
-    console.log('signup data', signupData);
   };
 }

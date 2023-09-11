@@ -399,6 +399,9 @@ export class PostAdvertisementListComponent implements OnInit {
   };
 
   checkFbSocial(post: PostAdvertisement) {
+    if (post?.supplier?.user?.socials[0] == null) {
+      return false;
+    }
     return post?.supplier?.user?.socials.find((social) =>
       social.includes('facebook') ? true : false
     )
@@ -415,6 +418,9 @@ export class PostAdvertisementListComponent implements OnInit {
   }
 
   checkIGSocial(post: PostAdvertisement) {
+    if (post?.supplier?.user?.socials[0] == null) {
+      return false;
+    }
     return post?.supplier?.user?.socials.find((social) =>
       social.includes('instagram') ? true : false
     )

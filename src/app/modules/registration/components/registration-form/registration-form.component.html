@@ -585,25 +585,25 @@
                   </div>
 
                   <div style="margin-top: 1rem">
-                    <label>Valid Id image *</label>
+                    <label>Please upload your recent 2x2 picture *</label>
                     <div class="upload-image-container">
                       <div>
                         <button
                           pButton
                           class="upload-btn"
-                          (click)="selectFile.click()"
+                          (click)="selectedRecentPictureImage.click()"
                         >
                           <mat-icon class="mat-icon">cloud_upload</mat-icon>
                           Upload image
                         </button>
                       </div>
                       <img
-                        *ngIf="changeImage && imagePreviewUrl"
+                        *ngIf="changeRecentPictureImage && imagePreviewUrlRecentPicture"
                         class="upload-image"
-                        [src]="imagePreviewUrl"
+                        [src]="imagePreviewUrlRecentPicture"
                       />
                       <img
-                        *ngIf="!changeImage"
+                        *ngIf="!changeRecentPictureImage"
                         class="upload-image"
                         src="/assets/images/upload.png"
                       />
@@ -615,11 +615,55 @@
                       id="img"
                       value="select"
                       accept="image/*"
-                      #selectFile
-                      (change)="onImageSelected($event)"
+                      #selectedRecentPictureImage
+                      (change)="onRecentPictureSelected($event)"
                     />
 
-                    <div *ngIf="isMaxSize">
+                    <div *ngIf="isRecentPictureMaxSize">
+                      <p [ngStyle]="{ color: 'red' }">
+                        Image size is too large
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- ---------------- -->
+
+                  <div style="margin-top: 1rem">
+                    <label>Valid Id image *</label>
+                    <div class="upload-image-container">
+                      <div>
+                        <button
+                          pButton
+                          class="upload-btn"
+                          (click)="selectedValidIdImage.click()"
+                        >
+                          <mat-icon class="mat-icon">cloud_upload</mat-icon>
+                          Upload image
+                        </button>
+                      </div>
+                      <img
+                        *ngIf="changeValidIdPictureImage && imagePreviewUrlValidIdPicture"
+                        class="upload-image"
+                        [src]="imagePreviewUrlValidIdPicture"
+                      />
+                      <img
+                        *ngIf="!changeValidIdPictureImage"
+                        class="upload-image"
+                        src="/assets/images/upload.png"
+                      />
+                    </div>
+
+                    <input
+                      hidden
+                      type="file"
+                      id="img"
+                      value="select"
+                      accept="image/*"
+                      #selectedValidIdImage
+                      (change)="onValidIdPictureSelected($event)"
+                    />
+
+                    <div *ngIf="isValidIdPictureMaxSize">
                       <p [ngStyle]="{ color: 'red' }">
                         Image size is too large
                       </p>
@@ -748,9 +792,15 @@
                 </div>
 
                 <img
-                  *ngIf="changeImage && imagePreviewUrl"
+                  *ngIf="changeRecentPictureImage && imagePreviewUrlRecentPicture"
                   class="upload-image"
-                  [src]="imagePreviewUrl"
+                  [src]="imagePreviewUrlRecentPicture"
+                />
+
+                <img
+                  *ngIf="changeValidIdPictureImage && imagePreviewUrlValidIdPicture"
+                  class="upload-image"
+                  [src]="imagePreviewUrlValidIdPicture"
                 />
               </div>
 
