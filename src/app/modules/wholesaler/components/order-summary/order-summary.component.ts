@@ -7,6 +7,7 @@ import { SupplierService } from '../../services/supplier.service';
 import { FileDetails } from '../../models/fileDetails';
 import Swal from 'sweetalert2';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-summary',
@@ -25,7 +26,7 @@ export class OrderSummaryComponent implements OnInit {
   fileDetails!: FileDetails;
   fileUris: Array<string> = [];
 
-  constructor(private store: Store, private supplierService: SupplierService) {
+  constructor(private store: Store, private supplierService: SupplierService, private _router: Router) {
     this.cropPayment = history.state.cropPayment;
     this.farmerName = `${this.cropPayment?.cropOrder.sellCropDetail.farmer.user.firstName} ${this.cropPayment?.cropOrder.sellCropDetail.farmer.user.lastName}`;
   }
@@ -85,6 +86,7 @@ export class OrderSummaryComponent implements OnInit {
           type: CropPaymentActions.UPDATE_CROPPAYMENT,
           cropPayment: updatedCropPayment,
         });
+        this._router.navigateByUrl('/supplier/orders')
       },
       error: (err) => {
         Swal.fire(

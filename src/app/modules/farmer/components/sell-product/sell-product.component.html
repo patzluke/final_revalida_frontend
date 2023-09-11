@@ -36,7 +36,7 @@
                     <div class="th-text">Price</div>
                   </th>
                   <th style="min-width: 10rem">
-                    <div class="th-text">Payment Date</div>
+                    <div class="th-text">Supplier's Pay Date</div>
                   </th>
                   <th style="min-width: 10rem">
                     <div class="th-text" *ngIf="currentUserType == 'Supplier'">
@@ -160,6 +160,7 @@
                           : ''
                       "
                       tooltipPosition="top"
+                      class="me-1"
                     >
                       <button
                         pButton
@@ -246,7 +247,7 @@
                     <div class="th-text">Price</div>
                   </th>
                   <th style="min-width: 10rem">
-                    <div class="th-text">Payment Date</div>
+                    <div class="th-text">Supplier's Pay Date</div>
                   </th>
                   <th style="min-width: 10rem">
                     <div class="th-text" *ngIf="currentUserType == 'Supplier'">
@@ -368,6 +369,7 @@
                           : ''
                       "
                       tooltipPosition="top"
+                      class="me-1"
                     >
                       <button
                         pButton
@@ -454,7 +456,7 @@
                     <div class="th-text">Price</div>
                   </th>
                   <th style="min-width: 10rem">
-                    <div class="th-text">Payment Date</div>
+                    <div class="th-text">Supplier's Pay Date</div>
                   </th>
                   <th style="min-width: 10rem">
                     <div class="th-text" *ngIf="currentUserType == 'Supplier'">
@@ -576,6 +578,7 @@
                           : ''
                       "
                       tooltipPosition="top"
+                      class="me-1"
                     >
                       <button
                         pButton
@@ -662,7 +665,7 @@
                     <div class="th-text">Price</div>
                   </th>
                   <th style="min-width: 10rem">
-                    <div class="th-text">Payment Date</div>
+                    <div class="th-text">Supplier's Pay Date</div>
                   </th>
                   <th style="min-width: 10rem">
                     <div class="th-text" *ngIf="currentUserType == 'Supplier'">
@@ -784,6 +787,7 @@
                           : ''
                       "
                       tooltipPosition="top"
+                      class="me-1"
                     >
                       <button
                         pButton
@@ -870,7 +874,7 @@
                     <div class="th-text">Price</div>
                   </th>
                   <th style="min-width: 10rem">
-                    <div class="th-text">Payment Date</div>
+                    <div class="th-text">Supplier's Pay Date</div>
                   </th>
                   <th style="min-width: 10rem">
                     <div class="th-text" *ngIf="currentUserType == 'Supplier'">
@@ -992,6 +996,7 @@
                           : ''
                       "
                       tooltipPosition="top"
+                      class="me-1"
                     >
                       <button
                         pButton
@@ -1078,7 +1083,7 @@
                     <div class="th-text">Price</div>
                   </th>
                   <th style="min-width: 10rem">
-                    <div class="th-text">Payment Date</div>
+                    <div class="th-text">Supplier's Pay Date</div>
                   </th>
                   <th style="min-width: 10rem">
                     <div class="th-text" *ngIf="currentUserType == 'Supplier'">
@@ -1200,6 +1205,7 @@
                           : ''
                       "
                       tooltipPosition="top"
+                      class="me-1"
                     >
                       <button
                         pButton
@@ -1393,7 +1399,7 @@
     </div>
 
     <div class="summary-field">
-      <label class="form-label">Payment Date:</label>
+      <label class="form-label">Supplier's Pay Date:</label>
       <h3 class="offer-text">
         {{
           (selectedCropPayment?.payDate | date : "MMMM dd YYYY HH:mm a") ||
@@ -1476,7 +1482,7 @@
     <div class="summary-field">
       <label class="form-label">Address:</label>
       <h3 class="offer-text">
-        {{ selectedCropPayment?.cropOrder?.supplier?.user?.address }}
+        {{ selectedCropPayment?.cropOrder?.address }}
       </h3>
     </div>
 
