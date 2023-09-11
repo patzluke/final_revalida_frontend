@@ -27,7 +27,6 @@ export class ResendOtpComponent implements OnInit {
 
   startTimer(): void {
     this.resend = true
-    this.timeLeft = 60
     this.interval = setInterval(() => {
       if (this.timeLeft > 0) {
         this.timeLeft--;
