@@ -333,6 +333,9 @@
           class="validation-error"
         >
           Quantity is required.
+          <p *ngIf="addPostAdvertisementForm.get('quantity')?.hasError('min')">
+            Must not be a negative number.
+          </p>
         </div>
       </div>
 
@@ -387,6 +390,9 @@
           class="validation-error"
         >
           Price is required.
+          <p *ngIf="addPostAdvertisementForm.get('price')?.hasError('min')">
+            Must not be a negative number.
+          </p>
         </div>
       </div>
 
