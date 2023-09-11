@@ -74,7 +74,7 @@
                   </div>
                   <div class="font-weight-bold mr-3 notif-content">
                     <div class="ms-1">
-                      <b>{{item.notificationTitle}}</b>
+                      <b>{{ item.notificationTitle }}</b>
                     </div>
                     <div class="ms-1">
                       {{ item.notificationMessage }}
@@ -96,27 +96,30 @@
                 *ngFor="let item of selectUserNotificationsEarlier$ | async"
               >
                 <div
-                  class="p-3 d-flex align-items-center border-bottom osahan-post-header"
+                  class="p-3 d-flex align-items-center bg-light border-bottom osahan-post-header notif-container"
+                  (click)="selectNotification(item)"
                 >
-                  <div
-                    class="dropdown-list-image mr-3 d-flex align-items-center bg-danger justify-content-center rounded-circle text-white"
-                  >
-                    DRM
+                  <div class="dropdown-list-image mr-3">
+                    <img
+                      class="rounded-circle"
+                      [src]="'assets/images/user-icon.png'"
+                      alt=""
+                    />
                   </div>
-                  <div class="font-weight-bold mr-3">
+                  <div class="font-weight-bold mr-3 notif-content">
                     <div class="ms-1">
-                      <b>{{item.notificationTitle}}</b>
+                      <b>{{ item.notificationTitle }}</b>
                     </div>
-                    <div class="text-truncate ms-1">
+                    <div class="ms-1">
                       {{ item.notificationMessage }}
                     </div>
-                  </div>
-                  <div class="text-right text-muted pt-1 ms-1">
-                    {{ item.dateCreated | date : "short" : "UTC" }}
+                    <div class="text-right text-muted pt-1 ms-1">
+                      {{ item.dateCreated | date : "short" : "UTC" }}
+                    </div>
                   </div>
                 </div>
               </ng-container>
-            </div>
+              </div>
           </div>
         </div>
       </div>
