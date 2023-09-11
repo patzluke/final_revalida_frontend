@@ -190,7 +190,10 @@
         </div>
       </div>
 
-      <div *ngIf="isSearchResultEmpty" class="no-info">
+      <div
+        *ngIf="isSearchResultEmpty || filteredAdvertisements.length === 0"
+        class="no-info"
+      >
         <img class="no-info-image" src="assets/images/no-result.png" />
         <div class="no-info-text">
           <h1>No results found</h1>

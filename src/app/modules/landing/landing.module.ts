@@ -30,6 +30,8 @@ import { farmingTipsReducer } from './states/farmingtips-state/farmingtips.reduc
 import { FarmingTipsEffects } from './states/farmingtips-state/farmingtips.effects';
 import { ViewFarmingTipComponent } from './pages/farming-tips/pages/view-farming-tip/view-farming-tip.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { PolicyComponent } from './pages/policy/policy.component';
+import { TermsServiceComponent } from './pages/terms-service/terms-service.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { TooltipModule } from 'primeng/tooltip';
     SustainabilityComponent,
     AdvertisementsComponent,
     ViewFarmingTipComponent,
+    PolicyComponent,
+    TermsServiceComponent,
   ],
   imports: [
     CommonModule,
