@@ -546,6 +546,16 @@
               formControlName="newPassword"
               [toggleMask]="true"
             ></p-password>
+            <div
+              *ngIf="
+                passwordForm.controls['newPassword'].invalid &&
+                (passwordForm.controls['newPassword'].dirty ||
+                  passwordForm.controls['newPassword'].touched)
+              "
+              class="validation-error"
+            >
+              New password is required.
+            </div>
           </div>
           <div
             class="invalid-text"
@@ -578,6 +588,16 @@
               formControlName="confirmPassword"
               [toggleMask]="true"
             ></p-password>
+            <div
+              *ngIf="
+                passwordForm.controls['confirmPassword'].invalid &&
+                (passwordForm.controls['confirmPassword'].dirty ||
+                  passwordForm.controls['confirmPassword'].touched)
+              "
+              class="validation-error"
+            >
+              Confirm password is required.
+            </div>
           </div>
           <div
             class="invalid-text"
