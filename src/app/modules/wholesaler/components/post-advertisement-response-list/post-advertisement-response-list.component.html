@@ -255,7 +255,11 @@
                 Farmer has already submitted their official offer. You can now
                 proceed to accept their official offer.
               </p>
-              <p *ngIf="response.isFinalOfferAccepted">
+              <p *ngIf="response.isFinalOfferAccepted &&
+              (
+                selectCropPayment$(response.postResponseId, supplierId)
+                | async
+              )?.cropOrder?.orderStatus != 'Cancelled'">
                 Transaction already completed.
               </p>
               <p
