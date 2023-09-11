@@ -116,7 +116,7 @@ export class FarmingTipComponent implements OnInit {
         })
         .catch(() => {
           Swal.fire(
-            'Failed to Change Picture!',
+            'Farming Tip Image is Required!',
             `Something went wrong.`,
             'error'
           );

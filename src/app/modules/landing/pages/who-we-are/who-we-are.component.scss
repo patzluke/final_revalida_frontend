@@ -1,0 +1,182 @@
+.section {
+  background-color: #18332f;
+  height: auto;
+  padding: 8rem 0 5rem 0;
+}
+
+.about-us-container {
+  padding: 2rem 5rem;
+  width: 100%;
+  text-align: center;
+}
+
+.about-us-container .label {
+  color: #8da17f;
+  font-size: 1.3rem;
+}
+
+.au-text {
+  color: #f9f9f9;
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.about-us-container h1 {
+  color: #f9f9f9;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2.5rem;
+}
+
+.wave-container {
+  height: 10vh;
+  background-color: #18332f;
+  position: relative;
+}
+
+.wave-container::before {
+  content: "";
+  width: 100%;
+  height: 52px;
+  position: absolute;
+  bottom: -0.3%;
+  left: 0;
+  background-size: auto;
+  background-repeat: repeat no-repeat;
+  background-position: 20vw bottom;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1200 134' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 22L33 19C82 13 133 14 200 29C267 44 333 67 400 70C467 74 533 59 600 40C667 22 733 0 800 0C867 0 933 22 1000 29C1067 37 1133 29 1167 26L1200 22V134H1167C1133 134 1067 134 1000 134C933 134 867 134 800 134C733 134 667 134 600 134C533 134 467 134 400 134C333 134 267 134 200 134C133 134 67 134 33 134H0V22.332Z' fill='%23e8f4ef'/></svg>");
+}
+
+.our-story-container {
+  height: 100%;
+  background-color: #e8f4ef;
+  padding: 5rem 0;
+  overflow-x: hidden;
+}
+
+.os-content-container {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.os-left-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+
+.os-right-container {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //padding: 2rem;
+}
+
+.image-one {
+  width: 120%;
+  height: 120%;
+  mask: url('data:image/svg+xml,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="%23FF0066" d="M35.9,-61.4C50.2,-53.9,68,-51.7,73.6,-42.4C79.2,-33,72.5,-16.5,69.7,-1.6C67,13.3,68.2,26.7,64.3,38.9C60.4,51.2,51.4,62.3,39.8,66.7C28.3,71.1,14.1,68.8,-0.4,69.4C-14.9,70.1,-29.8,73.8,-42,69.7C-54.2,65.7,-63.6,53.9,-72.3,41C-81,28.1,-89,14.1,-87.9,0.6C-86.7,-12.8,-76.5,-25.5,-67.1,-37.2C-57.7,-48.9,-49.1,-59.5,-38,-68.9C-27,-78.2,-13.5,-86.3,-1.4,-84C10.8,-81.6,21.6,-68.9,35.9,-61.4Z" transform="translate(100 100)" /></svg>')
+    center / contain no-repeat;
+}
+
+.action-container {
+  width: 100%;
+  padding-right: 3rem;
+  padding-top: 1rem;
+}
+
+::ng-deep .mat-divider.divider {
+  background-color: #2d5605;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.wave-container2 {
+  height: 10vh;
+  background-color: #e8f4ef;
+  position: relative;
+}
+
+.wave-container2::before {
+  content: "";
+  width: 100%;
+  height: 52px;
+  position: absolute;
+  bottom: -0.3%;
+  left: 0;
+  background-size: auto;
+  background-repeat: repeat no-repeat;
+  background-position: 20vw bottom;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1200 134' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 22L33 19C82 13 133 14 200 29C267 44 333 67 400 70C467 74 533 59 600 40C667 22 733 0 800 0C867 0 933 22 1000 29C1067 37 1133 29 1167 26L1200 22V134H1167C1133 134 1067 134 1000 134C933 134 867 134 800 134C733 134 667 134 600 134C533 134 467 134 400 134C333 134 267 134 200 134C133 134 67 134 33 134H0V22.332Z' fill='%2318332f'/></svg>");
+}
+
+.link-text {
+  display: flex;
+  width: 100%;
+}
+
+.link-text h1 {
+  color: #18332f;
+  //text-transform: uppercase;
+  //font-weight: bold;
+  cursor: pointer;
+  margin-top: -1.3rem;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.link-text h1 {
+  opacity: 1;
+  transform: translateY(20px);
+  transition: opacity 0.6s, transform 0.6s;
+  width: 50%;
+}
+
+.icon {
+  text-align: end;
+  width: 50%;
+  color: #18332f;
+  transition: transform 0.3s ease-in-out;
+  margin-top: 5px;
+}
+
+.link-text:hover .icon {
+  transform: translateX(1rem);
+}
+
+.os-left-container .label {
+  color: #18332f;
+  font-size: 1.5rem;
+}
+
+.os-text {
+  color: #626262;
+  font-size: 1.3rem;
+  line-height: normal;
+}
+
+@media (max-width: 880px) {
+  .os-content-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .os-left-container,
+  .os-right-container {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .os-right-container {
+    order: -1;
+  }
+
+  .image-one {
+    width: 100%;
+    height: 100%;
+  }
+}

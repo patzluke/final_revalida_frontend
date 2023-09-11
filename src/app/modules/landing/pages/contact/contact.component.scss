@@ -1,6 +1,6 @@
 .section {
   //background-color: #18332f;
-  background-color: #e8f4ef;
+  background-color: #18332f;
 }
 
 .container {
@@ -20,9 +20,9 @@ p-card {
   width: 50%;
 }
 
-h1 {
+.cs-label {
   margin-bottom: 20px;
-  color: #8da17f;
+  color: #2d5605;
 }
 
 .form-group {
@@ -49,17 +49,123 @@ textarea {
   height: 150px;
 }
 
-.p-button.send-btn {
-  color: #ffffff;
-  //background: #18332f;
-  background: #8da17f;
-  border: #8da17f;
+.wave-container {
+  height: 10vh;
+  background-color: #18332f;
+  position: relative;
 }
 
-.p-button.send-btn:hover {
-  color: #ffffff;
-  //background: #8da17f;
-  background: #18332f;
+.wave-container::before {
+  content: "";
+  width: 100%;
+  height: 52px;
+  position: absolute;
+  bottom: -0.3%;
+  left: 0;
+  background-size: auto;
+  background-repeat: repeat no-repeat;
+  background-position: 20vw bottom;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1200 134' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 22L33 19C82 13 133 14 200 29C267 44 333 67 400 70C467 74 533 59 600 40C667 22 733 0 800 0C867 0 933 22 1000 29C1067 37 1133 29 1167 26L1200 22V134H1167C1133 134 1067 134 1000 134C933 134 867 134 800 134C733 134 667 134 600 134C533 134 467 134 400 134C333 134 267 134 200 134C133 134 67 134 33 134H0V22.332Z' fill='%23e8f4ef'/></svg>");
+}
+
+.more-details {
+  min-height: 100vh;
+  background-color: #e8f4ef;
+  padding: 5rem 0;
+  overflow-x: hidden;
+}
+
+.more-details-content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.md-left-container {
+  width: 50%;
+  background-color: #f9f9f9;
+  padding: 2rem;
+}
+
+.md-right-container {
+  width: 50%;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.logo-image {
+  width: 5rem;
+  height: 5rem;
+}
+
+.logo {
+  display: inline-flex;
+  font-size: 36px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #8da17f;
+}
+
+.mdl-content-container {
+  background-color: #eeeeee;
+  padding: 1rem;
+}
+
+.mdl-content {
+  display: flex;
+  gap: 1rem;
+  //margin-bottom: 1rem;
+  padding: 1rem;
+  color: #616161;
+}
+
+.material-symbols-outlined {
+  font-size: 2rem;
+}
+
+::ng-deep .mat-divider.divider {
+  background-color: #2d5605;
+  width: 100%;
+}
+
+:host {
+  .p-button.send-btn {
+    border: 1px solid #2d5605;
+    background-color: #2d5605;
+    color: #fff;
+    border-radius: 25px;
+    text-align: center;
+    height: 3rem;
+  }
+
+  .p-button.send-btn:hover {
+    border: 1px solid #2d5605;
+    background-color: transparent;
+    color: #2d5605;
+  }
+}
+
+.map-container {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 1000px) {
+  .more-details-content {
+    display: block;
+  }
+
+  .md-left-container,
+  .md-right-container {
+    width: 100%;
+  }
 }
 
 @media (max-width: 780px) {
@@ -116,6 +222,10 @@ textarea {
 
 .invalid-field {
   border: 1px solid red;
+}
+
+.invalid-text {
+  color: red;
 }
 
 @media (max-width: 850px) {

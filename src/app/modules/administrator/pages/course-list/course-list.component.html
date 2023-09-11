@@ -121,6 +121,7 @@
   [draggable]="false"
   [resizable]="false"
   [maximizable]="true"
+  [closable]="false"
 >
   <div class="container">
     <form [formGroup]="addCourseForm">
@@ -137,6 +138,16 @@
           formControlName="courseName"
           type="text"
         />
+        <div
+          class="invalid-text"
+          *ngIf="
+            addCourseForm.controls['courseName'].invalid &&
+            (addCourseForm.controls['courseName'].dirty ||
+              addCourseForm.controls['courseName'].touched)
+          "
+        >
+          <p>This Field is Required.</p>
+        </div>
       </div>
       <div class="form-field">
         <label class="form-label">Training Duration:</label>
@@ -152,6 +163,19 @@
           type="number"
           min="1"
         />
+        <div
+          class="invalid-text"
+          *ngIf="
+            addCourseForm.controls['durationInDays'].invalid &&
+            (addCourseForm.controls['durationInDays'].dirty ||
+              addCourseForm.controls['durationInDays'].touched)
+          "
+        >
+          <p>This Field is Required.</p>
+          <p *ngIf="addCourseForm.get('durationInDays')?.hasError('min')">
+            Must not be a negative number.
+          </p>
+        </div>
       </div>
 
       <div class="form-field">
@@ -167,6 +191,16 @@
           formControlName="description"
           rows="3"
         ></textarea>
+        <div
+          class="invalid-text"
+          *ngIf="
+            addCourseForm.controls['description'].invalid &&
+            (addCourseForm.controls['description'].dirty ||
+              addCourseForm.controls['description'].touched)
+          "
+        >
+          <p>This Field is Required.</p>
+        </div>
       </div>
     </form>
     <div class="action-container">
@@ -193,6 +227,7 @@
   [draggable]="false"
   [resizable]="false"
   [maximizable]="true"
+  [closable]="false"
 >
   <div class="container">
     <form [formGroup]="editCourseForm">
@@ -209,6 +244,16 @@
           formControlName="courseName"
           type="text"
         />
+        <div
+          class="invalid-text"
+          *ngIf="
+            editCourseForm.controls['courseName'].invalid &&
+            (editCourseForm.controls['courseName'].dirty ||
+              editCourseForm.controls['courseName'].touched)
+          "
+        >
+          <p>This Field is Required.</p>
+        </div>
       </div>
       <div class="form-field">
         <label class="form-label">Training Duration:</label>
@@ -224,6 +269,19 @@
           type="number"
           min="1"
         />
+        <div
+          class="invalid-text"
+          *ngIf="
+            editCourseForm.controls['durationInDays'].invalid &&
+            (editCourseForm.controls['durationInDays'].dirty ||
+              editCourseForm.controls['durationInDays'].touched)
+          "
+        >
+          <p>This Field is Required.</p>
+          <p *ngIf="editCourseForm.get('durationInDays')?.hasError('min')">
+            Must not be a negative number.
+          </p>
+        </div>
       </div>
 
       <div class="form-field">
@@ -239,6 +297,16 @@
           formControlName="description"
           rows="3"
         ></textarea>
+        <div
+          class="invalid-text"
+          *ngIf="
+            editCourseForm.controls['description'].invalid &&
+            (editCourseForm.controls['description'].dirty ||
+              editCourseForm.controls['description'].touched)
+          "
+        >
+          <p>This Field is Required.</p>
+        </div>
       </div>
     </form>
     <div class="action-container">
