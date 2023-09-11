@@ -54,6 +54,7 @@
               'farmer.user.lastName',
               'farmer.user.firstName',
               'farmer.user.middleName',
+              'complaintTitle'
             ]"
           >
             <ng-template pTemplate="header">
@@ -174,7 +175,8 @@
             [globalFilterFields]="[
               'supplier.user.lastName',
               'supplier.user.firstName',
-              'supplier.user.middleName'
+              'supplier.user.middleName',
+              'complaintTitle'
             ]"
           >
             <ng-template pTemplate="header">
@@ -308,6 +310,16 @@
             optionLabel="status"
             optionValue="value"
           ></p-dropdown>
+          <div
+            class="invalid-text"
+            *ngIf="
+              addEditFarmerComplaintForm.controls['isResolved'].invalid &&
+              (addEditFarmerComplaintForm.controls['isResolved'].dirty ||
+                addEditFarmerComplaintForm.controls['isResolved'].touched)
+            "
+          >
+            <p>This Field is Required.</p>
+          </div>
         </div>
       </div>
 
@@ -326,6 +338,16 @@
           formControlName="adminReplyMessage"
           rows="2"
         ></textarea>
+        <div
+          class="invalid-text"
+          *ngIf="
+            addEditFarmerComplaintForm.controls['adminReplyMessage'].invalid &&
+            (addEditFarmerComplaintForm.controls['adminReplyMessage'].dirty ||
+              addEditFarmerComplaintForm.controls['adminReplyMessage'].touched)
+          "
+        >
+          <p>This Field is Required.</p>
+        </div>
       </div>
 
       <div class="form-field">
@@ -400,6 +422,17 @@
             optionLabel="status"
             optionValue="value"
           ></p-dropdown>
+
+          <div
+            class="invalid-text"
+            *ngIf="
+              editSupplierComplaintForm.controls['isResolved'].invalid &&
+              (editSupplierComplaintForm.controls['isResolved'].dirty ||
+                editSupplierComplaintForm.controls['isResolved'].touched)
+            "
+          >
+            <p>This Field is Required.</p>
+          </div>
         </div>
       </div>
 
@@ -416,6 +449,16 @@
           formControlName="adminReplyMessage"
           rows="2"
         ></textarea>
+        <div
+          class="invalid-text"
+          *ngIf="
+            editSupplierComplaintForm.controls['adminReplyMessage'].invalid &&
+            (editSupplierComplaintForm.controls['adminReplyMessage'].dirty ||
+              editSupplierComplaintForm.controls['adminReplyMessage'].touched)
+          "
+        >
+          <p>This Field is Required.</p>
+        </div>
       </div>
 
       <div class="form-field">

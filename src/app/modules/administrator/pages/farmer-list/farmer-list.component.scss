@@ -1,6 +1,6 @@
 .section {
   background-color: #e8f4ef;
-  padding: 60px;
+  padding: 40px;
   min-height: 100vh;
 }
 
@@ -16,27 +16,29 @@
   margin: 1.5rem 0 1rem 0;
 }
 
-::ng-deep .p-tabview .p-tabview-panels,
-::ng-deep .p-tabview .p-tabview-nav {
-  // white
-  background-color: #e8f4ef;
-}
+:host {
+  ::ng-deep .p-tabview .p-tabview-panels,
+  ::ng-deep .p-tabview .p-tabview-nav {
+    // white
+    background-color: #e8f4ef;
+  }
 
-::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  background-color: #e8f4ef;
-}
+  ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background-color: #e8f4ef;
+  }
 
-::ng-deep .p-tabview .p-tabview-panels {
-  padding: 0;
-}
+  ::ng-deep .p-tabview .p-tabview-panels {
+    padding: 0;
+  }
 
-::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-  background-color: transparent;
-}
+  ::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    background-color: transparent;
+  }
 
-::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  border-color: #2d5605;
-  color: #2d5605;
+  ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    border-color: #2d5605;
+    color: #2d5605;
+  }
 }
 
 .th-text {
@@ -145,7 +147,7 @@
 
 @media (max-width: 787px) {
   .section {
-    padding: 2rem 0;
+    padding: 2rem;
   }
 
   .no-info-text h1 {

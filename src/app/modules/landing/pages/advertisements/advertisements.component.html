@@ -66,6 +66,25 @@
               {{ post.supplier?.user?.firstName }}
               {{ post.supplier?.user?.middleName }}
               {{ post.supplier?.user?.lastName }}
+
+              <span class="social-icon-container" style="margin-left: 1rem">
+                <i
+                  class="pi pi-phone"
+                  tooltipPosition="bottom"
+                  pTooltip="{{ post.supplier?.user?.contactNo }}"
+                ></i
+              ></span>
+
+              <span *ngIf="checkFbSocial(post)" class="social-icon-container">
+                <a href="{{ selectFbSocial(post) }}" target="_blank">
+                  <i class="pi pi-facebook"></i>
+                </a>
+              </span>
+              <span *ngIf="checkIGSocial(post)" class="social-icon-container">
+                <a href="{{ selectIGSocial(post) }}" target="_blank">
+                  <i class="pi pi-instagram"></i>
+                </a>
+              </span>
             </p>
             <p>
               <i class="pi pi-calendar" style="margin-right: 0.5rem"></i

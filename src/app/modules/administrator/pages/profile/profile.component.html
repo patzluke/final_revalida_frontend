@@ -572,6 +572,16 @@
               uppercase letter, and one digit.
             </p>
           </div>
+          <div
+            class="invalid-text"
+            *ngIf="
+              passwordForm.controls['newPassword'].invalid &&
+              (passwordForm.controls['newPassword'].dirty ||
+                passwordForm.controls['newPassword'].touched)
+            "
+          >
+            <p>This Field is Required.</p>
+          </div>
         </div>
 
         <div class="form-field">
@@ -599,6 +609,16 @@
             "
           >
             <p>Password mismatch.</p>
+          </div>
+          <div
+            class="invalid-text"
+            *ngIf="
+              passwordForm.controls['confirmPassword'].invalid &&
+              (passwordForm.controls['confirmPassword'].dirty ||
+                passwordForm.controls['confirmPassword'].touched)
+            "
+          >
+            <p>This Field is Required.</p>
           </div>
         </div>
       </form>

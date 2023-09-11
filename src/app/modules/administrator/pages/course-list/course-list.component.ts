@@ -31,14 +31,14 @@ export class CourseListComponent implements OnInit {
       courseId: [0],
       courseName: ['', Validators.required],
       description: ['', Validators.required],
-      durationInDays: ['', Validators.required],
+      durationInDays: ['', [Validators.required, Validators.min(0)]],
     });
 
     this.editCourseForm = fb.group({
       courseId: [0],
       courseName: ['', Validators.required],
       description: ['', Validators.required],
-      durationInDays: ['', Validators.required],
+      durationInDays: ['', [Validators.required, Validators.min(0)]],
     });
   }
 
