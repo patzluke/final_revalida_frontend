@@ -100,7 +100,12 @@
         </div>
         <div class="right-container">
           <div class="verify-container" *ngIf="!user.user?.isValidated">
-            <button [disabled]="user.user?.validIdPicture" pButton class="verify-btn" (click)="toggleVerifyActBtn()">
+            <button
+              [disabled]="user.user?.validIdPicture"
+              pButton
+              class="verify-btn"
+              (click)="toggleVerifyActBtn()"
+            >
               <i class="pi pi-verified" style="margin-right: 0.5rem"></i> Verify
               Account
             </button>
@@ -402,6 +407,7 @@
               formControlName="email"
               type="text"
               pInputText
+              readonly
             />
           </div>
           <div
@@ -540,6 +546,16 @@
               formControlName="newPassword"
               [toggleMask]="true"
             ></p-password>
+            <div
+              *ngIf="
+                passwordForm.controls['newPassword'].invalid &&
+                (passwordForm.controls['newPassword'].dirty ||
+                  passwordForm.controls['newPassword'].touched)
+              "
+              class="validation-error"
+            >
+              New password is required.
+            </div>
           </div>
           <div
             class="invalid-text"
@@ -572,6 +588,16 @@
               formControlName="confirmPassword"
               [toggleMask]="true"
             ></p-password>
+            <div
+              *ngIf="
+                passwordForm.controls['confirmPassword'].invalid &&
+                (passwordForm.controls['confirmPassword'].dirty ||
+                  passwordForm.controls['confirmPassword'].touched)
+              "
+              class="validation-error"
+            >
+              Confirm password is required.
+            </div>
           </div>
           <div
             class="invalid-text"

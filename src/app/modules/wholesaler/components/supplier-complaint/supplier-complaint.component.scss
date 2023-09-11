@@ -164,6 +164,7 @@ h3 {
 }
 
 :host {
+
   ::ng-deep .p-tabview .p-tabview-panels,
   ::ng-deep .p-tabview .p-tabview-nav {
     // white
@@ -208,4 +209,13 @@ h3 {
   .offer-btn {
     margin-top: 1rem;
   }
+}
+
+.validation-error {
+  color: red;
+  /* Change the color to your desired error color */
+  font-size: 14px;
+  /* Adjust the font size */
+  margin-top: 4px;
+  /* Add some spacing between the input and the error message */
 }
