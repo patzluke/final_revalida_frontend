@@ -91,7 +91,9 @@
                           detail.cropOrder.orderStatus ===
                           'proof of payment submitted',
                         completed: detail.cropOrder.orderStatus === 'Completed',
-                        canceled: detail.cropOrder.orderStatus === 'Cancelled'
+                        canceled: detail.cropOrder.orderStatus === 'Cancelled',
+                        'not-yet-paid':
+                          detail.cropOrder.orderStatus === 'Not Yet Paid'
                       }"
                     >
                       <span
@@ -300,7 +302,9 @@
                           detail.cropOrder.orderStatus ===
                           'proof of payment submitted',
                         completed: detail.cropOrder.orderStatus === 'Completed',
-                        canceled: detail.cropOrder.orderStatus === 'Cancelled'
+                        canceled: detail.cropOrder.orderStatus === 'Cancelled',
+                        'not-yet-paid':
+                          detail.cropOrder.orderStatus === 'Not Yet Paid'
                       }"
                     >
                       <span
