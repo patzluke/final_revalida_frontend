@@ -42,6 +42,7 @@ import { supplierComplaintReducer } from './states/suppliercomplaint-state/suppl
 import { SupplierComplaintsEffect } from './states/suppliercomplaint-state/suppliercomplaint.effects';
 import { TabViewModule } from 'primeng/tabview';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     MultiSelectModule,
     TabViewModule,
     CheckboxModule,
+    ChartModule,
     StoreModule.forFeature(
       'postAdvertisementList (supplier)',
       postAdvertisementReducerSupplierSide
