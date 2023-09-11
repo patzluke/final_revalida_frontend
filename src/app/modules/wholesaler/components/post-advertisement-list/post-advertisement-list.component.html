@@ -272,6 +272,16 @@
           optionLabel="specializationName"
           placeholder="Select crop type"
         ></p-dropdown>
+        <div
+          *ngIf="
+            addPostAdvertisementForm.controls['cropSpecializationId'].invalid &&
+            (addPostAdvertisementForm.controls['cropSpecializationId'].dirty ||
+              addPostAdvertisementForm.controls['cropSpecializationId'].touched)
+          "
+          class="validation-error"
+        >
+          Please select a crop specialization.
+        </div>
       </div>
 
       <div class="form-field">
@@ -288,6 +298,16 @@
           id="cropName"
           formControlName="cropName"
         />
+        <div
+          *ngIf="
+            addPostAdvertisementForm.controls['cropName'].invalid &&
+            (addPostAdvertisementForm.controls['cropName'].dirty ||
+              addPostAdvertisementForm.controls['cropName'].touched)
+          "
+          class="validation-error"
+        >
+          Crop name is required.
+        </div>
       </div>
 
       <div class="form-field">
@@ -304,6 +324,16 @@
           id="quantity"
           formControlName="quantity"
         />
+        <div
+          *ngIf="
+            addPostAdvertisementForm.controls['quantity'].invalid &&
+            (addPostAdvertisementForm.controls['quantity'].dirty ||
+              addPostAdvertisementForm.controls['quantity'].touched)
+          "
+          class="validation-error"
+        >
+          Quantity is required.
+        </div>
       </div>
 
       <div class="form-field">
@@ -322,6 +352,16 @@
           optionLabel="label"
           placeholder="Select measurement"
         ></p-dropdown>
+        <div
+          *ngIf="
+            addPostAdvertisementForm.controls['measurement'].invalid &&
+            (addPostAdvertisementForm.controls['measurement'].dirty ||
+              addPostAdvertisementForm.controls['measurement'].touched)
+          "
+          class="validation-error"
+        >
+          Measurement is required.
+        </div>
       </div>
 
       <div class="form-field">
@@ -338,6 +378,16 @@
           id="price"
           formControlName="price"
         />
+        <div
+          *ngIf="
+            addPostAdvertisementForm.controls['price'].invalid &&
+            (addPostAdvertisementForm.controls['price'].dirty ||
+              addPostAdvertisementForm.controls['price'].touched)
+          "
+          class="validation-error"
+        >
+          Price is required.
+        </div>
       </div>
 
       <div class="form-field">
@@ -354,6 +404,16 @@
           id="description"
           formControlName="description"
         ></textarea>
+        <div
+          *ngIf="
+            addPostAdvertisementForm.controls['description'].invalid &&
+            (addPostAdvertisementForm.controls['description'].dirty ||
+              addPostAdvertisementForm.controls['description'].touched)
+          "
+          class="validation-error"
+        >
+          Description is required.
+        </div>
       </div>
       <div class="form-field">
         <div>
@@ -448,6 +508,18 @@
           optionLabel="specializationName"
           placeholder="Select crop type"
         ></p-dropdown>
+        <div
+          *ngIf="
+            editPostAdvertisementForm.controls['cropSpecializationId']
+              .invalid &&
+            (editPostAdvertisementForm.controls['cropSpecializationId'].dirty ||
+              editPostAdvertisementForm.controls['cropSpecializationId']
+                .touched)
+          "
+          class="validation-error"
+        >
+          Please select a crop specialization.
+        </div>
       </div>
 
       <div class="form-field">
@@ -464,6 +536,17 @@
           id="cropName"
           formControlName="cropName"
         />
+
+        <div
+          *ngIf="
+            editPostAdvertisementForm.controls['cropName'].invalid &&
+            (editPostAdvertisementForm.controls['cropName'].dirty ||
+              editPostAdvertisementForm.controls['cropName'].touched)
+          "
+          class="validation-error"
+        >
+          Crop name is required.
+        </div>
       </div>
 
       <div class="form-field">
@@ -480,6 +563,16 @@
           id="quantity"
           formControlName="quantity"
         />
+        <div
+          *ngIf="
+            editPostAdvertisementForm.controls['quantity'].invalid &&
+            (editPostAdvertisementForm.controls['quantity'].dirty ||
+              editPostAdvertisementForm.controls['quantity'].touched)
+          "
+          class="validation-error"
+        >
+          Quantity is required.
+        </div>
       </div>
 
       <div class="form-field">
@@ -498,6 +591,16 @@
           optionLabel="label"
           placeholder="Select measurement"
         ></p-dropdown>
+        <div
+          *ngIf="
+            editPostAdvertisementForm.controls['measurement'].invalid &&
+            (editPostAdvertisementForm.controls['measurement'].dirty ||
+              editPostAdvertisementForm.controls['measurement'].touched)
+          "
+          class="validation-error"
+        >
+          Measurement is required.
+        </div>
       </div>
 
       <div class="form-field">
@@ -514,6 +617,16 @@
           id="price"
           formControlName="price"
         />
+        <div
+          *ngIf="
+            editPostAdvertisementForm.controls['price'].invalid &&
+            (editPostAdvertisementForm.controls['price'].dirty ||
+              editPostAdvertisementForm.controls['price'].touched)
+          "
+          class="validation-error"
+        >
+          Price is required.
+        </div>
       </div>
 
       <div class="form-field">
@@ -530,6 +643,16 @@
           id="description"
           formControlName="description"
         ></textarea>
+        <div
+          *ngIf="
+            editPostAdvertisementForm.controls['description'].invalid &&
+            (editPostAdvertisementForm.controls['description'].dirty ||
+              editPostAdvertisementForm.controls['description'].touched)
+          "
+          class="validation-error"
+        >
+          Description is required.
+        </div>
       </div>
       <div class="form-field">
         <div>
