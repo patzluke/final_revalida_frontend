@@ -1,10 +1,74 @@
 <app-header></app-header>
-<section>
+<section class="section">
   <div class="container">
-    <p>who-we-are works!</p>
-    <p>about us</p>
-    <p>our story</p>
+    <div class="about-us-container">
+      <p class="label">about us</p>
+      <h1>WHO WE ARE</h1>
+      <p class="au-text">
+        AgriBridge is a dynamic online platform that serves as the vital link
+        connecting farmers, retailers, and suppliers in the ever-evolving
+        agricultural landscape. With a commitment to fostering collaboration and
+        innovation, AgriBridge is dedicated to bridging the gap that often
+        separates these crucial stakeholders. Our website provides a seamless
+        and user-friendly interface where farmers can access a vast network of
+        suppliers offering high-quality agricultural products, while retailers
+        can efficiently source fresh produce and supplies directly from local
+        farmers.
+      </p>
+    </div>
   </div>
 </section>
 
+<section>
+  <div class="wave-container"></div>
+  <div class="our-story-container">
+    <div class="container">
+      <div class="os-content-container">
+        <div class="os-left-container">
+          <div>
+            <p class="label">Our Story</p>
+            <p class="os-text">
+              In the heart of rural farmland, a group of visionary individuals
+              founded AgriBridge with a simple goal: to revolutionize
+              agriculture by bridging the gap between farmers, retailers, and
+              suppliers. They created an online platform that connected farmers
+              with suppliers, allowing retailers to source fresh produce and
+              supplies directly from local farmers. AgriBridge became a catalyst
+              for innovation, helping farmers increase yields, retailers offer
+              diverse products, and suppliers expand their reach. Today,
+              AgriBridge stands as a testament to collaboration and growth in
+              the agricultural community, committed to its mission of connecting
+              and sustaining the agricultural ecosystem.
+            </p>
+          </div>
+
+          <div class="action-container">
+            <mat-divider class="divider"></mat-divider>
+            <div class="link-text">
+              <h1 routerLink="/our-process" class="animated-text">
+                Our process
+              </h1>
+              <mat-icon class="icon">arrow_forward</mat-icon>
+            </div>
+
+            <mat-divider class="divider"></mat-divider>
+            <div class="link-text">
+              <h1 routerLink="/sustainability" class="animated-text">
+                Sustainability
+              </h1>
+              <mat-icon class="icon">arrow_forward</mat-icon>
+            </div>
+            <mat-divider class="divider"></mat-divider>
+          </div>
+        </div>
+        <div class="os-right-container">
+          <div class="image-container">
+            <img class="image-one" src="/assets/images/our-story.jpg" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wave-container2"></div>
+</section>
 <app-footer></app-footer>

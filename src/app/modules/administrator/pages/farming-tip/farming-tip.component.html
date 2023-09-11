@@ -17,7 +17,11 @@
           />
         </span>
 
-        <button pButton class="offer-btn" (click)="toggleAddFarmingTip(); addFarmingTipForm.reset()">
+        <button
+          pButton
+          class="offer-btn"
+          (click)="toggleAddFarmingTip(); addFarmingTipForm.reset()"
+        >
           Add Farming Tip
         </button>
       </div>
@@ -101,6 +105,7 @@
   [draggable]="false"
   [resizable]="false"
   [maximizable]="true"
+  [closable]="false"
 >
   <div class="container">
     <form [formGroup]="addFarmingTipForm">
@@ -117,6 +122,16 @@
           formControlName="title"
           type="text"
         />
+        <div
+          class="invalid-text"
+          *ngIf="
+            addFarmingTipForm.controls['title'].invalid &&
+            (addFarmingTipForm.controls['title'].dirty ||
+              addFarmingTipForm.controls['title'].touched)
+          "
+        >
+          <p>This Field is Required.</p>
+        </div>
       </div>
 
       <div class="form-field">
@@ -132,6 +147,16 @@
           formControlName="description"
           rows="3"
         ></textarea>
+        <div
+          class="invalid-text"
+          *ngIf="
+            addFarmingTipForm.controls['description'].invalid &&
+            (addFarmingTipForm.controls['description'].dirty ||
+              addFarmingTipForm.controls['description'].touched)
+          "
+        >
+          <p>This Field is Required.</p>
+        </div>
       </div>
 
       <div class="form-field">
@@ -147,6 +172,16 @@
           formControlName="link"
           type="text"
         />
+        <div
+          class="invalid-text"
+          *ngIf="
+            addFarmingTipForm.controls['link'].invalid &&
+            (addFarmingTipForm.controls['link'].dirty ||
+              addFarmingTipForm.controls['link'].touched)
+          "
+        >
+          <p>This Field is Required.</p>
+        </div>
       </div>
 
       <div class="form-control mb-3" style="margin-top: 2rem">
@@ -221,21 +256,77 @@
       <mat-divider class="divider"></mat-divider>
       <div class="form-field">
         <label>Title:</label>
-        <input pInputText formControlName="title" type="text" />
+        <input
+          [ngClass]="{
+            'invalid-field':
+              editFarmingTipForm.controls['title'].invalid &&
+              (editFarmingTipForm.controls['title'].dirty ||
+                editFarmingTipForm.controls['title'].touched)
+          }"
+          pInputText
+          formControlName="title"
+          type="text"
+        />
+        <div
+          class="invalid-text"
+          *ngIf="
+            editFarmingTipForm.controls['title'].invalid &&
+            (editFarmingTipForm.controls['title'].dirty ||
+              editFarmingTipForm.controls['title'].touched)
+          "
+        >
+          <p>This Field is Required.</p>
+        </div>
       </div>
 
       <div class="form-field">
         <label>Description:</label>
         <textarea
+          [ngClass]="{
+            'invalid-field':
+              editFarmingTipForm.controls['description'].invalid &&
+              (editFarmingTipForm.controls['description'].dirty ||
+                editFarmingTipForm.controls['description'].touched)
+          }"
           pInputTextarea
           formControlName="description"
           rows="3"
         ></textarea>
+        <div
+          class="invalid-text"
+          *ngIf="
+            editFarmingTipForm.controls['description'].invalid &&
+            (editFarmingTipForm.controls['description'].dirty ||
+              editFarmingTipForm.controls['description'].touched)
+          "
+        >
+          <p>This Field is Required.</p>
+        </div>
       </div>
 
       <div class="form-field">
         <label>Link:</label>
-        <input pInputText formControlName="link" type="text" />
+        <input
+          [ngClass]="{
+            'invalid-field':
+              editFarmingTipForm.controls['link'].invalid &&
+              (editFarmingTipForm.controls['link'].dirty ||
+                editFarmingTipForm.controls['link'].touched)
+          }"
+          pInputText
+          formControlName="link"
+          type="text"
+        />
+        <div
+          class="invalid-text"
+          *ngIf="
+            editFarmingTipForm.controls['link'].invalid &&
+            (editFarmingTipForm.controls['link'].dirty ||
+              editFarmingTipForm.controls['link'].touched)
+          "
+        >
+          <p>This Field is Required.</p>
+        </div>
       </div>
 
       <div class="form-control mb-3" style="margin-top: 2rem">
