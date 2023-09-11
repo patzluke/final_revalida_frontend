@@ -26,7 +26,11 @@ export class OrderSummaryComponent implements OnInit {
   fileDetails!: FileDetails;
   fileUris: Array<string> = [];
 
-  constructor(private store: Store, private supplierService: SupplierService, private _router: Router) {
+  constructor(
+    private store: Store,
+    private supplierService: SupplierService,
+    private _router: Router
+  ) {
     this.cropPayment = history.state.cropPayment;
     this.farmerName = `${this.cropPayment?.cropOrder.sellCropDetail.farmer.user.firstName} ${this.cropPayment?.cropOrder.sellCropDetail.farmer.user.lastName}`;
   }
@@ -86,7 +90,7 @@ export class OrderSummaryComponent implements OnInit {
           type: CropPaymentActions.UPDATE_CROPPAYMENT,
           cropPayment: updatedCropPayment,
         });
-        this._router.navigateByUrl('/supplier/orders')
+        this._router.navigateByUrl('/supplier/orders');
       },
       error: (err) => {
         Swal.fire(

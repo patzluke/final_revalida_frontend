@@ -617,6 +617,11 @@
             'form-field': editFinalOffer,
             'summary-field': !editFinalOffer
           }"
+          *ngIf="
+            checkIfPaymentModeIsBank(
+              finalOfferForm.controls['paymentMode'].value
+            ) || finalOfferForm.controls['paymentMode'].value === 'Gcash'
+          "
         >
           <label class="form-label">Bank No./Gcash No.:</label>
           <div style="display: flex; flex-direction: column">
@@ -660,7 +665,11 @@
         </div>
 
         <div
-        *ngIf="checkIfPaymentModeIsBank(finalOfferForm.controls['paymentMode'].value)"
+          *ngIf="
+            checkIfPaymentModeIsBank(
+              finalOfferForm.controls['paymentMode'].value
+            )
+          "
           [ngClass]="{
             'form-field': editFinalOffer,
             'summary-field': !editFinalOffer

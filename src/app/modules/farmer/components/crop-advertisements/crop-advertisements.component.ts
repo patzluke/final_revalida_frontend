@@ -93,6 +93,14 @@ export class CropAdvertisementsComponent implements OnInit {
       return false;
     } else if (paymentMode.includes('Bank')) {
       return true;
+    } else if (!paymentMode.includes('Bank')) {
+      this.finalOfferForm.controls['accountName']?.clearValidators();
+      this.finalOfferForm.controls['accountName']?.updateValueAndValidity();
+
+      this.finalOfferForm.controls['accountName'].setValidators(null);
+      this.finalOfferForm.controls['mobilenumBanknumber'].setValidators(null);
+
+      return false;
     }
     return false;
   }
@@ -154,7 +162,7 @@ export class CropAdvertisementsComponent implements OnInit {
       measurement: ['', Validators.required],
       mobilenumBanknumber: ['', Validators.required],
       paymentMode: ['', Validators.required],
-      accountName: [''],
+      accountName: ['', Validators.required],
       postResponseId: [0, Validators.required],
       farmerId: [0, Validators.required],
 
@@ -390,12 +398,12 @@ export class CropAdvertisementsComponent implements OnInit {
           this.finalOfferForm.patchValue({
             mobilenumBanknumber:
               data?.cropOrder.sellCropDetail.mobilenumBanknumber,
-              accountName: data?.cropOrder.sellCropDetail.accountName
+            accountName: data?.cropOrder.sellCropDetail.accountName,
           });
         });
 
-
       this.postAdvertisementResponse = data as PostAdvertisementResponse;
+
       this.finalOfferForm.patchValue({
         cropName: data?.postAdvertisement?.cropName,
         price: data?.price,
@@ -408,10 +416,12 @@ export class CropAdvertisementsComponent implements OnInit {
         isAccepted: data?.isAccepted,
         postResponseId: data?.postResponseId,
       });
-
+      console.log(this.finalOfferForm.value);
       if (data?.preferredPaymentMode.includes('Bank')) {
-        console.log((data?.preferredPaymentMode));
-        this.finalOfferForm.controls['accountName']?.setValidators(Validators.required);
+        console.log(data?.preferredPaymentMode);
+        this.finalOfferForm.controls['accountName']?.setValidators(
+          Validators.required
+        );
       } else if (!data?.preferredPaymentMode.includes('Bank')) {
         this.finalOfferForm.controls['accountName']?.clearValidators();
         this.finalOfferForm.controls['accountName']?.updateValueAndValidity();
@@ -454,6 +464,8 @@ export class CropAdvertisementsComponent implements OnInit {
             type: CropPaymentActions.ADD_CROPPAYMENT,
             cropPayment: finalOfferValues,
           });
+
+          console.log(finalOfferValues, 'here');
 
           let updatedPostAdvertisementResponse = {
             ...this.postAdvertisementResponse,
