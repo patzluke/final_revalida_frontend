@@ -257,6 +257,11 @@ export class CropAdvertisementsComponent implements OnInit {
         }
       );
     }
+    console.log(this.addAdvertisementResponseForm.controls['quantity'].hasError('nonNegativeNumber'));
+
+    if (this.addAdvertisementResponseForm.controls['quantity'].hasError('nonNegativeNumber')) {
+      alert('may error')
+    }
   }
 
   // search
@@ -364,7 +369,7 @@ export class CropAdvertisementsComponent implements OnInit {
     if (this.finalOfferForm.valid) {
       this.finalOfferForm.controls['cropName'].enable();
       let finalOfferValues = this.finalOfferForm.value;
-      finalOfferValues.quantity = this.finalOfferForm.value.quantity.concat(
+      finalOfferValues.quantity = new String(this.finalOfferForm.value.quantity).concat(
         ' ',
         this.finalOfferForm.value.measurement
       );
@@ -392,6 +397,7 @@ export class CropAdvertisementsComponent implements OnInit {
             type: PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES,
             postAdvertisementResponse: updatedPostAdvertisementResponse,
           });
+          this.editFinalOffer = false;
         } else if (result.isDenied) {
           this.finalOfferForm.controls['cropName'].disable();
           this.openViewOfferDialog = true;
