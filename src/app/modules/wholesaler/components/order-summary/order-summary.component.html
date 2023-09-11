@@ -115,7 +115,16 @@
             <div class="col">
               <div class="summary-field">
                 <label class="form-label">Farmer's Name:</label>
-                <h3 class="offer-text">{{ farmerName }}</h3>
+                <h3 class="offer-text">{{  farmerName }}</h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="summary-field">
+                <label class="form-label">Payment Mode:</label>
+                <h3 class="offer-text">{{ cropPayment?.cropOrder?.sellCropDetail?.paymentMode }}</h3>
               </div>
             </div>
           </div>
@@ -134,10 +143,9 @@
                 <label
                   class="form-label"
                   *ngIf="
-                    cropPayment?.cropOrder?.sellCropDetail?.paymentMode ===
-                    'UnionBank'
+                    cropPayment?.cropOrder?.sellCropDetail?.paymentMode?.includes('Bank')
                   "
-                  >Farmer's UnionBank Number:</label
+                  >Farmer's Bank Number:</label
                 >
                 <h3 class="offer-text">
                   {{
@@ -203,11 +211,10 @@
               >
               <label
                 *ngIf="
-                  cropPayment?.cropOrder?.sellCropDetail?.paymentMode ==
-                  'UnionBank'
+                  cropPayment?.cropOrder?.sellCropDetail?.paymentMode?.includes('Bank')
                 "
                 class="form-label text-white"
-                >Farmer's UnionBank Number:</label
+                >Farmer's Bank Number:</label
               >
               <input
                 type="text"

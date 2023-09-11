@@ -44,14 +44,58 @@ export class CropAdvertisementsComponent implements OnInit {
 
   measurementOptions = [
     { label: 'Kilograms (Kg)', value: 'kg' },
-    { label: 'Tons (tn)', value: 'tn' },
-    { label: 'Milliliter (ml)', value: 'ml' },
+    { label: 'Tons (tn)', value: 'lb' },
+    { label: 'Pounds (tn)', value: 'tn' },
+    { label: 'Liters (L)', value: 'L' },
+    { label: 'Gallons (gal)', value: 'gal' },
+    { label: 'Sacks (sac)', value: 'sac' },
+    { label: 'Boxes (bx)', value: 'bx' },
+    { label: 'Crates', value: 'Crates' },
   ];
 
   paymentOptions = [
-    { label: 'UnionBank', value: 'UnionBank' },
+    { label: 'UnionBank (Bank)', value: 'UnionBank (Bank)' },
+    { label: 'BPO (Bank)', value: 'BPO (Bank)' },
+    { label: 'BPI (Bank)', value: 'BPI (Bank)' },
+    { label: 'LandBank', value: 'LandBank (Bank)' },
     { label: 'Gcash', value: 'Gcash' },
+    {
+      label: 'Remmitance (Western Union Sulit Padala)',
+      value: 'Remmitance (Western Union Sulit Padala)',
+    },
+    {
+      label: 'Remmitance (ML Kwarta Padala)',
+      value: 'Remmitance (ML Kwarta Padala)',
+    },
+    {
+      label: 'Remmitance (Cebuana Lhuillier Pera Padala)',
+      value: 'Remmitance (Cebuana Lhuillier Pera Padala)',
+    },
+    {
+      label: 'Remmitance (Palawan Express Pera Padala)',
+      value: 'Remmitance (Palawan Express Pera Padala)',
+    },
+    {
+      label: 'Remmitance (TrueMoney Money Padala)',
+      value: 'Remmitance (TrueMoney Money Padala)',
+    },
+    {
+      label: 'Remmitance (LBC Instant Peso Padala)',
+      value: 'Remmitance (LBC Instant Peso Padala)',
+    },
+    { label: 'Remmitance (GCash Remit)', value: 'Remmitance (GCash Remit)' },
+    { label: 'Remmitance (Smart Padala)', value: 'Remmitance (Smart Padala)' },
+    { label: 'Remmitance (Coins.ph)', value: 'Remmitance (Coins.ph)' },
   ];
+
+  checkIfPaymentModeIsBank(paymentMode: string) {
+    if (paymentMode == null) {
+      return false;
+    } else if (paymentMode.includes('Bank')) {
+      return true;
+    }
+    return false;
+  }
 
   selectedSortingOption: string = '';
 
@@ -94,7 +138,6 @@ export class CropAdvertisementsComponent implements OnInit {
       dateModified: [''],
       message: [''],
       preferredPaymentMode: ['', Validators.required],
-
       measurement: ['', Validators.required],
 
       userId: [0],
@@ -111,6 +154,7 @@ export class CropAdvertisementsComponent implements OnInit {
       measurement: ['', Validators.required],
       mobilenumBanknumber: ['', Validators.required],
       paymentMode: ['', Validators.required],
+      accountName: [''],
       postResponseId: [0, Validators.required],
       farmerId: [0, Validators.required],
 
@@ -257,10 +301,18 @@ export class CropAdvertisementsComponent implements OnInit {
         }
       );
     }
-    console.log(this.addAdvertisementResponseForm.controls['quantity'].hasError('nonNegativeNumber'));
+    console.log(
+      this.addAdvertisementResponseForm.controls['quantity'].hasError(
+        'nonNegativeNumber'
+      )
+    );
 
-    if (this.addAdvertisementResponseForm.controls['quantity'].hasError('nonNegativeNumber')) {
-      alert('may error')
+    if (
+      this.addAdvertisementResponseForm.controls['quantity'].hasError(
+        'nonNegativeNumber'
+      )
+    ) {
+      alert('may error');
     }
   }
 
@@ -338,8 +390,11 @@ export class CropAdvertisementsComponent implements OnInit {
           this.finalOfferForm.patchValue({
             mobilenumBanknumber:
               data?.cropOrder.sellCropDetail.mobilenumBanknumber,
+              accountName: data?.cropOrder.sellCropDetail.accountName
           });
         });
+
+
       this.postAdvertisementResponse = data as PostAdvertisementResponse;
       this.finalOfferForm.patchValue({
         cropName: data?.postAdvertisement?.cropName,
@@ -353,8 +408,18 @@ export class CropAdvertisementsComponent implements OnInit {
         isAccepted: data?.isAccepted,
         postResponseId: data?.postResponseId,
       });
+
+      if (data?.preferredPaymentMode.includes('Bank')) {
+        console.log((data?.preferredPaymentMode));
+        this.finalOfferForm.controls['accountName']?.setValidators(Validators.required);
+      } else if (!data?.preferredPaymentMode.includes('Bank')) {
+        this.finalOfferForm.controls['accountName']?.clearValidators();
+        this.finalOfferForm.controls['accountName']?.updateValueAndValidity();
+      }
+
       if (!data?.isAccepted || data?.isFinalOfferSubmitted) {
         this.finalOfferForm.controls['mobilenumBanknumber'].disable();
+        this.finalOfferForm.controls['accountName'].disable();
       }
     });
     this.finalOfferForm.controls['cropName'].disable();
@@ -369,10 +434,9 @@ export class CropAdvertisementsComponent implements OnInit {
     if (this.finalOfferForm.valid) {
       this.finalOfferForm.controls['cropName'].enable();
       let finalOfferValues = this.finalOfferForm.value;
-      finalOfferValues.quantity = new String(this.finalOfferForm.value.quantity).concat(
-        ' ',
-        this.finalOfferForm.value.measurement
-      );
+      finalOfferValues.quantity = new String(
+        this.finalOfferForm.value.quantity
+      ).concat(' ', this.finalOfferForm.value.measurement);
       console.log(finalOfferValues, ' tingin');
 
       this.openViewOfferDialog = false;
@@ -391,7 +455,9 @@ export class CropAdvertisementsComponent implements OnInit {
             cropPayment: finalOfferValues,
           });
 
-          let updatedPostAdvertisementResponse = {... this.postAdvertisementResponse}
+          let updatedPostAdvertisementResponse = {
+            ...this.postAdvertisementResponse,
+          };
           updatedPostAdvertisementResponse.isFinalOfferSubmitted = true;
           this.store.dispatch({
             type: PostAdvertisementResponsesActions.UPDATE_POSTADVERTISEMENTRESPONSES,
@@ -419,6 +485,10 @@ export class CropAdvertisementsComponent implements OnInit {
   };
 
   checkFbSocial(post: PostAdvertisement) {
+    if (post?.supplier?.user?.socials[0] == null) {
+      return false;
+    }
+
     return post?.supplier?.user?.socials.find((social) =>
       social.includes('facebook') ? true : false
     )
@@ -435,6 +505,9 @@ export class CropAdvertisementsComponent implements OnInit {
   }
 
   checkIGSocial(post: PostAdvertisement) {
+    if (post?.supplier?.user?.socials[0] == null) {
+      return false;
+    }
     return post?.supplier?.user?.socials.find((social) =>
       social.includes('instagram') ? true : false
     )

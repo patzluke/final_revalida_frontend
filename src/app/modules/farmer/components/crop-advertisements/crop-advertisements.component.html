@@ -402,7 +402,7 @@
             style="margin-top: 1rem"
             pButton
             class="offer-btn"
-            [routerLink]="['/supplier/profile']"
+            [routerLink]="['/farmer/profile']"
           >
             Profile
           </button>
@@ -421,6 +421,7 @@
   [draggable]="false"
   [resizable]="false"
   [maximizable]="true"
+  [closable]="false"
 >
   <div class="container">
     <div>
@@ -648,6 +649,54 @@
                 finalOfferForm.controls['mobilenumBanknumber'].invalid &&
                 (finalOfferForm.controls['mobilenumBanknumber'].dirty ||
                   finalOfferForm.controls['mobilenumBanknumber'].touched)
+              "
+            >
+              This Field is required.
+            </div>
+          </div>
+        </div>
+
+        <div
+        *ngIf="checkIfPaymentModeIsBank(finalOfferForm.controls['paymentMode'].value)"
+          [ngClass]="{
+            'form-field': editFinalOffer,
+            'summary-field': !editFinalOffer
+          }"
+        >
+          <label class="form-label">Account Name:</label>
+          <div style="display: flex; flex-direction: column">
+            <input
+              *ngIf="editFinalOffer"
+              [ngClass]="{
+                'invalid-field':
+                  finalOfferForm.controls['accountName'].invalid &&
+                  (finalOfferForm.controls['accountName'].dirty ||
+                    finalOfferForm.controls['accountName'].touched)
+              }"
+              pInputText
+              type="text"
+              formControlName="accountName"
+            />
+            <h3 class="offer-text" *ngIf="!editFinalOffer" class="w-100">
+              <!-- {{ finalOfferForm.getRawValue().mobilenumBanknumber }} -->
+              <input
+                [ngClass]="{
+                  'invalid-field':
+                    finalOfferForm.controls['accountName'].invalid &&
+                    (finalOfferForm.controls['accountName'].dirty ||
+                      finalOfferForm.controls['accountName'].touched)
+                }"
+                pInputText
+                type="text"
+                formControlName="accountName"
+              />
+            </h3>
+            <div
+              class="text-danger"
+              *ngIf="
+                finalOfferForm.controls['accountName'].invalid &&
+                (finalOfferForm.controls['accountName'].dirty ||
+                  finalOfferForm.controls['accountName'].touched)
               "
             >
               This Field is required.

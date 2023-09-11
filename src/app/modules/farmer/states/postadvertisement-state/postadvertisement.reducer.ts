@@ -13,6 +13,6 @@ export const initialState: PostAdvertisementState = {
 export const postAdvertisementReducer = createReducer(
   initialState,
   on(setPostAdvertisementState, (state, { postAdvertisements }) => {
-    return { ...state, postAdvertisements: postAdvertisements };
+    return { ...state, postAdvertisements: [...postAdvertisements] };
   })
 );

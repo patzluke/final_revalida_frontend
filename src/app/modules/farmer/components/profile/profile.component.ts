@@ -242,6 +242,47 @@ export class ProfileComponent implements OnInit {
             this.farmerService.upload(this.selectedImage).subscribe({
               next: (data) => {
                 this.imagePreviewUrl = `${data.fileUri.concat(data.fileName)}`;
+                const profileData = {
+                  userId: this.personalInfoForm.controls['userId'].getRawValue(),
+                  farmerId: this.personalInfoForm.controls['farmerId'].getRawValue(),
+                  image: `${data.fileUri.concat(data.fileName)}`,
+                  firstName:
+                    this.personalInfoForm.controls['firstName'].getRawValue(),
+                  middleName:
+                    this.personalInfoForm.controls['middleName'].getRawValue(),
+                  lastName: this.personalInfoForm.controls['lastName'].getRawValue(),
+                  birthDate:
+                    this.personalInfoForm.controls['birthDate'].getRawValue(),
+                  gender: this.personalInfoForm.controls['gender'].getRawValue(),
+                  nationality:
+                    this.personalInfoForm.controls['nationality'].getRawValue(),
+                  civilStatus:
+                    this.personalInfoForm.controls['civilStatus'].getRawValue(),
+
+                  address: this.personalInfoForm.controls['address'].getRawValue(),
+                  email: this.personalInfoForm.controls['email'].getRawValue(),
+                  contactNo:
+                    this.personalInfoForm.controls['contactNo'].getRawValue(),
+                  socials: this.personalInfoForm.controls['socials'].getRawValue(),
+                };
+
+                this.farmerService.updateAdminInfo(profileData).subscribe({
+                  next: (data) => {
+                    this.user = { ...data };
+                    this.personalInfoForm.patchValue({
+                      farmerId: data.farmerId,
+                      ...data.user,
+                    });
+                    Swal.fire('Success', 'Profile Successfully updated!', 'success');
+                  },
+                  error: (err) => {
+                    Swal.fire(
+                      'Failed to Update Profile!',
+                      `Something went wrong.`,
+                      'error'
+                    );
+                  },
+                });
               },
               error: (err) => {
                 Swal.fire(
@@ -251,50 +292,51 @@ export class ProfileComponent implements OnInit {
                 );
               },
             });
+          } else {
+            const profileData = {
+              userId: this.personalInfoForm.controls['userId'].getRawValue(),
+              farmerId: this.personalInfoForm.controls['farmerId'].getRawValue(),
+              image: '',
+              firstName:
+                this.personalInfoForm.controls['firstName'].getRawValue(),
+              middleName:
+                this.personalInfoForm.controls['middleName'].getRawValue(),
+              lastName: this.personalInfoForm.controls['lastName'].getRawValue(),
+              birthDate:
+                this.personalInfoForm.controls['birthDate'].getRawValue(),
+              gender: this.personalInfoForm.controls['gender'].getRawValue(),
+              nationality:
+                this.personalInfoForm.controls['nationality'].getRawValue(),
+              civilStatus:
+                this.personalInfoForm.controls['civilStatus'].getRawValue(),
+
+              address: this.personalInfoForm.controls['address'].getRawValue(),
+              email: this.personalInfoForm.controls['email'].getRawValue(),
+              contactNo:
+                this.personalInfoForm.controls['contactNo'].getRawValue(),
+              socials: this.personalInfoForm.controls['socials'].getRawValue(),
+            };
+
+            this.farmerService.updateAdminInfo(profileData).subscribe({
+              next: (data) => {
+                this.user = { ...data };
+                this.personalInfoForm.patchValue({
+                  farmerId: data.farmerId,
+                  ...data.user,
+                });
+                Swal.fire('Success', 'Profile Successfully updated!', 'success');
+              },
+              error: (err) => {
+                Swal.fire(
+                  'Failed to Update Profile!',
+                  `Something went wrong.`,
+                  'error'
+                );
+              },
+            });
           }
 
-          const profileData = {
-            userId: this.personalInfoForm.controls['userId'].getRawValue(),
-            farmerId: this.personalInfoForm.controls['farmerId'].getRawValue(),
-            image: this.imagePreviewUrl,
-            firstName:
-              this.personalInfoForm.controls['firstName'].getRawValue(),
-            middleName:
-              this.personalInfoForm.controls['middleName'].getRawValue(),
-            lastName: this.personalInfoForm.controls['lastName'].getRawValue(),
-            birthDate:
-              this.personalInfoForm.controls['birthDate'].getRawValue(),
-            gender: this.personalInfoForm.controls['gender'].getRawValue(),
-            nationality:
-              this.personalInfoForm.controls['nationality'].getRawValue(),
-            civilStatus:
-              this.personalInfoForm.controls['civilStatus'].getRawValue(),
 
-            address: this.personalInfoForm.controls['address'].getRawValue(),
-            email: this.personalInfoForm.controls['email'].getRawValue(),
-            contactNo:
-              this.personalInfoForm.controls['contactNo'].getRawValue(),
-            socials: this.personalInfoForm.controls['socials'].getRawValue(),
-          };
-
-          console.log('profile data', profileData);
-          this.farmerService.updateAdminInfo(profileData).subscribe({
-            next: (data) => {
-              this.user = { ...data };
-              this.personalInfoForm.patchValue({
-                farmerId: data.farmerId,
-                ...data.user,
-              });
-              Swal.fire('Success', 'Profile Successfully updated!', 'success');
-            },
-            error: (err) => {
-              Swal.fire(
-                'Failed to Update Profile!',
-                `Something went wrong.`,
-                'error'
-              );
-            },
-          });
         } else if (result.isDenied) {
           this.editProfileDetail = true;
         }

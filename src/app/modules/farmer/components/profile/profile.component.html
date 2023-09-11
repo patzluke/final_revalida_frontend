@@ -100,7 +100,12 @@
         </div>
         <div class="right-container">
           <div class="verify-container" *ngIf="!user.user?.isValidated">
-            <button pButton class="verify-btn" (click)="toggleVerifyActBtn()">
+            <button
+              [disabled]="user.user?.validIdPicture"
+              pButton
+              class="verify-btn"
+              (click)="toggleVerifyActBtn()"
+            >
               <i class="pi pi-verified" style="margin-right: 0.5rem"></i> Verify
               Account
             </button>
