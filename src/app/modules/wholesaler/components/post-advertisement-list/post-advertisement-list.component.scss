@@ -72,8 +72,7 @@ section {
   margin: 0.5rem 0 -5px 0;
 }
 
-.pqt-container {
-}
+.pqt-container {}
 
 .pqt-container .label {
   margin-bottom: -1px;
@@ -303,6 +302,7 @@ label {
 }
 
 :host {
+
   ::ng-deep .spec-field .p-dropdown,
   ::ng-deep .spec-field .p-password,
   ::ng-deep .spec-field .p-calendar {
@@ -503,4 +503,13 @@ label {
   .ed-btn-container {
     display: none;
   }
+}
+
+.validation-error {
+  color: red;
+  /* Change the color to your desired error color */
+  font-size: 14px;
+  /* Adjust the font size */
+  margin-top: 4px;
+  /* Add some spacing between the input and the error message */
 }
