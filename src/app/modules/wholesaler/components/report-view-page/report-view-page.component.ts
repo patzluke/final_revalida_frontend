@@ -213,7 +213,7 @@ export class ReportViewPageComponent implements OnInit, OnDestroy {
       .getThreeRecentOrders(farmerId)
       .subscribe((data) => {
         this.threeRecentOrders = data;
-        //console.log('3 recent', this.threeRecentOrders);
+        console.log('3 recent', this.threeRecentOrders);
       });
   }
 
