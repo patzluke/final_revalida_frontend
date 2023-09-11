@@ -274,6 +274,11 @@
             class="text-danger"
           >
             This Field is required.
+            <p
+              *ngIf="addAdvertisementResponseForm.get('price')?.hasError('min')"
+            >
+              Must not be a negative number.
+            </p>
           </div>
           <div class="form-field">
             <label class="form-label">Quantity:</label>
@@ -300,6 +305,13 @@
             class="text-danger"
           >
             This Field is required.
+            <p
+              *ngIf="
+                addAdvertisementResponseForm.get('quantity')?.hasError('min')
+              "
+            >
+              Must not be a negative number.
+            </p>
           </div>
           <div class="form-field">
             <label class="form-label">Measurement:</label>
@@ -521,6 +533,9 @@
               "
             >
               This Field is required.
+              <p *ngIf="finalOfferForm.get('price')?.hasError('min')">
+                Must not be a negative number.
+              </p>
             </div>
           </div>
           <div
@@ -555,6 +570,9 @@
               "
             >
               This Field is required.
+              <p *ngIf="finalOfferForm.get('quantity')?.hasError('min')">
+                Must not be a negative number.
+              </p>
             </div>
           </div>
           <div

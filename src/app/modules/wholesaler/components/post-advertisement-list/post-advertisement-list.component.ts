@@ -55,8 +55,13 @@ export class PostAdvertisementListComponent implements OnInit {
 
   measurementOptions = [
     { label: 'Kilograms (Kg)', value: 'kg' },
-    { label: 'Tons (tn)', value: 'tn' },
-    { label: 'Milliliter (ml)', value: 'ml' },
+    { label: 'Tons (tn)', value: 'lb' },
+    { label: 'Pounds (tn)', value: 'tn' },
+    { label: 'Liters (L)', value: 'L' },
+    { label: 'Gallons (gal)', value: 'gal' },
+    { label: 'Sacks (sac)', value: 'sac' },
+    { label: 'Boxes (bx)', value: 'bx' },
+    { label: 'Crates', value: 'Crates' },
   ];
 
   constructor(

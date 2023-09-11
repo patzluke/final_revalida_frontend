@@ -140,8 +140,8 @@ export class CropAdvertisementsComponent implements OnInit {
     this.addAdvertisementResponseForm = fb.group({
       postResponseId: [''],
       cropName: [''],
-      price: ['', Validators.required],
-      quantity: ['', Validators.required],
+      price: ['', [Validators.required, Validators.min(0)]],
+      quantity: ['', [Validators.required, Validators.min(0)]],
       dateCreated: [''],
       dateModified: [''],
       message: [''],
@@ -157,8 +157,8 @@ export class CropAdvertisementsComponent implements OnInit {
       //sell_crop_details table fields
       sellId: [''],
       cropName: ['', Validators.required],
-      price: ['', Validators.required],
-      quantity: ['', Validators.required],
+      price: ['', [Validators.required, Validators.min(0)]],
+      quantity: ['', [Validators.required, Validators.min(0)]],
       measurement: ['', Validators.required],
       mobilenumBanknumber: ['', Validators.required],
       paymentMode: ['', Validators.required],
