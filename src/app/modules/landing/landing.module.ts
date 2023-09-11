@@ -29,6 +29,7 @@ import { PanelModule } from 'primeng/panel';
 import { farmingTipsReducer } from './states/farmingtips-state/farmingtips.reducer';
 import { FarmingTipsEffects } from './states/farmingtips-state/farmingtips.effects';
 import { ViewFarmingTipComponent } from './pages/farming-tips/pages/view-farming-tip/view-farming-tip.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ViewFarmingTipComponent } from './pages/farming-tips/pages/view-farming
     DialogModule,
     MatDividerModule,
     FormsModule,
+    TooltipModule,
     StoreModule.forFeature(
       'postAdvertisementList (Landing Side)',
       postAdvertisementReducer

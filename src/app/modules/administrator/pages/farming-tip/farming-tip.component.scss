@@ -1,6 +1,6 @@
 section {
   background-color: #e8f4ef;
-  padding: 60px;
+  padding: 40px;
   min-height: 100vh;
 }
 
@@ -77,6 +77,10 @@ section {
 
 .invalid-field {
   border: 1px solid red;
+}
+
+.invalid-text {
+  color: red;
 }
 
 ::ng-deep .spec-field .p-dropdown,
@@ -161,7 +165,7 @@ section {
 
 @media (max-width: 787px) {
   section {
-    padding: 2rem 0;
+    padding: 2rem;
   }
 
   .no-info-text h1 {

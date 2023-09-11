@@ -159,4 +159,36 @@ export class AdvertisementsComponent implements OnInit {
       });
     }
   }
+
+  checkFbSocial(post: PostAdvertisement) {
+    return post?.supplier?.user?.socials.find((social) =>
+      social.includes('facebook') ? true : false
+    )
+      ? true
+      : false;
+  }
+
+  selectFbSocial(post: PostAdvertisement) {
+    return (
+      (post?.supplier?.user?.socials.find((social) =>
+        social.includes('facebook') ? true : false
+      ) as string) || 'https://www.facebook.com/'
+    );
+  }
+
+  checkIGSocial(post: PostAdvertisement) {
+    return post?.supplier?.user?.socials.find((social) =>
+      social.includes('instagram') ? true : false
+    )
+      ? true
+      : false;
+  }
+
+  selectIGSocial(post: PostAdvertisement) {
+    return (
+      (post?.supplier?.user?.socials.find((social) =>
+        social.includes('instagram') ? true : false
+      ) as string) || 'https://www.instagram.com/'
+    );
+  }
 }
