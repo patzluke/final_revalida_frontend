@@ -317,7 +317,11 @@
         </li>
 
         <li class="page-item">
-          <button class="page-link" (click)="changePage(currentPage + 1)">
+          <button
+            class="page-link"
+            (click)="changePage(currentPage + 1)"
+            [disabled]="endIndex() >= postAdvertisementResponses.length"
+          >
             Next
           </button>
         </li>
