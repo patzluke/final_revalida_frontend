@@ -8,6 +8,7 @@ import { OrderSummaryComponent } from './components/order-summary/order-summary.
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { SupplierComplaintComponent } from './components/supplier-complaint/supplier-complaint.component';
+import { ReportViewPageComponent } from './components/report-view-page/report-view-page.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'complaint-status',
     component: SupplierComplaintComponent,
+  },
+  {
+    path: 'view-report',
+    component: ReportViewPageComponent,
   },
 ];
 

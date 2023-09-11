@@ -7,19 +7,21 @@
   padding-bottom: 5rem;
 }
 
-::ng-deep .p-card,
-::ng-deep .p-tabview .p-tabview-panels,
-::ng-deep .p-tabview .p-tabview-nav {
-  // white
-  background-color: #e8f4ef;
-}
+:host {
+  ::ng-deep .p-card,
+  ::ng-deep .p-tabview .p-tabview-panels,
+  ::ng-deep .p-tabview .p-tabview-nav {
+    // white
+    background-color: #e8f4ef;
+  }
 
-// ::ng-deep .p-card-body {
-//   background-color: #e8f4ef;
-// }
+  // ::ng-deep .p-card-body {
+  //   background-color: #e8f4ef;
+  // }
 
-::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  background-color: #e8f4ef;
+  ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background-color: #e8f4ef;
+  }
 }
 
 .icon-container {
@@ -131,6 +133,10 @@
   border: 1px solid red;
 }
 
+.invalid-text {
+  color: red;
+}
+
 ::ng-deep .spec-field .p-dropdown,
 ::ng-deep .spec-field .p-password,
 ::ng-deep .spec-field .p-calendar {
@@ -233,13 +239,15 @@ label {
   vertical-align: 5px;
 }
 
-::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-  background-color: transparent;
-}
+:host {
+  ::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    background-color: transparent;
+  }
 
-::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  border-color: #8da17f;
-  color: #8da17f;
+  ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    border-color: #8da17f;
+    color: #8da17f;
+  }
 }
 
 .center-container {

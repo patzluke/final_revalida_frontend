@@ -138,4 +138,25 @@ export class SupplierService {
       `${this.baseUrl}/supplier/delete/suppliercomplaints/${supplierComplaintId}`
     );
   };
+
+  // Sales Report
+  getTotalSales(farmerId: number): Observable<any> {
+    const newUrl = `${this.baseUrl}/farmer/get/farmer-total-sales-by-id/${farmerId}`;
+    return this.http.get<any>(newUrl);
+  }
+
+  getCustomerCount(farmerId: number): Observable<any> {
+    const newUrl = `${this.baseUrl}/farmer/get/customer-count/${farmerId}`;
+    return this.http.get<any>(newUrl);
+  }
+
+  getSalesPerMonth(farmerId: number): Observable<any> {
+    const newUrl = `${this.baseUrl}/farmer/get/sales-per-month/${farmerId}`;
+    return this.http.get<any>(newUrl);
+  }
+
+  getThreeRecentOrders(farmerId: number): Observable<any> {
+    const newUrl = `${this.baseUrl}/farmer/get/three-recent-sales/${farmerId}`;
+    return this.http.get<any>(newUrl);
+  }
 }

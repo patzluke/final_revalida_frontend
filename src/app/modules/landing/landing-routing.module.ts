@@ -9,6 +9,8 @@ import { OurProcessComponent } from './pages/our-process/our-process.component';
 import { SustainabilityComponent } from './pages/sustainability/sustainability.component';
 import { AdvertisementsComponent } from './pages/advertisements/advertisements.component';
 import { ViewFarmingTipComponent } from './pages/farming-tips/pages/view-farming-tip/view-farming-tip.component';
+import { PolicyComponent } from './pages/policy/policy.component';
+import { TermsServiceComponent } from './pages/terms-service/terms-service.component';
 
 const routes: Routes = [
   {
@@ -47,6 +49,14 @@ const routes: Routes = [
   {
     path: 'crop-advertisements',
     component: AdvertisementsComponent,
+  },
+  {
+    path: 'privacy-policy',
+    component: PolicyComponent,
+  },
+  {
+    path: 'terms-of-service',
+    component: TermsServiceComponent,
   },
 ];
 
