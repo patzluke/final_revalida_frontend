@@ -1,8 +1,13 @@
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+/>
+
 <app-side-nav>
   <section>
     <div class="container" data-aos="fade-right" data-aos-duration="333">
       <div style="margin-bottom: 3rem">
-        <p class="h1 mb-3 title">SALES REPORT ({{ currentYear }})</p>
+        <p class="h1 mb-3 title">EXPENSE REPORT ({{ currentYear }})</p>
       </div>
 
       <div *ngIf="customerCount >= 1">
@@ -10,7 +15,7 @@
           <div class="left-container">
             <div class="card total-sales-container">
               <div class="ts-text">
-                <p>Total Sales</p>
+                <p>Total Expense</p>
                 <h1
                   pTooltip="{{ totalSales | currency : 'PHP' }}"
                   tooltipPosition="top"
@@ -33,11 +38,11 @@
 
             <div class="card customer-count-container">
               <div class="ts-text">
-                <p>No. of Customers</p>
+                <p>No. of Orders</p>
                 <h1>{{ customerCount }}</h1>
               </div>
 
-              <span class="material-symbols-outlined"> person </span>
+              <span class="material-symbols-outlined"> package_2 </span>
             </div>
           </div>
 
@@ -90,7 +95,7 @@
                 </th>
 
                 <th style="min-width: 10rem">
-                  <div class="th-text">Supplier</div>
+                  <div class="th-text">Farmer</div>
                 </th>
               </tr>
             </ng-template>
@@ -186,11 +191,23 @@
                     class="ml-1 vertical-align-middle"
                     style="font-weight: bold; margin-bottom: 4px"
                   >
-                    {{ recentOrder.cropOrder.supplier.user.lastName }},
-                    {{ recentOrder.cropOrder.supplier.user.firstName }}
-                    {{ recentOrder.cropOrder.supplier.user.middleName }}
+                    {{
+                      recentOrder.cropOrder.sellCropDetail.farmer.user.lastName
+                    }},
+                    {{
+                      recentOrder.cropOrder.sellCropDetail.farmer.user.firstName
+                    }}
+                    {{
+                      recentOrder.cropOrder.sellCropDetail.farmer.user
+                        .middleName
+                    }}
                   </p>
-                  <p>({{ recentOrder.cropOrder.supplier.user.contactNo }})</p>
+                  <p>
+                    ({{
+                      recentOrder.cropOrder.sellCropDetail.farmer.user
+                        .contactNo
+                    }})
+                  </p>
                 </td>
               </tr>
             </ng-template>
