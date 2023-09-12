@@ -202,9 +202,6 @@
                   }}
                 </td>
                 <td style="width: 25%">
-                  {{ farmer.user.activeStatus ? "Active" : "Deactive" }}
-                </td>
-                <td style="width: 25%">
                   <p-button
                     (click)="
                       selectSupplierToVerify(farmer); toggleVerifyModal()
@@ -281,6 +278,22 @@
                   class="text-muted mt-4"
                 >
                   No Submitted ID yet
+                </p>
+                <p
+                  *ngIf="selectedSupplierToVerify?.user?.recentPicture"
+                  class="text-muted mt-4"
+                >
+                  <a
+                    href="{{ selectedSupplierToVerify?.user?.recentPicture }}"
+                    target="_blank"
+                    >view submitted 2x2 picture</a
+                  >
+                </p>
+                <p
+                  *ngIf="!selectedSupplierToVerify?.user?.recentPicture"
+                  class="text-muted mt-4"
+                >
+                  No picture yet
                 </p>
               </div>
             </div>
@@ -390,7 +403,8 @@
     </section>
     <div class="action-container">
       <button
-        [disabled]="selectedSupplierToVerify?.user?.validIdPicture == undefined"
+        [disabled]="selectedSupplierToVerify?.user?.validIdPicture == '' ||
+        selectedSupplierToVerify?.user?.validIdPicture == undefined"
         pButton
         class="p-button-outlined p-button-secondary cancel-btn"
         (click)="refuseSubmittedId()"
@@ -445,6 +459,22 @@
                   class="text-muted mt-4"
                 >
                   No Submitted ID yet
+                </p>
+                <p
+                  *ngIf="selectedSupplierToVerify?.user?.recentPicture"
+                  class="text-muted mt-4"
+                >
+                  <a
+                    href="{{ selectedSupplierToVerify?.user?.recentPicture }}"
+                    target="_blank"
+                    >view submitted 2x2 picture</a
+                  >
+                </p>
+                <p
+                  *ngIf="!selectedSupplierToVerify?.user?.recentPicture"
+                  class="text-muted mt-4"
+                >
+                  No picture yet
                 </p>
               </div>
             </div>

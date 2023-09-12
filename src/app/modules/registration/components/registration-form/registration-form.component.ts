@@ -444,7 +444,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       validIdType: this.validIdForm.controls['validIdType'].getRawValue(),
       validIdNumber: this.validIdForm.controls['validIdNumber'].getRawValue(),
       validIdPicture: '',
-      image: '',
+      recentPicture: '',
     };
     Swal.fire({
       title: 'Are you sure you want to register?',
@@ -466,7 +466,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
                     signupData.validIdPicture = `${value.fileUri.concat(
                       value.fileName
                     )}`;
-                    signupData.image = `${value2.fileUri.concat(
+                    signupData.recentPicture = `${value2.fileUri.concat(
                       value2.fileName
                     )}`;
                     this.registerService.registerUser(signupData).subscribe({

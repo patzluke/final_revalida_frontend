@@ -280,6 +280,22 @@
                   >
                     No Submitted ID yet
                   </p>
+                  <p
+                    *ngIf="selectedFarmerToVerify?.user?.recentPicture"
+                    class="text-muted mt-4"
+                  >
+                    <a
+                      href="{{ selectedFarmerToVerify?.user?.recentPicture }}"
+                      target="_blank"
+                      >view submitted 2x2 picture</a
+                    >
+                  </p>
+                  <p
+                    *ngIf="!selectedFarmerToVerify?.user?.recentPicture"
+                    class="text-muted mt-4"
+                  >
+                    No picture yet
+                  </p>
                 </div>
               </div>
             </div>
@@ -389,7 +405,10 @@
 
       <div class="action-container">
         <button
-          [disabled]="selectedFarmerToVerify?.user?.validIdPicture == undefined"
+          [disabled]="
+            selectedFarmerToVerify?.user?.validIdPicture == '' ||
+            selectedFarmerToVerify?.user?.validIdPicture == undefined
+          "
           pButton
           class="p-button-outlined p-button-secondary cancel-btn"
           (click)="refuseSubmittedId()"
@@ -446,6 +465,22 @@
                     class="text-muted mt-4"
                   >
                     No Submitted ID yet
+                  </p>
+                  <p
+                    *ngIf="selectedFarmerToVerify?.user?.recentPicture"
+                    class="text-muted mt-4"
+                  >
+                    <a
+                      href="{{ selectedFarmerToVerify?.user?.recentPicture }}"
+                      target="_blank"
+                      >view submitted 2x2 picture</a
+                    >
+                  </p>
+                  <p
+                    *ngIf="!selectedFarmerToVerify?.user?.recentPicture"
+                    class="text-muted mt-4"
+                  >
+                    No picture yet
                   </p>
                 </div>
               </div>

@@ -60,12 +60,6 @@ export class ProfileComponent implements OnInit {
   ];
 
   user: Supplier = { user: undefined };
-  selectedImage!: File;
-  imagePreviewUrl!: string | ArrayBuffer;
-
-  //image upload
-  fileDetails!: FileDetails;
-  fileUris: Array<string> = [];
 
   //ElementRefs
   constructor(
@@ -175,7 +169,7 @@ export class ProfileComponent implements OnInit {
       ...this.user.user,
       birthDate: new Date(this.user.user?.birthDate as string),
     });
-    this.imagePreviewUrl = this.user.user?.image as string;
+    this.imagePreviewUrlPicture = this.user.user?.image as string;
     this.editProfileDetail = true;
     this.personalInfoForm.disable();
     this.personalInfoForm.get('email')?.enable();
@@ -211,14 +205,65 @@ export class ProfileComponent implements OnInit {
     return null;
   }
 
-  onImageSelected = (event: any) => {
+  //-------------------------------------------------
+  changePictureImage: boolean = false;
+  isPictureMaxSize: boolean = false;
+
+  selectedPictureImage!: File;
+  imagePreviewUrlPicture!: string | ArrayBuffer;
+
+  //image upload
+
+  onPictureSelected = (event: any) => {
     const selectedFile = event.target.files[0];
-    this.selectedImage = selectedFile;
+    this.selectedPictureImage = selectedFile;
 
     const reader = new FileReader();
     reader.onload = (e: any) => {
-      this.imagePreviewUrl = e.target.result;
-      this.changeImage = true;
+      this.imagePreviewUrlPicture = e.target.result;
+      this.changePictureImage = true;
+    };
+    reader.readAsDataURL(selectedFile);
+  };
+
+  //-------------------------------------------------
+  changeValidIdPictureImage: boolean = false;
+  isValidIdPictureMaxSize: boolean = false;
+
+  selectedValidIdPictureImage!: File;
+  imagePreviewUrlValidIdPicture!: string | ArrayBuffer;
+
+  //image upload
+
+  onValidIdPictureSelected = (event: any) => {
+    const selectedFile = event.target.files[0];
+    this.selectedValidIdPictureImage = selectedFile;
+
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.imagePreviewUrlValidIdPicture = e.target.result;
+      this.changeValidIdPictureImage = true;
+    };
+    reader.readAsDataURL(selectedFile);
+  };
+
+  //-------------------------------------------------
+  changeRecentPictureImage: boolean = false;
+  isRecentPictureMaxSize: boolean = false;
+
+  selectedRecentPictureImage!: File;
+  imagePreviewUrlRecentPicture!: string | ArrayBuffer;
+
+  //image upload
+
+  onRecentPictureSelected = (event: any) => {
+    const selectedFile = event.target.files[0];
+    this.selectedRecentPictureImage = selectedFile;
+
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.imagePreviewUrlRecentPicture = e.target.result;
+      this.changeRecentPictureImage = true;
     };
     reader.readAsDataURL(selectedFile);
   };
@@ -237,10 +282,63 @@ export class ProfileComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           // update
-          if (this.selectedImage) {
-            this.supplierService.upload(this.selectedImage).subscribe({
+          if (this.selectedPictureImage) {
+            this.supplierService.upload(this.selectedPictureImage).subscribe({
               next: (data) => {
-                this.imagePreviewUrl = `${data.fileUri.concat(data.fileName)}`;
+                this.imagePreviewUrlPicture = `${data.fileUri.concat(
+                  data.fileName
+                )}`;
+                const profileData = {
+                  userId:
+                    this.personalInfoForm.controls['userId'].getRawValue(),
+                  farmerId:
+                    this.personalInfoForm.controls['farmerId'].getRawValue(),
+                  image: `${data.fileUri.concat(data.fileName)}`,
+                  firstName:
+                    this.personalInfoForm.controls['firstName'].getRawValue(),
+                  middleName:
+                    this.personalInfoForm.controls['middleName'].getRawValue(),
+                  lastName:
+                    this.personalInfoForm.controls['lastName'].getRawValue(),
+                  birthDate:
+                    this.personalInfoForm.controls['birthDate'].getRawValue(),
+                  gender:
+                    this.personalInfoForm.controls['gender'].getRawValue(),
+                  nationality:
+                    this.personalInfoForm.controls['nationality'].getRawValue(),
+                  civilStatus:
+                    this.personalInfoForm.controls['civilStatus'].getRawValue(),
+
+                  address:
+                    this.personalInfoForm.controls['address'].getRawValue(),
+                  email: this.personalInfoForm.controls['email'].getRawValue(),
+                  contactNo:
+                    this.personalInfoForm.controls['contactNo'].getRawValue(),
+                  socials:
+                    this.personalInfoForm.controls['socials'].getRawValue(),
+                };
+
+                this.supplierService.updateAdminInfo(profileData).subscribe({
+                  next: (data) => {
+                    this.user = { ...data };
+                    this.personalInfoForm.patchValue({
+                      supplierId: data.supplierId,
+                      ...data.user,
+                    });
+                    Swal.fire(
+                      'Success',
+                      'Profile Successfully updated!',
+                      'success'
+                    );
+                  },
+                  error: (err) => {
+                    Swal.fire(
+                      'Failed to Update Profile!',
+                      `Something went wrong.`,
+                      'error'
+                    );
+                  },
+                });
               },
               error: (err) => {
                 Swal.fire(
@@ -251,48 +349,6 @@ export class ProfileComponent implements OnInit {
               },
             });
           }
-
-          const profileData = {
-            userId: this.personalInfoForm.controls['userId'].getRawValue(),
-            farmerId: this.personalInfoForm.controls['farmerId'].getRawValue(),
-            image: this.imagePreviewUrl,
-            firstName:
-              this.personalInfoForm.controls['firstName'].getRawValue(),
-            middleName:
-              this.personalInfoForm.controls['middleName'].getRawValue(),
-            lastName: this.personalInfoForm.controls['lastName'].getRawValue(),
-            birthDate:
-              this.personalInfoForm.controls['birthDate'].getRawValue(),
-            gender: this.personalInfoForm.controls['gender'].getRawValue(),
-            nationality:
-              this.personalInfoForm.controls['nationality'].getRawValue(),
-            civilStatus:
-              this.personalInfoForm.controls['civilStatus'].getRawValue(),
-
-            address: this.personalInfoForm.controls['address'].getRawValue(),
-            email: this.personalInfoForm.controls['email'].getRawValue(),
-            contactNo:
-              this.personalInfoForm.controls['contactNo'].getRawValue(),
-            socials: this.personalInfoForm.controls['socials'].getRawValue(),
-          };
-
-          this.supplierService.updateAdminInfo(profileData).subscribe({
-            next: (data) => {
-              this.user = { ...data };
-              this.personalInfoForm.patchValue({
-                supplierId: data.supplierId,
-                ...data.user,
-              });
-              Swal.fire('Success', 'Profile Successfully updated!', 'success');
-            },
-            error: (err) => {
-              Swal.fire(
-                'Failed to Update Profile!',
-                `Something went wrong.`,
-                'error'
-              );
-            },
-          });
         } else if (result.isDenied) {
           this.editProfileDetail = true;
         }
@@ -382,65 +438,55 @@ export class ProfileComponent implements OnInit {
         confirmButtonText: 'Save changes',
       }).then((result) => {
         if (result.isConfirmed) {
-          if (this.selectedImage) {
+          if (this.selectedValidIdPictureImage) {
             this.supplierService
-              .upload(this.selectedImage)
-              .forEach((data) => {
-                this.imagePreviewUrl = `${data.fileUri.concat(data.fileName)}`;
-              })
-              .then(() => {
-                const validIdData = {
-                  userId: localStorage.getItem('userId'),
-                  validIdType:
-                    this.validIdForm.controls['validIdType'].getRawValue(),
-                  validIdNumber:
-                    this.validIdForm.controls['validIdNumber'].getRawValue(),
-                  validIdPicture: this.imagePreviewUrl,
-                };
+              .upload(this.selectedValidIdPictureImage)
+              .forEach((data1) => {
+                this.supplierService
+                  .upload(this.selectedRecentPictureImage)
+                  .forEach((data) => {
+                    this.imagePreviewUrlValidIdPicture = `${data1.fileUri.concat(
+                      data1.fileName
+                    )}`;
+                    this.imagePreviewUrlRecentPicture = `${data.fileUri.concat(
+                      data.fileName
+                    )}`;
 
-                this.supplierService.updateAdminInfo(validIdData).subscribe({
-                  next: (data) => {
-                    this.user = { ...data };
-                    this.validIdForm.reset();
-                    Swal.fire(
-                      'Success',
-                      'Valid Id Successfully updated!',
-                      'success'
-                    );
-                  },
-                  error: (err) => {
-                    Swal.fire(
-                      'Failed to Update Valid Id!',
-                      `Something went wrong.`,
-                      'error'
-                    );
-                  },
-                });
+                    const validIdData = {
+                      userId: localStorage.getItem('userId'),
+                      validIdType:
+                        this.validIdForm.controls['validIdType'].getRawValue(),
+                      validIdNumber:
+                        this.validIdForm.controls[
+                          'validIdNumber'
+                        ].getRawValue(),
+                      validIdPicture: this.imagePreviewUrlValidIdPicture,
+                      recentPicture: this.imagePreviewUrlRecentPicture,
+                    };
+
+                    this.supplierService
+                      .updateAdminInfo(validIdData)
+                      .subscribe({
+                        next: (data) => {
+                          this.user = { ...data };
+                          this.validIdForm.reset();
+                          Swal.fire(
+                            'Success',
+                            'Valid Id Successfully updated!',
+                            'success'
+                          );
+                        },
+                        error: (err) => {
+                          Swal.fire(
+                            'Failed to Update Valid Id!',
+                            `Something went wrong.`,
+                            'error'
+                          );
+                        },
+                      });
+                  });
               });
           }
-
-          const validIdData = {
-            userId: localStorage.getItem('userId'),
-            validIdType: this.validIdForm.controls['validIdType'].getRawValue(),
-            validIdNumber:
-              this.validIdForm.controls['validIdNumber'].getRawValue(),
-            validIdPicture: this.imagePreviewUrl,
-          };
-
-          this.supplierService.updateAdminInfo(validIdData).subscribe({
-            next: (data) => {
-              this.user = { ...data };
-              this.validIdForm.reset();
-              Swal.fire('Success', 'Valid Id Successfully updated!', 'success');
-            },
-            error: (err) => {
-              Swal.fire(
-                'Failed to Update Valid Id!',
-                `Something went wrong.`,
-                'error'
-              );
-            },
-          });
         } else if (result.isDenied) {
           this.editPassword = true;
         }
