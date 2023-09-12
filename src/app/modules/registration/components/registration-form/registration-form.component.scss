@@ -59,13 +59,15 @@
   cursor: pointer;
 }
 
-::ng-deep .p-card {
-  border-radius: 30px;
-}
+:host {
+  ::ng-deep .p-card {
+    border-radius: 30px;
+  }
 
-::ng-deep .p-card .p-card-body {
-  border-radius: 30px;
-  background-color: #e8f4ef;
+  ::ng-deep .p-card .p-card-body {
+    border-radius: 30px;
+    background-color: #e8f4ef;
+  }
 }
 
 .content {
