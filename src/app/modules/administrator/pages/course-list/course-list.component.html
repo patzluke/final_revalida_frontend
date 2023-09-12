@@ -149,6 +149,32 @@
           <p>This Field is Required.</p>
         </div>
       </div>
+
+      <div class="form-field">
+        <label class="form-label">Link:</label>
+        <input
+          [ngClass]="{
+            'invalid-field':
+              addCourseForm.controls['link'].invalid &&
+              (addCourseForm.controls['link'].dirty ||
+                addCourseForm.controls['link'].touched)
+          }"
+          pInputText
+          formControlName="link"
+          type="text"
+        />
+        <div
+          class="invalid-text"
+          *ngIf="
+            addCourseForm.controls['link'].invalid &&
+            (addCourseForm.controls['link'].dirty ||
+              addCourseForm.controls['link'].touched)
+          "
+        >
+          <p>This Field is Required.</p>
+        </div>
+      </div>
+
       <div class="form-field">
         <label class="form-label">Training Duration:</label>
         <input
@@ -255,6 +281,32 @@
           <p>This Field is Required.</p>
         </div>
       </div>
+
+      <div class="form-field">
+        <label class="form-label">Link:</label>
+        <input
+          [ngClass]="{
+            'invalid-field':
+              editCourseForm.controls['link'].invalid &&
+              (editCourseForm.controls['link'].dirty ||
+                editCourseForm.controls['link'].touched)
+          }"
+          pInputText
+          formControlName="link"
+          type="text"
+        />
+        <div
+          class="invalid-text"
+          *ngIf="
+            addCourseForm.controls['link'].invalid &&
+            (addCourseForm.controls['link'].dirty ||
+              addCourseForm.controls['link'].touched)
+          "
+        >
+          <p>This Field is Required.</p>
+        </div>
+      </div>
+
       <div class="form-field">
         <label class="form-label">Training Duration:</label>
         <input
@@ -318,7 +370,7 @@
         Close
       </button>
       <button pButton class="submit-btn" (click)="editCourseSubmit()">
-        Add
+        Update
       </button>
     </div>
   </div>

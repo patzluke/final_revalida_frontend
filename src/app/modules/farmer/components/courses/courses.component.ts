@@ -12,6 +12,7 @@ import {
 import { CourseEnrolled } from '../../models/courseEnrolled';
 import { Farmer } from '../../models/farmer';
 import { FarmerService } from '../../services/farmer.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -44,7 +45,11 @@ export class CoursesComponent implements OnInit {
     return new Date(date);
   };
 
-  constructor(private store: Store, private farmerService: FarmerService) {}
+  constructor(
+    private store: Store,
+    private farmerService: FarmerService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.farmerService
@@ -114,4 +119,10 @@ export class CoursesComponent implements OnInit {
       this.isNotValidated = true;
     }
   }
+
+  viewCourse = (courseId: any) => {
+    this.router.navigate([`/farmer/courses/view`], {
+      queryParams: { course: courseId },
+    });
+  };
 }
