@@ -422,7 +422,15 @@
         >
           Refuse Submitted ID
         </button>
-        <button pButton class="submit-btn" (click)="verifyAccount()">
+        <button
+          [disabled]="
+            selectedFarmerToVerify?.user?.validIdPicture == '' ||
+            selectedFarmerToVerify?.user?.validIdPicture == undefined
+          "
+          pButton
+          class="submit-btn"
+          (click)="verifyAccount()"
+        >
           Verify
         </button>
       </div>
