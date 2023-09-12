@@ -10,7 +10,7 @@ import { CourseListComponent } from './pages/course-list/course-list.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: LandingPageComponent,
   },
   {
