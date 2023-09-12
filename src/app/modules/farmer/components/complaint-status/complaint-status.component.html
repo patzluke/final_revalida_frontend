@@ -85,8 +85,12 @@
             </td>
             <td>
               <span class="ml-1 vertical-align-middle">
-                <p *ngIf="farmerComplaints.isResolved">Resolved</p>
-                <p *ngIf="!farmerComplaints.isResolved">Not yet resolved</p>
+                <p class="status-text" *ngIf="farmerComplaints.isResolved">
+                  Resolved
+                </p>
+                <p class="status-text" *ngIf="!farmerComplaints.isResolved">
+                  Not yet resolved
+                </p>
               </span>
             </td>
             <td>
