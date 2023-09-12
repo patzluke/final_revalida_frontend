@@ -40,8 +40,6 @@ export class OrderListComponent implements OnInit {
       type: CropPaymentActions.GET_CROPPAYMENT,
       supplierId: localStorage.getItem('userNo'),
     });
-
-    this.selectCropPayments$.subscribe((data) => console.log(data, 'fuck'));
   }
 
   constructor(private store: Store) {}
