@@ -143,9 +143,9 @@ export class FarmerListComponent implements OnInit {
           type: FarmerActions.UPDATE_FARMER_STATUS,
           farmer: updatedFarmerToVerify,
         });
+        Swal.fire('Success', 'Account Successfully Verified!', 'success');
         const nativeModal = this.modalElement.nativeElement;
         nativeModal.click();
-        Swal.fire('Success', 'Account Successfully Verified!', 'success');
       }
     });
   }
@@ -166,6 +166,7 @@ export class FarmerListComponent implements OnInit {
         updatedUser.validIdPicture = '';
         updatedUser.validIdNumber = '';
         updatedUser.validIdType = '';
+        updatedUser.recentPicture = '';
         let updatedFarmerToVerify: Farmer = {
           ...this.selectedFarmerToVerify,
           user: updatedUser,
@@ -174,9 +175,9 @@ export class FarmerListComponent implements OnInit {
           type: FarmerActions.UPDATE_FARMER_STATUS,
           farmer: updatedFarmerToVerify,
         });
+        Swal.fire('Success', 'Message sent to Farmer', 'success');
         const nativeModal = this.modalElement.nativeElement;
         nativeModal.click();
-        Swal.fire('Success', 'Message sent to Farmer', 'success');
       }
     });
   }
@@ -189,5 +190,6 @@ export class FarmerListComponent implements OnInit {
       type: FarmerActions.UPDATE_FARMER_ACTIVE_STATUS,
       user: farmer,
     });
+    Swal.fire('Success', 'Successfully Activate/Deactivate account', 'success');
   }
 }

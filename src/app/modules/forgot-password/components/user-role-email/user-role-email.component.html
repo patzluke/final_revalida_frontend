@@ -1,68 +1,179 @@
-<div class="mainBg" data-aos="zoom-out" data-aos-duration="333">
-  <div class="main" data-aos="fade-right" data-aos-duration="333">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <div class="mb-2 mt-2">
-            <p class="h1">FORGOT PASSWORD</p>
-          </div>
+<app-header></app-header>
+<div class="body-bg">
+  <div class="container pt-5">
+    <div class="row">
+      <div class="col">
+        <div class="mb-2 mt-2">
+          <p class="h1">FORGOT PASSWORD</p>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <form>
-            <div class="form-floating mb-3">
-              <select class="form-select" id="userType">
-                <option selected>None</option>
-                <option value="Farmer">Farmer</option>
-                <option value="Supplier">Supplier/Wholesaler</option>
-              </select>
-              <label for="userType"
-                ><fa-icon [icon]="faUser"></fa-icon>&nbsp;What type of user are
-                you...</label
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="container padding-bottom-3x mb-1">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div
+                class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x"
               >
-            </div>
-            <div class="form-floating mb-3">
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                placeholder="email"
-              />
-              <label for="email"
-                ><fa-icon [icon]="faEnvelope"></fa-icon>&nbsp;Email
-                address</label
-              >
-            </div>
-            <div class="mb-3">
-              <div class="d-flex flex-row-reverse">
-                <button
-                  class="btn btn-danger"
-                  [routerLink]="['/login']"
-                  type="button"
+                <div [class]="'step completed'">
+                  <div class="step-icon-wrap">
+                    <div class="step-icon">
+                      <i class="pi pi-envelope" style="font-size: 2rem"></i>
+                    </div>
+                  </div>
+                  <h4 class="step-title">Input Email</h4>
+                </div>
+                <div [class]="isOtpInput ? 'step completed' : 'step'">
+                  <div class="step-icon-wrap">
+                    <div class="step-icon">
+                      <i class="pi pi-cog" style="font-size: 2rem"></i>
+                    </div>
+                  </div>
+                  <h4 class="step-title">OTP Confirmation</h4>
+                </div>
+                <div
+                  [class]="IsResetPasswordSuccess ? 'step completed' : 'step'"
                 >
-                  <fa-icon
-                    [icon]="faCancel"
-                    [flip]="'vertical'"
-                    [animation]="'shake'"
-                  ></fa-icon
-                  >&nbsp;Cancel
-                </button>
-                <button
-                  class="btn btn-primary me-2"
-                  type="button"
-                  [routerLink]="['/forgot-password/resend-otp']"
-                >
-                  <fa-icon
-                    [icon]="faRightToBracket"
-                    [flip]="'vertical'"
-                    [animation]="'bounce'"
-                  ></fa-icon
-                  >&nbsp;Submit
-                </button>
+                  <div class="step-icon-wrap">
+                    <div class="step-icon">
+                      <i class="pi pi-check-circle" style="font-size: 2rem"></i>
+                    </div>
+                  </div>
+                  <h4 class="step-title">Success</h4>
+                </div>
               </div>
             </div>
-          </form>
+          </div>
+          <div class="card text-center">
+            <div class="card-body">
+              <div *ngIf="!isOtpInput" class="form-floating mb-3 w-50 mx-auto">
+                <div class="input-group mb-1">
+                  <span
+                    class="input-group-text"
+                    [ngClass]="{
+                      'invalid-field':
+                        emailInput.invalid &&
+                        (emailInput.dirty || emailInput.touched)
+                    }"
+                    id="basic-addon1"
+                    ><i class="pi pi-envelope"></i>
+                  </span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [ngClass]="{
+                      'invalid-field':
+                        emailInput.invalid &&
+                        (emailInput.dirty || emailInput.touched)
+                    }"
+                    placeholder="Email"
+                    [formControl]="emailInput"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    emailInput.invalid &&
+                    (emailInput.dirty || emailInput.touched)
+                  "
+                  class="text-danger text-start"
+                >
+                  Email required.
+                </div>
+                <div
+                  class="invalid-text text-start text-danger"
+                  *ngIf="emailInput?.hasError('email')"
+                >
+                  <p>Invalid email.</p>
+                </div>
+              </div>
+
+              <div
+                *ngIf="isOtpInput && !IsResetPasswordSuccess"
+                class="form-floating mb-3 w-50 mx-auto"
+              >
+                <div class="input-group mb-1">
+                  <span
+                    class="input-group-text"
+                    [ngClass]="{
+                      'invalid-field':
+                        otpInput.invalid && (otpInput.dirty || otpInput.touched)
+                    }"
+                    id="basic-addon1"
+                    ><i class="pi pi-envelope"></i>
+                  </span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [ngClass]="{
+                      'invalid-field':
+                        otpInput.invalid && (otpInput.dirty || otpInput.touched)
+                    }"
+                    placeholder="OTP"
+                    [formControl]="otpInput"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    otpInput.invalid && (otpInput.dirty || otpInput.touched)
+                  "
+                  class="text-danger text-start"
+                >
+                  OTP required.
+                </div>
+              </div>
+
+              <div *ngIf="IsResetPasswordSuccess" class="mx-auto text center">
+                <div class="alert alert-success" role="alert">
+                  Password has been successfully reset. Please check your email.
+                  <a [routerLink]="['/login']" class="alert-link">Go back to log in</a>.
+                </div>
+              </div>
+
+              <div *ngIf="!IsResetPasswordSuccess">
+                <p-toast></p-toast>
+                <button
+                  pButton
+                  type="button"
+                  class="offer-btn w-25"
+                  (click)="isOtpInput ? verifyOtp() : submitEmailInput()"
+                >
+                  <span *ngIf="isOtpEmailSent == 'default'">Submit</span>
+                  <span *ngIf="isOtpEmailSent == 'submitting'"
+                    ><i
+                      class="pi pi-spin pi-spinner"
+                      style="font-size: 2rem"
+                    ></i>
+                  </span>
+                </button>
+                <div class="mt-1">
+                  <button
+                    *ngIf="isOtpInput && !isOtpResent"
+                    [hidden]="resend"
+                    pButton
+                    type="button"
+                    class="offer-btn w-25"
+                    (click)="resendOtp()"
+                  >
+                    <span
+                      *ngIf="
+                        isOtpEmailResent == 'default' ||
+                        isOtpEmailResent == 'submitted'
+                      "
+                      >Resend Otp</span
+                    >
+                    <span *ngIf="isOtpEmailResent == 'submitting'"
+                      ><i
+                        class="pi pi-spin pi-spinner"
+                        style="font-size: 2rem"
+                      ></i>
+                    </span>
+                  </button>
+                  <p [hidden]="!resend">You can resend in {{ timeLeft }}s</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

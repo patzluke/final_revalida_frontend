@@ -190,7 +190,10 @@
         </div>
       </div>
 
-      <div *ngIf="isSearchResultEmpty" class="no-info">
+      <div
+        *ngIf="isSearchResultEmpty || filteredAdvertisements.length === 0"
+        class="no-info"
+      >
         <img class="no-info-image" src="assets/images/no-result.png" />
         <div class="no-info-text">
           <h1>No results found</h1>
@@ -271,6 +274,11 @@
             class="text-danger"
           >
             This Field is required.
+            <p
+              *ngIf="addAdvertisementResponseForm.get('price')?.hasError('min')"
+            >
+              Must not be a negative number.
+            </p>
           </div>
           <div class="form-field">
             <label class="form-label">Quantity:</label>
@@ -297,6 +305,13 @@
             class="text-danger"
           >
             This Field is required.
+            <p
+              *ngIf="
+                addAdvertisementResponseForm.get('quantity')?.hasError('min')
+              "
+            >
+              Must not be a negative number.
+            </p>
           </div>
           <div class="form-field">
             <label class="form-label">Measurement:</label>
@@ -402,7 +417,7 @@
             style="margin-top: 1rem"
             pButton
             class="offer-btn"
-            [routerLink]="['/supplier/profile']"
+            [routerLink]="['/farmer/profile']"
           >
             Profile
           </button>
@@ -421,6 +436,7 @@
   [draggable]="false"
   [resizable]="false"
   [maximizable]="true"
+  [closable]="false"
 >
   <div class="container">
     <div>
@@ -517,6 +533,9 @@
               "
             >
               This Field is required.
+              <p *ngIf="finalOfferForm.get('price')?.hasError('min')">
+                Must not be a negative number.
+              </p>
             </div>
           </div>
           <div
@@ -551,6 +570,9 @@
               "
             >
               This Field is required.
+              <p *ngIf="finalOfferForm.get('quantity')?.hasError('min')">
+                Must not be a negative number.
+              </p>
             </div>
           </div>
           <div
@@ -613,6 +635,11 @@
             'form-field': editFinalOffer,
             'summary-field': !editFinalOffer
           }"
+          *ngIf="
+            checkIfPaymentModeIsBank(
+              finalOfferForm.controls['paymentMode'].value
+            ) || finalOfferForm.controls['paymentMode'].value === 'Gcash'
+          "
         >
           <label class="form-label">Bank No./Gcash No.:</label>
           <div style="display: flex; flex-direction: column">
@@ -648,6 +675,58 @@
                 finalOfferForm.controls['mobilenumBanknumber'].invalid &&
                 (finalOfferForm.controls['mobilenumBanknumber'].dirty ||
                   finalOfferForm.controls['mobilenumBanknumber'].touched)
+              "
+            >
+              This Field is required.
+            </div>
+          </div>
+        </div>
+
+        <div
+          *ngIf="
+            checkIfPaymentModeIsBank(
+              finalOfferForm.controls['paymentMode'].value
+            )
+          "
+          [ngClass]="{
+            'form-field': editFinalOffer,
+            'summary-field': !editFinalOffer
+          }"
+        >
+          <label class="form-label">Account Name:</label>
+          <div style="display: flex; flex-direction: column">
+            <input
+              *ngIf="editFinalOffer"
+              [ngClass]="{
+                'invalid-field':
+                  finalOfferForm.controls['accountName'].invalid &&
+                  (finalOfferForm.controls['accountName'].dirty ||
+                    finalOfferForm.controls['accountName'].touched)
+              }"
+              pInputText
+              type="text"
+              formControlName="accountName"
+            />
+            <h3 class="offer-text" *ngIf="!editFinalOffer" class="w-100">
+              <!-- {{ finalOfferForm.getRawValue().mobilenumBanknumber }} -->
+              <input
+                [ngClass]="{
+                  'invalid-field':
+                    finalOfferForm.controls['accountName'].invalid &&
+                    (finalOfferForm.controls['accountName'].dirty ||
+                      finalOfferForm.controls['accountName'].touched)
+                }"
+                pInputText
+                type="text"
+                formControlName="accountName"
+              />
+            </h3>
+            <div
+              class="text-danger"
+              *ngIf="
+                finalOfferForm.controls['accountName'].invalid &&
+                (finalOfferForm.controls['accountName'].dirty ||
+                  finalOfferForm.controls['accountName'].touched)
               "
             >
               This Field is required.

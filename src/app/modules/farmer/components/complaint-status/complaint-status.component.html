@@ -85,8 +85,12 @@
             </td>
             <td>
               <span class="ml-1 vertical-align-middle">
-                <p *ngIf="farmerComplaints.isResolved">Resolved</p>
-                <p *ngIf="!farmerComplaints.isResolved">Not yet resolved</p>
+                <p class="status-text" *ngIf="farmerComplaints.isResolved">
+                  Resolved
+                </p>
+                <p class="status-text" *ngIf="!farmerComplaints.isResolved">
+                  Not yet resolved
+                </p>
               </span>
             </td>
             <td>
@@ -150,6 +154,7 @@
   [draggable]="false"
   [resizable]="false"
   [maximizable]="true"
+  [closable]="false"
 >
   <div class="container">
     <form [formGroup]="complaintForm">
@@ -168,6 +173,16 @@
           optionLabel="type"
           optionValue="type"
         ></p-dropdown>
+        <div
+          *ngIf="
+            complaintForm.controls['complaintType'].invalid &&
+            (complaintForm.controls['complaintType'].dirty ||
+              complaintForm.controls['complaintType'].touched)
+          "
+          class="invalid-text"
+        >
+          Complaint type is Required.
+        </div>
       </div>
 
       <div class="form-field">
@@ -182,6 +197,16 @@
           pInputText
           formControlName="complaintTitle"
         />
+        <div
+          *ngIf="
+            complaintForm.controls['complaintTitle'].invalid &&
+            (complaintForm.controls['complaintTitle'].dirty ||
+              complaintForm.controls['complaintTitle'].touched)
+          "
+          class="invalid-text"
+        >
+          Complaint title is Required.
+        </div>
       </div>
 
       <div class="form-field">
@@ -200,6 +225,16 @@
           id="complaintMessage"
           formControlName="complaintMessage"
         ></textarea>
+        <div
+          *ngIf="
+            complaintForm.controls['complaintMessage'].invalid &&
+            (complaintForm.controls['complaintMessage'].dirty ||
+              complaintForm.controls['complaintMessage'].touched)
+          "
+          class="invalid-text"
+        >
+          Complaint message is Required.
+        </div>
       </div>
 
       <div class="form-control mb-3" style="margin-top: 2rem">
@@ -239,6 +274,7 @@
   [draggable]="false"
   [resizable]="false"
   [maximizable]="true"
+  [closable]="false"
 >
   <div class="container">
     <p-tabView class="complaint-tab">

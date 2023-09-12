@@ -29,6 +29,15 @@
         <ng-container *ngSwitchCase="'Administrator'">
           <a
             mat-list-item
+            routerLink="/administrator/home"
+            routerLinkActive="router-link-active"
+            class="mt-1"
+          >
+            <i class="pi pi-home nav-icon"></i>
+            <span class="white-text">Dashboard</span>
+          </a>
+          <a
+            mat-list-item
             routerLink="/administrator/farmingtips"
             routerLinkActive="router-link-active"
             class="mt-1"
@@ -81,8 +90,8 @@
             <span class="white-text">Profile</span>
           </a>
           <a
+            style="margin-top: 5rem"
             mat-list-item
-            class="logout"
             routerLink="/login"
             (click)="logout()"
           >
@@ -212,8 +221,8 @@
             routerLink="/supplier/orders"
             routerLinkActive="router-link-active"
           >
-          <i class="pi pi-server nav-icon"></i>
-          <span class="white-text">Orders</span>
+            <i class="pi pi-server nav-icon"></i>
+            <span class="white-text">Orders</span>
           </a>
           <a
             mat-list-item
@@ -257,6 +266,14 @@
           >
             <i class="pi pi-user nav-icon"></i>
             <span class="white-text">Profile</span>
+          </a>
+          <a
+            mat-list-item
+            routerLink="/supplier/view-report"
+            routerLinkActive="router-link-active"
+          >
+            <i class="pi pi-chart-bar nav-icon"></i>
+            <span class="white-text">Report</span>
           </a>
           <a
             mat-list-item
@@ -328,6 +345,15 @@
     <ng-container *ngSwitchCase="'Administrator'">
       <a
         mat-list-item
+        routerLink="/administrator/home"
+        routerLinkActive="router-link-active"
+        class="mt-1"
+      >
+        <i class="pi pi-home nav-icon"></i>
+        <span class="white-text">Dashboard</span>
+      </a>
+      <a
+        mat-list-item
         routerLink="/administrator/farmingtips"
         routerLinkActive="router-link-active"
         class="mt-1"
@@ -379,7 +405,12 @@
         <i class="pi pi-user nav-icon"></i>
         <span class="white-text">Profile</span>
       </a>
-      <a mat-list-item class="logout" routerLink="/login" (click)="logout()">
+      <a
+        style="margin-top: 5rem"
+        mat-list-item
+        routerLink="/login"
+        (click)="logout()"
+      >
         <i class="pi pi-sign-out nav-icon"></i>
         <span class="white-text">Logout</span>
       </a>
@@ -484,8 +515,8 @@
         routerLink="/supplier/orders"
         routerLinkActive="router-link-active"
       >
-      <i class="pi pi-server nav-icon"></i>
-      <span class="white-text">Orders</span>
+        <i class="pi pi-server nav-icon"></i>
+        <span class="white-text">Orders</span>
       </a>
       <a
         mat-list-item
@@ -518,6 +549,14 @@
       >
         <i class="pi pi-user nav-icon"></i>
         <span class="white-text">Profile</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/supplier/view-report"
+        routerLinkActive="router-link-active"
+      >
+        <i class="pi pi-chart-bar nav-icon"></i>
+        <span class="white-text">Report</span>
       </a>
       <a mat-list-item class="logout" routerLink="/login" (click)="logout()">
         <i class="pi pi-sign-out nav-icon"></i>

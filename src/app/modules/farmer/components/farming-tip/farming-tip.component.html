@@ -112,7 +112,7 @@
         <li class="page-item">
           <button
             class="page-link"
-            [disabled]="endIndex() >= farmingTips.length"
+            [disabled]="endIndex() >= filteredFarmingTips.length"
             (click)="changePage(currentPage + 1)"
           >
             Next

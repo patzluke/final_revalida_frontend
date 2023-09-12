@@ -53,7 +53,7 @@ export class PostAdvertisementResponseListComponent implements OnInit {
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private _router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((data) => {
@@ -140,6 +140,10 @@ export class PostAdvertisementResponseListComponent implements OnInit {
 
   // Farmers socials accounts
   checkFbSocial(cropPayment: any) {
+    if (cropPayment?.farmer?.user?.socials[0] == null) {
+      return false;
+    }
+
     return cropPayment?.farmer?.user?.socials.find((social: any) =>
       social.includes('facebook') ? true : false
     )
@@ -156,6 +160,10 @@ export class PostAdvertisementResponseListComponent implements OnInit {
   }
 
   checkIGSocial(cropPayment: any) {
+    if (cropPayment?.farmer?.user?.socials[0] == null) {
+      return false;
+    }
+
     return cropPayment?.farmer?.user?.socials.find((social: any) =>
       social.includes('instagram') ? true : false
     )

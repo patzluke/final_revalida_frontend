@@ -5,21 +5,6 @@
       <div class="content">
         <div class="left-container">
           <div>
-            <!-- <div class="icon-container">
-              <h1 class="logo" routerLink="/home">
-                <div class="letter">A</div>
-                <div class="letter">g</div>
-                <div class="letter">r</div>
-                <div class="letter">i</div>
-                <div class="letter">B</div>
-                <div class="letter">r</div>
-                <div class="letter">i</div>
-                <div class="letter">d</div>
-                <div class="letter">g</div>
-                <div class="letter">e</div>
-              </h1>
-            </div> -->
-
             <div class="sub-text">
               <h1><b>Create your account</b></h1>
               <p>
@@ -50,6 +35,16 @@
                       optionValue="type"
                     ></p-dropdown>
                   </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      personalInfoForm.controls['userType'].invalid &&
+                      (personalInfoForm.controls['userType'].dirty ||
+                        personalInfoForm.controls['userType'].touched)
+                    "
+                  >
+                    <p>Account type is Required.</p>
+                  </div>
                 </div>
 
                 <div class="form-field">
@@ -66,6 +61,16 @@
                       type="text"
                       pInputText
                     />
+                  </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      personalInfoForm.controls['username'].invalid &&
+                      (personalInfoForm.controls['username'].dirty ||
+                        personalInfoForm.controls['username'].touched)
+                    "
+                  >
+                    <p>Username is Required.</p>
                   </div>
                 </div>
 
@@ -102,6 +107,16 @@
                       uppercase letter, and one digit.
                     </p>
                   </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      personalInfoForm.controls['password'].invalid &&
+                      (personalInfoForm.controls['password'].dirty ||
+                        personalInfoForm.controls['password'].touched)
+                    "
+                  >
+                    <p>Password is Required.</p>
+                  </div>
                 </div>
 
                 <div class="form-field">
@@ -124,6 +139,16 @@
                   >
                     <p>Password mismatch.</p>
                   </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      personalInfoForm.controls['confirmPassword'].invalid &&
+                      (personalInfoForm.controls['confirmPassword'].dirty ||
+                        personalInfoForm.controls['confirmPassword'].touched)
+                    "
+                  >
+                    <p>Confirm Password is Required.</p>
+                  </div>
                 </div>
 
                 <div class="form-field">
@@ -140,6 +165,16 @@
                       type="text"
                       pInputText
                     />
+                  </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      personalInfoForm.controls['firstName'].invalid &&
+                      (personalInfoForm.controls['firstName'].dirty ||
+                        personalInfoForm.controls['firstName'].touched)
+                    "
+                  >
+                    <p>First name is Required.</p>
                   </div>
                 </div>
 
@@ -169,6 +204,16 @@
                       pInputText
                     />
                   </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      personalInfoForm.controls['lastName'].invalid &&
+                      (personalInfoForm.controls['lastName'].dirty ||
+                        personalInfoForm.controls['lastName'].touched)
+                    "
+                  >
+                    <p>Last name is Required.</p>
+                  </div>
                 </div>
 
                 <div class="form-field">
@@ -194,6 +239,16 @@
                   >
                     Age must be at least 18 years old.
                   </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      personalInfoForm.controls['birthdate'].invalid &&
+                      (personalInfoForm.controls['birthdate'].dirty ||
+                        personalInfoForm.controls['birthdate'].touched)
+                    "
+                  >
+                    <p>Birthdate is Required.</p>
+                  </div>
                 </div>
 
                 <div class="form-field">
@@ -213,6 +268,16 @@
                       optionValue="gender"
                     ></p-dropdown>
                   </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      personalInfoForm.controls['gender'].invalid &&
+                      (personalInfoForm.controls['gender'].dirty ||
+                        personalInfoForm.controls['gender'].touched)
+                    "
+                  >
+                    <p>Gender is Required.</p>
+                  </div>
                 </div>
 
                 <div class="form-field">
@@ -229,6 +294,16 @@
                       type="text"
                       pInputText
                     />
+                  </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      personalInfoForm.controls['nationality'].invalid &&
+                      (personalInfoForm.controls['nationality'].dirty ||
+                        personalInfoForm.controls['nationality'].touched)
+                    "
+                  >
+                    <p>Nationality is Required.</p>
                   </div>
                 </div>
 
@@ -248,6 +323,16 @@
                       optionLabel="status"
                       optionValue="status"
                     ></p-dropdown>
+                  </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      personalInfoForm.controls['civilStatus'].invalid &&
+                      (personalInfoForm.controls['civilStatus'].dirty ||
+                        personalInfoForm.controls['civilStatus'].touched)
+                    "
+                  >
+                    <p>Civil status is Required.</p>
                   </div>
                 </div>
               </form>
@@ -296,6 +381,16 @@
                       </ng-template>
                     </p-dropdown>
                   </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      contactDetailsForm.controls['region'].invalid &&
+                      (contactDetailsForm.controls['region'].dirty ||
+                        contactDetailsForm.controls['region'].touched)
+                    "
+                  >
+                    <p>Region is Required.</p>
+                  </div>
                 </div>
 
                 <div class="form-field">
@@ -324,6 +419,16 @@
                         <p>{{ province.name }}</p>
                       </ng-template>
                     </p-dropdown>
+                  </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      contactDetailsForm.controls['province'].invalid &&
+                      (contactDetailsForm.controls['province'].dirty ||
+                        contactDetailsForm.controls['province'].touched)
+                    "
+                  >
+                    <p>Province is Required.</p>
                   </div>
                 </div>
 
@@ -354,6 +459,16 @@
                       </ng-template>
                     </p-dropdown>
                   </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      contactDetailsForm.controls['city'].invalid &&
+                      (contactDetailsForm.controls['city'].dirty ||
+                        contactDetailsForm.controls['city'].touched)
+                    "
+                  >
+                    <p>City is Required.</p>
+                  </div>
                 </div>
 
                 <div class="form-field">
@@ -382,6 +497,16 @@
                       </ng-template>
                     </p-dropdown>
                   </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      contactDetailsForm.controls['barangay'].invalid &&
+                      (contactDetailsForm.controls['barangay'].dirty ||
+                        contactDetailsForm.controls['barangay'].touched)
+                    "
+                  >
+                    <p>Barangay is Required.</p>
+                  </div>
                 </div>
 
                 <div class="form-field">
@@ -399,6 +524,16 @@
                       pInputText
                       (ngModelChange)="addressValue()"
                     />
+                  </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      contactDetailsForm.controls['houseNo'].invalid &&
+                      (contactDetailsForm.controls['houseNo'].dirty ||
+                        contactDetailsForm.controls['houseNo'].touched)
+                    "
+                  >
+                    <p>House No./Bldg.Street/Village is Required.</p>
                   </div>
                 </div>
 
@@ -436,6 +571,16 @@
                   >
                     <p>Invalid email.</p>
                   </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      contactDetailsForm.controls['email'].invalid &&
+                      (contactDetailsForm.controls['email'].dirty ||
+                        contactDetailsForm.controls['email'].touched)
+                    "
+                  >
+                    <p>Email is Required.</p>
+                  </div>
                 </div>
 
                 <div class="form-field">
@@ -453,6 +598,16 @@
                       pInputText
                       [(ngModel)]="formattedContactNo"
                     />
+                  </div>
+                  <div
+                    class="invalid-text"
+                    *ngIf="
+                      contactDetailsForm.controls['contactNo'].invalid &&
+                      (contactDetailsForm.controls['contactNo'].dirty ||
+                        contactDetailsForm.controls['contactNo'].touched)
+                    "
+                  >
+                    <p>Contact number is Required.</p>
                   </div>
                 </div>
 
@@ -565,6 +720,16 @@
                         optionValue="type"
                       ></p-dropdown>
                     </div>
+                    <div
+                      class="invalid-text"
+                      *ngIf="
+                        validIdForm.controls['validIdType'].invalid &&
+                        (validIdForm.controls['validIdType'].dirty ||
+                          validIdForm.controls['validIdType'].touched)
+                      "
+                    >
+                      <p>Type of valid is Required.</p>
+                    </div>
                   </div>
 
                   <div class="form-field">
@@ -582,28 +747,41 @@
                         pInputText
                       />
                     </div>
+                    <div
+                      class="invalid-text"
+                      *ngIf="
+                        validIdForm.controls['validIdNumber'].invalid &&
+                        (validIdForm.controls['validIdNumber'].dirty ||
+                          validIdForm.controls['validIdNumber'].touched)
+                      "
+                    >
+                      <p>Id number is Required.</p>
+                    </div>
                   </div>
 
                   <div style="margin-top: 1rem">
-                    <label>Valid Id image *</label>
+                    <label>Please upload your recent 2x2 picture *</label>
                     <div class="upload-image-container">
                       <div>
                         <button
                           pButton
                           class="upload-btn"
-                          (click)="selectFile.click()"
+                          (click)="selectedRecentPictureImage.click()"
                         >
                           <mat-icon class="mat-icon">cloud_upload</mat-icon>
                           Upload image
                         </button>
                       </div>
                       <img
-                        *ngIf="changeImage && imagePreviewUrl"
+                        *ngIf="
+                          changeRecentPictureImage &&
+                          imagePreviewUrlRecentPicture
+                        "
                         class="upload-image"
-                        [src]="imagePreviewUrl"
+                        [src]="imagePreviewUrlRecentPicture"
                       />
                       <img
-                        *ngIf="!changeImage"
+                        *ngIf="!changeRecentPictureImage"
                         class="upload-image"
                         src="/assets/images/upload.png"
                       />
@@ -615,11 +793,58 @@
                       id="img"
                       value="select"
                       accept="image/*"
-                      #selectFile
-                      (change)="onImageSelected($event)"
+                      #selectedRecentPictureImage
+                      (change)="onRecentPictureSelected($event)"
                     />
 
-                    <div *ngIf="isMaxSize">
+                    <div *ngIf="isRecentPictureMaxSize">
+                      <p [ngStyle]="{ color: 'red' }">
+                        Image size is too large
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- ---------------- -->
+
+                  <div style="margin-top: 1rem">
+                    <label>Valid Id image *</label>
+                    <div class="upload-image-container">
+                      <div>
+                        <button
+                          pButton
+                          class="upload-btn"
+                          (click)="selectedValidIdImage.click()"
+                        >
+                          <mat-icon class="mat-icon">cloud_upload</mat-icon>
+                          Upload image
+                        </button>
+                      </div>
+                      <img
+                        *ngIf="
+                          changeValidIdPictureImage &&
+                          imagePreviewUrlValidIdPicture
+                        "
+                        class="upload-image"
+                        [src]="imagePreviewUrlValidIdPicture"
+                      />
+                      <img
+                        *ngIf="!changeValidIdPictureImage"
+                        class="upload-image"
+                        src="/assets/images/upload.png"
+                      />
+                    </div>
+
+                    <input
+                      hidden
+                      type="file"
+                      id="img"
+                      value="select"
+                      accept="image/*"
+                      #selectedValidIdImage
+                      (change)="onValidIdPictureSelected($event)"
+                    />
+
+                    <div *ngIf="isValidIdPictureMaxSize">
                       <p [ngStyle]="{ color: 'red' }">
                         Image size is too large
                       </p>
@@ -748,9 +973,19 @@
                 </div>
 
                 <img
-                  *ngIf="changeImage && imagePreviewUrl"
+                  *ngIf="
+                    changeRecentPictureImage && imagePreviewUrlRecentPicture
+                  "
                   class="upload-image"
-                  [src]="imagePreviewUrl"
+                  [src]="imagePreviewUrlRecentPicture"
+                />
+
+                <img
+                  *ngIf="
+                    changeValidIdPictureImage && imagePreviewUrlValidIdPicture
+                  "
+                  class="upload-image"
+                  [src]="imagePreviewUrlValidIdPicture"
                 />
               </div>
 

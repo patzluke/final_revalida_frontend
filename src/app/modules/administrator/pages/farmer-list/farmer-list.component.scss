@@ -41,6 +41,13 @@
   }
 }
 
+:host {
+  ::ng-deep .p-datatable {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1),
+      0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+}
+
 .th-text {
   display: flex;
   align-items: center;

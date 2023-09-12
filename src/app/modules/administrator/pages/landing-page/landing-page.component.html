@@ -1,1 +1,114 @@
-<app-side-nav></app-side-nav>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+/>
+
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+/>
+
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+/>
+
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+/>
+
+<app-side-nav>
+  <section>
+    <div class="container">
+      <div class="dashboard-container">
+        <div class="left-container">
+          <div class="row-farmers">
+            <div class="card">
+              <p class="label">No of. Farmers</p>
+              <div class="no-of-farmers">
+                <div class="ts-text">
+                  <h1>{{ validatedFarmersCount }}</h1>
+                </div>
+                <span class="material-symbols-outlined"> group </span>
+              </div>
+            </div>
+
+            <div class="card">
+              <p class="label">Pending Farmers</p>
+              <div class="no-of-farmers">
+                <div class="ts-text">
+                  <h1>{{ notValidatedFarmersCount }}</h1>
+                </div>
+                <span class="material-symbols-outlined"> group_add </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row-supplier">
+            <div class="card">
+              <p class="label">No of. Suppliers</p>
+              <div class="no-of-farmers">
+                <div class="ts-text">
+                  <h1>{{ validatedSuppleirsCount }}</h1>
+                </div>
+                <span class="material-symbols-outlined"> group </span>
+              </div>
+            </div>
+
+            <div class="card">
+              <p class="label">Pending Suppliers</p>
+              <div class="no-of-farmers">
+                <div class="ts-text">
+                  <h1>{{ notValidatedSuppleirsCount }}</h1>
+                </div>
+                <span class="material-symbols-outlined"> group_add </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row-supplier">
+            <div class="card">
+              <p class="label">Farmer Complaints</p>
+              <div class="no-of-farmers">
+                <div class="ts-text">
+                  <h1>{{ farmerComplaintsCount }}</h1>
+                </div>
+                <span class="material-symbols-outlined"> report </span>
+              </div>
+            </div>
+
+            <div class="card">
+              <p class="label">Supplier Complaints</p>
+              <div class="no-of-farmers">
+                <div class="ts-text">
+                  <h1>{{ supplierComplaintsCount }}</h1>
+                </div>
+                <span class="material-symbols-outlined"> report </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="right-container">
+          <div>
+            <p-calendar
+              class="max-w-full"
+              [(ngModel)]="date"
+              [inline]="true"
+              [showWeek]="true"
+            ></p-calendar>
+          </div>
+          <div class="card" style="display: flex; flex-direction: row">
+            <div class="logo-container">
+              <img class="logo-image" src="assets/images/agribridge-logo.png" />
+              <h1 class="logo">AgriBridge</h1>
+            </div>
+            <h1 class="tagline">
+              Bridging the gap between farmers, retailers, and, suppliers.
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</app-side-nav>

@@ -251,6 +251,7 @@
   [draggable]="false"
   [resizable]="false"
   [maximizable]="true"
+  [closable]="false"
 >
   <div class="container">
     <form [formGroup]="addPostAdvertisementForm" *ngIf="user.user?.isValidated">
@@ -333,6 +334,9 @@
           class="validation-error"
         >
           Quantity is required.
+          <p *ngIf="addPostAdvertisementForm.get('quantity')?.hasError('min')">
+            Must not be a negative number.
+          </p>
         </div>
       </div>
 
@@ -387,6 +391,9 @@
           class="validation-error"
         >
           Price is required.
+          <p *ngIf="addPostAdvertisementForm.get('price')?.hasError('min')">
+            Must not be a negative number.
+          </p>
         </div>
       </div>
 
@@ -447,7 +454,7 @@
         <button
           pButton
           class="p-button-outlined p-button-secondary cancel-btn"
-          (click)="addPostAdvertisementForm.reset(); toggleAddPost()"
+          (click)="addPostAdvertisementForm.reset(); toggleAddPost();"
         >
           Cancel
         </button>

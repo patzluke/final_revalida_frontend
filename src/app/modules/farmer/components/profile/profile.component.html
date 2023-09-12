@@ -100,7 +100,12 @@
         </div>
         <div class="right-container">
           <div class="verify-container" *ngIf="!user.user?.isValidated">
-            <button pButton class="verify-btn" (click)="toggleVerifyActBtn()">
+            <button
+              [disabled]="user.user?.validIdPicture"
+              pButton
+              class="verify-btn"
+              (click)="toggleVerifyActBtn()"
+            >
               <i class="pi pi-verified" style="margin-right: 0.5rem"></i> Verify
               Account
             </button>
@@ -223,10 +228,10 @@
         <div class="change-image-container">
           <img
             class="profile-image"
-            [src]="imagePreviewUrl || 'assets/images/user-icon.png'"
+            [src]="imagePreviewUrlPicture || 'assets/images/user-icon.png'"
           />
           <div class="camera-icon-container">
-            <button mat-icon-button (click)="selectFile.click()">
+            <button mat-icon-button (click)="selectPicture.click()">
               <mat-icon>photo_camera</mat-icon>
             </button>
           </div>
@@ -237,8 +242,8 @@
           type="file"
           id="img"
           value="select"
-          #selectFile
-          (change)="onImageSelected($event)"
+          #selectPicture
+          (change)="onPictureSelected($event)"
         />
 
         <div *ngIf="isMaxSize">
@@ -527,22 +532,6 @@
 
         <h4><i>Required Fields *</i></h4>
 
-        <!-- <div class="form-field">
-          <label>Current Password *</label>
-          <div>
-            <p-password
-              [ngClass]="{
-                'spec-field':
-                  passwordForm.controls['currentPassword'].invalid &&
-                  (passwordForm.controls['currentPassword'].dirty ||
-                    passwordForm.controls['currentPassword'].touched)
-              }"
-              formControlName="currentPassword"
-              [toggleMask]="true"
-            ></p-password>
-          </div>
-        </div> -->
-
         <div class="form-field">
           <label>New Password *</label>
           <div>
@@ -675,7 +664,7 @@
           </div>
           <img
             class="upload-image"
-            [src]="imagePreviewUrl || '/assets/images/upload.png'"
+            [src]="imagePreviewUrlValidIdPicture || '/assets/images/upload.png'"
           />
         </div>
         <input
@@ -685,7 +674,38 @@
           value="select"
           accept="image/*"
           #selectFile
-          (change)="onImageSelected($event)"
+          (change)="onValidIdPictureSelected($event)"
+        />
+
+        <div *ngIf="isMaxSize">
+          <p [ngStyle]="{ color: 'red' }">Image size is too large</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem">
+        <label class="mb-2">Please upload your recent 2x2 picture *</label>
+        <div class="upload-image-container">
+          <div>
+            <button pButton class="verify-btn" (click)="selectedRecentFile.click()">
+              <mat-icon class="mat-icon" style="margin-right: 1rem"
+                >cloud_upload</mat-icon
+              >
+              Upload image
+            </button>
+          </div>
+          <img
+            class="upload-image"
+            [src]="imagePreviewUrlRecentPicture || '/assets/images/upload.png'"
+          />
+        </div>
+        <input
+          hidden
+          type="file"
+          id="img"
+          value="select"
+          accept="image/*"
+          #selectedRecentFile
+          (change)="onRecentPictureSelected($event)"
         />
 
         <div *ngIf="isMaxSize">

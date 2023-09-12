@@ -123,6 +123,45 @@
           <div class="row">
             <div class="col">
               <div class="summary-field">
+                <label class="form-label">Contact Number:</label>
+                <h3 class="offer-text">
+                  {{
+                    cropPayment?.cropOrder?.sellCropDetail?.farmer?.user
+                      ?.contactNo
+                  }}
+                </h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="summary-field">
+                <label class="form-label">Address:</label>
+                <h3 class="offer-text">
+                  {{
+                    cropPayment?.cropOrder?.sellCropDetail?.farmer?.user
+                      ?.address
+                  }}
+                </h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="summary-field">
+                <label class="form-label">Payment Mode:</label>
+                <h3 class="offer-text">
+                  {{ cropPayment?.cropOrder?.sellCropDetail?.paymentMode }}
+                </h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="summary-field">
                 <label
                   class="form-label"
                   *ngIf="
@@ -134,15 +173,35 @@
                 <label
                   class="form-label"
                   *ngIf="
-                    cropPayment?.cropOrder?.sellCropDetail?.paymentMode ===
-                    'UnionBank'
+                    cropPayment?.cropOrder?.sellCropDetail?.paymentMode?.includes(
+                      'Bank'
+                    )
                   "
-                  >Farmer's UnionBank Number:</label
+                  >Farmer's Bank Number:</label
                 >
                 <h3 class="offer-text">
                   {{
                     cropPayment?.cropOrder?.sellCropDetail?.mobilenumBanknumber
                   }}
+                </h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="summary-field">
+                <label
+                  class="form-label"
+                  *ngIf="
+                    cropPayment?.cropOrder?.sellCropDetail?.paymentMode?.includes(
+                      'Bank'
+                    )
+                  "
+                  >Farmer's Bank Account Name:</label
+                >
+                <h3 class="offer-text">
+                  {{ cropPayment?.cropOrder?.sellCropDetail?.accountName }}
                 </h3>
               </div>
             </div>
@@ -193,7 +252,17 @@
                 disabled
               />
             </div>
-            <div class="mb-3">
+            <div
+              class="mb-3"
+              *ngIf="
+                cropPayment?.cropOrder?.sellCropDetail?.paymentMode?.includes(
+                  'Bank'
+                ) ||
+                cropPayment?.cropOrder?.sellCropDetail?.paymentMode?.includes(
+                  'Gcash'
+                )
+              "
+            >
               <label
                 *ngIf="
                   cropPayment?.cropOrder?.sellCropDetail?.paymentMode == 'Gcash'
@@ -203,11 +272,12 @@
               >
               <label
                 *ngIf="
-                  cropPayment?.cropOrder?.sellCropDetail?.paymentMode ==
-                  'UnionBank'
+                  cropPayment?.cropOrder?.sellCropDetail?.paymentMode?.includes(
+                    'Bank'
+                  )
                 "
                 class="form-label text-white"
-                >Farmer's UnionBank Number:</label
+                >Farmer's Bank Number:</label
               >
               <input
                 type="text"
@@ -243,11 +313,27 @@
                 >Payment Reference Number:</label
               >
               <input
+                [ngClass]="{
+                  'invalid-field':
+                    transcationReferenceNumber.invalid &&
+                    (transcationReferenceNumber.dirty ||
+                      transcationReferenceNumber.touched)
+                }"
                 type="text"
                 class="form-control"
                 placeholder="Transaction Number"
                 [formControl]="transcationReferenceNumber"
               />
+              <div
+                *ngIf="
+                  transcationReferenceNumber.invalid &&
+                  (transcationReferenceNumber.dirty ||
+                    transcationReferenceNumber.touched)
+                "
+                class="text-danger"
+              >
+                This Field is required.
+              </div>
             </div>
             <div class="mb-3">
               <label for="formFileSm" class="form-label text-white"
@@ -260,6 +346,7 @@
                 "
                 class="form-control"
                 type="file"
+                accept="image/*"
                 id="formFile"
                 #selectFile
                 (change)="onImageSelected($event)"

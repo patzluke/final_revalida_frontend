@@ -30,11 +30,6 @@ section {
   color: blue;
 }
 
-::ng-deep .p-datatable {
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1),
-    0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
 .th-text {
   display: flex;
   align-items: center;
@@ -59,12 +54,6 @@ section {
   height: 15rem;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1),
     0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-::ng-deep .mat-divider.divider {
-  background-color: #2d5605;
-  width: 100%;
-  margin: 1rem 0;
 }
 
 .summary-field {
@@ -174,6 +163,15 @@ h3 {
   padding: 10px;
 }
 
+.not-yet-paid {
+  color: #858585;
+  background-color: #e7e4e8;
+  border-radius: 25px;
+  text-align: center;
+  font-weight: 500;
+  padding: 10px;
+}
+
 :host {
   ::ng-deep .p-tabview .p-tabview-panels,
   ::ng-deep .p-tabview .p-tabview-nav {
@@ -221,6 +219,17 @@ h3 {
     text-align: center;
     height: 3rem;
     //width: 8rem;
+  }
+
+  ::ng-deep .p-datatable {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1),
+      0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  ::ng-deep .mat-divider.divider {
+    background-color: #2d5605;
+    width: 100%;
+    margin: 1rem 0;
   }
 }
 

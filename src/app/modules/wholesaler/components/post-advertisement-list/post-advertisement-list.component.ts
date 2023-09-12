@@ -55,8 +55,13 @@ export class PostAdvertisementListComponent implements OnInit {
 
   measurementOptions = [
     { label: 'Kilograms (Kg)', value: 'kg' },
-    { label: 'Tons (tn)', value: 'tn' },
-    { label: 'Milliliter (ml)', value: 'ml' },
+    { label: 'Tons (tn)', value: 'lb' },
+    { label: 'Pounds (tn)', value: 'tn' },
+    { label: 'Liters (L)', value: 'L' },
+    { label: 'Gallons (gal)', value: 'gal' },
+    { label: 'Sacks (sac)', value: 'sac' },
+    { label: 'Boxes (bx)', value: 'bx' },
+    { label: 'Crates', value: 'Crates' },
   ];
 
   constructor(
@@ -66,12 +71,12 @@ export class PostAdvertisementListComponent implements OnInit {
     private _router: Router
   ) {
     this.addPostAdvertisementForm = fb.group({
-      postId: [0, Validators.required],
+      postId: [0],
       cropName: ['', Validators.required],
       description: ['', Validators.required],
-      quantity: [, Validators.required],
+      quantity: [, [Validators.required, Validators.min(0)]],
       measurement: ['', Validators.required],
-      price: [, Validators.required],
+      price: [, [Validators.required, Validators.min(0)]],
       datePosted: [''],
       dateModified: [''],
       cropSpecialization: [{}],
@@ -120,10 +125,15 @@ export class PostAdvertisementListComponent implements OnInit {
 
     this.selectPostAdvertisements$.subscribe((data) => {
       data.map((ads) => {
-        if (this.filteredAdvertisements.find((item) => item.postId == ads.postId)) {
+        if (
+          this.filteredAdvertisements.find((item) => item.postId == ads.postId)
+        ) {
           return;
         }
-        this.filteredAdvertisements.push({ ...ads, showFullDescription: false });
+        this.filteredAdvertisements.push({
+          ...ads,
+          showFullDescription: false,
+        });
       });
     });
 
@@ -132,7 +142,6 @@ export class PostAdvertisementListComponent implements OnInit {
         this.cropTypes = data;
       },
     });
-
   }
 
   deleteAdvertisement(advertisement: PostAdvertisement) {
@@ -151,14 +160,21 @@ export class PostAdvertisementListComponent implements OnInit {
           postId: advertisement.postId,
         });
         this.selectPostAdvertisements$.subscribe((data) => {
-          this.filteredAdvertisements = []
+          this.filteredAdvertisements = [];
           data.map((ads) => {
-            if (this.filteredAdvertisements.find((item) => item.postId == ads.postId)) {
+            if (
+              this.filteredAdvertisements.find(
+                (item) => item.postId == ads.postId
+              )
+            ) {
               return;
             }
-            this.filteredAdvertisements.push({ ...ads, showFullDescription: false });
+            this.filteredAdvertisements.push({
+              ...ads,
+              showFullDescription: false,
+            });
           });
-        })
+        });
       }
     });
   }
@@ -253,6 +269,9 @@ export class PostAdvertisementListComponent implements OnInit {
   isAddPost: boolean = false;
   toggleAddPost = () => {
     this.isAddPost = !this.isAddPost;
+    if (this.isAddPost == false) {
+      this.imagePreviewUrl = '';
+    }
   };
 
   onImageSelected(event: any): void {
@@ -305,11 +324,17 @@ export class PostAdvertisementListComponent implements OnInit {
               });
             },
             error: (e) => {
-              console.log(e);
+              Swal.fire(
+                'Failed to Submit!',
+                `Please upload your crop image!`,
+                'error'
+              );
             },
           });
           this.addPostAdvertisementForm.reset();
           this.imagePreviewUrl = '';
+        } else if (result.dismiss || result.isDenied) {
+          this.isAddPost = !this.isAddPost;
         }
       });
     } else {
@@ -358,14 +383,21 @@ export class PostAdvertisementListComponent implements OnInit {
               postAdvertisement: advertisement,
             });
             this.selectPostAdvertisements$.subscribe((data) => {
-              this.filteredAdvertisements = []
+              this.filteredAdvertisements = [];
               data.map((ads) => {
-                if (this.filteredAdvertisements.find((item) => item.postId == ads.postId)) {
+                if (
+                  this.filteredAdvertisements.find(
+                    (item) => item.postId == ads.postId
+                  )
+                ) {
                   return;
                 }
-                this.filteredAdvertisements.push({ ...ads, showFullDescription: false });
+                this.filteredAdvertisements.push({
+                  ...ads,
+                  showFullDescription: false,
+                });
               });
-            })
+            });
           },
           error: (e) => {
             console.log(e);
@@ -378,14 +410,21 @@ export class PostAdvertisementListComponent implements OnInit {
         });
 
         this.selectPostAdvertisements$.subscribe((data) => {
-          this.filteredAdvertisements = []
+          this.filteredAdvertisements = [];
           data.map((ads) => {
-            if (this.filteredAdvertisements.find((item) => item.postId == ads.postId)) {
+            if (
+              this.filteredAdvertisements.find(
+                (item) => item.postId == ads.postId
+              )
+            ) {
               return;
             }
-            this.filteredAdvertisements.push({ ...ads, showFullDescription: false });
+            this.filteredAdvertisements.push({
+              ...ads,
+              showFullDescription: false,
+            });
           });
-        })
+        });
       }
     } else {
       Object.keys(this.editPostAdvertisementForm.controls).forEach((field) => {
@@ -399,6 +438,9 @@ export class PostAdvertisementListComponent implements OnInit {
   };
 
   checkFbSocial(post: PostAdvertisement) {
+    if (post?.supplier?.user?.socials[0] == null) {
+      return false;
+    }
     return post?.supplier?.user?.socials.find((social) =>
       social.includes('facebook') ? true : false
     )
@@ -415,6 +457,9 @@ export class PostAdvertisementListComponent implements OnInit {
   }
 
   checkIGSocial(post: PostAdvertisement) {
+    if (post?.supplier?.user?.socials[0] == null) {
+      return false;
+    }
     return post?.supplier?.user?.socials.find((social) =>
       social.includes('instagram') ? true : false
     )

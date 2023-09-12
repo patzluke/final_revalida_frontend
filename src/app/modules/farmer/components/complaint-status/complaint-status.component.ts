@@ -129,6 +129,7 @@ export class ComplaintStatusComponent implements OnInit {
   isAdd: boolean = false;
 
   toggleAddComplaint = () => {
+    console.log('clicked');
     this.isAdd = !this.isAdd;
     this.imageUrl = '';
   };

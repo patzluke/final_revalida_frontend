@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WholesalerRoutingModule } from './wholesaler-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ReportViewPageComponent } from './components/report-view-page/report-view-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
@@ -42,10 +41,10 @@ import { supplierComplaintReducer } from './states/suppliercomplaint-state/suppl
 import { SupplierComplaintsEffect } from './states/suppliercomplaint-state/suppliercomplaint.effects';
 import { TabViewModule } from 'primeng/tabview';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [
-    ReportViewPageComponent,
     PostAdvertisementListComponent,
     PostAdvertisementResponseListComponent,
     ProfileComponent,
@@ -77,6 +76,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     MultiSelectModule,
     TabViewModule,
     CheckboxModule,
+    ChartModule,
     StoreModule.forFeature(
       'postAdvertisementList (supplier)',
       postAdvertisementReducerSupplierSide
