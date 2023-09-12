@@ -186,25 +186,10 @@ export class FarmerListComponent implements OnInit {
   activeStatusLabel: string = 'Active';
 
   toggleActiveSwitch(farmer: Farmer) {
-    Swal.fire({
-      title: 'Are you sure you want to Activate/Deactivate this account?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Save changes',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.store.dispatch({
-          type: FarmerActions.UPDATE_FARMER_ACTIVE_STATUS,
-          user: farmer,
-        });
-        Swal.fire(
-          'Success',
-          'Successfully Activate/Deactivate account',
-          'success'
-        );
-      }
+    this.store.dispatch({
+      type: FarmerActions.UPDATE_FARMER_ACTIVE_STATUS,
+      user: farmer,
     });
+    Swal.fire('Success', 'Successfully Activate/Deactivate account', 'success');
   }
 }

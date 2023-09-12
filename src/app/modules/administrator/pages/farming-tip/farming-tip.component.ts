@@ -111,7 +111,6 @@ export class FarmingTipComponent implements OnInit {
             type: FarmingTipActions.ADD_FARMINGTIP,
             farmingTip: addFarmingTip,
           });
-          Swal.fire('Success', 'Farming Tip Added!', 'success');
           this.addFarmingTipForm.reset();
         })
         .catch(() => {

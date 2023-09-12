@@ -11,7 +11,6 @@ import { FarmingTipActions } from '../../states/farmingtip-state/farmingtip.acti
   styleUrls: ['./farming-tip.component.scss'],
 })
 export class FarmingTipComponent implements OnInit {
-  farmingTips: FarmingTip[] = [];
   filteredFarmingTips: FarmingTip[] = [];
   // selectors
   selectFarmingTips$ = this.store.select(selectFarmingTips());
@@ -26,13 +25,8 @@ export class FarmingTipComponent implements OnInit {
     });
 
     this.selectFarmingTips$.subscribe((data) => {
-      data.map((tip) => {
-        this.farmingTips.push(tip);
-      });
+      this.filteredFarmingTips = data
     });
-
-    this.filteredFarmingTips = this.farmingTips;
-    //console.log(this.farmingTips);
   }
 
   currentPage: number = 1;
@@ -63,7 +57,7 @@ export class FarmingTipComponent implements OnInit {
       .trim()
       .toLowerCase();
 
-    this.filteredFarmingTips = this.farmingTips.filter((tip) =>
+    this.filteredFarmingTips = this.filteredFarmingTips.filter((tip) =>
       tip.title.toLowerCase().includes(filterValue)
     );
 
