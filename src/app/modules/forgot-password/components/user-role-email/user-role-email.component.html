@@ -32,7 +32,9 @@
                   </div>
                   <h4 class="step-title">OTP Confirmation</h4>
                 </div>
-                <div [class]="IsResetPasswordSuccess ? 'step completed' : 'step'">
+                <div
+                  [class]="IsResetPasswordSuccess ? 'step completed' : 'step'"
+                >
                   <div class="step-icon-wrap">
                     <div class="step-icon">
                       <i class="pi pi-check-circle" style="font-size: 2rem"></i>
@@ -86,7 +88,10 @@
                 </div>
               </div>
 
-              <div *ngIf="isOtpInput" class="form-floating mb-3 w-50 mx-auto">
+              <div
+                *ngIf="isOtpInput && !IsResetPasswordSuccess"
+                class="form-floating mb-3 w-50 mx-auto"
+              >
                 <div class="input-group mb-1">
                   <span
                     class="input-group-text"
@@ -118,17 +123,11 @@
                 </div>
               </div>
 
-              <div *ngIf="IsResetPasswordSuccess" class="mx-auto">
-                <h2>SUCCESS</h2>
-                <button
-                    [hidden]="resend"
-                    pButton
-                    type="button"
-                    class="offer-btn w-25"
-                    (click)="returnToLogin()"
-                  >
-                    Return
-                  </button>
+              <div *ngIf="IsResetPasswordSuccess" class="mx-auto text center">
+                <div class="alert alert-success" role="alert">
+                  Password has been successfully reset. Please check your email.
+                  <a [routerLink]="['/login']" class="alert-link">Go back to log in</a>.
+                </div>
               </div>
 
               <div *ngIf="!IsResetPasswordSuccess">
@@ -139,13 +138,7 @@
                   class="offer-btn w-25"
                   (click)="isOtpInput ? verifyOtp() : submitEmailInput()"
                 >
-                  <span
-                    *ngIf="
-                      isOtpEmailSent == 'default' ||
-                      isOtpEmailSent == 'submitted'
-                    "
-                    >Submit</span
-                  >
+                  <span *ngIf="isOtpEmailSent == 'default'">Submit</span>
                   <span *ngIf="isOtpEmailSent == 'submitting'"
                     ><i
                       class="pi pi-spin pi-spinner"
