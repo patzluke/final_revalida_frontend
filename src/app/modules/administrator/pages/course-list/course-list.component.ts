@@ -31,6 +31,7 @@ export class CourseListComponent implements OnInit {
       courseId: [0],
       courseName: ['', Validators.required],
       description: ['', Validators.required],
+      link: ['', Validators.required],
       durationInDays: ['', [Validators.required, Validators.min(0)]],
     });
 
@@ -38,6 +39,7 @@ export class CourseListComponent implements OnInit {
       courseId: [0],
       courseName: ['', Validators.required],
       description: ['', Validators.required],
+      link: ['', Validators.required],
       durationInDays: ['', [Validators.required, Validators.min(0)]],
     });
   }
@@ -65,6 +67,7 @@ export class CourseListComponent implements OnInit {
         courseName: addEditFarmingTipFormValues.courseName,
         description: addEditFarmingTipFormValues.description,
         durationInDays: addEditFarmingTipFormValues.durationInDays,
+        link: addEditFarmingTipFormValues.link,
       };
       this.store.dispatch({
         type: CourseActions.ADD_COURSE,
@@ -100,6 +103,7 @@ export class CourseListComponent implements OnInit {
         courseName: addEditFarmingTipFormValues.courseName,
         description: addEditFarmingTipFormValues.description,
         durationInDays: addEditFarmingTipFormValues.durationInDays,
+        link: addEditFarmingTipFormValues.link,
       };
       this.store.dispatch({
         type: CourseActions.UPDATE_COURSE,

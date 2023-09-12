@@ -57,9 +57,7 @@
                 <th style="min-width: 15rem">
                   <div class="th-text">Status</div>
                 </th>
-                <th style="min-width: 15rem">
-                  <div class="th-text">Active Status</div>
-                </th>
+
                 <th style="min-width: 10rem">
                   <div class="th-text">Action</div>
                 </th>
@@ -91,9 +89,11 @@
                   {{
                     farmer.user.isValidated ? "Verified" : "Not Yet Verified"
                   }}
+                  ({{ farmer.user.activeStatus ? "Active" : "Deactivated" }})
                 </td>
-                <td style="width: 25%">
-                  <div class="form-check form-switch">
+
+                <td style="width: 25%; display: flex">
+                  <div class="form-check form-switch" style="margin-top: 11px">
                     <input
                       class="form-check-input"
                       type="checkbox"
@@ -102,14 +102,7 @@
                       [checked]="farmer.user.activeStatus"
                       (click)="toggleActiveSwitch(farmer)"
                     />
-                    <label
-                      class="form-check-label"
-                      for="flexSwitchCheckChecked"
-                      >{{ activeStatusLabel }}</label
-                    >
                   </div>
-                </td>
-                <td style="width: 25%">
                   <p-button
                     (click)="selectFarmerToVerify(farmer); toggleViewModal()"
                     type="button"
@@ -332,7 +325,10 @@
                     </div>
                     <div class="col-sm-8">
                       <p class="text-muted mb-0">
-                        {{ selectedFarmerToVerify?.user?.validIdNumber || 'No Submission Yet' }}
+                        {{
+                          selectedFarmerToVerify?.user?.validIdNumber ||
+                            "No Submission Yet"
+                        }}
                       </p>
                     </div>
                   </div>
@@ -343,7 +339,10 @@
                     </div>
                     <div class="col-sm-8">
                       <p class="text-muted mb-0">
-                        {{ selectedFarmerToVerify?.user?.validIdType || 'No Submission Yet' }}
+                        {{
+                          selectedFarmerToVerify?.user?.validIdType ||
+                            "No Submission Yet"
+                        }}
                       </p>
                     </div>
                   </div>
@@ -390,7 +389,7 @@
 
       <div class="action-container">
         <button
-        [disabled]="selectedFarmerToVerify?.user?.validIdPicture == undefined"
+          [disabled]="selectedFarmerToVerify?.user?.validIdPicture == undefined"
           pButton
           class="p-button-outlined p-button-secondary cancel-btn"
           (click)="refuseSubmittedId()"

@@ -246,11 +246,6 @@ h3 {
   font-size: 1.5rem;
 }
 
-::ng-deep .mat-divider.divider {
-  background-color: #2d5605;
-  width: 100%;
-}
-
 .see-more {
   color: #838383;
   cursor: pointer;
@@ -366,6 +361,12 @@ label {
   font-size: 1.1rem;
 }
 
+:host {
+  ::ng-deep .mat-divider.divider {
+    background-color: #2d5605;
+    width: 100%;
+  }
+}
 @media (max-width: 800px) {
   .filter-container {
     display: block;

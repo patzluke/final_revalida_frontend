@@ -123,12 +123,29 @@ export class SupplierListComponent implements OnInit {
 
   active?: boolean;
 
-  activeStatusLabel: string = 'Active'
+  activeStatusLabel: string = 'Active';
 
   toggleActiveSwitch(supplier: Supplier) {
-    this.store.dispatch({
-      type: SupplierActions.UPDATE_SUPPLIER_ACTIVE_STATUS,
-      user: supplier,
+    Swal.fire({
+      title: 'Are you sure you want to Activate/Deactivate this account?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Save changes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.store.dispatch({
+          type: SupplierActions.UPDATE_SUPPLIER_ACTIVE_STATUS,
+          user: supplier,
+        });
+
+        Swal.fire(
+          'Success',
+          'Successfully Activate/Deactivate account',
+          'success'
+        );
+      }
     });
   }
 }
