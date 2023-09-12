@@ -139,4 +139,41 @@ export class AdminService {
       supplierComplaint
     );
   };
+
+  // Admin dashboard
+  countValidatedFarmers = () => {
+    return this.http.get<any>(
+      `${this.baseUrl}/admin/get/validated-farmer-count`
+    );
+  };
+
+  countNotValidatedFarmers = () => {
+    return this.http.get<any>(
+      `${this.baseUrl}/admin/get/not-validated-farmer-count`
+    );
+  };
+
+  countValidatedSuppliers = () => {
+    return this.http.get<any>(
+      `${this.baseUrl}/admin/get/validated-supplier-count`
+    );
+  };
+
+  countNotValidatedSuppliers = () => {
+    return this.http.get<any>(
+      `${this.baseUrl}/admin/get/not-validated-supplier-count`
+    );
+  };
+
+  countUnresolvedSupplierComplaints = () => {
+    return this.http.get<any>(
+      `${this.baseUrl}/admin/get/pending-supplier-complaint`
+    );
+  };
+
+  countUnresolvedFarmerComplaints = () => {
+    return this.http.get<any>(
+      `${this.baseUrl}/admin/get/pending-farmer-complaint`
+    );
+  };
 }
