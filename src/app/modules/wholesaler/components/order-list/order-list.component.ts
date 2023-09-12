@@ -51,8 +51,8 @@ export class OrderListComponent implements OnInit {
       orderIdRef: cropPayment.cropOrder.orderIdRef,
       paymentId: cropPayment.paymentId,
       orderStatus: 'Completed',
-      supplierId: cropPayment.cropOrder.supplier.supplierId,
-      farmerId: localStorage.getItem('userNo'),
+      supplierId: localStorage.getItem('userNo'),
+      farmerId: cropPayment.cropOrder.sellCropDetail.farmer.farmerId,
     };
     let isCheckboxChecked = false;
 
