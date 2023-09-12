@@ -179,7 +179,6 @@ export class CropAdvertisementsComponent implements OnInit {
       .findOneByUserId(localStorage.getItem('userId') as any)
       .subscribe((data) => {
         this.user = data;
-        console.log('profile data', this.user);
       });
 
     this.store.dispatch({
@@ -214,9 +213,6 @@ export class CropAdvertisementsComponent implements OnInit {
         this.cropTypes = data;
       },
     });
-
-    // console.log('post advertisements', this.advertisements);
-    // console.log('crop types', this.cropTypes);
     this.filteredAdvertisements = this.advertisements;
   }
 
@@ -308,19 +304,6 @@ export class CropAdvertisementsComponent implements OnInit {
           }
         }
       );
-    }
-    console.log(
-      this.addAdvertisementResponseForm.controls['quantity'].hasError(
-        'nonNegativeNumber'
-      )
-    );
-
-    if (
-      this.addAdvertisementResponseForm.controls['quantity'].hasError(
-        'nonNegativeNumber'
-      )
-    ) {
-      alert('may error');
     }
   }
 
@@ -416,9 +399,7 @@ export class CropAdvertisementsComponent implements OnInit {
         isAccepted: data?.isAccepted,
         postResponseId: data?.postResponseId,
       });
-      console.log(this.finalOfferForm.value);
       if (data?.preferredPaymentMode.includes('Bank')) {
-        console.log(data?.preferredPaymentMode);
         this.finalOfferForm.controls['accountName']?.setValidators(
           Validators.required
         );
@@ -447,7 +428,6 @@ export class CropAdvertisementsComponent implements OnInit {
       finalOfferValues.quantity = new String(
         this.finalOfferForm.value.quantity
       ).concat(' ', this.finalOfferForm.value.measurement);
-      console.log(finalOfferValues, ' tingin');
 
       this.openViewOfferDialog = false;
       Swal.fire({
@@ -464,8 +444,6 @@ export class CropAdvertisementsComponent implements OnInit {
             type: CropPaymentActions.ADD_CROPPAYMENT,
             cropPayment: finalOfferValues,
           });
-
-          console.log(finalOfferValues, 'here');
 
           let updatedPostAdvertisementResponse = {
             ...this.postAdvertisementResponse,

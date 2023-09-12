@@ -71,7 +71,7 @@ export class PostAdvertisementListComponent implements OnInit {
     private _router: Router
   ) {
     this.addPostAdvertisementForm = fb.group({
-      postId: [0, Validators.required],
+      postId: [0],
       cropName: ['', Validators.required],
       description: ['', Validators.required],
       quantity: [, [Validators.required, Validators.min(0)]],
@@ -269,6 +269,9 @@ export class PostAdvertisementListComponent implements OnInit {
   isAddPost: boolean = false;
   toggleAddPost = () => {
     this.isAddPost = !this.isAddPost;
+    if (this.isAddPost == false) {
+      this.imagePreviewUrl = '';
+    }
   };
 
   onImageSelected(event: any): void {
@@ -321,11 +324,17 @@ export class PostAdvertisementListComponent implements OnInit {
               });
             },
             error: (e) => {
-              console.log(e);
+              Swal.fire(
+                'Failed to Submit!',
+                `Please upload your crop image!`,
+                'error'
+              );
             },
           });
           this.addPostAdvertisementForm.reset();
           this.imagePreviewUrl = '';
+        } else if (result.dismiss || result.isDenied) {
+          this.isAddPost = !this.isAddPost;
         }
       });
     } else {

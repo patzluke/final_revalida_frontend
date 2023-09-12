@@ -251,6 +251,7 @@
   [draggable]="false"
   [resizable]="false"
   [maximizable]="true"
+  [closable]="false"
 >
   <div class="container">
     <form [formGroup]="addPostAdvertisementForm" *ngIf="user.user?.isValidated">
@@ -453,7 +454,7 @@
         <button
           pButton
           class="p-button-outlined p-button-secondary cancel-btn"
-          (click)="addPostAdvertisementForm.reset(); toggleAddPost()"
+          (click)="addPostAdvertisementForm.reset(); toggleAddPost();"
         >
           Cancel
         </button>
