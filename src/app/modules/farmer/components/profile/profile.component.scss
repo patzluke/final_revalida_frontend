@@ -24,10 +24,12 @@ section {
   width: 70%;
 }
 
-::ng-deep .p-card {
-  border-radius: 10px;
-  position: relative;
-  background-color: #ffffff !important;
+:host {
+  ::ng-deep .p-card {
+    border-radius: 10px;
+    position: relative;
+    background-color: #ffffff !important;
+  }
 }
 
 .image-container {
@@ -425,12 +427,14 @@ b {
     0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-::ng-deep .p-dropdown-items-wrapper::-webkit-scrollbar {
-  display: none;
-}
+:host {
+  ::ng-deep .p-dropdown-items-wrapper::-webkit-scrollbar {
+    display: none;
+  }
 
-::ng-deep .confirm-password .p-password-panel {
-  display: none;
+  ::ng-deep .confirm-password .p-password-panel {
+    display: none;
+  }
 }
 
 //-----------RESPONSIVE-----------
