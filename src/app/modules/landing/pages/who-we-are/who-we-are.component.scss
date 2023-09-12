@@ -89,10 +89,12 @@
   padding-top: 1rem;
 }
 
-::ng-deep .mat-divider.divider {
-  background-color: #2d5605;
-  width: 100%;
-  margin: 1rem 0;
+:host {
+  ::ng-deep .mat-divider.divider {
+    background-color: #2d5605;
+    width: 100%;
+    margin: 1rem 0;
+  }
 }
 
 .wave-container2 {

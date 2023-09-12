@@ -333,7 +333,11 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       this.imagePreviewUrlRecentPicture == undefined ||
       this.imagePreviewUrlValidIdPicture == undefined
     ) {
-      Swal.fire('Failed', 'Please upload your 2x2 picture and your valid id!', 'error');
+      Swal.fire(
+        'Failed',
+        'Please upload your 2x2 picture and your valid id!',
+        'error'
+      );
       return;
     }
 

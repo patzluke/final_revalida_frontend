@@ -7,4 +7,5 @@ export interface Course {
   durationInDays: number;
   activeDeactive?: boolean;
   courseEnrolleds?: CourseEnrolled;
+  link?: string;
 }

@@ -1,0 +1,48 @@
+<app-side-nav></app-side-nav>
+<div class="bg-crop-image"></div>
+<div class="wave-container"></div>
+<section>
+  <div class="container">
+    <div class="banner-container">
+      <h1>{{ selectedCourse?.course?.courseName }}</h1>
+    </div>
+
+    <div class="link-container">
+      <iframe
+        class="link"
+        [src]="
+          sanitizer.bypassSecurityTrustResourceUrl(
+            selectedCourse?.course?.link!
+          )
+        "
+      >
+      </iframe>
+    </div>
+
+    <div class="tip-des" style="margin-bottom: 2rem">
+      <p>
+        <i class="pi pi-calendar" style="margin-right: 0.5rem"></i>
+        {{ selectedCourse?.enrollmentDate | date : "MMM dd, yyy hh:mm aa" }} -
+        {{ selectedCourse?.endOfEnrollment | date : "MMM dd, yyy hh:mm aa" }}
+      </p>
+    </div>
+
+    <div class="tip-des">
+      <p>
+        {{ selectedCourse?.course?.description }}
+      </p>
+    </div>
+
+    <div
+      *ngIf="selectedCourse?.course?.link"
+      class="tip-des"
+      style="margin-top: 2rem"
+    >
+      <p>More on:</p>
+      <a [href]="selectedCourse?.course?.link" target="_blank">{{
+        selectedCourse?.course?.link
+      }}</a>
+    </div>
+  </div>
+</section>
+<div class="wave-container2"></div>

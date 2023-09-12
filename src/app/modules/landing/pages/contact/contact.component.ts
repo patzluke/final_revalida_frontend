@@ -21,9 +21,9 @@ export class ContactComponent implements OnInit {
 
   submitForm() {
     if (this.emailForm.valid) {
-      const serviceID = 'service_djx0he9';
-      const templateID = 'template_vxnvypd';
-      const userID = '2L6p-bZnm7eoJXSgU';
+      const serviceID = 'service_3qx2qoq';
+      const templateID = 'template_i8jvttp';
+      const userID = 'j7oWHxAO4ERImqdKL';
 
       const templateData = {
         name: this.emailForm.controls['name'].getRawValue(),
