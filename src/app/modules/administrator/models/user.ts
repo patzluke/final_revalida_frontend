@@ -22,4 +22,5 @@ export interface User {
   validIdPicture?: string
   validIdNumber?: string;
   validIdType?: string;
+  recentPicture?: string;
 }

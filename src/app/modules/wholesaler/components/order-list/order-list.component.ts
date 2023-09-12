@@ -35,15 +35,13 @@ export class OrderListComponent implements OnInit {
     selectCropPaymentsCancelled()
   );
 
-  hey() {
-    console.log('hey');
-  }
-
   ngOnInit() {
     this.store.dispatch({
       type: CropPaymentActions.GET_CROPPAYMENT,
       supplierId: localStorage.getItem('userNo'),
     });
+
+    this.selectCropPayments$.subscribe((data) => console.log(data, 'fuck'));
   }
 
   constructor(private store: Store) {}

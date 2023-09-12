@@ -83,9 +83,9 @@ export class SupplierListComponent implements OnInit {
           type: SupplierActions.UPDATE_SUPPLIER_STATUS,
           supplier: updatedSupplierToVerify,
         });
+        Swal.fire('Success', 'Account Successfully Verified!', 'success');
         const nativeModal = this.modalElement.nativeElement;
         nativeModal.click();
-        Swal.fire('Success', 'Account Successfully Verified!', 'success');
       }
     });
   }
@@ -106,6 +106,7 @@ export class SupplierListComponent implements OnInit {
         updatedUser.validIdPicture = '';
         updatedUser.validIdNumber = '';
         updatedUser.validIdType = '';
+        updatedUser.recentPicture = '';
         let updatedSupplierToVerify: Supplier = {
           ...this.selectedSupplierToVerify,
           user: updatedUser,
@@ -114,9 +115,9 @@ export class SupplierListComponent implements OnInit {
           type: SupplierActions.UPDATE_SUPPLIER_STATUS,
           supplier: updatedSupplierToVerify,
         });
+        Swal.fire('Success', 'Message sent to Supplier', 'success');
         const nativeModal = this.modalElement.nativeElement;
         nativeModal.click();
-        Swal.fire('Success', 'Message sent to Supplier', 'success');
       }
     });
   }

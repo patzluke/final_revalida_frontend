@@ -111,7 +111,9 @@
                 </td>
                 <td style="width: 25%">
                   <p-button
-                    (click)="selectSupplierToVerify(supplier); toggleViewModal()"
+                    (click)="
+                      selectSupplierToVerify(supplier); toggleViewModal()
+                    "
                     type="button"
                     pTooltip="View Details"
                     tooltipPosition="bottom"
@@ -207,9 +209,6 @@
                   }}
                 </td>
                 <td style="width: 25%">
-                  {{ farmer.user.activeStatus ? "Active" : "Deactive" }}
-                </td>
-                <td style="width: 25%">
                   <p-button
                     (click)="
                       selectSupplierToVerify(farmer); toggleVerifyModal()
@@ -287,6 +286,22 @@
                 >
                   No Submitted ID yet
                 </p>
+                <p
+                  *ngIf="selectedSupplierToVerify?.user?.recentPicture"
+                  class="text-muted mt-4"
+                >
+                  <a
+                    href="{{ selectedSupplierToVerify?.user?.recentPicture }}"
+                    target="_blank"
+                    >view submitted 2x2 picture</a
+                  >
+                </p>
+                <p
+                  *ngIf="!selectedSupplierToVerify?.user?.recentPicture"
+                  class="text-muted mt-4"
+                >
+                  No picture yet
+                </p>
               </div>
             </div>
           </div>
@@ -332,7 +347,10 @@
                   </div>
                   <div class="col-sm-8">
                     <p class="text-muted mb-0">
-                      {{ selectedSupplierToVerify?.user?.validIdNumber || 'No Submission Yet' }}
+                      {{
+                        selectedSupplierToVerify?.user?.validIdNumber ||
+                          "No Submission Yet"
+                      }}
                     </p>
                   </div>
                 </div>
@@ -343,7 +361,10 @@
                   </div>
                   <div class="col-sm-8">
                     <p class="text-muted mb-0">
-                      {{ selectedSupplierToVerify?.user?.validIdType || 'No Submission Yet' }}
+                      {{
+                        selectedSupplierToVerify?.user?.validIdType ||
+                          "No Submission Yet"
+                      }}
                     </p>
                   </div>
                 </div>
@@ -389,7 +410,8 @@
     </section>
     <div class="action-container">
       <button
-        [disabled]="selectedSupplierToVerify?.user?.validIdPicture == undefined"
+        [disabled]="selectedSupplierToVerify?.user?.validIdPicture == '' ||
+        selectedSupplierToVerify?.user?.validIdPicture == undefined"
         pButton
         class="p-button-outlined p-button-secondary cancel-btn"
         (click)="refuseSubmittedId()"
@@ -445,6 +467,22 @@
                 >
                   No Submitted ID yet
                 </p>
+                <p
+                  *ngIf="selectedSupplierToVerify?.user?.recentPicture"
+                  class="text-muted mt-4"
+                >
+                  <a
+                    href="{{ selectedSupplierToVerify?.user?.recentPicture }}"
+                    target="_blank"
+                    >view submitted 2x2 picture</a
+                  >
+                </p>
+                <p
+                  *ngIf="!selectedSupplierToVerify?.user?.recentPicture"
+                  class="text-muted mt-4"
+                >
+                  No picture yet
+                </p>
               </div>
             </div>
           </div>
@@ -490,7 +528,10 @@
                   </div>
                   <div class="col-sm-8">
                     <p class="text-muted mb-0">
-                      {{ selectedSupplierToVerify?.user?.validIdNumber || 'No Submission Yet' }}
+                      {{
+                        selectedSupplierToVerify?.user?.validIdNumber ||
+                          "No Submission Yet"
+                      }}
                     </p>
                   </div>
                 </div>
@@ -501,7 +542,10 @@
                   </div>
                   <div class="col-sm-8">
                     <p class="text-muted mb-0">
-                      {{ selectedSupplierToVerify?.user?.validIdType || 'No Submission Yet' }}
+                      {{
+                        selectedSupplierToVerify?.user?.validIdType ||
+                          "No Submission Yet"
+                      }}
                     </p>
                   </div>
                 </div>

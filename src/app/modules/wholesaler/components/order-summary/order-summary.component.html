@@ -313,11 +313,27 @@
                 >Payment Reference Number:</label
               >
               <input
+                [ngClass]="{
+                  'invalid-field':
+                    transcationReferenceNumber.invalid &&
+                    (transcationReferenceNumber.dirty ||
+                      transcationReferenceNumber.touched)
+                }"
                 type="text"
                 class="form-control"
                 placeholder="Transaction Number"
                 [formControl]="transcationReferenceNumber"
               />
+              <div
+                *ngIf="
+                  transcationReferenceNumber.invalid &&
+                  (transcationReferenceNumber.dirty ||
+                    transcationReferenceNumber.touched)
+                "
+                class="text-danger"
+              >
+                This Field is required.
+              </div>
             </div>
             <div class="mb-3">
               <label for="formFileSm" class="form-label text-white"
@@ -330,6 +346,7 @@
                 "
                 class="form-control"
                 type="file"
+                accept="image/*"
                 id="formFile"
                 #selectFile
                 (change)="onImageSelected($event)"

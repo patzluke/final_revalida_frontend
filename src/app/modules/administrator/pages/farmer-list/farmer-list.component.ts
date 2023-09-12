@@ -166,6 +166,7 @@ export class FarmerListComponent implements OnInit {
         updatedUser.validIdPicture = '';
         updatedUser.validIdNumber = '';
         updatedUser.validIdType = '';
+        updatedUser.recentPicture = '';
         let updatedFarmerToVerify: Farmer = {
           ...this.selectedFarmerToVerify,
           user: updatedUser,
