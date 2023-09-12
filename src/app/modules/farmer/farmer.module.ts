@@ -56,6 +56,7 @@ import { FarmingTipComponent } from './components/farming-tip/farming-tip.compon
 import { ViewFarmingTipComponent } from './components/farming-tip/pages/view-farming-tip/view-farming-tip.component';
 import { farmingTipReducer } from './states/farmingtip-state/farmingtip.reducer';
 import { FarmingTipEffects } from './states/farmingtip-state/farmingtip.effects';
+import { ViewCourseComponent } from './components/courses/components/view-course/view-course.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { FarmingTipEffects } from './states/farmingtip-state/farmingtip.effects'
     NotificationsComponent,
     FarmingTipComponent,
     ViewFarmingTipComponent,
+    ViewCourseComponent,
   ],
   imports: [
     CommonModule,

@@ -25,23 +25,15 @@
                 }}<span *ngIf="course.courseName.length > 20">...</span>
               </h1>
               <div>
-                <p
-                  class="d-flex flex-column"
-                  data-aos="fade-right"
-                  data-aos-duration="333"
-                  style="margin-top: 10px"
-                >
+                <p class="d-flex flex-column" style="margin-top: 10px">
                   <span class="h5"
                     >Training Duration: {{ course.durationInDays }}
                     {{ course.durationInDays == 1 ? "Day" : "Days" }}</span
                   >
                 </p>
-                <p
-                  data-aos="fade-right"
-                  data-aos-duration="333"
-                  style="margin-top: -1rem"
-                >
-                  {{ course.description }}
+                <p style="margin-top: -1rem">
+                  {{ course.description | slice : 0 : 110
+                  }}<span *ngIf="course.description.length > 110">...</span>
                 </p>
               </div>
 
@@ -108,11 +100,7 @@
         </p-tabPanel>
 
         <p-tabPanel header="Enrolled Courses">
-          <div
-            data-aos="fade-right"
-            class="item-container"
-            data-aos-duration="333"
-          >
+          <div class="item-container">
             <div
               class="items"
               *ngFor="
@@ -122,21 +110,12 @@
                 )
               "
             >
-              <h1
-                class="course-name"
-                data-aos="fade-right"
-                data-aos-duration="333"
-              >
+              <h1 class="course-name">
                 {{ course.course.courseName | slice : 0 : 20
                 }}<span *ngIf="course.course.courseName.length > 20">...</span>
               </h1>
               <div>
-                <p
-                  class="d-flex flex-column"
-                  data-aos="fade-right"
-                  data-aos-duration="333"
-                  style="margin-top: 10px"
-                >
+                <p class="d-flex flex-column" style="margin-top: 10px">
                   <span class="h5">Training Period:</span>
                   <span style="margin-top: -10px"
                     >{{ course.enrollmentDate | date }} -
@@ -144,13 +123,20 @@
                   >
                 </p>
 
-                <p
-                  data-aos="fade-right"
-                  data-aos-duration="333"
-                  style="margin-top: 1rem"
-                >
-                  {{ course.course.description }}
+                <p style="margin-top: 1rem">
+                  {{ course.course.description | slice : 0 : 100
+                  }}<span *ngIf="course.course.description.length > 100"
+                    >...</span
+                  >
                 </p>
+              </div>
+              <div class="action-container">
+                <button
+                  class="btn btn-success"
+                  (click)="viewCourse(course.course.courseId)"
+                >
+                  View
+                </button>
               </div>
             </div>
           </div>

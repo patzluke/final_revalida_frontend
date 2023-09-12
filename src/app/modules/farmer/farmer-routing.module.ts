@@ -16,6 +16,7 @@ import { CoursesComponent } from './components/courses/courses.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { FarmingTipComponent } from './components/farming-tip/farming-tip.component';
 import { ViewFarmingTipComponent } from './components/farming-tip/pages/view-farming-tip/view-farming-tip.component';
+import { ViewCourseComponent } from './components/courses/components/view-course/view-course.component';
 
 const routes: Routes = [
   {
@@ -65,6 +66,10 @@ const routes: Routes = [
   {
     path: 'courses',
     component: CoursesComponent,
+  },
+  {
+    path: 'courses/view',
+    component: ViewCourseComponent,
   },
   {
     path: 'notifications',
