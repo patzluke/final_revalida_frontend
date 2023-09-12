@@ -403,15 +403,25 @@
     </section>
     <div class="action-container">
       <button
-        [disabled]="selectedSupplierToVerify?.user?.validIdPicture == '' ||
-        selectedSupplierToVerify?.user?.validIdPicture == undefined"
+        [disabled]="
+          selectedSupplierToVerify?.user?.validIdPicture == '' ||
+          selectedSupplierToVerify?.user?.validIdPicture == undefined
+        "
         pButton
         class="p-button-outlined p-button-secondary cancel-btn"
         (click)="refuseSubmittedId()"
       >
         Refuse Submitted ID
       </button>
-      <button pButton class="submit-btn" (click)="verifyAccount()">
+      <button
+        [disabled]="
+          selectedSupplierToVerify?.user?.validIdPicture == '' ||
+          selectedSupplierToVerify?.user?.validIdPicture == undefined
+        "
+        pButton
+        class="submit-btn"
+        (click)="verifyAccount()"
+      >
         Verify
       </button>
     </div>
