@@ -18,6 +18,7 @@ export class UserRoleEmailComponent implements OnInit {
   currentOtp?: Otp;
   isOtpEmailSent: string = 'default';
   isOtpEmailResent: string = 'default';
+  isOtpEmailValidated: string = 'default';
   isOtpInput = false;
   isOtpResent = false;
   IsResetPasswordSuccess = false;
@@ -62,7 +63,7 @@ export class UserRoleEmailComponent implements OnInit {
         .subscribe({
           next: (value) => {
             this.currentOtp = value;
-            this.isOtpEmailSent = 'submitted';
+            this.isOtpEmailSent = 'default';
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -88,6 +89,7 @@ export class UserRoleEmailComponent implements OnInit {
 
   verifyOtp() {
     if (this.otpInput.valid) {
+      this.isOtpEmailSent = 'submitting';
       this.forgotPasswordService
         .validateOtp({
           otpId: this.currentOtp?.otpId,
@@ -96,8 +98,10 @@ export class UserRoleEmailComponent implements OnInit {
         .subscribe({
           next: (value) => {
             if (value.response == 'Wrong Otp') {
+              this.isOtpEmailSent = 'default';
               Swal.fire('Wrong Otp', `Please Try Again`, 'error');
             } else if (value.response == 'matched') {
+              this.isOtpEmailSent = 'default';
               this.IsResetPasswordSuccess = true;
             } else if (value.response == 'exceeded number of tries') {
               Swal.fire('Exceeded number of tries', `Returning to login page`, 'error');
