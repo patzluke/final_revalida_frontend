@@ -66,7 +66,10 @@
               <span class="ml-1">{{ course.courseName }}</span>
             </td>
             <td style="width: 40%">
-              <span class="ml-1">{{ course.description }}</span>
+              <span class="ml-1 des">{{
+                course.description | slice : 0 : 100
+              }}</span
+              ><span *ngIf="course.description.length > 100">... </span>
             </td>
             <td style="width: 5%">
               <span class="ml-1 text-center"

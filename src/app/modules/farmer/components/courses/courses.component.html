@@ -20,7 +20,11 @@
                 )
               "
             >
-              <h1 class="course-name">
+              <h1
+                class="course-name"
+                [pTooltip]="course.courseName"
+                tooltipPosition="top"
+              >
                 {{ course.courseName | slice : 0 : 20
                 }}<span *ngIf="course.courseName.length > 20">...</span>
               </h1>
@@ -110,7 +114,11 @@
                 )
               "
             >
-              <h1 class="course-name">
+              <h1
+                class="course-name"
+                [pTooltip]="course.course.courseName"
+                tooltipPosition="top"
+              >
                 {{ course.course.courseName | slice : 0 : 20
                 }}<span *ngIf="course.course.courseName.length > 20">...</span>
               </h1>
